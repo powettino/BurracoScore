@@ -3,8 +3,16 @@
 
     <string name="app_name">Segnapunti Burraco</string>
     <string name="action_settings">Settings</string>
-    <string name="tipoPartita">Scegli la tipologia di squadra</string>
+    <string name="tipoPartita">Scegli la squadra</string>
     <string name="gameSingolo">1 vs 1</string>
     <string name="gameDoppio">2 vs 2</string>
-
+    <string name="title_activity_review">ReviewActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="labelSquadra1">Squadra 1</string>
+    <string name="nomeGiocatore11">giocatore 1</string>
+    <string name="nomeGiocatore12">giocatore 2</string>
+    <string name="labelSquadra2">Squadra 2</string>
+    <string name="nomeGiocatore21">giocatore 1</string>
+    <string name="nomegiocatore22">giocatore 2</string>
+    <string name="startButton">Start</string>
 </resources>

@@ -19,20 +19,20 @@
         android:textColor="#ffa5a5a5"
         android:textSize="@dimen/abc_text_size_headline_material"
         android:textStyle="bold"
-        android:layout_marginTop="30sp" />
+        android:layout_marginTop="10sp" />
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:columnCount="1"
         android:rowCount="3"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/gameSingolo"
-            android:layout_column="0"
             android:id="@+id/single"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/avatar"
@@ -43,12 +43,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/gameDoppio"
-            android:layout_column="0"
             android:id="@+id/couple"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/d_avatar"
             android:drawableRight="@drawable/d_avatar"
             android:layout_marginTop="10sp" />
-    </GridLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10sp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/labelSquadra1"
+                    android:id="@+id/textView"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textPersonName|textAutoComplete"
+                    android:text="@string/nomeGiocatore11"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_gravity="center"
+                    android:autoText="false" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textPersonName|textAutoComplete"
+                    android:text="@string/nomeGiocatore12"
+                    android:ems="10"
+                    android:id="@+id/editText2"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/labelSquadra2"
+                    android:id="@+id/textView2"
+                    android:layout_marginTop="10sp"
+                    android:layout_gravity="center" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textPersonName|textAutoComplete"
+                    android:text="@string/nomeGiocatore21"
+                    android:ems="10"
+                    android:id="@+id/editText3"
+                    android:layout_gravity="center" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textPersonName|textAutoComplete"
+                    android:text="@string/nomegiocatore22"
+                    android:ems="10"
+                    android:id="@+id/editText4"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startButton"
+            android:id="@+id/button"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
 
 </LinearLayout>
