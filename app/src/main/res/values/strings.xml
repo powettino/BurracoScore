@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BurracoScore</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Segnapunti Burraco</string>
     <string name="action_settings">Settings</string>
+    <string name="tipoPartita">Scegli la tipologia di squadra</string>
+    <string name="gameSingolo">1 vs 1</string>
+    <string name="gameDoppio">2 vs 2</string>
 
 </resources>
