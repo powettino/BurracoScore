@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="BurrascoScoreHoloTheme" parent="@android:style/Theme.Holo">
-        <!-- Customize your theme here. -->
-    </style>
+    <style name="BurracoScoreTheme" parent="@style/Theme.AppCompat"/>
+    <style name="LabelBig" parent="TextAppearance.AppCompat.Large"/>
 
 </resources>

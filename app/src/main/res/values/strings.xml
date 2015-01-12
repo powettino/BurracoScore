@@ -10,10 +10,17 @@
     <string name="title_activity_review">ReviewActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="labelSquadra1">Squadra 1</string>
-    <string name="nomeGiocatore11">giocatore 1</string>
-    <string name="nomeGiocatore12">giocatore 2</string>
+    <string name="nomeGiocatore11">giocatore 1A</string>
+    <string name="nomeGiocatore12">giocatore 2A</string>
     <string name="labelSquadra2">Squadra 2</string>
-    <string name="nomeGiocatore21">giocatore 1</string>
-    <string name="nomegiocatore22">giocatore 2</string>
+    <string name="nomeGiocatore21">giocatore 1B</string>
+    <string name="nomeGiocatore22">giocatore 2B</string>
     <string name="startButton">Start</string>
+    <string name="exitButtonMenu">Exit</string>
+    <string name="numberPlayerActivity">yeapp.com.burracoscore.numberPlayer</string>
+    <string name="teamA">teamA</string>
+    <string name="teamB">teamB</string>
+    <string name="teamAName">teamA</string>
+    <string name="VS">VS</string>
+    <string name="teamBName">teamB</string>
 </resources>
