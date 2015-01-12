@@ -30,8 +30,7 @@
         android:rowCount="3"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_weight="90"
-        android:weightSum="80">
+        android:layout_weight="90">
 
         <Button
             android:layout_width="match_parent"
