@@ -1,7 +1,7 @@
 package yeapp.com.burracoscore;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -13,8 +13,9 @@ import android.widget.TextView;
 
 import static android.view.View.OnClickListener;
 
-public class TeamConfiguration extends ActionBarActivity implements OnClickListener, TextWatcher {
+public class TeamConfiguration extends Activity implements OnClickListener, TextWatcher {
     private Button salvaButton;
+    private Button resetButton;
     private EditText gioc11;
     private EditText gioc12;
     private EditText gioc21;
@@ -36,6 +37,11 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case (R.id.resetConf): {
+                numberOfPlayerForTeam = 0;
+                changePlayers(numberOfPlayerForTeam);
+                break;
+            }
             case R.id.singleConf: {
                 numberOfPlayerForTeam = 1;
                 changePlayers(numberOfPlayerForTeam);
@@ -50,7 +56,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
                 salvaNomi();
                 break;
             }
-            case R.id.chiudiMenuConf: {
+            case R.id.chiudiConf: {
                 setResult(RESULT_CANCELED);
                 finish();
                 break;
@@ -62,22 +68,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     }
 
     private void salvaNomi() {
-        String teamA = getString(R.string.teamAName);
-        String teamB = getString(R.string.teamBName);
-        String gioc11Name = gioc11.getText().toString();
-        String gioc21Name = gioc21.getText().toString();
-        String gioc12Name = gioc12.getText().toString();
-        String gioc22Name = gioc22.getText().toString();
-        if (numberOfPlayerForTeam == 1) {
-            teamA = gioc11Name.substring(gioc11Name.length() - 3);
-            teamB = gioc21Name.substring(gioc21Name.length() - 3);
-        } else {
 
-            teamA = (gioc11Name.substring(0, 3)) + "&" + gioc12Name.subSequence(0, 3);
-            teamB = (gioc21Name.substring(0, 3)) + "&" + gioc22Name.subSequence(0, 3);
-        }
-        setResult(RESULT_OK, this.getIntent().putExtra(getString(R.string.teamA), teamA).putExtra(getString(R.string.teamB), teamB));
-        finish();
     }
 
     @Override
@@ -88,6 +79,8 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
         findViewById(R.id.coupleConf).setOnClickListener(this);
         salvaButton = (Button) findViewById(R.id.salvaConf);
         salvaButton.setOnClickListener(this);
+        resetButton = (Button) findViewById(R.id.resetConf);
+        resetButton.setOnClickListener(this);
         findViewById(R.id.chiudiConf).setOnClickListener(this);
         gioc11 = (EditText) findViewById(R.id.giocatore11);
         gioc12 = (EditText) findViewById(R.id.giocatore12);
@@ -134,24 +127,20 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case (R.id.resetMenuConf): {
-                numberOfPlayerForTeam = 0;
-                changePlayers(numberOfPlayerForTeam);
-                return true;
-            }
-            case (R.id.chiudiMenuConf): {
-                setResult(RESULT_CANCELED);
-                finish();
-                return true;
-            }
-            case R.id.salvaConf: {
-                salvaNomi();
-            }
-            default: {
-                return super.onOptionsItemSelected(item);
-            }
-        }
+//        switch (item.getItemId()) {
+//
+//            case (R.id.chiudiMenuConf): {
+//                setResult(RESULT_CANCELED);
+//                finish();
+//                return true;
+//            }
+//            case R.id.salvaConf: {
+//                salvaNomi();
+//            }
+//            default: {
+        return super.onOptionsItemSelected(item);
+//            }
+//        }
     }
 
     private void changePlayers(int numberOfPlayerForTeam) {
@@ -175,6 +164,9 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
             if (!salvaButton.isEnabled()) {
                 salvaButton.setEnabled(true);
             }
+            if (!resetButton.isEnabled()) {
+                resetButton.setEnabled(true);
+            }
             if (!gioc11.isEnabled() && !gioc21.isEnabled()) {
                 gioc11.setEnabled(true);
                 gioc21.setEnabled(true);
@@ -192,17 +184,20 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
             gioc12.setText(R.string.nomeGiocatore12);
             gioc21.setText(R.string.nomeGiocatore21);
             gioc22.setText(R.string.nomeGiocatore22);
-            salvaButton.setEnabled(false);
-            gioc11.setEnabled(false);
-            gioc21.setEnabled(false);
-            team1Label.setEnabled(false);
-            team2Label.setEnabled(false);
-            if (gioc12.isEnabled() && gioc22.isEnabled()) {
-                gioc12.setEnabled(false);
-                gioc22.setEnabled(false);
-            }
+//            salvaButton.setEnabled(false);
+//            resetButton.setEnabled(false);
+//            gioc11.setEnabled(false);
+//            gioc21.setEnabled(false);
+//            team1Label.setEnabled(false);
+//            team2Label.setEnabled(false);
+//            if (gioc12.isEnabled() && gioc22.isEnabled()) {
+//                gioc12.setEnabled(false);
+//                gioc22.setEnabled(false);
+
         }
+
     }
+
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

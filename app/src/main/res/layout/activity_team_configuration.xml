@@ -13,13 +13,13 @@
         android:id="@+id/typeGameConf"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:text="@string/configurazione"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffa5a5a5"
         android:textSize="@dimen/abc_text_size_headline_material"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:gravity="center" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -160,32 +160,46 @@
 
         <Button
             android:id="@+id/salvaConf"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="center|bottom"
             android:layout_marginLeft="20sp"
-            android:layout_marginRight="20sp"
+            android:layout_marginRight="5sp"
             android:enabled="false"
             android:gravity="center"
-            android:paddingLeft="30sp"
-            android:paddingRight="30sp"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
             android:saveEnabled="true"
             android:text="@string/save" />
 
         <Button
+            android:id="@+id/resetConf"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:enabled="false"
+            android:gravity="center"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
+            android:text="@string/resetTeam" />
+
+        <Button
             android:id="@+id/chiudiConf"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center|bottom"
-            android:layout_marginLeft="20sp"
+            android:layout_marginLeft="5sp"
             android:layout_marginRight="20sp"
             android:enabled="true"
             android:gravity="center"
-            android:paddingLeft="30sp"
-            android:paddingRight="30sp"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
             android:saveEnabled="true"
             android:text="@string/close" />
 

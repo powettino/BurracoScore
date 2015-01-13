@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Segnapunti Burraco</string>
+    <string name="conf_name">Configurazione</string>
     <string name="title_activity_summary">SummaryActivity</string>
 
     <!--Opzioni-->
@@ -18,7 +19,7 @@
     <string name="teamBName">Team B</string>
     <string name="cup_description">Cup</string>
     <string name="startingScore">0</string>
-    <string name="setPoint">Set</string>
+    <string name="setPoint">Segna</string>
 
     <!--EditText-->
     <string name="nomeGiocatore11">giocatore 1A</string>
@@ -30,5 +31,6 @@
     <string name="numberPlayerActivity">yeapp.com.burracoscore.numberPlayer</string>
     <string name="teamA">teamA</string>
     <string name="teamB">teamB</string>
+    <string name="description">Lista Punti</string>
 
 </resources>

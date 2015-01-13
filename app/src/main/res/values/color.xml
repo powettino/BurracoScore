@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="SquadraA">#fff1150d</color>
+    <color name="SquadraB">#ff2d81ff</color>
+    <color name="RigheLista">#fff0f117</color>
+    <color name="SfondoGrigioLista">@color/button_material_light</color>
+    <color name="SeparatoreListaNero">#ff000000</color>
+</resources>

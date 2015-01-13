@@ -1,21 +1,27 @@
 package yeapp.com.burracoscore;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
-public class SummaryActivity extends ActionBarActivity {
+import yeapp.com.burracoscore.custom.adapter.DoubleTextAdapter;
+
+public class SummaryActivity extends Activity {
     //    String namesTeamA = "";
     //    String namesTeamB = "";
     private TextView teamAText;
     private TextView teamBText;
 
     private final int CODE_FOR_CONF = 0;
+    private ListView listPointTeamA;
+    private ListView listPointTeamB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,17 @@ public class SummaryActivity extends ActionBarActivity {
         // namesTeamA = teamAText.getText().toString();
         teamBText = (TextView) findViewById(R.id.teamBSummary);
         // namesTeamB = teamBText.getText().toString();
+        listPointTeamA = (ListView) findViewById(R.id.listPointTeamA);
+        listPointTeamB = (ListView) findViewById(R.id.listPointTeamB);
+        ArrayList<String> your_array_list = new ArrayList<String>();
+        your_array_list.add(" s");
+//        your_array_list.add("bar");
+        ArrayList<String> a = new ArrayList<String>();
+        a.add("d ");
+//        a.add("ss");
+        DoubleTextAdapter dta = new DoubleTextAdapter(this, your_array_list, a);
+        listPointTeamA.setAdapter(dta);
+        listPointTeamB.setAdapter(dta);
     }
 
 
