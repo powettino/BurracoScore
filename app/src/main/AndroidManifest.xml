@@ -4,12 +4,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icona_punti"
-        android:label="@string/app_name"
-        android:theme="@style/BurracoScoreTheme">
+        android:label="@string/configurazione">
         <activity
-            android:name=".TeamLogin"
+            android:name=".TeamConfiguration"
             android:label="@string/app_name"
+            android:theme="@style/TeamConfiguration"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +18,9 @@
         </activity>
         <activity
             android:name=".SummaryActivity"
-            android:label="@string/title_activity_review"></activity>
+            android:icon="@drawable/icona_punti"
+            android:theme="@style/Summary"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BurracoScoreTheme" parent="@style/Theme.AppCompat"/>
-    <style name="LabelBig" parent="TextAppearance.AppCompat.Large"/>
+    <!--Theme-->
+    <style name="Summary" parent="@android:style/Theme" />
 
+    <style name="TeamConfiguration" parent="@android:style/Theme.Dialog" />
+
+    <!--Style-->
+    <style name="ResultNumber" parent="@android:style/TextAppearance.Large">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">125sp</item>
+    </style>
+
+    <style name="ResultNumberBlue" parent="ResultNumber">
+        <item name="android:textColor">#ff2d81ff</item>
+    </style>
+
+    <style name="ResultNumberViolet" parent="ResultNumber">
+        <item name="android:textColor">#fff1150d</item>
+    </style>
 </resources>
