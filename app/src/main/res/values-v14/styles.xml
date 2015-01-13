@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Theme-->
     <style name="Summary" parent="@android:style/Theme" />
 
     <style name="TeamConfiguration" parent="@android:style/Theme.Dialog" />
 
-    <!--Style-->
     <style name="ResultNumber" parent="@android:style/TextAppearance.Large">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -21,4 +19,5 @@
     <style name="ResultNumberViolet" parent="ResultNumber">
         <item name="android:textColor">#fff1150d</item>
     </style>
+
 </resources>

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TeamLogin">
+    <item
+        android:id="@+id/salvaConf"
+        android:orderInCategory="1"
+        android:title="@string/save"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/resetMenuConf"
+        android:orderInCategory="2"
+        android:title="@string/resetTeam"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/chiudiMenuConf"
+        android:orderInCategory="100"
+        android:title="@string/close"
+        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/esci"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/exitButtonMenu"-->
+        <!--app:showAsAction="never" />-->
+</menu>
