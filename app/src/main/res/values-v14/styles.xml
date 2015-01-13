@@ -5,18 +5,30 @@
 
     <style name="TeamConfiguration" parent="@android:style/Theme.Dialog" />
 
-    <style name="ResultNumber" parent="@android:style/TextAppearance.Large">
+    <style name="TextSummary" parent="@android:style/TextAppearance.Large">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">monospace</item>
-        <item name="android:textSize">100sp</item>
+        <item name="android:textSize">25sp</item>
     </style>
 
-    <style name="ResultNumberBlue" parent="ResultNumber">
+    <style name="TextTeamA" parent="TextSummary">
         <item name="android:textColor">#ff2d81ff</item>
     </style>
 
-    <style name="ResultNumberViolet" parent="ResultNumber">
+    <style name="TextTeamB" parent="TextSummary">
+        <item name="android:textColor">#fff1150d</item>
+    </style>
+
+    <style name="ResultNumber" parent="TextSummary">
+        <item name="android:textSize">100sp</item>
+    </style>
+
+    <style name="ResultNumberA" parent="ResultNumber">
+        <item name="android:textColor">#ff2d81ff</item>
+    </style>
+
+    <style name="ResultNumberB" parent="ResultNumber">
         <item name="android:textColor">#fff1150d</item>
     </style>
 

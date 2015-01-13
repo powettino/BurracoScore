@@ -7,18 +7,25 @@
     <style name="TeamConfiguration" parent="@android:style/Theme.Dialog" />
 
     <!--Style-->
-    <style name="ResultNumber" parent="@android:style/TextAppearance.Large">
+    <style name="TextSummary" parent="@android:style/TextAppearance.Large">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">monospace</item>
+        <item name="android:textSize">25sp</item>
+
+    </style>
+
+    <style name="ResultNumberA" parent="TextSummary">
+        <item name="android:textColor">#ff2d81ff</item>
         <item name="android:textSize">100sp</item>
     </style>
 
-    <style name="ResultNumberBlue" parent="ResultNumber">
-        <item name="android:textColor">#ff2d81ff</item>
+    <style name="ResultNumberB" parent="TextSummary">
+        <item name="android:textColor">#fff1150d</item>
+        <item name="android:textSize">100sp</item>
     </style>
 
-    <style name="ResultNumberViolet" parent="ResultNumber">
-        <item name="android:textColor">#fff1150d</item>
+    <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">#fff0f117</item>
     </style>
 </resources>
