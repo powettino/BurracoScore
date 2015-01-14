@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.custom.adapter.DoubleTextAdapter;
 
 public class SummaryActivity extends Activity {
@@ -22,6 +23,9 @@ public class SummaryActivity extends Activity {
     private final int CODE_FOR_CONF = 0;
     private ListView listPointTeamA;
     private ListView listPointTeamB;
+    private int numberOfPlayerForTeam = 0;
+    private Team teamA;
+    private Team teamB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class SummaryActivity extends Activity {
         teamAText = (TextView) findViewById(R.id.teamASummary);
         // namesTeamA = teamAText.getText().toString();
         teamBText = (TextView) findViewById(R.id.teamBSummary);
+        teamA = new Team("A");
+        teamB = new Team("B");
         // namesTeamB = teamBText.getText().toString();
         listPointTeamA = (ListView) findViewById(R.id.listPointTeamA);
         listPointTeamB = (ListView) findViewById(R.id.listPointTeamB);
@@ -61,6 +67,7 @@ public class SummaryActivity extends Activity {
             }
             case R.id.configuraMenuSum: {
                 Intent configura = new Intent(this, TeamConfiguration.class);
+                configura.putExtra("", "");
                 startActivityForResult(configura, CODE_FOR_CONF);
                 return true;
             }
@@ -77,6 +84,16 @@ public class SummaryActivity extends Activity {
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+                    numberOfPlayerForTeam = data.getIntExtra(getString(R.string.numberPlayerActivity), 0);
+                    teamA.setPlayer1(data.getStringExtra(getString(R.string.nomeGiocatore11)));
+                    teamB.setPlayer1(data.getStringExtra(getString(R.string.nomeGiocatore21)));
+                    if (numberOfPlayerForTeam == 1) {
+                        teamA = gioc11.getText().toString();
+                        teamB = gioc21.getText().toString();
+                    } else {
+                        teamA = (gioc11.getText()).append('-').append(gioc12.getText()).toString();
+                        teamB = (gioc21.getText()).append('-').append(gioc22.getText()).toString();
+                    }
                     teamAText.setText(data.getStringExtra(getString(R.string.teamA)));
                     teamBText.setText(data.getStringExtra(getString(R.string.teamB)));
                 }
