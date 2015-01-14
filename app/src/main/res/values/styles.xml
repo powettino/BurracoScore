@@ -9,12 +9,20 @@
         <item name="android:textColor">@color/RigheLista</item>
     </style>
 
-    <style name="SfondoPunti">
+    <style name="GameTextRow.ContenutoPerfetto">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ContenutoParente">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ContenutoParente.SfondoPunti">
         <item name="android:alpha">0.5</item>
         <item name="android:contentDescription">@string/description</item>
-        <item name="android:background">@color/SfondoGrigioLista</item>
+        <item name="android:background">@color/GrigioPerNero</item>
     </style>
 
     <style name="NoLarghezza.ContainerEquilibrato">
@@ -38,15 +46,13 @@
     <style name="ContenutoPerfetto.ListaPunti">
         <item name="android:clickable">false</item>
         <!--<item name="android:divider">@color/SeparatoreLista</item>-->
-        <item name="android:dividerHeight">5sp</item>
+        <item name="android:dividerHeight">@dimen/insignificantMargin</item>
         <!--<item name="android:listSelector">@android:color/transparent</item>-->
     </style>
 
     <style name="NoLarghezza.ContainerEquilibrato.BottoneEquilibrato">
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/mediumMargin</item>
         <item name="android:layout_marginRight">@dimen/mediumMargin</item>
-        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="NoAltezza">
@@ -57,55 +63,65 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato">
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.CentratoVerticale">
         <item name="android:layout_centerVertical">true</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.Allineato">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato">
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.Allineato.LargeMono">
-        <item name="android:textSize">100sp</item>
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono">
+        <item name="android:textSize">@dimen/testoEnorme</item>
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.Allineato.LargeMono.ColorB">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.ColorB">
         <item name="android:textColor">@color/SquadraB</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.Allineato.LargeMono.ColorA">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.ColorA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.MediumMono">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono">
         <item name="android:textSize">@dimen/mediumMargin</item>
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.MediumMono.ColorA">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Gravitato.MediumMono.ColorB">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorB">
         <item name="android:textColor">@color/SquadraB</item>
     </style>
 
-    <style name="SfondoPunti.SquadraB">
+    <style name="ContenutoParente.SfondoPunti.SquadraB">
         <item name="android:background">@color/SquadraB</item>
     </style>
 
-    <style name="SfondoPunti.SquadraA">
+    <style name="ContenutoParente.SfondoPunti.SquadraA">
         <item name="android:background">@color/SquadraA</item>
     </style>
 
-    <style name="GameTextRow.ContenutoPerfetto">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="ContenutoParente.Gravitato">
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ContenutoPerfetto.GravitatoPieno">
+        <item name="android:layout_gravity">fill</item>
+    </style>
+
+    <style name="ContenutoPerfetto.GravitatoPieno.TestoGenerico">
+        <item name="android:autoText">false</item>
+        <item name="android:inputType">textCapWords|textPersonName|textAutoComplete</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:saveEnabled">true</item>
     </style>
 
 </resources>
