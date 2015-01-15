@@ -94,6 +94,11 @@
         <item name="android:typeface">monospace</item>
     </style>
 
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.SmallMono">
+        <item name="android:textSize">@dimen/testoPiccolo</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
     <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
@@ -144,4 +149,5 @@
         <item name="android:layout_marginRight">@dimen/mediumMargin</item>
     </style>
 
+    <dimen name="testoPiccolo">10sp</dimen>
 </resources>

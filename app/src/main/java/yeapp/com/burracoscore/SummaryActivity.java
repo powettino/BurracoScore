@@ -21,12 +21,14 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private TextView teamBText;
     private final int CODE_FOR_CONF = 0;
     private final int CODE_FOR_SET_A = 1;
-    private final int CODE_FOR_SET_B = 1;
+    private final int CODE_FOR_SET_B = 2;
     private ListView listPointTeamA;
     private ListView listPointTeamB;
     private int numberOfPlayerForTeam = 0;
     private Team teamA;
     private Team teamB;
+    DoubleTextAdapter dtaLVA = new DoubleTextAdapter(this);
+    DoubleTextAdapter dtaLVB = new DoubleTextAdapter(this);
 
 
     private void createTeamName() {
@@ -55,15 +57,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.setTeamA).setOnClickListener(this);
         findViewById(R.id.setTeamB).setOnClickListener(this);
 
-        ArrayList<String> your_array_list = new ArrayList<String>();
-        your_array_list.add(" s");
-//        your_array_list.add("bar");
-        ArrayList<String> a = new ArrayList<String>();
-        a.add("d ");
-//        a.add("ss");
-        DoubleTextAdapter dta = new DoubleTextAdapter(this, your_array_list, a);
-        listPointTeamA.setAdapter(dta);
-        listPointTeamB.setAdapter(dta);
+        listPointTeamA.setAdapter(dtaLVA);
+        listPointTeamB.setAdapter(dtaLVB);
     }
 
     @Override
@@ -141,11 +136,42 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             }
+            case CODE_FOR_SET_A: {
+                if (resultCode == RESULT_OK) {
+                    int base = data.getIntExtra(getString(R.string.puntiBase), 0);
+                    int carte = data.getIntExtra(getString(R.string.puntiCarte), 0);
+                    int chiusura = data.getIntExtra(getString(R.string.puntiChiusura), 0);
+                    int mazzetto = data.getIntExtra(getString(R.string.puntiMazzetto), 0);
+                    String lastGame = dtaLVA.getLastDoubleText().second;
+                    if (lastGame == null) {
+                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G1");
+                    } else {
+                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
+                    }
+                }
+                break;
+            }
+            case CODE_FOR_SET_B: {
+                if (resultCode == RESULT_OK) {
+                    int base = data.getIntExtra(getString(R.string.puntiBase), 0);
+                    int carte = data.getIntExtra(getString(R.string.puntiCarte), 0);
+                    int chiusura = data.getIntExtra(getString(R.string.puntiChiusura), 0);
+                    int mazzetto = data.getIntExtra(getString(R.string.puntiMazzetto), 0);
+                    String lastGame = dtaLVA.getLastDoubleText().second;
+                    if (lastGame == null) {
+                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G1");
+                    } else {
+                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
+                    }
+                }
+                break;
+            }
             default: {
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
             }
         }
+
     }
 
     @Override

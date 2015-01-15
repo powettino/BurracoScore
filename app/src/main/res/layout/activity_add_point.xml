@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="yeapp.com.burracoscore.AddPoint"
+    android:layout_width="250sp"
+    android:layout_height="250sp"
+    android:layout_centerInParent="true">
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        style="@style/ContenutoPerfetto"
+        android:layout_width="fill_parent"
+        android:id="@+id/relativeBase">
+
+        <TextView
+            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            android:text="@string/puntiBase"
+            android:id="@+id/textView" />
+
+        <EditText
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            android:inputType="number"
+            android:ems="3"
+            android:id="@+id/puntiBaseText"
+            android:text="0"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        style="@style/ContenutoPerfetto"
+        android:layout_width="fill_parent"
+        android:id="@+id/relativeCarte"
+        android:layout_below="@+id/relativeBase"
+        android:layout_marginTop="@dimen/lowMargin">
+
+        <TextView
+            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            android:layout_marginRight="@dimen/mediumMargin"
+            android:text="@string/puntiCarte"
+            android:id="@+id/textView1" />
+
+        <EditText
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            android:inputType="number"
+            android:ems="3"
+            android:id="@+id/puntiCarteText"
+            android:layout_alignParentEnd="true"
+            android:text="0" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        style="@style/ContenutoPerfetto"
+        android:layout_width="fill_parent"
+        android:id="@+id/relativeChiusura"
+        android:layout_below="@+id/relativeCarte"
+        android:layout_marginTop="@dimen/lowMargin">
+
+        <TextView
+            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            android:layout_marginRight="@dimen/mediumMargin"
+            android:text="@string/puntiChiusura"
+            android:id="@+id/textView2" />
+
+        <CheckBox
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            android:id="@+id/checkChiusura"
+            android:cursorVisible="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/mediumMargin" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        style="@style/ContenutoPerfetto"
+        android:layout_width="fill_parent"
+        android:id="@+id/relativeMazzetto"
+        android:layout_below="@+id/relativeChiusura"
+        android:layout_marginTop="@dimen/lowMargin">
+
+        <TextView
+            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            android:layout_marginRight="@dimen/mediumMargin"
+            android:text="@string/puntiMazzetto"
+            android:id="@+id/textView3" />
+
+        <CheckBox
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            android:id="@+id/checkMazzetto"
+            android:cursorVisible="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/mediumMargin" />
+
+    </RelativeLayout>
+
+    <Button
+        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
+        android:text="@string/save"
+        android:id="@+id/salvaPunti"
+        android:layout_below="@+id/relativeMazzetto" />
+
+
+</RelativeLayout>

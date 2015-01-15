@@ -30,7 +30,6 @@
     <string name="nomeGiocatore22">giocatore 2B</string>
     <string name="puntiBase">Base</string>
     <string name="puntiCarte">Carte</string>
-    <string name="puntiBonus">Bonus</string>
 
     <!-- Utility -->
     <string name="numberPlayerActivity">yeapp.com.burracoscore.numberPlayer</string>

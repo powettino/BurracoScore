@@ -1,5 +1,6 @@
 package yeapp.com.burracoscore.custom.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -21,12 +22,40 @@ public class DoubleTextAdapter extends BaseAdapter {
     private List<String> textL;
     private List<String> textR;
 
+    public DoubleTextAdapter(Context context) {
+        super();
+        textL = new ArrayList<String>();
+        textR = new ArrayList<String>();
+        this.context = context;
+    }
 
     public DoubleTextAdapter(Context context, List<String> textLeft, List<String> textRight) {
         super();
         textL = textLeft;
         textR = textRight;
         this.context = context;
+    }
+
+    public void setLists(List<String> textLeft, List<String> textRight) {
+        textL = textLeft;
+        textR = textRight;
+    }
+
+    public Pair<String, String> getLastDoubleText() {
+        return new Pair<String, String>(textL.get(textL.size()), textR.get(textR.size()));
+    }
+
+    public void addLastDoubleText(String lastTextL, String lastTextR) {
+        textL.add(lastTextL);
+        textR.add(lastTextR);
+    }
+
+    public List<String> getTextLeft() {
+        return textL;
+    }
+
+    public List<String> getTextRight() {
+        return textR;
     }
 
     @Override
@@ -36,7 +65,7 @@ public class DoubleTextAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return new Pair(textL.get(position), textR.get(position));
+        return new Pair<String, String>(textL.get(position), textR.get(position));
     }
 
     @Override

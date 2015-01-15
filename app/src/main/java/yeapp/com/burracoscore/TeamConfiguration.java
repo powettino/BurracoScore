@@ -68,7 +68,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     }
 
     private void salvaNomi() {
-        setResult(RESULT_OK, this.getIntent()
+        setResult(RESULT_OK, getIntent()
                 .putExtra(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam)
                 .putExtra(getString(R.string.nomeGiocatore11), gioc11Name.getText().toString())
                 .putExtra(getString(R.string.nomeGiocatore12), numberOfPlayerForTeam == 2 ? gioc12Name.getText().toString() : null)
