@@ -1,6 +1,7 @@
 package yeapp.com.burracoscore;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,16 +17,15 @@ import static android.view.View.OnClickListener;
 public class TeamConfiguration extends Activity implements OnClickListener, TextWatcher {
     private Button salvaButton;
     private Button resetButton;
-    private EditText gioc11;
-    private EditText gioc12;
-    private EditText gioc21;
-    private EditText gioc22;
+    private EditText gioc11Name;
+    private EditText gioc12Name;
+    private EditText gioc21Name;
+    private EditText gioc22Name;
     private TextView team1Label;
     private TextView team2Label;
     int numberOfPlayerForTeam = 0;
-    final String varNumberPlayer = "numberOfPlayer";
 
-//    final String varGioc12State = "gioc12";
+//    final String varGioc12State = "gioc12Name";
 //    final String varGioc22State = "gioc22";
     //    final String varStartState = "startEnable";
 //    final String varGioc11Text = "gioc11Text";
@@ -39,17 +39,17 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         switch (v.getId()) {
             case (R.id.resetConf): {
                 numberOfPlayerForTeam = 0;
-                changePlayers(numberOfPlayerForTeam);
+                changePlayers();
                 break;
             }
             case R.id.singleConf: {
                 numberOfPlayerForTeam = 1;
-                changePlayers(numberOfPlayerForTeam);
+                changePlayers();
                 break;
             }
             case R.id.coupleConf: {
                 numberOfPlayerForTeam = 2;
-                changePlayers(numberOfPlayerForTeam);
+                changePlayers();
                 break;
             }
             case R.id.salvaConf: {
@@ -70,10 +70,10 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     private void salvaNomi() {
         setResult(RESULT_OK, this.getIntent()
                 .putExtra(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam)
-                .putExtra(getString(R.string.nomeGiocatore11), gioc11.getText().toString())
-                .putExtra(getString(R.string.nomeGiocatore12), numberOfPlayerForTeam == 2 ? gioc12.getText().toString() : "")
-                .putExtra(getString(R.string.nomeGiocatore21), gioc21.getText().toString())
-                .putExtra(getString(R.string.nomeGiocatore22), numberOfPlayerForTeam == 2 ? gioc22.getText().toString() : ""));
+                .putExtra(getString(R.string.nomeGiocatore11), gioc11Name.getText().toString())
+                .putExtra(getString(R.string.nomeGiocatore12), numberOfPlayerForTeam == 2 ? gioc12Name.getText().toString() : null)
+                .putExtra(getString(R.string.nomeGiocatore21), gioc21Name.getText().toString())
+                .putExtra(getString(R.string.nomeGiocatore22), numberOfPlayerForTeam == 2 ? gioc22Name.getText().toString() : null));
         finish();
     }
 
@@ -88,37 +88,52 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         resetButton = (Button) findViewById(R.id.resetConf);
         resetButton.setOnClickListener(this);
         findViewById(R.id.chiudiConf).setOnClickListener(this);
-        gioc11 = (EditText) findViewById(R.id.giocatore11);
-        gioc12 = (EditText) findViewById(R.id.giocatore12);
-        gioc21 = (EditText) findViewById(R.id.giocatore21);
-        gioc22 = (EditText) findViewById(R.id.giocatore22);
+        gioc11Name = (EditText) findViewById(R.id.giocatore11);
+        gioc12Name = (EditText) findViewById(R.id.giocatore12);
+        gioc21Name = (EditText) findViewById(R.id.giocatore21);
+        gioc22Name = (EditText) findViewById(R.id.giocatore22);
         team1Label = (TextView) findViewById(R.id.teamAConf);
         team2Label = (TextView) findViewById(R.id.teamBConf);
 
-        gioc11.addTextChangedListener(this);
-        gioc12.addTextChangedListener(this);
-        gioc21.addTextChangedListener(this);
-        gioc22.addTextChangedListener(this);
+        gioc11Name.addTextChangedListener(this);
+        gioc12Name.addTextChangedListener(this);
+        gioc21Name.addTextChangedListener(this);
+        gioc22Name.addTextChangedListener(this);
+        restoreFromMain();
+    }
+
+    private void restoreFromMain() {
+        Intent startingIntent = getIntent();
+        numberOfPlayerForTeam = startingIntent.getIntExtra(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam);
+        if (numberOfPlayerForTeam != 0) {
+            gioc11Name.setText(startingIntent.getStringExtra(getString(R.string.nomeGiocatore11)));
+            gioc21Name.setText(startingIntent.getStringExtra(getString(R.string.nomeGiocatore21)));
+            if (numberOfPlayerForTeam == 2) {
+                gioc12Name.setText(startingIntent.getStringExtra(getString(R.string.nomeGiocatore12)));
+                gioc22Name.setText(startingIntent.getStringExtra(getString(R.string.nomeGiocatore22)));
+            }
+            changePlayers();
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(varNumberPlayer, numberOfPlayerForTeam);
+        outState.putInt(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam);
 
-//        outState.putBoolean(varGioc12State, gioc12.isEnabled());
+//        outState.putBoolean(varGioc12State, gioc12Name.isEnabled());
 //        outState.putBoolean(varGioc22State, gioc22.isEnabled());
 
 //        outState.putBoolean(varStartState, start.isEnabled());
-//        outState.putBoolean(varGioc12State, gioc12.isEnabled());
+//        outState.putBoolean(varGioc12State, gioc12Name.isEnabled());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        numberOfPlayerForTeam = savedInstanceState.getInt(varNumberPlayer);
+        numberOfPlayerForTeam = savedInstanceState.getInt(getString(R.string.numberPlayerActivity));
 //        changePlayers(numberOfPlayerForTeam);
-//        gioc12.setEnabled(true);
+//        gioc12Name.setEnabled(true);
 //        gioc22.setEnabled(savedInstanceState.getBoolean(varGioc22State));
 
 //        start.setEnabled(savedInstanceState.getBoolean(varStartState));
@@ -149,19 +164,19 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
 //        }
     }
 
-    private void changePlayers(int numberOfPlayerForTeam) {
+    private void changePlayers() {
         if (numberOfPlayerForTeam > 0) {
-            if (gioc11.getText().length() == 0) {
-                gioc11.setText(R.string.nomeGiocatore11);
+            if (gioc11Name.getText().length() == 0) {
+                gioc11Name.setText(R.string.nomeGiocatore11);
             }
-            if (gioc12.getText().length() == 0) {
-                gioc12.setText(R.string.nomeGiocatore12);
+            if (gioc12Name.getText().length() == 0) {
+                gioc12Name.setText(R.string.nomeGiocatore12);
             }
-            if (gioc21.getText().length() == 0) {
-                gioc21.setText(R.string.nomeGiocatore21);
+            if (gioc21Name.getText().length() == 0) {
+                gioc21Name.setText(R.string.nomeGiocatore21);
             }
-            if (gioc22.getText().length() == 0) {
-                gioc22.setText(R.string.nomeGiocatore22);
+            if (gioc22Name.getText().length() == 0) {
+                gioc22Name.setText(R.string.nomeGiocatore22);
             }
             if (!team1Label.isEnabled() && !team2Label.isEnabled()) {
                 team2Label.setEnabled(true);
@@ -173,31 +188,31 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
             if (!resetButton.isEnabled()) {
                 resetButton.setEnabled(true);
             }
-            if (!gioc11.isEnabled() && !gioc21.isEnabled()) {
-                gioc11.setEnabled(true);
-                gioc21.setEnabled(true);
+            if (!gioc11Name.isEnabled() && !gioc21Name.isEnabled()) {
+                gioc11Name.setEnabled(true);
+                gioc21Name.setEnabled(true);
             }
-            if (numberOfPlayerForTeam == 1 && gioc12.isEnabled() && gioc22.isEnabled()) {
-                gioc12.setEnabled(false);
-                gioc22.setEnabled(false);
+            if (numberOfPlayerForTeam == 1 && gioc12Name.isEnabled() && gioc22Name.isEnabled()) {
+                gioc12Name.setEnabled(false);
+                gioc22Name.setEnabled(false);
             }
-            if (numberOfPlayerForTeam == 2 && !gioc12.isEnabled() && !gioc22.isEnabled()) {
-                gioc12.setEnabled(true);
-                gioc22.setEnabled(true);
+            if (numberOfPlayerForTeam == 2 && !gioc12Name.isEnabled() && !gioc22Name.isEnabled()) {
+                gioc12Name.setEnabled(true);
+                gioc22Name.setEnabled(true);
             }
         } else {
-            gioc11.setText(R.string.nomeGiocatore11);
-            gioc12.setText(R.string.nomeGiocatore12);
-            gioc21.setText(R.string.nomeGiocatore21);
-            gioc22.setText(R.string.nomeGiocatore22);
+            gioc11Name.setText(R.string.nomeGiocatore11);
+            gioc12Name.setText(R.string.nomeGiocatore12);
+            gioc21Name.setText(R.string.nomeGiocatore21);
+            gioc22Name.setText(R.string.nomeGiocatore22);
 //            salvaButton.setEnabled(false);
 //            resetButton.setEnabled(false);
-//            gioc11.setEnabled(false);
-//            gioc21.setEnabled(false);
+//            gioc11Name.setEnabled(false);
+//            gioc21Name.setEnabled(false);
 //            team1Label.setEnabled(false);
 //            team2Label.setEnabled(false);
-//            if (gioc12.isEnabled() && gioc22.isEnabled()) {
-//                gioc12.setEnabled(false);
+//            if (gioc12Name.isEnabled() && gioc22.isEnabled()) {
+//                gioc12Name.setEnabled(false);
 //                gioc22.setEnabled(false);
 
         }

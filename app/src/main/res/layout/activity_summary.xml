@@ -15,12 +15,14 @@
         style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorA"
         android:layout_marginRight="@dimen/highMargin"
         android:layout_toLeftOf="@+id/tvstSummary"
-        android:text="@string/teamAName" />
+        android:text="@string/teamAName"
+        android:saveEnabled="true"/>
 
     <TextView
         android:id="@+id/tvstSummary"
         style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono"
-        android:text="@string/VS" />
+        android:text="@string/VS"
+        android:saveEnabled="true"/>
 
     <TextView
         android:id="@+id/teamBSummary"
@@ -105,7 +107,7 @@
 
         <ImageView
             android:id="@+id/coppaSummary"
-            style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
+            style="@style/ContenutoPerfetto.CentratoOrizzontale.CentratoVerticale"
             android:contentDescription="@string/cup_description"
             android:src="@drawable/coppa_trasp" />
         <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->

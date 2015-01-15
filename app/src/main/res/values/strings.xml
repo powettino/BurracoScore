@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Segnapunti Burraco</string>
     <string name="conf_name">Configurazione</string>
+    <string name="title_activity_add_point">Aggiungi punti</string>
     <string name="title_activity_summary">SummaryActivity</string>
 
-    <!--Opzioni-->
+    <!-- Opzioni -->
     <string name="resetTeam">Cancella</string>
     <string name="save">Salva</string>
     <string name="exit">Esci</string>
     <string name="close">Chiudi</string>
 
-    <!--Label-->
+    <!-- Label -->
     <string name="configurazione">Configurazione Team</string>
     <string name="gameSingolo">1 vs 1</string>
     <string name="gameDoppio">2 vs 2</string>
@@ -21,16 +23,22 @@
     <string name="startingScore">0</string>
     <string name="setPoint">Segna</string>
 
-    <!--EditText-->
+    <!-- EditText -->
     <string name="nomeGiocatore11">giocatore 1A</string>
     <string name="nomeGiocatore12">giocatore 2A</string>
     <string name="nomeGiocatore21">giocatore 1B</string>
     <string name="nomeGiocatore22">giocatore 2B</string>
+    <string name="puntiBase">Base</string>
+    <string name="puntiCarte">Carte</string>
+    <string name="puntiBonus">Bonus</string>
 
-    <!--Utility-->
+    <!-- Utility -->
     <string name="numberPlayerActivity">yeapp.com.burracoscore.numberPlayer</string>
     <string name="teamA">teamA</string>
     <string name="teamB">teamB</string>
     <string name="description">Lista Punti</string>
+    <string name="puntiChiusura">Chiusura</string>
+    <string name="puntiMazzetto">Mazzetto</string>
+
 
 </resources>

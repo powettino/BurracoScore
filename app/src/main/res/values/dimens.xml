@@ -5,12 +5,13 @@
 
     <dimen name="insignificantMargin">5sp</dimen>
     <dimen name="lowMargin">10sp</dimen>
-    <dimen name="mediumMargin">25sp</dimen>
+    <dimen name="mediumMargin">20sp</dimen>
     <dimen name="highMargin">35sp</dimen>
     <dimen name="enormousMargin">50sp</dimen>
     <dimen name="noSpace">0sp</dimen>
 
-    <dimen name="buttonWidthEq">70sp</dimen>
+    <dimen name="buttonWidthEq">80sp</dimen>
 
     <dimen name="testoEnorme">100sp</dimen>
+    <dimen name="testoMedio">20sp</dimen>
 </resources>

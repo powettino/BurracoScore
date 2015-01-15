@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Summary" parent="@android:style/Theme" />
+    <style name="Summary" parent="@android:style/Theme.Holo" />
 
-    <style name="TeamConfiguration" parent="@android:style/Theme.Dialog" />
+    <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
+    </style>
 
     <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/RigheLista</item>
@@ -89,7 +90,7 @@
     </style>
 
     <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono">
-        <item name="android:textSize">@dimen/mediumMargin</item>
+        <item name="android:textSize">@dimen/testoMedio</item>
         <item name="android:typeface">monospace</item>
     </style>
 
@@ -122,6 +123,25 @@
         <item name="android:inputType">textCapWords|textPersonName|textAutoComplete</item>
         <item name="android:maxLength">20</item>
         <item name="android:saveEnabled">true</item>
+    </style>
+
+    <style name="ContenutoPerfetto.Centrato">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ContenutoPerfetto.Centrato.MediumMono">
+        <item name="android:textSize">@dimen/mediumMargin</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="ContenutoPerfetto.CentratoVerticale">
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="ContenutoPerfetto.CentratoVerticale.MediumMono">
+        <item name="android:textSize">@dimen/testoMedio</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_marginRight">@dimen/mediumMargin</item>
     </style>
 
 </resources>
