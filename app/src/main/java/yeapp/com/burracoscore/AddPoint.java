@@ -64,7 +64,7 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
             case R.id.salvaPunti: {
                 setResult(RESULT_OK, getIntent()
                         .putExtra(getString(R.string.puntiBase), !base.getText().toString().isEmpty() ? Integer.valueOf(base.getText().toString()) : 0)
-                        .putExtra(getString(R.string.puntiCarte), !carte.getText().toString().isEmpty() ? Integer.valueOf(base.getText().toString()) : 0)
+                        .putExtra(getString(R.string.puntiCarte), !carte.getText().toString().isEmpty() ? Integer.valueOf(carte.getText().toString()) : 0)
                         .putExtra(getString(R.string.puntiChiusura), chiusura.isChecked() ? 100 : 0)
                         .putExtra(getString(R.string.puntiMazzetto), mazzetto.isChecked() ? 0 : -100));
                 finish();

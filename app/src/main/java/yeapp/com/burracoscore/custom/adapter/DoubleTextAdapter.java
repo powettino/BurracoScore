@@ -19,8 +19,8 @@ import yeapp.com.burracoscore.R;
 public class DoubleTextAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> textL;
-    private List<String> textR;
+    private ArrayList<String> textL;
+    private ArrayList<String> textR;
 
     public DoubleTextAdapter(Context context) {
         super();
@@ -29,20 +29,23 @@ public class DoubleTextAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public DoubleTextAdapter(Context context, List<String> textLeft, List<String> textRight) {
+    public DoubleTextAdapter(Context context, ArrayList<String> textLeft, ArrayList<String> textRight) {
         super();
         textL = textLeft;
         textR = textRight;
         this.context = context;
     }
 
-    public void setLists(List<String> textLeft, List<String> textRight) {
+    public void setArrayLists(ArrayList<String> textLeft, ArrayList<String> textRight) {
         textL = textLeft;
         textR = textRight;
     }
 
     public Pair<String, String> getLastDoubleText() {
-        return new Pair<String, String>(textL.get(textL.size()), textR.get(textR.size()));
+        if (textL.isEmpty() && textR.isEmpty()) {
+            return new Pair<String, String>(null, null);
+        }
+        return new Pair<String, String>(textL.get(textL.size() - 1), textR.get(textR.size() - 1));
     }
 
     public void addLastDoubleText(String lastTextL, String lastTextR) {
@@ -50,11 +53,11 @@ public class DoubleTextAdapter extends BaseAdapter {
         textR.add(lastTextR);
     }
 
-    public List<String> getTextLeft() {
+    public ArrayList<String> getTextLeft() {
         return textL;
     }
 
-    public List<String> getTextRight() {
+    public ArrayList<String> getTextRight() {
         return textR;
     }
 

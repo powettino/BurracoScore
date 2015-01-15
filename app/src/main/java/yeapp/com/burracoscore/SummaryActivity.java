@@ -22,13 +22,14 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private final int CODE_FOR_CONF = 0;
     private final int CODE_FOR_SET_A = 1;
     private final int CODE_FOR_SET_B = 2;
-    private ListView listPointTeamA;
     private ListView listPointTeamB;
     private int numberOfPlayerForTeam = 0;
     private Team teamA;
     private Team teamB;
     DoubleTextAdapter dtaLVA = new DoubleTextAdapter(this);
     DoubleTextAdapter dtaLVB = new DoubleTextAdapter(this);
+    private TextView resultA;
+    private TextView resultB;
 
 
     private void createTeamName() {
@@ -51,14 +52,14 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         teamA = new Team("A");
         teamB = new Team("B");
         // namesTeamB = teamBText.getText().toString();
-        listPointTeamA = (ListView) findViewById(R.id.listPointTeamA);
-        listPointTeamB = (ListView) findViewById(R.id.listPointTeamB);
+        ((ListView) findViewById(R.id.listPointTeamA)).setAdapter(dtaLVA);
+        ((ListView) findViewById(R.id.listPointTeamB)).setAdapter(dtaLVB);
 
         findViewById(R.id.setTeamA).setOnClickListener(this);
         findViewById(R.id.setTeamB).setOnClickListener(this);
 
-        listPointTeamA.setAdapter(dtaLVA);
-        listPointTeamB.setAdapter(dtaLVB);
+        resultA = (TextView) findViewById(R.id.resultA);
+        resultB = (TextView) findViewById(R.id.resultB);
     }
 
     @Override
@@ -76,6 +77,12 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         teamB.setPlayer1(savedInstanceState.getString(getString(R.string.nomeGiocatore21)));
         teamB.setPlayer2(savedInstanceState.getString(getString(R.string.nomeGiocatore22)));
         createTeamName();
+        dtaLVA.setArrayLists(savedInstanceState.getStringArrayList(getString(R.string.listaPuntiA)), savedInstanceState.getStringArrayList(getString(R.string.listaGameA)));
+        dtaLVB.setArrayLists(savedInstanceState.getStringArrayList(getString(R.string.listaPuntiB)), savedInstanceState.getStringArrayList(getString(R.string.listaGameB)));
+        dtaLVA.notifyDataSetChanged();
+        dtaLVB.notifyDataSetChanged();
+        resultA.setText(savedInstanceState.getString(getString(R.string.risultatoA)));
+        resultB.setText(savedInstanceState.getString(getString(R.string.risultatoB)));
     }
 
     @Override
@@ -86,6 +93,12 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         outState.putString(getString(R.string.nomeGiocatore12), teamA.getPlayer2());
         outState.putString(getString(R.string.nomeGiocatore21), teamB.getPlayer1());
         outState.putString(getString(R.string.nomeGiocatore22), teamB.getPlayer2());
+        outState.putStringArrayList(getString(R.string.listaPuntiA), dtaLVA.getTextLeft());
+        outState.putStringArrayList(getString(R.string.listaGameA), dtaLVA.getTextRight());
+        outState.putStringArrayList(getString(R.string.listaPuntiB), dtaLVB.getTextLeft());
+        outState.putStringArrayList(getString(R.string.listaGameB), dtaLVB.getTextRight());
+        outState.putString(getString(R.string.risultatoA), resultA.getText().toString());
+        outState.putString(getString(R.string.risultatoB), resultB.getText().toString());
     }
 
     @Override
@@ -120,7 +133,6 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //FIXME: usare una risorse e non un intero
         switch (requestCode) {
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
@@ -143,11 +155,16 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                     int chiusura = data.getIntExtra(getString(R.string.puntiChiusura), 0);
                     int mazzetto = data.getIntExtra(getString(R.string.puntiMazzetto), 0);
                     String lastGame = dtaLVA.getLastDoubleText().second;
+                    int currentResult = base + carte + chiusura + mazzetto;
+                    resultA.setText(resultA.getText().toString().isEmpty() ? String.valueOf(currentResult) : String.valueOf((currentResult + Integer.valueOf(resultA.getText().toString()))));
+
                     if (lastGame == null) {
-                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G1");
+                        dtaLVA.addLastDoubleText(String.valueOf(currentResult), "G1");
                     } else {
-                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
+                        dtaLVA.addLastDoubleText(String.valueOf(currentResult), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
                     }
+                    dtaLVA.notifyDataSetChanged();
+
                 }
                 break;
             }
@@ -157,12 +174,16 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                     int carte = data.getIntExtra(getString(R.string.puntiCarte), 0);
                     int chiusura = data.getIntExtra(getString(R.string.puntiChiusura), 0);
                     int mazzetto = data.getIntExtra(getString(R.string.puntiMazzetto), 0);
-                    String lastGame = dtaLVA.getLastDoubleText().second;
+                    String lastGame = dtaLVB.getLastDoubleText().second;
+                    int currentResult = base + carte + chiusura + mazzetto;
+                    resultB.setText(resultB.getText().toString().isEmpty() ? String.valueOf(currentResult) : String.valueOf((currentResult + Integer.valueOf(resultB.getText().toString()))));
+
                     if (lastGame == null) {
-                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G1");
+                        dtaLVB.addLastDoubleText(String.valueOf(currentResult), "G1");
                     } else {
-                        dtaLVA.addLastDoubleText(String.valueOf(base + carte + chiusura + mazzetto), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
+                        dtaLVB.addLastDoubleText(String.valueOf(currentResult), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
                     }
+                    dtaLVB.notifyDataSetChanged();
                 }
                 break;
             }
@@ -171,8 +192,22 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 break;
             }
         }
+        checkWinner();
 
     }
+
+    private void checkWinner() {
+        int winA = Integer.valueOf(resultA.getText().toString());
+        int winB = Integer.valueOf(resultB.getText().toString());
+        if (winA >= 2005 || winB >= 2005) {
+            if (winA > winB) {
+                //vinceA
+            } else if (winB > winA) {
+                //vince B
+            }
+        }
+    }
+
 
     @Override
     public void onClick(View v) {

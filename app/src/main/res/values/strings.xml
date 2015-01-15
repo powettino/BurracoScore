@@ -21,6 +21,12 @@
     <string name="teamBName">Team B</string>
     <string name="cup_description">Cup</string>
     <string name="startingScore">0</string>
+    <string name="listaPuntiA">listaPuntiA</string>
+    <string name="listaGameA">listaGameA</string>
+    <string name="listaPuntiB">listaPuntiB</string>
+    <string name="listaGameB">listaGameB</string>
+    <string name="risultatoB">listaPuntiB</string>
+    <string name="risultatoA">listaGameB</string>
     <string name="setPoint">Segna</string>
 
     <!-- EditText -->
@@ -30,6 +36,7 @@
     <string name="nomeGiocatore22">giocatore 2B</string>
     <string name="puntiBase">Base</string>
     <string name="puntiCarte">Carte</string>
+
 
     <!-- Utility -->
     <string name="numberPlayerActivity">yeapp.com.burracoscore.numberPlayer</string>

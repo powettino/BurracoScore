@@ -12,6 +12,6 @@
 
     <dimen name="buttonWidthEq">80sp</dimen>
 
-    <dimen name="testoEnorme">100sp</dimen>
+    <dimen name="testoEnorme">80sp</dimen>
     <dimen name="testoMedio">20sp</dimen>
 </resources>

@@ -11,15 +11,17 @@
         android:id="@+id/pointText"
         style="@style/ContenutoPerfetto"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20sp"
+        android:layout_marginLeft="@dimen/mediumMargin"
         android:clickable="false"
-        android:textSize="20sp" />
+        android:textSize="@dimen/testoMedio"
+        android:textAlignment="center"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/pointGame"
         style="@style/GameTextRow.ContenutoPerfetto"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="20sp"
+        android:layout_marginRight="@dimen/mediumMargin"
         android:clickable="false"
-        android:textSize="20sp" />
+        android:textSize="@dimen/testoMedio" />
 </RelativeLayout>

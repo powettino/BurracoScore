@@ -16,13 +16,13 @@
         android:layout_marginRight="@dimen/highMargin"
         android:layout_toLeftOf="@+id/tvstSummary"
         android:text="@string/teamAName"
-        android:saveEnabled="true"/>
+        android:saveEnabled="true" />
 
     <TextView
         android:id="@+id/tvstSummary"
         style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono"
         android:text="@string/VS"
-        android:saveEnabled="true"/>
+        android:saveEnabled="true" />
 
     <TextView
         android:id="@+id/teamBSummary"
@@ -36,9 +36,8 @@
         android:id="@+id/linearScroll"
         style="@style/NoAltezza"
         android:layout_width="match_parent"
-        android:layout_above="@+id/buttonSection"
+        android:layout_above="@+id/resultTextSection"
         android:layout_below="@+id/teamBSummary"
-        android:layout_marginBottom="@dimen/lowMargin"
         android:layout_marginTop="@dimen/lowMargin"
         android:baselineAligned="false">
 
@@ -46,7 +45,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                style="@style/ContenutoParente.SfondoPunti" />
+                style="@style/ContenutoParente.SfondoPunti.SquadraA" />
 
             <ListView
                 android:id="@+id/listPointTeamA"
@@ -67,22 +66,54 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/resultTextSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSection">
+
+        <TextView
+            android:id="@+id/resultA"
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:text=""
+            android:background="@color/SquadraA"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+
+
+        <TextView
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:text=""
+            android:id="@+id/resultB"
+            android:background="@color/SquadraB"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+        />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/buttonSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/relativeFinaleSummary">
-        <!--Aggiungere lo style dei bottoni-->
+        android:layout_above="@+id/relativeFinaleSummary"
+        android:layout_marginTop="@dimen/lowMargin">
+
         <Button
             android:id="@+id/setTeamA"
             style="@style/NoLarghezza.ContainerEquilibrato.BottoneEquilibrato"
             android:layout_width="wrap_content"
-            android:text="@string/setPoint" />
+            android:text="@string/setPoint"
+            android:textAppearance="@android:style/TextAppearance.Holo.Small" />
 
         <Button
             android:id="@+id/setTeamB"
             style="@style/NoLarghezza.ContainerEquilibrato.BottoneEquilibrato"
             android:layout_width="wrap_content"
-            android:text="@string/setPoint" />
+            android:text="@string/setPoint"
+            android:textAppearance="@android:style/TextAppearance.Holo.Small" />
     </LinearLayout>
 
     <RelativeLayout
@@ -96,7 +127,8 @@
             style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.ColorA"
             android:layout_marginRight="@dimen/enormousMargin"
             android:layout_toLeftOf="@+id/coppaSummary"
-            android:text="@string/startingScore" />
+            android:text="@string/startingScore"
+            android:layout_alignTop="@+id/coppaSummary" />
 
         <TextView
             android:id="@+id/punteggioBSummary"
