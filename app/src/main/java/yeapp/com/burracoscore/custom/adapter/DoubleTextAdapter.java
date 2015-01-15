@@ -29,6 +29,11 @@ public class DoubleTextAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public void clearData() {
+        textL.clear();
+        textR.clear();
+    }
+
     public DoubleTextAdapter(Context context, ArrayList<String> textLeft, ArrayList<String> textRight) {
         super();
         textL = textLeft;

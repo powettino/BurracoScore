@@ -25,6 +25,10 @@ public class Team {
         setPlayer2(nomePlayer2);
     }
 
+    public void cleanTeam() {
+        player1 = null;
+        player2 = null;
+    }
 
     public String getPlayer1() {
         return player1;

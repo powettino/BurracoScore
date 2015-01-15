@@ -69,6 +69,7 @@
                     android:layout_column="0"
                     android:layout_row="0"
                     android:layout_rowSpan="2"
+                    android:textColor="@color/SquadraA"
                     android:enabled="false"
                     android:text="@string/teamAName"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -99,6 +100,7 @@
                     android:layout_rowSpan="2"
                     android:enabled="false"
                     android:text="@string/teamBName"
+                    android:textColor="@color/SquadraB"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
@@ -143,7 +145,7 @@
             android:enabled="false"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
-            android:text="@string/resetTeam" />
+            android:text="@string/reset" />
 
         <Button
             android:id="@+id/chiudiConf"

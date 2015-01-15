@@ -81,11 +81,11 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.ColorB">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraB">
         <item name="android:textColor">@color/SquadraB</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.ColorA">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
 
@@ -99,11 +99,11 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorA">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.ColorB">
+    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraB">
         <item name="android:textColor">@color/SquadraB</item>
     </style>
 

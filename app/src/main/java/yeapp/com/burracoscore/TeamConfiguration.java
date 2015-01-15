@@ -38,8 +38,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.resetConf): {
-                numberOfPlayerForTeam = 0;
-                changePlayers();
+                resetNames();
                 break;
             }
             case R.id.singleConf: {
@@ -64,6 +63,19 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
             default: {
                 break;
             }
+        }
+    }
+
+    private void resetNames() {
+        gioc11Name.setText(R.string.nomeGiocatore11);
+        gioc12Name.setText(R.string.nomeGiocatore12);
+        gioc21Name.setText(R.string.nomeGiocatore21);
+        gioc22Name.setText(R.string.nomeGiocatore22);
+        if (!gioc12Name.isEnabled() && !gioc22Name.isEnabled()) {
+            gioc12Name.setEnabled(true);
+            gioc12Name.setEnabled(false);
+            gioc22Name.setEnabled(true);
+            gioc22Name.setEnabled(false);
         }
     }
 
@@ -113,18 +125,14 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
                 gioc22Name.setText(startingIntent.getStringExtra(getString(R.string.nomeGiocatore22)));
             }
             changePlayers();
+        } else {
+            resetNames();
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam);
-
-//        outState.putBoolean(varGioc12State, gioc12Name.isEnabled());
-//        outState.putBoolean(varGioc22State, gioc22.isEnabled());
-
-//        outState.putBoolean(varStartState, start.isEnabled());
-//        outState.putBoolean(varGioc12State, gioc12Name.isEnabled());
         super.onSaveInstanceState(outState);
     }
 
@@ -132,11 +140,6 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numberOfPlayerForTeam = savedInstanceState.getInt(getString(R.string.numberPlayerActivity));
-//        changePlayers(numberOfPlayerForTeam);
-//        gioc12Name.setEnabled(true);
-//        gioc22.setEnabled(savedInstanceState.getBoolean(varGioc22State));
-
-//        start.setEnabled(savedInstanceState.getBoolean(varStartState));
     }
 
     @Override
@@ -165,58 +168,40 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     }
 
     private void changePlayers() {
-        if (numberOfPlayerForTeam > 0) {
-            if (gioc11Name.getText().length() == 0) {
-                gioc11Name.setText(R.string.nomeGiocatore11);
-            }
-            if (gioc12Name.getText().length() == 0) {
-                gioc12Name.setText(R.string.nomeGiocatore12);
-            }
-            if (gioc21Name.getText().length() == 0) {
-                gioc21Name.setText(R.string.nomeGiocatore21);
-            }
-            if (gioc22Name.getText().length() == 0) {
-                gioc22Name.setText(R.string.nomeGiocatore22);
-            }
-            if (!team1Label.isEnabled() && !team2Label.isEnabled()) {
-                team2Label.setEnabled(true);
-                team1Label.setEnabled(true);
-            }
-            if (!salvaButton.isEnabled()) {
-                salvaButton.setEnabled(true);
-            }
-            if (!resetButton.isEnabled()) {
-                resetButton.setEnabled(true);
-            }
-            if (!gioc11Name.isEnabled() && !gioc21Name.isEnabled()) {
-                gioc11Name.setEnabled(true);
-                gioc21Name.setEnabled(true);
-            }
-            if (numberOfPlayerForTeam == 1 && gioc12Name.isEnabled() && gioc22Name.isEnabled()) {
-                gioc12Name.setEnabled(false);
-                gioc22Name.setEnabled(false);
-            }
-            if (numberOfPlayerForTeam == 2 && !gioc12Name.isEnabled() && !gioc22Name.isEnabled()) {
-                gioc12Name.setEnabled(true);
-                gioc22Name.setEnabled(true);
-            }
-        } else {
+        if (gioc11Name.getText().length() == 0) {
             gioc11Name.setText(R.string.nomeGiocatore11);
-            gioc12Name.setText(R.string.nomeGiocatore12);
-            gioc21Name.setText(R.string.nomeGiocatore21);
-            gioc22Name.setText(R.string.nomeGiocatore22);
-//            salvaButton.setEnabled(false);
-//            resetButton.setEnabled(false);
-//            gioc11Name.setEnabled(false);
-//            gioc21Name.setEnabled(false);
-//            team1Label.setEnabled(false);
-//            team2Label.setEnabled(false);
-//            if (gioc12Name.isEnabled() && gioc22.isEnabled()) {
-//                gioc12Name.setEnabled(false);
-//                gioc22.setEnabled(false);
-
         }
-
+        if (gioc12Name.getText().length() == 0) {
+            gioc12Name.setText(R.string.nomeGiocatore12);
+        }
+        if (gioc21Name.getText().length() == 0) {
+            gioc21Name.setText(R.string.nomeGiocatore21);
+        }
+        if (gioc22Name.getText().length() == 0) {
+            gioc22Name.setText(R.string.nomeGiocatore22);
+        }
+        if (!team1Label.isEnabled() && !team2Label.isEnabled()) {
+            team2Label.setEnabled(true);
+            team1Label.setEnabled(true);
+        }
+        if (!salvaButton.isEnabled()) {
+            salvaButton.setEnabled(true);
+        }
+        if (!resetButton.isEnabled()) {
+            resetButton.setEnabled(true);
+        }
+        if (!gioc11Name.isEnabled() && !gioc21Name.isEnabled()) {
+            gioc11Name.setEnabled(true);
+            gioc21Name.setEnabled(true);
+        }
+        if (numberOfPlayerForTeam == 1 && gioc12Name.isEnabled() && gioc22Name.isEnabled()) {
+            gioc12Name.setEnabled(false);
+            gioc22Name.setEnabled(false);
+        }
+        if (numberOfPlayerForTeam == 2 && !gioc12Name.isEnabled() && !gioc22Name.isEnabled()) {
+            gioc12Name.setEnabled(true);
+            gioc22Name.setEnabled(true);
+        }
     }
 
 

@@ -30,6 +30,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     DoubleTextAdapter dtaLVB = new DoubleTextAdapter(this);
     private TextView resultA;
     private TextView resultB;
+    private TextView punteggioTotA;
+    private TextView punteggioTotB;
 
 
     private void createTeamName() {
@@ -60,6 +62,9 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
 
         resultA = (TextView) findViewById(R.id.resultA);
         resultB = (TextView) findViewById(R.id.resultB);
+
+        punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
+        punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
     }
 
     @Override
@@ -83,6 +88,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         dtaLVB.notifyDataSetChanged();
         resultA.setText(savedInstanceState.getString(getString(R.string.risultatoA)));
         resultB.setText(savedInstanceState.getString(getString(R.string.risultatoB)));
+        punteggioTotA.setText(savedInstanceState.getString(getString(R.string.risComplessivoA)));
+        punteggioTotB.setText(savedInstanceState.getString(getString(R.string.risComplessivoB)));
     }
 
     @Override
@@ -99,6 +106,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         outState.putStringArrayList(getString(R.string.listaGameB), dtaLVB.getTextRight());
         outState.putString(getString(R.string.risultatoA), resultA.getText().toString());
         outState.putString(getString(R.string.risultatoB), resultB.getText().toString());
+        outState.putString(getString(R.string.risComplessivoA), punteggioTotA.getText().toString());
+        outState.putString(getString(R.string.risComplessivoB), punteggioTotB.getText().toString());
     }
 
     @Override
@@ -125,6 +134,14 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 startActivityForResult(configurazione, CODE_FOR_CONF);
                 return true;
             }
+            case R.id.cancellaGame: {
+                resetGames();
+                return true;
+            }
+            case R.id.cancellaTutto: {
+                resetAll();
+                return true;
+            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
@@ -141,7 +158,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                     teamA.setPlayer1(data.getStringExtra(getString(R.string.nomeGiocatore11)));
                     teamB.setPlayer1(data.getStringExtra(getString(R.string.nomeGiocatore21)));
                     if (numberOfPlayerForTeam == 2) {
-                        teamA.setPlayer2(data.getStringExtra(getString(R.string.nomeGiocatore21)));
+                        teamA.setPlayer2(data.getStringExtra(getString(R.string.nomeGiocatore12)));
                         teamB.setPlayer2(data.getStringExtra(getString(R.string.nomeGiocatore22)));
                     }
                     createTeamName();
@@ -164,7 +181,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                         dtaLVA.addLastDoubleText(String.valueOf(currentResult), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
                     }
                     dtaLVA.notifyDataSetChanged();
-
+                    checkWinner();
                 }
                 break;
             }
@@ -184,6 +201,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                         dtaLVB.addLastDoubleText(String.valueOf(currentResult), "G" + (Integer.valueOf(lastGame.substring(1, 2)) + 1));
                     }
                     dtaLVB.notifyDataSetChanged();
+                    checkWinner();
                 }
                 break;
             }
@@ -192,20 +210,40 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 break;
             }
         }
-        checkWinner();
-
     }
 
     private void checkWinner() {
-        int winA = Integer.valueOf(resultA.getText().toString());
-        int winB = Integer.valueOf(resultB.getText().toString());
-        if (winA >= 2005 || winB >= 2005) {
-            if (winA > winB) {
-                //vinceA
-            } else if (winB > winA) {
-                //vince B
+        int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
+        int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
+        if (winA >= 100 || winB >= 100) {
+            if (winA > winB)
+                punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
+            else if (winB > winA) {
+                punteggioTotB.setText(String.valueOf(Integer.valueOf(punteggioTotB.getText().toString()) + 1));
+                //Showdialog
             }
+            resetGames();
         }
+    }
+
+    private void resetGames() {
+        dtaLVA.clearData();
+        dtaLVB.clearData();
+        dtaLVB.notifyDataSetChanged();
+        dtaLVA.notifyDataSetChanged();
+        resultA.setText("");
+        resultB.setText("");
+    }
+
+    private void resetAll() {
+        resetGames();
+        teamB.cleanTeam();
+        teamA.cleanTeam();
+        teamAText.setText(R.string.teamAName);
+        teamBText.setText(R.string.teamBName);
+        punteggioTotA.setText("0");
+        punteggioTotB.setText("0");
+        numberOfPlayerForTeam = 0;
     }
 
 
