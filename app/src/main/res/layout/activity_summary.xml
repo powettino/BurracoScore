@@ -42,7 +42,9 @@
         android:layout_marginTop="@dimen/lowMargin"
         android:baselineAligned="false">
 
-        <RelativeLayout style="@style/NoLarghezza.ContainerEquilibrato">
+        <RelativeLayout
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginRight="@dimen/insignificantMargin">
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -51,12 +53,14 @@
 
             <ListView
                 android:id="@+id/listPointTeamA"
-                android:background="@drawable/shape_lista"
-                style="@style/ContenutoPerfetto.ListaPunti" />
+                style="@style/ContenutoPerfetto.ListaPunti"
+                android:background="@drawable/shape_lista" />
 
         </RelativeLayout>
 
-        <RelativeLayout style="@style/NoLarghezza.ContainerEquilibrato">
+        <RelativeLayout
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginLeft="@dimen/insignificantMargin">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -80,6 +84,7 @@
         <TextView
             android:id="@+id/resultA"
             style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginRight="@dimen/insignificantMargin"
             android:alpha="0.7"
             android:background="@drawable/shape_res"
             android:enabled="true"
@@ -92,6 +97,7 @@
         <TextView
             android:id="@+id/resultB"
             style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginLeft="@dimen/insignificantMargin"
             android:alpha="0.7"
             android:background="@drawable/shape_res"
             android:enabled="true"

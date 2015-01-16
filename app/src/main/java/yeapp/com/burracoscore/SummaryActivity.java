@@ -32,6 +32,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private TextView resultB;
     private TextView punteggioTotA;
     private TextView punteggioTotB;
+    private boolean dialogActive;
 
 
     private void createTeamName() {
@@ -92,6 +93,9 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         punteggioTotB.setText(savedInstanceState.getString(getString(R.string.risComplessivoB)));
         findViewById(R.id.setTeamA).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointA)));
         findViewById(R.id.setTeamB).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointB)));
+        if (savedInstanceState.getBoolean(getString(R.string.dialogWinner))) {
+            createDialogWinner();
+        }
     }
 
     @Override
@@ -112,6 +116,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         outState.putString(getString(R.string.risComplessivoB), punteggioTotB.getText().toString());
         outState.putBoolean(getString(R.string.setPointA), findViewById(R.id.setTeamA).isEnabled());
         outState.putBoolean(getString(R.string.setPointB), findViewById(R.id.setTeamB).isEnabled());
+        outState.putBoolean(getString(R.string.dialogWinner), dialogActive);
     }
 
     @Override
@@ -217,6 +222,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     }
 
     private void checkWinner() {
+
         int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
         int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
         if (winA >= 300 || winB >= 300) {
@@ -225,26 +231,33 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             else if (winB > winA) {
                 punteggioTotB.setText(String.valueOf(Integer.valueOf(punteggioTotB.getText().toString()) + 1));
             }
-            new AlertDialog.Builder(this)
-                    .setMessage("Vuoi cominciare una nuova partita?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    resetGames();
-                                    dialog.cancel();
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    findViewById(R.id.setTeamA).setEnabled(false);
-                                    findViewById(R.id.setTeamB).setEnabled(false);
-                                    dialog.cancel();
-                                }
-                            })
-                    .create().show();
+            dialogActive = true;
+            createDialogWinner();
         }
+    }
+
+    private void createDialogWinner() {
+        new AlertDialog.Builder(this)
+                .setMessage("Vuoi cominciare una nuova partita?")
+                .setCancelable(false)
+                .setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                resetGames();
+                                dialog.cancel();
+                                dialogActive = false;
+                            }
+                        })
+                .setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                findViewById(R.id.setTeamA).setEnabled(false);
+                                findViewById(R.id.setTeamB).setEnabled(false);
+                                dialog.cancel();
+                                dialogActive = false;
+                            }
+                        })
+                .create().show();
     }
 
     private void resetGames() {
