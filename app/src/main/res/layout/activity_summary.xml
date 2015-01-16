@@ -43,20 +43,25 @@
 
         <RelativeLayout style="@style/NoLarghezza.ContainerEquilibrato">
 
+            <ImageView
+                android:id="@+id/imageView1"
+                style="@style/ContenutoParente.SfondoPunti.SquadraA" />
 
             <ListView
                 android:id="@+id/listPointTeamA"
-                style="@style/ContenutoPerfetto.ListaPunti"
-                android:background="#ffc33d41" />
+                style="@style/ContenutoPerfetto.ListaPunti" />
 
         </RelativeLayout>
 
         <RelativeLayout style="@style/NoLarghezza.ContainerEquilibrato">
 
+            <ImageView
+                android:id="@+id/imageView2"
+                style="@style/ContenutoParente.SfondoPunti.SquadraB" />
+
             <ListView
                 android:id="@+id/listPointTeamB"
-                style="@style/ContenutoPerfetto.ListaPunti"
-                android:background="#ff1f6c8b" />
+                style="@style/ContenutoPerfetto.ListaPunti" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -22,19 +22,27 @@
             android:id="@+id/teamASummary"
             android:layout_marginLeft="@dimen/mediumMargin"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:layout_marginBottom="@dimen/insignificantMargin"
-            />
+            android:layout_marginBottom="@dimen/insignificantMargin" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView2"
+                style="@style/ContenutoParente.SfondoPunti.SquadraA"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/resultA" />
+
             <ListView
-                android:layout_width="match_parent"
+                style="@style/ContenutoPerfetto.ListaPunti"
                 android:layout_height="wrap_content"
                 android:id="@+id/listPointTeamA"
-                android:background="#ffc33d41"
-                android:layout_above="@+id/resultA" />
+                android:layout_above="@+id/resultA"
+                android:layout_alignParentTop="true"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -50,11 +58,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:id="@+id/resultA"
                 android:text=""
                 android:background="@color/SquadraA"
-                android:alpha="0.7"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Holo.Large"
@@ -69,9 +75,7 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono"
             android:id="@+id/tvstSummary"
             android:text="@string/VS"
             android:saveEnabled="true" />
@@ -90,25 +94,27 @@
             android:id="@+id/teamBSummary"
             android:layout_marginLeft="@dimen/mediumMargin"
             android:layout_toRightOf="@+id/tvstSummary"
-            android:text="@string/teamBName"
-          />
+            android:text="@string/teamBName" />
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            style="@style/ContenutoPerfetto"
+            android:layout_width="match_parent">
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listPointTeamB"
-                android:background="#ff1f6c8b"
+            <ImageView
+                android:id="@+id/imageView1"
+                style="@style/ContenutoParente.SfondoPunti.SquadraB"
+                android:layout_height="match_parent"
                 android:layout_above="@+id/resultB" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <ListView
+                style="@style/ContenutoPerfetto.ListaPunti"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="false"
+                android:id="@+id/listPointTeamB"
+                android:layout_above="@+id/resultB"
+                android:layout_alignParentTop="true" />
+
+            <Button
+                style="@style/ContenutoPerfetto"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/setTeamB"
                 android:text="@string/setPoint"
@@ -118,11 +124,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:id="@+id/resultB"
                 android:text=""
                 android:background="@color/SquadraB"
-                android:alpha="0.7"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Holo.Large"
@@ -133,8 +137,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeFinaleSummary"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/ContenutoParente"
         android:layout_alignParentBottom="true">
 
         <TextView
@@ -142,9 +145,7 @@
             android:layout_marginRight="@dimen/highMargin"
             android:layout_toLeftOf="@+id/coppaSummary"
             android:text="@string/startingScore"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ContenutoPerfetto.CentratoVerticale"
             android:textColor="@color/SquadraA"
             android:textSize="@dimen/testoEnorme"
             android:typeface="monospace" />
@@ -155,9 +156,7 @@
             android:layout_marginLeft="@dimen/highMargin"
             android:layout_toRightOf="@+id/coppaSummary"
             android:text="@string/startingScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            style="@style/ContenutoPerfetto.CentratoVerticale"
             android:textSize="@dimen/testoEnorme"
             android:typeface="monospace" />
 

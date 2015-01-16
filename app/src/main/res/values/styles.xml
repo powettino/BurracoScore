@@ -4,6 +4,7 @@
     <style name="Summary" parent="@android:style/Theme.Holo" />
 
     <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
@@ -94,11 +95,6 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.SmallMono">
-        <item name="android:textSize">@dimen/testoPiccolo</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-
     <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraA">
         <item name="android:textColor">@color/SquadraA</item>
     </style>
@@ -135,7 +131,12 @@
     </style>
 
     <style name="ContenutoPerfetto.Centrato.MediumMono">
-        <item name="android:textSize">@dimen/mediumMargin</item>
+        <item name="android:textSize">@dimen/testoMedio</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="ContenutoPerfetto.Centrato.SmallMono">
+        <item name="android:textSize">@dimen/testoPiccolo</item>
         <item name="android:typeface">monospace</item>
     </style>
 
@@ -149,5 +150,10 @@
         <item name="android:layout_marginRight">@dimen/mediumMargin</item>
     </style>
 
-    <dimen name="testoPiccolo">10sp</dimen>
+    <style name="ContenutoPerfetto.CentratoVerticale.SmallMono">
+        <item name="android:textSize">@dimen/testoPiccolo</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:layout_marginRight">@dimen/mediumMargin</item>
+    </style>
+
 </resources>

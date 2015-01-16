@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="yeapp.com.burracoscore.AddPoint"
-    android:layout_width="250sp"
+    android:layout_width="200sp"
     android:layout_height="250sp"
     android:layout_centerInParent="true">
 
@@ -17,14 +17,14 @@
         android:id="@+id/relativeBase">
 
         <TextView
-            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:text="@string/puntiBase"
             android:id="@+id/textView" />
 
         <EditText
-            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            style="@style/ContenutoPerfetto.Centrato.SmallMono"
             android:inputType="number"
-            android:ems="3"
+            android:ems="4"
             android:id="@+id/puntiBaseText"
             android:text="0"
             android:layout_alignParentEnd="true" />
@@ -40,15 +40,15 @@
         android:layout_marginTop="@dimen/lowMargin">
 
         <TextView
-            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiCarte"
             android:id="@+id/textView1" />
 
         <EditText
-            style="@style/ContenutoPerfetto.Centrato.MediumMono"
+            style="@style/ContenutoPerfetto.Centrato.SmallMono"
             android:inputType="number"
-            android:ems="3"
+            android:ems="4"
             android:id="@+id/puntiCarteText"
             android:layout_alignParentEnd="true"
             android:text="0" />
@@ -64,7 +64,7 @@
         android:layout_marginTop="@dimen/lowMargin">
 
         <TextView
-            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiChiusura"
             android:id="@+id/textView2" />
@@ -87,7 +87,7 @@
         android:layout_marginTop="@dimen/lowMargin">
 
         <TextView
-            style="@style/ContenutoPerfetto.CentratoVerticale.MediumMono"
+            style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiMazzetto"
             android:id="@+id/textView3" />
