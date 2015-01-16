@@ -20,9 +20,8 @@
             android:text="@string/teamAName"
             android:saveEnabled="true"
             android:id="@+id/teamASummary"
-            android:layout_marginLeft="@dimen/mediumMargin"
-            android:layout_marginRight="@dimen/mediumMargin"
-            android:layout_marginBottom="@dimen/insignificantMargin" />
+            android:layout_marginBottom="@dimen/insignificantMargin"
+            android:minWidth="120sp" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -78,7 +77,9 @@
             style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono"
             android:id="@+id/tvstSummary"
             android:text="@string/VS"
-            android:saveEnabled="true" />
+            android:saveEnabled="true"
+            android:layout_marginLeft="@dimen/lowMargin"
+            android:layout_marginRight="@dimen/lowMargin" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,12 +90,11 @@
         <TextView
             style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraB"
             android:saveEnabled="true"
-            android:layout_marginRight="@dimen/mediumMargin"
             android:layout_marginBottom="@dimen/insignificantMargin"
             android:id="@+id/teamBSummary"
-            android:layout_marginLeft="@dimen/mediumMargin"
             android:layout_toRightOf="@+id/tvstSummary"
-            android:text="@string/teamBName" />
+            android:text="@string/teamBName"
+            android:minWidth="120sp" />
 
         <RelativeLayout
             style="@style/ContenutoPerfetto"
