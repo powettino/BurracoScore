@@ -20,8 +20,8 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:background="@drawable/shape_button"
                 android:clickable="true"
-                android:drawableLeft="@drawable/avatar"
-                android:drawableRight="@drawable/avatar"
+                android:drawableLeft="@drawable/head"
+                android:drawableRight="@drawable/head"
                 android:enabled="true"
                 android:text="@string/gameSingolo"
                 android:textColor="@drawable/text"/>
@@ -33,8 +33,8 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:background="@drawable/shape_button"
                 android:clickable="true"
-                android:drawableLeft="@drawable/d_avatar"
-                android:drawableRight="@drawable/d_avatar"
+                android:drawableLeft="@drawable/d_head"
+                android:drawableRight="@drawable/d_head"
                 android:text="@string/gameDoppio"
                 android:textColor="@drawable/text"/>
         </LinearLayout>
