@@ -31,6 +31,8 @@
     <string name="risComplessivoB">risComplessivoB</string>
     <string name="risComplessivoA">risComplessivoA</string>
     <string name="setPoint">Segna</string>
+    <string name="setPointA">segnaA</string>
+    <string name="setPointB">segnaB</string>
 
     <!-- EditText -->
     <string name="nomeGiocatore11">giocatore 1A</string>

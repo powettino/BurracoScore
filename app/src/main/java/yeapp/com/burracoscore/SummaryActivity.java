@@ -1,6 +1,8 @@
 package yeapp.com.burracoscore;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +11,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.custom.adapter.DoubleTextAdapter;
@@ -90,6 +90,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         resultB.setText(savedInstanceState.getString(getString(R.string.risultatoB)));
         punteggioTotA.setText(savedInstanceState.getString(getString(R.string.risComplessivoA)));
         punteggioTotB.setText(savedInstanceState.getString(getString(R.string.risComplessivoB)));
+        findViewById(R.id.setTeamA).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointA)));
+        findViewById(R.id.setTeamB).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointB)));
     }
 
     @Override
@@ -108,6 +110,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         outState.putString(getString(R.string.risultatoB), resultB.getText().toString());
         outState.putString(getString(R.string.risComplessivoA), punteggioTotA.getText().toString());
         outState.putString(getString(R.string.risComplessivoB), punteggioTotB.getText().toString());
+        outState.putBoolean(getString(R.string.setPointA), findViewById(R.id.setTeamA).isEnabled());
+        outState.putBoolean(getString(R.string.setPointB), findViewById(R.id.setTeamB).isEnabled());
     }
 
     @Override
@@ -220,9 +224,26 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
             else if (winB > winA) {
                 punteggioTotB.setText(String.valueOf(Integer.valueOf(punteggioTotB.getText().toString()) + 1));
-                //Showdialog
             }
-            resetGames();
+            new AlertDialog.Builder(this)
+                    .setMessage("Vuoi cominciare una nuova partita?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    resetGames();
+                                    dialog.cancel();
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    findViewById(R.id.setTeamA).setEnabled(false);
+                                    findViewById(R.id.setTeamB).setEnabled(false);
+                                    dialog.cancel();
+                                }
+                            })
+                    .create().show();
         }
     }
 
@@ -233,6 +254,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         dtaLVA.notifyDataSetChanged();
         resultA.setText("");
         resultB.setText("");
+        findViewById(R.id.setTeamA).setEnabled(true);
+        findViewById(R.id.setTeamB).setEnabled(true);
     }
 
     private void resetAll() {
