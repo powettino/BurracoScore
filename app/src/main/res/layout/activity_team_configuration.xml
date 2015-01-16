@@ -27,11 +27,13 @@
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/lowMargin"
+            android:background="@drawable/shape_button"
             android:clickable="true"
-            android:drawableLeft="@drawable/avatar"
-            android:drawableRight="@drawable/avatar"
+            android:drawableLeft="@drawable/head"
+            android:drawableRight="@drawable/head"
             android:enabled="true"
-            android:text="@string/gameSingolo" />
+            android:text="@string/gameSingolo"
+            android:textColor="@drawable/text"/>
 
         <Button
             android:id="@+id/coupleConf"
@@ -39,10 +41,12 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/singleConf"
             android:layout_marginTop="@dimen/lowMargin"
+            android:background="@drawable/shape_button"
             android:clickable="true"
-            android:drawableLeft="@drawable/d_avatar"
-            android:drawableRight="@drawable/d_avatar"
-            android:text="@string/gameDoppio" />
+            android:drawableLeft="@drawable/d_head"
+            android:drawableRight="@drawable/d_head"
+            android:text="@string/gameDoppio"
+            android:textColor="@drawable/text"/>
 
         <RelativeLayout
             style="@style/ContenutoPerfetto"
@@ -69,17 +73,19 @@
                     android:layout_column="0"
                     android:layout_row="0"
                     android:layout_rowSpan="2"
-                    android:textColor="@color/SquadraA"
                     android:enabled="false"
                     android:text="@string/teamAName"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/SquadraA" />
 
                 <EditText
                     android:id="@+id/giocatore11"
                     style="@style/ContenutoPerfetto.GravitatoPieno.TestoGenerico"
                     android:layout_column="1"
+                    android:layout_marginBottom="@dimen/insignificantMargin"
                     android:layout_marginLeft="@dimen/lowMargin"
                     android:layout_row="0"
+                    android:background="@drawable/shape_edittext"
                     android:enabled="false"
                     android:text="@string/nomeGiocatore11" />
 
@@ -89,6 +95,7 @@
                     android:layout_column="1"
                     android:layout_marginLeft="@dimen/lowMargin"
                     android:layout_row="1"
+                    android:background="@drawable/shape_edittext"
                     android:enabled="false"
                     android:text="@string/nomeGiocatore12" />
 
@@ -100,16 +107,18 @@
                     android:layout_rowSpan="2"
                     android:enabled="false"
                     android:text="@string/teamBName"
-                    android:textColor="@color/SquadraB"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/SquadraB" />
 
                 <EditText
                     android:id="@+id/giocatore21"
                     style="@style/ContenutoPerfetto.GravitatoPieno.TestoGenerico"
                     android:layout_column="1"
+                    android:layout_marginBottom="@dimen/insignificantMargin"
                     android:layout_marginLeft="@dimen/lowMargin"
                     android:layout_marginTop="@dimen/lowMargin"
                     android:layout_row="2"
+                    android:background="@drawable/shape_edittext"
                     android:enabled="false"
                     android:text="@string/nomeGiocatore21" />
 
@@ -119,6 +128,7 @@
                     android:layout_column="1"
                     android:layout_marginLeft="@dimen/lowMargin"
                     android:layout_row="3"
+                    android:background="@drawable/shape_edittext"
                     android:enabled="false"
                     android:text="@string/nomeGiocatore22" />
             </GridLayout>
@@ -131,21 +141,25 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/insignificantMargin"
+            android:background="@drawable/shape_button"
             android:enabled="false"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
             android:saveEnabled="true"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:textColor="@drawable/text" />
 
         <Button
             android:id="@+id/resetConf"
             style="@style/ContenutoPerfetto.Gravitato"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
+            android:background="@drawable/shape_button"
             android:enabled="false"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
-            android:text="@string/reset" />
+            android:text="@string/reset"
+            android:textColor="@drawable/text" />
 
         <Button
             android:id="@+id/chiudiConf"
@@ -153,11 +167,13 @@
             android:layout_width="@dimen/buttonWidthEq"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/insignificantMargin"
+            android:background="@drawable/shape_button"
             android:enabled="true"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
             android:saveEnabled="true"
-            android:text="@string/close" />
+            android:text="@string/close"
+            android:textColor="@drawable/text" />
 
     </RelativeLayout>
 

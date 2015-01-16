@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <solid android:color="@color/BottoneColorato" />
+
+            <corners android:radius="100sp" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <gradient android:angle="90" android:endColor="@color/SfondoPunti" android:startColor="@color/SfondoLay" />
+
+            <corners android:radius="100sp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <gradient android:angle="90" android:endColor="@color/SfondoLay" android:startColor="@color/SfondoPunti" />
+
+            <corners android:radius="100sp" />
+        </shape>
+    </item>
+</selector>
+
+

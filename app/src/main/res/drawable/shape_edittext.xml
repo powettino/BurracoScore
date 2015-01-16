@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <solid android:color="@color/BottoneColorato" />
+            <corners android:radius="100sp" />
+            <padding android:bottom="@dimen/insignificantMargin" android:left="@dimen/lowMargin" android:right="@dimen/noSpace" android:top="@dimen/lowMargin" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/SfondoPunti" />
+            <corners android:radius="100sp" />
+            <padding android:bottom="@dimen/insignificantMargin" android:left="@dimen/insignificantMargin" android:right="@dimen/insignificantMargin" android:top="@dimen/lowMargin" />
+        </shape>
+    </item>
+
+</selector>

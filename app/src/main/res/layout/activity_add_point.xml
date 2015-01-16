@@ -1,114 +1,119 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200sp"
+    android:layout_height="250sp"
+    android:layout_centerInParent="true"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="yeapp.com.burracoscore.AddPoint"
-    android:layout_width="200sp"
-    android:layout_height="250sp"
-    android:layout_centerInParent="true">
+    tools:context="yeapp.com.burracoscore.AddPoint">
 
 
     <RelativeLayout
-        android:orientation="horizontal"
+        android:id="@+id/relativeBase"
         style="@style/ContenutoPerfetto"
         android:layout_width="fill_parent"
-        android:id="@+id/relativeBase">
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView"
             style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
-            android:text="@string/puntiBase"
-            android:id="@+id/textView" />
+            android:text="@string/puntiBase" />
 
         <EditText
-            style="@style/ContenutoPerfetto.Centrato.SmallMono"
-            android:inputType="number"
-            android:ems="4"
             android:id="@+id/puntiBaseText"
-            android:text="0"
+            style="@style/ContenutoPerfetto.Centrato.SmallMono"
             android:layout_alignParentEnd="true"
-            android:maxLength="4" />
+            android:ems="4"
+            android:inputType="number"
+            android:maxLength="4"
+            android:text="0" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:orientation="horizontal"
+        android:id="@+id/relativeCarte"
         style="@style/ContenutoPerfetto"
         android:layout_width="fill_parent"
-        android:id="@+id/relativeCarte"
         android:layout_below="@+id/relativeBase"
-        android:layout_marginTop="@dimen/lowMargin">
+        android:layout_marginTop="@dimen/lowMargin"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView1"
             style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:text="@string/puntiCarte"
-            android:id="@+id/textView1" />
+
+            android:text="@string/puntiCarte" />
 
         <EditText
-            style="@style/ContenutoPerfetto.Centrato.SmallMono"
-            android:inputType="number"
-            android:ems="4"
             android:id="@+id/puntiCarteText"
+            style="@style/ContenutoPerfetto.Centrato.SmallMono"
             android:layout_alignParentEnd="true"
-            android:text="0"
-            android:maxLength="3" />
+            android:ems="4"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="0" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:orientation="horizontal"
-        style="@style/ContenutoPerfetto"
-        android:layout_width="fill_parent"
         android:id="@+id/relativeChiusura"
+        style="@style/ContenutoPerfetto"
+        android:layout_width="fill_parent"
         android:layout_below="@+id/relativeCarte"
-        android:layout_marginTop="@dimen/lowMargin">
+        android:layout_marginTop="@dimen/lowMargin"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView2"
             style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:text="@string/puntiChiusura"
-            android:id="@+id/textView2" />
+            android:text="@string/puntiChiusura" />
 
         <CheckBox
-            style="@style/ContenutoPerfetto.Centrato.MediumMono"
             android:id="@+id/checkChiusura"
-            android:cursorVisible="false"
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/mediumMargin" />
+            android:layout_marginRight="@dimen/mediumMargin"
+            android:background="@drawable/shape_check"
+            android:cursorVisible="false" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:orientation="horizontal"
+        android:id="@+id/relativeMazzetto"
         style="@style/ContenutoPerfetto"
         android:layout_width="fill_parent"
-        android:id="@+id/relativeMazzetto"
         android:layout_below="@+id/relativeChiusura"
-        android:layout_marginTop="@dimen/lowMargin">
+        android:layout_marginTop="@dimen/lowMargin"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView3"
             style="@style/ContenutoPerfetto.CentratoVerticale.SmallMono"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:text="@string/puntiMazzetto"
-            android:id="@+id/textView3" />
+            android:text="@string/puntiMazzetto" />
 
         <CheckBox
-            style="@style/ContenutoPerfetto.Centrato.MediumMono"
             android:id="@+id/checkMazzetto"
-            android:cursorVisible="false"
+            style="@style/ContenutoPerfetto.Centrato.MediumMono"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="@dimen/mediumMargin" />
+            android:layout_marginRight="@dimen/mediumMargin"
+            android:background="@drawable/shape_check"
+            android:cursorVisible="false" />
 
     </RelativeLayout>
 
     <Button
-        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
-        android:text="@string/save"
         android:id="@+id/salvaPunti"
+        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
         android:layout_below="@+id/relativeMazzetto"
-        android:layout_marginTop="@dimen/lowMargin"/>
+        android:layout_marginTop="@dimen/lowMargin"
+        android:background="@drawable/shape_button"
+        android:text="@string/save"
+        android:textColor="@drawable/text" />
 
 
 </RelativeLayout>

@@ -91,4 +91,9 @@ public class DoubleTextAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.pointGame)).setText(textR.get(position));
         return convertView;
     }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
 }

@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Summary" parent="@android:style/Theme.Holo" />
+    <style name="Summary" parent="@android:style/Theme.Holo">
+
+        <item name="android:textColor">@drawable/text</item>
+
+    </style>
+
+    <style name="p" parent="@android:style/Theme.Holo">
+        <item name="android:textColor">@color/Bianco</item>
+    </style>
 
     <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowNoTitle">true</item>
+        <item name="android:editTextColor">@drawable/text</item>
+        <item name="android:textColorPrimary">@drawable/text</item>
+        <item name="android:textColorSecondary">@drawable/text</item>
+        <item name="android:textColorTertiary">@drawable/text</item>
+        <item name="android:textColorPrimaryInverse">@drawable/text</item>
+        <item name="android:textColorSecondaryInverse">@drawable/text</item>
+        <item name="android:textColorTertiaryInverse">@drawable/text</item>
+        <item name="android:textColor">@drawable/text</item>
+        <item name="android:background">@color/SfondoRes</item>
     </style>
 
     <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">@color/RigheLista</item>
+        <item name="android:textColor">@color/Giallo</item>
     </style>
 
     <style name="GameTextRow.ContenutoPerfetto">
@@ -24,7 +41,7 @@
     <style name="ContenutoParente.SfondoPunti">
         <item name="android:alpha">0.5</item>
         <item name="android:contentDescription">@string/description</item>
-        <item name="android:background">@color/GrigioPerNero</item>
+        <!--<item name="android:background">@color/GrigioPerNero</item>-->
     </style>
 
     <style name="NoLarghezza.ContainerEquilibrato">

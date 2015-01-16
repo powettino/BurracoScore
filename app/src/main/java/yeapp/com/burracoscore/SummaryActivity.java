@@ -219,7 +219,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private void checkWinner() {
         int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
         int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-        if (winA >= 100 || winB >= 100) {
+        if (winA >= 300 || winB >= 300) {
             if (winA > winB)
                 punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
             else if (winB > winA) {

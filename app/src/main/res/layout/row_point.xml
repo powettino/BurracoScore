@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="3sp"
-    android:paddingBottom="3sp">
+    android:paddingBottom="3sp"
+    android:paddingTop="3sp">
 
     <TextView
         android:id="@+id/pointText"
@@ -13,15 +13,17 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="@dimen/lowMargin"
         android:clickable="false"
-        android:textSize="@dimen/testoMedio"
+        android:gravity="center"
         android:textAlignment="center"
-        android:gravity="center" />
+        android:textSize="@dimen/testoMedio"
+        android:textColor="@color/Nero"/>
 
     <TextView
         android:id="@+id/pointGame"
-        style="@style/GameTextRow.ContenutoPerfetto"
+        style="@style/ContenutoPerfetto"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="@dimen/lowMargin"
         android:clickable="false"
-        android:textSize="@dimen/testoMedio" />
+        android:textSize="@dimen/testoMedio"
+        android:textColor="@color/Giallo"/>
 </RelativeLayout>
