@@ -4,7 +4,8 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:icon="@drawable/ico">
         <activity
             android:name=".TeamConfiguration"
             android:label="@string/configurazione"
@@ -12,7 +13,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SummaryActivity"
-            android:icon="@drawable/icona_punti"
+            android:icon="@drawable/carte_icona"
             android:label="@string/app_name"
             android:theme="@style/Summary">
             <intent-filter>

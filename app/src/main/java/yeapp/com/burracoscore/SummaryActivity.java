@@ -228,14 +228,14 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         if (dtaLVA.getCount() == dtaLVB.getCount()) {
             int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
             int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-            if (winA >= 300 || winB >= 300) {
+            if (winA >= 100 || winB >= 100) {
                 if (winA != winB) {
-                    createDialogWinner();
                     if (winA > winB) {
                         punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
                     } else if (winB > winA) {
                         punteggioTotB.setText(String.valueOf(Integer.valueOf(punteggioTotB.getText().toString()) + 1));
                     }
+                    createDialogWinner();
                 }
             }
         }
@@ -244,8 +244,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private void createDialogWinner() {
         dialogActive = true;
         if (dialog == null) {
-            dialog = new AlertDialog.Builder(this)
-                    .setMessage("Vuoi cominciare una nuova partita?")
+            dialog = new AlertDialog.Builder(this).setTitle("VITTORIA!!!")
+                    .setMessage("Complimenti, la partita è conclusa.\n\nVuoi cominciare una nuova partita?")
                     .setCancelable(false)
                     .setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {

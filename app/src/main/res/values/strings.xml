@@ -14,7 +14,7 @@
     <string name="resetAll">Riavvia</string>
 
     <!-- Label -->
-    <string name="configurazione">Configurazione Team</string>
+    <string name="configurazione">Configura Team</string>
     <string name="gameSingolo">1 vs 1</string>
     <string name="gameDoppio">2 vs 2</string>
     <string name="teamAName">Team A</string>
