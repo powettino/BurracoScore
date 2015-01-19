@@ -3,7 +3,7 @@
 
     <style name="Summary" parent="@android:style/Theme.Holo">
 
-        <item name="android:textColor">@drawable/text</item>
+        <item name="android:textColor">@drawable/text_layout</item>
 
     </style>
 
@@ -13,14 +13,14 @@
 
     <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:editTextColor">@drawable/text</item>
-        <item name="android:textColorPrimary">@drawable/text</item>
-        <item name="android:textColorSecondary">@drawable/text</item>
-        <item name="android:textColorTertiary">@drawable/text</item>
-        <item name="android:textColorPrimaryInverse">@drawable/text</item>
-        <item name="android:textColorSecondaryInverse">@drawable/text</item>
-        <item name="android:textColorTertiaryInverse">@drawable/text</item>
-        <item name="android:textColor">@drawable/text</item>
+        <item name="android:editTextColor">@drawable/text_layout</item>
+        <item name="android:textColorPrimary">@drawable/text_layout</item>
+        <item name="android:textColorSecondary">@drawable/text_layout</item>
+        <item name="android:textColorTertiary">@drawable/text_layout</item>
+        <item name="android:textColorPrimaryInverse">@drawable/text_layout</item>
+        <item name="android:textColorSecondaryInverse">@drawable/text_layout</item>
+        <item name="android:textColorTertiaryInverse">@drawable/text_layout</item>
+        <item name="android:textColor">@drawable/text_layout</item>
         <item name="android:background">@color/SfondoRes</item>
     </style>
 

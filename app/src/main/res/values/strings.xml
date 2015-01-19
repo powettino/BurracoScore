@@ -21,7 +21,7 @@
     <string name="VS">VS</string>
     <string name="teamBName">Team B</string>
     <string name="cup_description">Cup</string>
-    <string name="startingScore">0</string>
+    <string name="zeroValue">0</string>
     <string name="listaPuntiA">listaPuntiA</string>
     <string name="listaGameA">listaGameA</string>
     <string name="listaPuntiB">listaPuntiB</string>

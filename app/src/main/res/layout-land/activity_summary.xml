@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:rowCount="1"
-    tools:context="yeapp.com.burracoscore.SummaryActivity">
+    tools:context="yeapp.com.burracoscore.SummaryActivity"
+    tools:ignore="RtlSymmetry">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,17 +33,15 @@
                 style="@style/ContenutoParente.SfondoPunti"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/resultA"
-                android:background="@drawable/shape_lista" />
+                android:background="@drawable/shape_lista"
+                android:contentDescription="@string/description" />
 
             <ListView
                 android:id="@+id/listPointTeamA"
                 style="@style/ContenutoPerfetto.ListaPunti"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/resultA"
-                android:layout_alignParentTop="true"
-                android:fastScrollEnabled="false"
-                android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false" />
+                android:layout_alignParentTop="true" />
 
             <Button
                 android:id="@+id/setTeamA"
@@ -54,7 +53,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/shape_button"
                 android:text="@string/setPoint"
-                android:textColor="@drawable/text"
+                android:textColor="@drawable/text_layout"
                 android:textSize="@dimen/testoPiccolo" />
 
             <TextView
@@ -64,10 +63,9 @@
                 android:layout_above="@+id/setTeamA"
                 android:layout_marginBottom="@dimen/insignificantMargin"
                 android:background="@drawable/shape_res"
+                android:enabled="true"
                 android:gravity="center"
                 android:text=""
-                android:enabled="true"
-                android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Holo.Large" />
         </RelativeLayout>
     </LinearLayout>
@@ -96,7 +94,6 @@
             android:id="@+id/teamBSummary"
             style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraB"
             android:layout_marginBottom="@dimen/insignificantMargin"
-            android:layout_toRightOf="@+id/tvstSummary"
             android:minWidth="120sp"
             android:saveEnabled="true"
             android:text="@string/teamBName" />
@@ -110,7 +107,8 @@
                 style="@style/ContenutoParente.SfondoPunti"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/resultB"
-                android:background="@drawable/shape_lista" />
+                android:background="@drawable/shape_lista"
+                android:contentDescription="@string/description" />
 
             <ListView
                 android:id="@+id/listPointTeamB"
@@ -126,8 +124,8 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/shape_button"
                 android:text="@string/setPoint"
-                android:textColor="@drawable/text"
-                android:textSize="@dimen/testoPiccolo"/>
+                android:textColor="@drawable/text_layout"
+                android:textSize="@dimen/testoPiccolo" />
 
             <TextView
                 android:id="@+id/resultB"
@@ -136,25 +134,23 @@
                 android:layout_above="@+id/setTeamB"
                 android:layout_marginBottom="@dimen/insignificantMargin"
                 android:background="@drawable/shape_res"
+                android:enabled="true"
                 android:gravity="center"
                 android:text=""
-                android:textAlignment="center"
-                android:enabled="true"
                 android:textAppearance="@android:style/TextAppearance.Holo.Large" />
         </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativeFinaleSummary"
-        style="@style/ContenutoParente"
-        android:layout_alignParentBottom="true">
+        style="@style/ContenutoParente">
 
         <TextView
             android:id="@+id/punteggioASummary"
             style="@style/ContenutoPerfetto.CentratoVerticale"
             android:layout_marginRight="@dimen/mediumMargin"
             android:layout_toLeftOf="@+id/coppaSummary"
-            android:text="@string/startingScore"
+            android:text="@string/zeroValue"
             android:textColor="@color/SquadraA"
             android:textSize="@dimen/testoEnorme"
             android:typeface="monospace" />
@@ -164,7 +160,7 @@
             style="@style/ContenutoPerfetto.CentratoVerticale"
             android:layout_marginLeft="@dimen/mediumMargin"
             android:layout_toRightOf="@+id/coppaSummary"
-            android:text="@string/startingScore"
+            android:text="@string/zeroValue"
             android:textColor="@color/SquadraB"
             android:textSize="@dimen/testoEnorme"
             android:typeface="monospace" />

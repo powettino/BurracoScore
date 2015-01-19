@@ -24,7 +24,7 @@
                 android:drawableRight="@drawable/head"
                 android:enabled="true"
                 android:text="@string/gameSingolo"
-                android:textColor="@drawable/text"/>
+                android:textColor="@drawable/text_layout"/>
 
             <Button
                 android:id="@+id/coupleConf"
@@ -36,7 +36,7 @@
                 android:drawableLeft="@drawable/d_head"
                 android:drawableRight="@drawable/d_head"
                 android:text="@string/gameDoppio"
-                android:textColor="@drawable/text"/>
+                android:textColor="@drawable/text_layout"/>
         </LinearLayout>
 
         <GridLayout
@@ -137,7 +137,7 @@
             android:paddingRight="@dimen/insignificantMargin"
             android:saveEnabled="true"
             android:text="@string/save"
-            android:textColor="@drawable/text" />
+            android:textColor="@drawable/text_layout" />
 
         <Button
             android:id="@+id/resetConf"
@@ -150,7 +150,7 @@
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
             android:text="@string/reset"
-            android:textColor="@drawable/text" />
+            android:textColor="@drawable/text_layout" />
 
         <Button
             android:id="@+id/chiudiConf"
@@ -164,7 +164,7 @@
             android:paddingRight="@dimen/insignificantMargin"
             android:saveEnabled="true"
             android:text="@string/close"
-            android:textColor="@drawable/text" />
+            android:textColor="@drawable/text_layout" />
     </RelativeLayout>
 
 
