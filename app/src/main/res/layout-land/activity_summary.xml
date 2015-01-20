@@ -7,7 +7,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:rowCount="1"
     tools:context="yeapp.com.burracoscore.SummaryActivity"
     tools:ignore="RtlSymmetry">
 
@@ -31,26 +30,20 @@
             <ImageView
                 android:id="@+id/imageView2"
                 style="@style/ContenutoParente.SfondoPunti"
-                android:layout_height="match_parent"
                 android:layout_above="@+id/resultA"
-                android:background="@drawable/shape_lista"
-                android:contentDescription="@string/description" />
+                tools:ignore="ContentDescription"
+                android:background="@drawable/shape_lista"/>
 
             <ListView
                 android:id="@+id/listPointTeamA"
                 style="@style/ContenutoPerfetto.ListaPunti"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/resultA"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shape_lista" />
 
             <Button
                 android:id="@+id/setTeamA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="false"
-                android:layout_centerInParent="true"
                 android:background="@drawable/shape_button"
                 android:text="@string/setPoint"
                 android:textColor="@drawable/text_layout"
@@ -58,13 +51,11 @@
 
             <TextView
                 android:id="@+id/resultA"
+                style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_above="@+id/setTeamA"
                 android:layout_marginBottom="@dimen/insignificantMargin"
                 android:background="@drawable/shape_res"
-                android:enabled="true"
-                android:gravity="center"
                 android:text=""
                 android:textAppearance="@android:style/TextAppearance.Holo.Large" />
         </RelativeLayout>
@@ -105,23 +96,20 @@
             <ImageView
                 android:id="@+id/imageView1"
                 style="@style/ContenutoParente.SfondoPunti"
-                android:layout_height="match_parent"
                 android:layout_above="@+id/resultB"
-                android:background="@drawable/shape_lista"
-                android:contentDescription="@string/description" />
+                tools:ignore="ContentDescription"
+                android:background="@drawable/shape_lista"/>
 
             <ListView
                 android:id="@+id/listPointTeamB"
                 style="@style/ContenutoPerfetto.ListaPunti"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/resultB"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shape_lista" />
 
             <Button
                 android:id="@+id/setTeamB"
-                style="@style/ContenutoPerfetto"
+                style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
                 android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
                 android:background="@drawable/shape_button"
                 android:text="@string/setPoint"
                 android:textColor="@drawable/text_layout"
@@ -129,13 +117,11 @@
 
             <TextView
                 android:id="@+id/resultB"
+                style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_above="@+id/setTeamB"
                 android:layout_marginBottom="@dimen/insignificantMargin"
                 android:background="@drawable/shape_res"
-                android:enabled="true"
-                android:gravity="center"
                 android:text=""
                 android:textAppearance="@android:style/TextAppearance.Holo.Large" />
         </RelativeLayout>

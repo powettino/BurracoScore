@@ -29,14 +29,6 @@
         <item name="android:background">@color/SfondoRes</item>
     </style>
 
-    <style name="miaBarStyle" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">@color/Giallo</item>
-    </style>
-
-    <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
-        <item name="android:textColor">#E5ED0E</item>
-    </style>
-
     <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/Giallo</item>
     </style>
@@ -52,9 +44,7 @@
     </style>
 
     <style name="ContenutoParente.SfondoPunti">
-        <item name="android:alpha">0.5</item>
         <item name="android:contentDescription">@string/description</item>
-        <!--<item name="android:background">@color/GrigioPerNero</item>-->
     </style>
 
     <style name="NoLarghezza.ContainerEquilibrato">
@@ -78,7 +68,7 @@
     <style name="ContenutoPerfetto.ListaPunti">
         <item name="android:clickable">false</item>
         <!--<item name="android:divider">@color/SeparatoreLista</item>-->
-        <item name="android:dividerHeight">@dimen/insignificantMargin</item>
+        <!--<item name="android:dividerHeight">@dimen/noSpace</item>-->
         <!--<item name="android:listSelector">@android:color/transparent</item>-->
     </style>
 

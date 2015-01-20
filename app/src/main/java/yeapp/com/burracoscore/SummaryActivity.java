@@ -228,7 +228,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         if (dtaLVA.getCount() == dtaLVB.getCount()) {
             int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
             int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-            if (winA >= 100 || winB >= 100) {
+            if (winA >= 200 || winB >= 200) {
                 if (winA != winB) {
                     if (winA > winB) {
                         punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
