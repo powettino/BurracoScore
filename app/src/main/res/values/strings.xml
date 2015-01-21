@@ -3,8 +3,8 @@
 
     <string name="app_name">Segnapunti Burraco</string>
     <string name="conf_name">Configurazione</string>
-    <string name="title_activity_add_point">Aggiungi punti</string>
-    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="add_point_name">Aggiungi punti</string>
+    <string name="summary_name">SummaryActivity</string>
 
     <!-- Opzioni -->
     <string name="reset">Cancella</string>
