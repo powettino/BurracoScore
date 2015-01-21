@@ -7,13 +7,14 @@
         <item name="android:windowActionBar">true</item>
     </style>
 
-    <style name="actionStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+    <style name="actionStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/SfondoRes</item>
         <item name="android:actionBarTabTextStyle">@style/actionTextStyle</item>
     </style>
 
-    <style name="actionTextStyle" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="actionTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/Nero</item>
+        <item name="android:textSize">@dimen/testoEnorme</item>
     </style>
 
     <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">

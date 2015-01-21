@@ -21,5 +21,6 @@
         android:id="@+id/configuraMenuSum"
         android:orderInCategory="3"
         android:title="@string/configurazione"
-        app:showAsAction="never" />
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ContenutoParente.Gravitato"
+    android:background="@drawable/shape_back"
+    android:columnCount="3"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:rowCount="1"
+    tools:context="yeapp.com.burracoscore.SummaryActivity">
+
+    <TextView
+        android:id="@+id/teamASummary"
+        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraA"
+        android:layout_marginRight="@dimen/highMargin"
+        android:layout_toLeftOf="@+id/tvstSummary"
+        android:saveEnabled="true"
+        android:text="@string/teamAName" />
+
+    <TextView
+        android:id="@+id/tvstSummary"
+        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono"
+        android:enabled="true"
+        android:saveEnabled="true"
+        android:text="@string/VS" />
+
+    <TextView
+        android:id="@+id/teamBSummary"
+        style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraB"
+        android:layout_gravity="right"
+        android:layout_marginLeft="@dimen/highMargin"
+        android:layout_toRightOf="@+id/tvstSummary"
+        android:text="@string/teamBName" />
+
+    <LinearLayout
+        android:id="@+id/linearScroll"
+        style="@style/NoAltezza"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/resultTextSection"
+        android:layout_below="@+id/teamBSummary"
+        android:layout_marginTop="@dimen/lowMargin"
+        android:baselineAligned="false">
+
+        <RelativeLayout
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginRight="@dimen/insignificantMargin">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                style="@style/ContenutoParente.SfondoPunti"
+                tools:ignore="ContentDescription"
+                android:background="@drawable/shape_lista"
+              />
+
+            <ListView
+                android:id="@+id/listPointTeamA"
+                style="@style/ContenutoPerfetto.ListaPunti"
+                android:background="@drawable/shape_lista" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginLeft="@dimen/insignificantMargin">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                style="@style/ContenutoParente.SfondoPunti"
+                tools:ignore="ContentDescription"
+                android:background="@drawable/shape_lista"/>
+
+            <ListView
+                android:id="@+id/listPointTeamB"
+                style="@style/ContenutoPerfetto.ListaPunti"
+                android:background="@drawable/shape_lista" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/resultTextSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSection">
+
+        <TextView
+            android:id="@+id/resultA"
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginRight="@dimen/insignificantMargin"
+            android:alpha="0.7"
+            android:background="@drawable/shape_res"
+            android:enabled="true"
+            android:gravity="center"
+            android:text=""
+            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+
+
+        <TextView
+            android:id="@+id/resultB"
+            style="@style/NoLarghezza.ContainerEquilibrato"
+            android:layout_marginLeft="@dimen/insignificantMargin"
+            android:alpha="0.7"
+            android:background="@drawable/shape_res"
+            android:enabled="true"
+            android:gravity="center"
+            android:text=""
+            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeFinaleSummary"
+        android:layout_marginTop="@dimen/lowMargin">
+
+        <Button
+            android:id="@+id/setTeamA"
+            style="@style/NoLarghezza.ContainerEquilibrato.BottoneEquilibrato"
+            android:layout_width="wrap_content"
+            android:background="@drawable/shape_button"
+            android:enabled="true"
+            android:text="@string/setPoint"
+            android:textColor="@drawable/text_layout"
+            android:textSize="@dimen/testoPiccolo" />
+
+        <Button
+            android:id="@+id/setTeamB"
+            style="@style/NoLarghezza.ContainerEquilibrato.BottoneEquilibrato"
+            android:layout_width="wrap_content"
+            android:background="@drawable/shape_button"
+            android:enabled="true"
+            android:text="@string/setPoint"
+            android:textColor="@drawable/text_layout"
+            android:textSize="@dimen/testoPiccolo" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeFinaleSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/punteggioASummary"
+            style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraA"
+            android:layout_alignTop="@+id/coppaSummary"
+            android:layout_marginRight="@dimen/enormousMargin"
+            android:layout_toLeftOf="@+id/coppaSummary"
+            android:text="@string/zeroValue" />
+
+        <TextView
+            android:id="@+id/punteggioBSummary"
+            style="@style/ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraB"
+            android:layout_marginLeft="@dimen/enormousMargin"
+            android:layout_toRightOf="@+id/coppaSummary"
+            android:text="@string/zeroValue" />
+
+        <ImageView
+            android:id="@+id/coppaSummary"
+            style="@style/ContenutoPerfetto.CentratoOrizzontale.CentratoVerticale"
+            android:contentDescription="@string/cup_description"
+            android:src="@drawable/coppa_style" />
+        <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
