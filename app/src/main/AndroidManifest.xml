@@ -10,7 +10,7 @@
             android:name=".TeamConfiguration"
             android:label="@string/configurazione"
             android:theme="@style/FeatureDialog"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SummaryActivity"
             android:icon="@drawable/carte_icona"

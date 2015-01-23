@@ -50,6 +50,10 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
             case R.id.checkChiusura: {
                 if (isChecked) {
                     mazzetto.setChecked(true);
+                    mazzetto.setEnabled(false);
+                }else{
+                    mazzetto.setEnabled(true);
+                    mazzetto.setChecked(false);
                 }
                 break;
             }
