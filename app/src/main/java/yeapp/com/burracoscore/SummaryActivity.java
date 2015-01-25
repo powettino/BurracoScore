@@ -40,8 +40,12 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             teamAText.setText(R.string.teamAName);
             teamBText.setText(R.string.teamBName);
         } else {
-            teamAText.setText(teamA.getPlayer1().substring(0, 3) + (numberOfPlayerForTeam == 2 ? "-" + teamA.getPlayer2().substring(0, 3) : ""));
-            teamBText.setText(teamB.getPlayer1().substring(0, 3) + (numberOfPlayerForTeam == 2 ? "-" + teamB.getPlayer2().substring(0, 3) : ""));
+            String p11 = teamA.getPlayer1();
+            String p12 = teamA.getPlayer2();
+            String p21 = teamB.getPlayer1();
+            String p22 = teamB.getPlayer2();
+            teamAText.setText(p11.substring(0, (p11.length() >= 3 ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "-" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
+            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "-" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
         }
     }
 
@@ -52,8 +56,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         teamAText = (TextView) findViewById(R.id.teamASummary);
         // namesTeamA = teamAText.getText().toString();
         teamBText = (TextView) findViewById(R.id.teamBSummary);
-        teamA = new Team("A");
-        teamB = new Team("B");
+       // teamA = new Team("A");
+       // teamB = new Team("B");
         // namesTeamB = teamBText.getText().toString();
         ((ListView) findViewById(R.id.listPointTeamA)).setAdapter(dtaLVA);
         ((ListView) findViewById(R.id.listPointTeamB)).setAdapter(dtaLVB);
