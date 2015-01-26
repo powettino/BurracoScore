@@ -46,6 +46,15 @@ public class DoubleTextAdapter extends BaseAdapter {
         textR = textRight;
     }
 
+    public void restore(ArrayList<Integer> textLeft) {
+        textL.clear();
+        textR.clear();
+        for (int i = 0; i < textLeft.size(); i++) {
+            textL.add(String.valueOf(textLeft.get(i)));
+            textR.add("G" + (i + 1));
+        }
+    }
+
     public Pair<String, String> getLastDoubleText() {
         if (textL.isEmpty() && textR.isEmpty()) {
             return new Pair<String, String>(null, null);

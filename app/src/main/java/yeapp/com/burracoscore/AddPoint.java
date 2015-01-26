@@ -1,6 +1,7 @@
 package yeapp.com.burracoscore;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+
+import yeapp.com.burracoscore.core.model.Hand;
 
 
 public class AddPoint extends Activity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
@@ -51,7 +54,7 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
                 if (isChecked) {
                     mazzetto.setChecked(true);
                     mazzetto.setEnabled(false);
-                }else{
+                } else {
                     mazzetto.setEnabled(true);
                     mazzetto.setChecked(false);
                 }
@@ -66,11 +69,13 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.salvaPunti: {
+                Hand mano = new Hand(
+                        !base.getText().toString().isEmpty() ? Integer.valueOf(base.getText().toString()) : 0,
+                        !carte.getText().toString().isEmpty() ? Integer.valueOf(carte.getText().toString()) : 0,
+                        chiusura.isChecked(),
+                        mazzetto.isChecked());
                 setResult(RESULT_OK, getIntent()
-                        .putExtra(getString(R.string.puntiBase), !base.getText().toString().isEmpty() ? Integer.valueOf(base.getText().toString()) : 0)
-                        .putExtra(getString(R.string.puntiCarte), !carte.getText().toString().isEmpty() ? Integer.valueOf(carte.getText().toString()) : 0)
-                        .putExtra(getString(R.string.puntiChiusura), chiusura.isChecked() ? 100 : 0)
-                        .putExtra(getString(R.string.puntiMazzetto), mazzetto.isChecked() ? 0 : -100));
+                        .putExtra(SummaryActivity.hand, mano));
                 finish();
                 break;
             }
