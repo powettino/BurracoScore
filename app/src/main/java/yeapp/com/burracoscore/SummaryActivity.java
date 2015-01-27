@@ -2,11 +2,10 @@ package yeapp.com.burracoscore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +21,11 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
 
     public static String teamAKey = "teamA";
     public static String teamBKey = "teamB";
-    public static String numerOfPlayer = "numberOfPlayer";
+    public static String numberOfPlayer = "numberOfPlayer";
     public static String hand = "hand";
+    public static String setButtonA = "setButtonA";
+    public static String setButtonB = "setButtonB";
+    public static String setDialog = "dialog";
 
 
     private TextView teamAText;
@@ -43,6 +45,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private TextView punteggioTotB;
     private boolean dialogActive;
     AlertDialog dialog = null;
+
+    Dialog diaPoint = null;
 
 
     @Override
@@ -77,7 +81,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             String p12 = teamA.getPlayer2();
             String p21 = teamB.getPlayer1();
             String p22 = teamB.getPlayer2();
-            teamAText.setText(p11.substring(0, (p11.length() >= 3 ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "-" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
+            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "-" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
             teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "-" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
         }
     }
@@ -85,21 +89,21 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        numberOfPlayerForTeam = savedInstanceState.getInt(numerOfPlayer);
-        teamA = (Team) savedInstanceState.getParcelable(teamAKey);
-        teamB = (Team) savedInstanceState.getParcelable(teamBKey);
+        numberOfPlayerForTeam = savedInstanceState.getInt(numberOfPlayer);
+        teamA = savedInstanceState.getParcelable(teamAKey);
+        teamB = savedInstanceState.getParcelable(teamBKey);
         createTeamName();
         dtaLVA.restore(teamA.getPunti());
         dtaLVB.restore(teamB.getPunti());
         dtaLVA.notifyDataSetChanged();
         dtaLVB.notifyDataSetChanged();
-        resultA.setText(teamA.getTotale());
-        resultB.setText(teamB.getTotale());
-        punteggioTotA.setText(teamA.getGame());
-        punteggioTotB.setText(teamB.getGame());
-        findViewById(R.id.setTeamA).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointA)));
-        findViewById(R.id.setTeamB).setEnabled(savedInstanceState.getBoolean(getString(R.string.setPointB)));
-        if (savedInstanceState.getBoolean(getString(R.string.dialogWinner))) {
+        resultA.setText(String.valueOf(teamA.getTotale()));
+        resultB.setText(String.valueOf(teamB.getTotale()));
+        punteggioTotA.setText(String.valueOf(teamA.getGame()));
+        punteggioTotB.setText(String.valueOf(teamB.getGame()));
+        findViewById(R.id.setTeamA).setEnabled(savedInstanceState.getBoolean(setButtonA));
+        findViewById(R.id.setTeamB).setEnabled(savedInstanceState.getBoolean(setButtonB));
+        if (savedInstanceState.getBoolean(setDialog)) {
             createDialogWinner();
         }
     }
@@ -107,12 +111,12 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(numerOfPlayer, numberOfPlayerForTeam);
+        outState.putInt(numberOfPlayer, numberOfPlayerForTeam);
         outState.putParcelable(teamAKey, teamA);
         outState.putParcelable(teamBKey, teamB);
-        outState.putBoolean(getString(R.string.setPointA), findViewById(R.id.setTeamA).isEnabled());
-        outState.putBoolean(getString(R.string.setPointB), findViewById(R.id.setTeamB).isEnabled());
-        outState.putBoolean(getString(R.string.dialogWinner), dialogActive);
+        outState.putBoolean(setButtonA, findViewById(R.id.setTeamA).isEnabled());
+        outState.putBoolean(setButtonB, findViewById(R.id.setTeamB).isEnabled());
+        outState.putBoolean(setDialog, dialogActive);
 
         if (dialog != null && dialog.isShowing()) {
             dialog.cancel();
@@ -134,7 +138,7 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             }
             case R.id.configuraMenuSum: {
                 Intent configurazione = new Intent(this, TeamConfiguration.class);
-                configurazione.putExtra(getString(R.string.numberPlayerActivity), numberOfPlayerForTeam)
+                configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
                         .putExtra(teamAKey, teamA)
                         .putExtra(teamBKey, teamB);
                 startActivityForResult(configurazione, CODE_FOR_CONF);
@@ -160,20 +164,20 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-                    numberOfPlayerForTeam = data.getIntExtra(SummaryActivity.numerOfPlayer, 0);
-                    teamA = (Team) data.getParcelableExtra(SummaryActivity.teamAKey);
-                    teamB = (Team) data.getParcelableExtra(SummaryActivity.teamBKey);
+                    numberOfPlayerForTeam = data.getIntExtra(numberOfPlayer, 0);
+                    teamA = data.getParcelableExtra(teamAKey);
+                    teamB = data.getParcelableExtra(teamBKey);
                     createTeamName();
                 }
                 break;
             }
             case CODE_FOR_SET_A: {
                 if (resultCode == RESULT_OK) {
-                    Hand h = (Hand) data.getParcelableExtra(hand);
+                    Hand h = data.getParcelableExtra(hand);
                     String lastGame = dtaLVA.getLastDoubleText().second;
                     int currentResult = h.getBase() + h.getCarte() + h.getChiusura() + h.getMazzetto();
                     teamA.addPunti(currentResult);
-                    resultA.setText(teamA.getTotale());
+                    resultA.setText(String.valueOf(teamA.getTotale()));
                     if (lastGame == null) {
                         dtaLVA.addLastDoubleText(String.valueOf(currentResult), "G1");
                     } else {
@@ -186,10 +190,11 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             }
             case CODE_FOR_SET_B: {
                 if (resultCode == RESULT_OK) {
-                    Hand h = (Hand) data.getParcelableExtra(hand);
+                    Hand h = data.getParcelableExtra(hand);
                     String lastGame = dtaLVB.getLastDoubleText().second;
                     int currentResult = h.getBase() + h.getCarte() + h.getChiusura() + h.getMazzetto();
-                    resultB.setText(teamB.getTotale());
+                    teamB.addPunti(currentResult);
+                    resultB.setText(String.valueOf(teamB.getTotale()));
                     if (lastGame == null) {
                         dtaLVB.addLastDoubleText(String.valueOf(currentResult), "G1");
                     } else {
@@ -209,16 +214,18 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
 
     private void checkWinner() {
         if (dtaLVA.getCount() == dtaLVB.getCount()) {
-            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
-            int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-            if (winA >= 200 || winB >= 200) {
-                if (winA != winB) {
-                    if (winA > winB) {
+            int totA = teamA.getTotale();
+            int totB = teamB.getTotale();
+//            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
+//            int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
+            if (totA >= 200 || totB >= 200) {
+                if (totA != totB) {
+                    if (totA > totB) {
                         teamA.addGame();
-                        punteggioTotA.setText(String.valueOf(Integer.valueOf(punteggioTotA.getText().toString()) + 1));
-                    } else if (winB > winA) {
+                        punteggioTotA.setText(teamA.getGame());
+                    } else if (totB > totA) {
                         teamB.addGame();
-                        punteggioTotB.setText(String.valueOf(Integer.valueOf(punteggioTotB.getText().toString()) + 1));
+                        punteggioTotB.setText(teamB.getGame());
                     }
                     createDialogWinner();
                 }

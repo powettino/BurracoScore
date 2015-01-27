@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <gradient
-        android:angle="90"
-        android:endColor="@color/SfondoLay"
-        android:startColor="@color/SfondoRes" />
+    <!--<gradient-->
+        <!--android:angle="90"-->
+        <!--android:endColor="@color/SfondoLay"-->
+        <!--android:startColor="@color/SfondoRes" />-->
+
+    <solid android:color="@color/SfondoLay"/>
+    <stroke android:width="2dip" android:color="@color/BottoneColorato" />
+
 
 </shape>

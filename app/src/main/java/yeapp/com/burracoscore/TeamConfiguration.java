@@ -22,7 +22,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     private EditText gioc12Text;
     private EditText gioc21Text;
     private EditText gioc22Text;
-    int numberOfPlayerForTeam = 0;
+    private int numberOfPlayerForTeam = 0;
 
     Team tA = null;
     Team tB = null;
@@ -77,10 +77,11 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         tA.setPlayer2(numberOfPlayerForTeam == 2 ? gioc12Text.getText().toString() : null);
         tB.setPlayer1(gioc21Text.getText().toString());
         tB.setPlayer2(numberOfPlayerForTeam == 2 ? gioc22Text.getText().toString() : null);
-        setResult(RESULT_OK, getIntent()
-                .putExtra(SummaryActivity.numerOfPlayer, numberOfPlayerForTeam)
-                .putExtra(SummaryActivity.teamAKey, tA)
-                .putExtra(SummaryActivity.teamBKey, tB));
+        setResult(RESULT_OK, this.getIntent()
+                        .putExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam)
+                        .putExtra(SummaryActivity.teamAKey, tA)
+                        .putExtra(SummaryActivity.teamBKey, tB)
+        );
         finish();
     }
 
@@ -109,9 +110,10 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
 
     private void restoreFromMain() {
         Intent startingIntent = getIntent();
-        numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numerOfPlayer, numberOfPlayerForTeam);
-        tA = (Team) startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
-        tB = (Team) startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
+        numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+        tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
+        tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
+
         if (numberOfPlayerForTeam != 0) {
             gioc11Text.setText(tA.getPlayer1());
             gioc21Text.setText(tB.getPlayer1());
@@ -127,7 +129,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SummaryActivity.numerOfPlayer, numberOfPlayerForTeam);
+        outState.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
         outState.putParcelable(SummaryActivity.teamAKey, tA);
         outState.putParcelable(SummaryActivity.teamBKey, tB);
         super.onSaveInstanceState(outState);
@@ -136,7 +138,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity.numerOfPlayer);
+        numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity.numberOfPlayer);
         if (numberOfPlayerForTeam != 0) {
             gioc11Text.setText(tA.getPlayer1());
             gioc21Text.setText(tB.getPlayer1());

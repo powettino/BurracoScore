@@ -1,7 +1,6 @@
 package yeapp.com.burracoscore.custom.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.util.Pair;
@@ -13,9 +12,6 @@ import android.widget.TextView;
 
 import yeapp.com.burracoscore.R;
 
-/**
- * Created by iacopo on 13/01/15.
- */
 public class DoubleTextAdapter extends BaseAdapter {
 
     private Context context;

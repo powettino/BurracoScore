@@ -5,12 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import yeapp.com.burracoscore.R;
 
-/**
- * Created by iacopo on 14/01/15.
- */
 public class Team implements Parcelable {
     private String player1 = null;
     private String player2 = null;
@@ -35,13 +32,12 @@ public class Team implements Parcelable {
     }
 
     public Team(Parcel in) {
-        String[] data = new String[2];
-        in.readStringArray(data);
-        this.player1 = data[0];
-        this.player2 = data[1];
-        in.readList(this.punteggio, this.getClass().getClassLoader());
+        side = in.readString();
+        this.player1 = in.readString();
+        this.player2 = in.readString();
+        in.readList(punteggio, ArrayList.class.getClassLoader());
         totale = in.readInt();
-
+        gameVinti = in.readInt();
     }
 
     public void addGame() {
@@ -57,7 +53,7 @@ public class Team implements Parcelable {
     }
 
     public ArrayList<Integer> getPunti() {
-        return this.punteggio;
+        return punteggio;
     }
 
     public void addPunti(int punti) {
@@ -101,13 +97,16 @@ public class Team implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeArray(new String[]{this.player1, this.player2});
+        dest.writeString(side);
+        dest.writeString(this.player1);
+        dest.writeString(this.player2);
         dest.writeList(punteggio);
         dest.writeInt(totale);
+        dest.writeInt(gameVinti);
+
     }
 
-
-    static final Parcelable.Creator<Team> CREATOR
+    public static final Parcelable.Creator<Team> CREATOR
             = new Parcelable.Creator<Team>() {
 
         public Team createFromParcel(Parcel in) {
@@ -120,7 +119,7 @@ public class Team implements Parcelable {
     };
 
     public void cleanPunteggio() {
-        this.punteggio.clear();
+        punteggio.clear();
         this.totale = 0;
     }
 

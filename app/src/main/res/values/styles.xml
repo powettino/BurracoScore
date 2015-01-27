@@ -8,7 +8,7 @@
     </style>
 
     <style name="actionStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/SfondoRes</item>
+        <item name="android:background">@color/BottoneColorato</item>
         <item name="android:actionBarTabTextStyle">@style/actionTextStyle</item>
     </style>
 
