@@ -3,16 +3,16 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="insignificantMargin">5sp</dimen>
-    <dimen name="lowMargin">10sp</dimen>
-    <dimen name="mediumMargin">20sp</dimen>
-    <dimen name="highMargin">35sp</dimen>
-    <dimen name="enormousMargin">50sp</dimen>
-    <dimen name="noSpace">0sp</dimen>
+    <dimen name="insignificantMargin">5dp</dimen>
+    <dimen name="lowMargin">10dp</dimen>
+    <dimen name="mediumMargin">20dp</dimen>
+    <dimen name="highMargin">35dp</dimen>
+    <dimen name="enormousMargin">50dp</dimen>
+    <dimen name="noSpace">0dp</dimen>
 
-    <dimen name="buttonWidthEq">80sp</dimen>
+    <dimen name="buttonWidthEq">80dp</dimen>
 
-    <dimen name="testoEnorme">80sp</dimen>
-    <dimen name="testoMedio">20sp</dimen>
-    <dimen name="testoPiccolo">15sp</dimen>
+    <dimen name="testoEnorme">80dp</dimen>
+    <dimen name="testoMedio">20dp</dimen>
+    <dimen name="testoPiccolo">15dp</dimen>
 </resources>

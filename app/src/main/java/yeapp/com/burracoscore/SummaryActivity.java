@@ -222,10 +222,10 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
                 if (totA != totB) {
                     if (totA > totB) {
                         teamA.addGame();
-                        punteggioTotA.setText(teamA.getGame());
+                        punteggioTotA.setText(String.valueOf(teamA.getGame()));
                     } else if (totB > totA) {
                         teamB.addGame();
-                        punteggioTotB.setText(teamB.getGame());
+                        punteggioTotB.setText(String.valueOf(teamB.getGame()));
                     }
                     createDialogWinner();
                 }
