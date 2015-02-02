@@ -1,12 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/SfondoRes"
     android:orientation="horizontal"
     android:padding="@dimen/activity_vertical_margin"
-    tools:context="yeapp.com.burracoscore.SummaryActivity">
+    tools:context="yeapp.com.burracoscore.activity.SummaryActivity">
 
     <LinearLayout
         android:id="@+id/linearInt"
@@ -86,7 +87,7 @@
         <RelativeLayout
             android:layout_width="@dimen/insignificantMargin"
             android:layout_height="match_parent"
-            android:background="@color/BottoneColorato">
+            android:background="@color/SfondoBase">
 
         </RelativeLayout>
 
@@ -128,13 +129,14 @@
             android:background="@color/SfondoPunti"
             android:enabled="true"
             android:gravity="center"
+            android:textColor="@color/Nero"
             android:text=""
             android:textAppearance="@android:style/TextAppearance.Holo.Large" />
 
         <RelativeLayout
             android:layout_width="@dimen/insignificantMargin"
             android:layout_height="match_parent"
-            android:background="@color/BottoneColorato">
+            android:background="@color/SfondoBase">
 
         </RelativeLayout>
 
@@ -146,6 +148,7 @@
             android:background="@color/SfondoPunti"
             android:enabled="true"
             android:gravity="center"
+            android:textColor="@color/Nero"
             android:text=""
             android:textAppearance="@android:style/TextAppearance.Holo.Large" />
         />
@@ -268,7 +271,6 @@
 
         <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
     </LinearLayout>
-
 </RelativeLayout>
 
 

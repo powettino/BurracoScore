@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Summary" parent="@android:style/Theme.Holo.Light">
-        <item name="android:textColor">@drawable/text_layout</item>
+    <style name="Summary" parent="Theme.AppCompat">
         <item name="android:actionBarStyle">@style/actionStyle</item>
         <item name="android:windowActionBar">true</item>
     </style>
 
-    <style name="actionStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/BottoneColorato</item>
+    <style name="actionStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">@color/SfondoBase</item>
+        <item name="android:textColor">@color/Nero</item>
         <item name="android:actionBarTabTextStyle">@style/actionTextStyle</item>
     </style>
 
-    <style name="actionTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <style name="actionTextStyle" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/Nero</item>
+        <item name="android:background">@color/SfondoLay</item>
         <item name="android:textSize">@dimen/testoEnorme</item>
     </style>
 
@@ -28,153 +29,6 @@
         <item name="android:textColorTertiaryInverse">@drawable/text_layout</item>
         <item name="android:textColor">@drawable/text_layout</item>
         <item name="android:background">@color/SfondoRes</item>
-    </style>
-
-    <style name="GameTextRow" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">@color/Giallo</item>
-    </style>
-
-    <style name="GameTextRow.ContenutoPerfetto">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="ContenutoParente">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
-
-    <style name="ContenutoParente.SfondoPunti">
-        <item name="android:contentDescription">@string/description</item>
-    </style>
-
-    <style name="NoLarghezza.ContainerEquilibrato">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="NoLarghezza">
-        <item name="android:layout_width">@dimen/noSpace</item>
-    </style>
-
-    <style name="ContenutoPerfetto">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="ContenutoPerfetto.Gravitato">
-        <item name="android:layout_gravity">center</item>
-    </style>
-
-    <style name="ContenutoPerfetto.ListaPunti">
-        <item name="android:clickable">false</item>
-        <!--<item name="android:divider">@color/SeparatoreLista</item>-->
-        <!--<item name="android:dividerHeight">@dimen/noSpace</item>-->
-        <!--<item name="android:listSelector">@android:color/transparent</item>-->
-    </style>
-
-    <style name="NoLarghezza.ContainerEquilibrato.BottoneEquilibrato">
-        <item name="android:layout_marginLeft">@dimen/mediumMargin</item>
-        <item name="android:layout_marginRight">@dimen/mediumMargin</item>
-    </style>
-
-    <style name="NoAltezza">
-        <item name="android:layout_height">@dimen/noSpace</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale">
-        <item name="android:layout_centerHorizontal">true</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato">
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.CentratoVerticale">
-        <item name="android:layout_centerVertical">true</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato">
-        <item name="android:layout_alignParentTop">true</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono">
-        <item name="android:textSize">@dimen/testoEnorme</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraB">
-        <item name="android:textColor">@color/SquadraB</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.Allineato.LargeMono.SquadraA">
-        <item name="android:textColor">@color/SquadraA</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono">
-        <item name="android:textSize">@dimen/testoMedio</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraA">
-        <item name="android:textColor">@color/SquadraA</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoOrizzontale.Centrato.MediumMono.SquadraB">
-        <item name="android:textColor">@color/SquadraB</item>
-    </style>
-
-    <style name="ContenutoParente.SfondoPunti.SquadraB">
-        <item name="android:background">@color/SquadraB</item>
-    </style>
-
-    <style name="ContenutoParente.SfondoPunti.SquadraA">
-        <item name="android:background">@color/SquadraA</item>
-    </style>
-
-    <style name="ContenutoParente.Gravitato">
-        <item name="android:layout_gravity">center</item>
-    </style>
-
-    <style name="ContenutoPerfetto.GravitatoPieno">
-        <item name="android:layout_gravity">fill</item>
-    </style>
-
-    <style name="ContenutoPerfetto.GravitatoPieno.TestoGenerico">
-        <item name="android:autoText">false</item>
-        <item name="android:inputType">textCapWords|textPersonName|textAutoComplete</item>
-        <item name="android:maxLength">20</item>
-        <item name="android:saveEnabled">true</item>
-    </style>
-
-    <style name="ContenutoPerfetto.Centrato">
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="ContenutoPerfetto.Centrato.MediumMono">
-        <item name="android:textSize">@dimen/testoMedio</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-
-    <style name="ContenutoPerfetto.Centrato.SmallMono">
-        <item name="android:textSize">@dimen/testoPiccolo</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoVerticale">
-        <item name="android:layout_centerVertical">true</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoVerticale.MediumMono">
-        <item name="android:textSize">@dimen/testoMedio</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:layout_marginRight">@dimen/mediumMargin</item>
-    </style>
-
-    <style name="ContenutoPerfetto.CentratoVerticale.SmallMono">
-        <item name="android:textSize">@dimen/testoPiccolo</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:layout_marginRight">@dimen/mediumMargin</item>
     </style>
 
 </resources>

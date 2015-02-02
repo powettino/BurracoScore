@@ -13,9 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import yeapp.com.burracoscore.activity.AddPoint;
+import yeapp.com.burracoscore.activity.TeamConfiguration;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.custom.adapter.DoubleTextAdapter;
+import yeapp.com.burracoscore.layoutModel.adapter.ListPointAdapter;
 
 public class SummaryActivity extends Activity implements View.OnClickListener {
 
@@ -37,8 +39,8 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
     private int numberOfPlayerForTeam = 0;
     private Team teamA;
     private Team teamB;
-    DoubleTextAdapter dtaLVA = new DoubleTextAdapter(this);
-    DoubleTextAdapter dtaLVB = new DoubleTextAdapter(this);
+    ListPointAdapter dtaLVA = new ListPointAdapter(this);
+    ListPointAdapter dtaLVB = new ListPointAdapter(this);
     private TextView resultA;
     private TextView resultB;
     private TextView punteggioTotA;

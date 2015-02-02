@@ -11,7 +11,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="yeapp.com.burracoscore.SummaryActivity"
+    tools:context="yeapp.com.burracoscore.activity.SummaryActivity"
     tools:ignore="RtlSymmetry">
 
 
@@ -111,7 +111,7 @@
                 <RelativeLayout
                     android:layout_width="@dimen/insignificantMargin"
                     android:layout_height="fill_parent"
-                    android:background="@color/BottoneColorato">
+                    android:background="@color/SfondoBase">
 
                 </RelativeLayout>
 
@@ -157,13 +157,14 @@
                     android:layout_weight="1"
                     android:background="@color/SfondoPunti"
                     android:gravity="center"
+                    android:textColor="@color/Nero"
                     android:text=""
                     android:textAppearance="@android:style/TextAppearance.Holo.Large" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/insignificantMargin"
                     android:layout_height="match_parent"
-                    android:background="@color/BottoneColorato" />
+                    android:background="@color/SfondoBase" />
 
                 <TextView
                     android:id="@+id/resultB"
@@ -172,6 +173,7 @@
                     android:layout_weight="1"
                     android:background="@color/SfondoPunti"
                     android:gravity="center"
+                    android:textColor="@color/Nero"
                     android:text=""
                     android:textAppearance="@android:style/TextAppearance.Holo.Large" />
             </LinearLayout>
@@ -193,7 +195,7 @@
                     android:layout_marginLeft="@dimen/mediumMargin"
                     android:layout_marginRight="@dimen/mediumMargin"
                     android:layout_weight="1"
-                    android:background="@color/SfondoLay"
+                    android:background="@color/SfondoPunti"
                     android:gravity="center"
                     android:minWidth="70dp"
                     android:text="@string/setPoint"
@@ -208,7 +210,7 @@
                     android:layout_marginLeft="@dimen/mediumMargin"
                     android:layout_marginRight="@dimen/mediumMargin"
                     android:layout_weight="1"
-                    android:background="@color/SfondoLay"
+                    android:background="@color/SfondoPunti"
                     android:gravity="center"
                     android:minWidth="70dp"
                     android:text="@string/setPoint"
@@ -226,7 +228,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/lowMargin"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
