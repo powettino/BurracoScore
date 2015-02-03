@@ -98,14 +98,20 @@
                     <!--android:contentDescription="@string/description"-->
                     <!--tools:ignore="ContentDescription" />-->
 
-                    <ListView
+                    <!--<ListView-->
+                        <!--android:id="@+id/listPointTeamA"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="fill_parent"-->
+                        <!--android:layout_alignParentTop="true"-->
+
+                        <!--android:background="@color/SfondoPunti"-->
+                        <!--android:clickable="false" />-->
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/listPointTeamA"
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
-                        android:layout_alignParentTop="true"
-
                         android:background="@color/SfondoPunti"
-                        android:clickable="false" />
+                        android:scrollbars="vertical" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -129,14 +135,20 @@
                     <!--android:contentDescription="@string/description"-->
                     <!--tools:ignore="ContentDescription" />-->
 
-                    <ListView
+                    <!--<ListView-->
+                        <!--android:id="@+id/listPointTeamB"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="fill_parent"-->
+                        <!--android:layout_alignParentStart="true"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:background="@color/SfondoPunti"-->
+                        <!--android:clickable="false" />-->
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/listPointTeamB"
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:background="@color/SfondoPunti"
-                        android:clickable="false" />
+                        android:scrollbars="vertical" />
 
                 </RelativeLayout>
             </LinearLayout>

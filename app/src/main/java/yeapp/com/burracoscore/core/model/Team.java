@@ -13,6 +13,7 @@ public class Team implements Parcelable {
     private String player2 = null;
     private String side;
     private ArrayList<Integer> punteggio = new ArrayList<Integer>();
+    private ArrayList<Hand> mani = new ArrayList<Hand>();
     private int totale = 0;
     private int gameVinti = 0;
 
@@ -36,6 +37,7 @@ public class Team implements Parcelable {
         this.player1 = in.readString();
         this.player2 = in.readString();
         in.readList(punteggio, ArrayList.class.getClassLoader());
+        in.readList(mani, ArrayList.class.getClassLoader());
         totale = in.readInt();
         gameVinti = in.readInt();
     }
@@ -44,8 +46,12 @@ public class Team implements Parcelable {
         gameVinti++;
     }
 
-    public int getGame() {
+    public int getTotGames() {
         return gameVinti;
+    }
+
+    public int getNumberHands() {
+        return mani.size();
     }
 
     public int getTotale() {
@@ -56,9 +62,10 @@ public class Team implements Parcelable {
         return punteggio;
     }
 
-    public void addPunti(int punti) {
-        totale += punti;
-        punteggio.add(punti);
+    public void addMano(Hand mano) {
+        totale += mano.getTotaleMano();
+        punteggio.add(mano.getTotaleMano());
+        mani.add(mano);
     }
 
     public void cleanTeam() {
@@ -101,6 +108,7 @@ public class Team implements Parcelable {
         dest.writeString(this.player1);
         dest.writeString(this.player2);
         dest.writeList(punteggio);
+        dest.writeList(mani);
         dest.writeInt(totale);
         dest.writeInt(gameVinti);
 
@@ -120,6 +128,7 @@ public class Team implements Parcelable {
 
     public void cleanPunteggio() {
         punteggio.clear();
+        mani.clear();
         this.totale = 0;
     }
 

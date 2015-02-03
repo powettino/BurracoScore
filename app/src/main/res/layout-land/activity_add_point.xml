@@ -65,7 +65,7 @@
             android:layout_alignParentEnd="true"
             android:ems="4"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|numberSigned"
             android:maxLength="3"
             android:text="@string/zeroValue"
             android:textSize="@dimen/testoPiccolo"

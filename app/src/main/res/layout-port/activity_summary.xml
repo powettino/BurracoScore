@@ -75,12 +75,19 @@
             <!--android:contentDescription="@string/description"-->
             <!--tools:ignore="ContentDescription" />-->
 
-            <ListView
+            <!--<ListView-->
+            <!--android:id="@+id/listPointTeamA"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/SfondoPunti"-->
+            <!--android:clickable="false" />-->
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listPointTeamA"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/SfondoPunti"
-                android:clickable="false" />
+                android:scrollbars="vertical" />
 
         </RelativeLayout>
 
@@ -104,12 +111,19 @@
             <!--android:contentDescription="@string/description"-->
             <!--tools:ignore="ContentDescription" />-->
 
-            <ListView
+            <!--<ListView-->
+                <!--android:id="@+id/listPointTeamB"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/SfondoPunti"-->
+                <!--android:clickable="false" />-->
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/listPointTeamB"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/SfondoPunti"
-                android:clickable="false" />
+                android:scrollbars="vertical" />
+
         </RelativeLayout>
     </LinearLayout>
 
@@ -129,9 +143,9 @@
             android:background="@color/SfondoPunti"
             android:enabled="true"
             android:gravity="center"
-            android:textColor="@color/Nero"
             android:text=""
-            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            android:textColor="@color/Nero" />
 
         <RelativeLayout
             android:layout_width="@dimen/insignificantMargin"
@@ -148,9 +162,9 @@
             android:background="@color/SfondoPunti"
             android:enabled="true"
             android:gravity="center"
-            android:textColor="@color/Nero"
             android:text=""
-            android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            android:textColor="@color/Nero" />
         />
     </LinearLayout>
 
