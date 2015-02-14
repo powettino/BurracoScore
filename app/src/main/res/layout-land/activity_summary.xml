@@ -3,46 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/SfondoRes"
+    android:background="@color/SfondoBase"
     android:baselineAligned="false"
     android:gravity="end"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+
     tools:context="yeapp.com.burracoscore.activity.SummaryActivity"
     tools:ignore="RtlSymmetry">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SfondoToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/app_name" />
 
     <LinearLayout
-        android:layout_width="@dimen/noSpace"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:padding="@dimen/standard_margin"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_width="@dimen/noSpace"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/teamASummary"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/insignificantMargin"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:saveEnabled="true"
-                android:text="@string/teamAName"
-                android:textColor="@color/SquadraA"
-                android:textSize="@dimen/testoMedio"
-                android:typeface="monospace" />
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-            <!--<TextView-->
+                <TextView
+                    android:id="@+id/teamASummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/insignificantMargin"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:saveEnabled="true"
+                    android:text="@string/teamAName"
+                    android:textColor="@color/Rosso"
+                    android:textSize="@dimen/testoMedio"
+                    android:typeface="monospace" />
+
+                <!--<TextView-->
                 <!--android:id="@+id/tvstSummary"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
@@ -55,50 +65,50 @@
                 <!--android:textSize="@dimen/testoMedio"-->
                 <!--android:typeface="monospace" />-->
 
-            <TextView
-                android:id="@+id/teamBSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="@dimen/insignificantMargin"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:saveEnabled="true"
-                android:text="@string/teamBName"
-                android:textColor="@color/SquadraB"
-                android:textSize="@dimen/testoMedio"
-                android:typeface="monospace" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/linearListe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/linearResult"
-                android:layout_marginBottom="2dp"
-                android:background="@drawable/shape_back"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/teamBSummary"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_weight="1">
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="@dimen/insignificantMargin"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:saveEnabled="true"
+                    android:text="@string/teamBName"
+                    android:textColor="@color/Azzurro"
+                    android:textSize="@dimen/testoMedio"
+                    android:typeface="monospace" />
+            </LinearLayout>
 
-                    <!--<ImageView-->
-                    <!--android:id="@+id/imageView2"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@color/SfondoLay"-->
-                    <!--android:contentDescription="@string/description"-->
-                    <!--tools:ignore="ContentDescription" />-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                    <!--<ListView-->
+                <LinearLayout
+                    android:id="@+id/linearListe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/linearResult"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/shape_back"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1">
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView2"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/SfondoLay"-->
+                        <!--android:contentDescription="@string/description"-->
+                        <!--tools:ignore="ContentDescription" />-->
+
+                        <!--<ListView-->
                         <!--android:id="@+id/listPointTeamA"-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="fill_parent"-->
@@ -106,36 +116,36 @@
 
                         <!--android:background="@color/SfondoPunti"-->
                         <!--android:clickable="false" />-->
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/listPointTeamA"
-                        android:layout_width="match_parent"
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/listPointTeamA"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@color/SfondoMedio"
+                            android:scrollbars="vertical" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/insignificantMargin"
                         android:layout_height="fill_parent"
-                        android:background="@color/SfondoPunti"
-                        android:scrollbars="vertical" />
-                </RelativeLayout>
+                        android:background="@color/SfondoOmbre">
 
-                <RelativeLayout
-                    android:layout_width="@dimen/insignificantMargin"
-                    android:layout_height="fill_parent"
-                    android:background="@color/SfondoBase">
+                    </RelativeLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_weight="1">
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_weight="1">
+                        <!--<ImageView-->
+                        <!--android:id="@+id/imageView1"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/SfondoLay"-->
+                        <!--android:contentDescription="@string/description"-->
+                        <!--tools:ignore="ContentDescription" />-->
 
-                    <!--<ImageView-->
-                    <!--android:id="@+id/imageView1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@color/SfondoLay"-->
-                    <!--android:contentDescription="@string/description"-->
-                    <!--tools:ignore="ContentDescription" />-->
-
-                    <!--<ListView-->
+                        <!--<ListView-->
                         <!--android:id="@+id/listPointTeamB"-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="fill_parent"-->
@@ -143,159 +153,159 @@
                         <!--android:layout_alignParentTop="true"-->
                         <!--android:background="@color/SfondoPunti"-->
                         <!--android:clickable="false" />-->
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/listPointTeamB"
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@color/SfondoPunti"
-                        android:scrollbars="vertical" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/listPointTeamB"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@color/SfondoMedio"
+                            android:scrollbars="vertical" />
 
-                </RelativeLayout>
-            </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearResult"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/linearBottoni"
-                android:background="@drawable/shape_back"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:id="@+id/resultA"
-                    android:layout_width="@dimen/noSpace"
+                <LinearLayout
+                    android:id="@+id/linearResult"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoPunti"
-                    android:gravity="center"
-                    android:textColor="@color/Nero"
-                    android:text=""
-                    android:textAppearance="@android:style/TextAppearance.Holo.Large" />
+                    android:layout_above="@+id/linearBottoni"
+                    android:background="@drawable/shape_back"
+                    android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="@dimen/insignificantMargin"
-                    android:layout_height="match_parent"
-                    android:background="@color/SfondoBase" />
 
-                <TextView
-                    android:id="@+id/resultB"
-                    android:layout_width="@dimen/noSpace"
+                    <TextView
+                        android:id="@+id/resultA"
+                        android:layout_width="@dimen/noSpace"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/SfondoMedio"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+                        android:textColor="@color/Nero" />
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/insignificantMargin"
+                        android:layout_height="match_parent"
+                        android:background="@color/SfondoOmbre" />
+
+                    <TextView
+                        android:id="@+id/resultB"
+                        android:layout_width="@dimen/noSpace"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/SfondoMedio"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+                        android:textColor="@color/Nero" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearBottoni"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoPunti"
-                    android:gravity="center"
-                    android:textColor="@color/Nero"
-                    android:text=""
-                    android:textAppearance="@android:style/TextAppearance.Holo.Large" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearBottoni"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="@dimen/lowMargin"
-                android:orientation="horizontal">
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/lowMargin"
+                    android:orientation="horizontal">
 
 
-                <Button
-                    android:id="@+id/setTeamA"
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="@dimen/mediumMargin"
-                    android:layout_marginRight="@dimen/mediumMargin"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoPunti"
-                    android:gravity="center"
-                    android:minWidth="70dp"
-                    android:text="@string/setPoint"
-                    android:textColor="@drawable/text_layout"
-                    android:textSize="@dimen/testoPiccolo" />
+                    <Button
+                        android:id="@+id/setTeamA"
+                        android:layout_width="@dimen/noSpace"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/mediumMargin"
+                        android:layout_marginRight="@dimen/mediumMargin"
+                        android:layout_weight="1"
+                        android:background="@color/SfondoMedio"
+                        android:gravity="center"
+                        android:minWidth="70dp"
+                        android:text="@string/setPoint"
+                        android:textColor="@drawable/text_layout"
+                        android:textSize="@dimen/testoPiccolo" />
 
-                <Button
-                    android:id="@+id/setTeamB"
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="@dimen/mediumMargin"
-                    android:layout_marginRight="@dimen/mediumMargin"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoPunti"
-                    android:gravity="center"
-                    android:minWidth="70dp"
-                    android:text="@string/setPoint"
-                    android:textColor="@drawable/text_layout"
-                    android:textSize="@dimen/testoPiccolo" />
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/setTeamB"
+                        android:layout_width="@dimen/noSpace"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/mediumMargin"
+                        android:layout_marginRight="@dimen/mediumMargin"
+                        android:layout_weight="1"
+                        android:background="@color/SfondoMedio"
+                        android:gravity="center"
+                        android:minWidth="70dp"
+                        android:text="@string/setPoint"
+                        android:textColor="@drawable/text_layout"
+                        android:textSize="@dimen/testoPiccolo" />
+                </LinearLayout>
 
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/relativeFinaleSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/lowMargin"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/relativeFinaleSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/lowMargin"
-            android:layout_weight="1">
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/lowMargin"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/punteggioASummary"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:paddingLeft="@dimen/lowMargin"
-                android:paddingRight="@dimen/lowMargin"
-                android:text="@string/zeroValue"
-                android:textColor="@color/SquadraA"
-                android:textSize="@dimen/testoEnorme"
-                android:typeface="monospace" />
+                android:layout_marginRight="@dimen/lowMargin"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/punteggioASummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:paddingLeft="@dimen/lowMargin"
+                    android:paddingRight="@dimen/lowMargin"
+                    android:text="@string/zeroValue"
+                    android:textColor="@color/Rosso"
+                    android:textSize="@dimen/testoEnorme"
+                    android:typeface="monospace" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/coppaSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/cup_description"
+                    android:src="@drawable/coppa_style" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lowMargin"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/punteggioBSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/lowMargin"
+                    android:paddingRight="@dimen/lowMargin"
+                    android:text="@string/zeroValue"
+                    android:textColor="@color/Azzurro"
+                    android:textSize="@dimen/testoEnorme"
+                    android:typeface="monospace" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/coppaSummary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:contentDescription="@string/cup_description"
-                android:src="@drawable/coppa_style" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/lowMargin"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/punteggioBSummary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:paddingLeft="@dimen/lowMargin"
-                android:paddingRight="@dimen/lowMargin"
-                android:text="@string/zeroValue"
-                android:textColor="@color/SquadraB"
-                android:textSize="@dimen/testoEnorme"
-                android:typeface="monospace" />
-        </LinearLayout>
-
-
         <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
     </LinearLayout>
 

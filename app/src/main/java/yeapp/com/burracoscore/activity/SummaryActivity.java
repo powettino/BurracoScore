@@ -1,15 +1,14 @@
 package yeapp.com.burracoscore.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +21,11 @@ import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.layoutModel.adapter.ScoreRecyclerAdapter;
 import yeapp.com.burracoscore.layoutModel.decorator.DividerItemDecoration;
 
-public class SummaryActivity extends Activity implements View.OnClickListener {
+public class SummaryActivity extends ActionBarActivity implements View.OnClickListener {
+
+
+    Toolbar toolbar;
+
     private RecyclerView mRecyclerViewA;
     private RecyclerView mRecyclerViewB;
 
@@ -60,17 +63,23 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+        toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
+
         mRecyclerViewA = (RecyclerView) findViewById(R.id.listPointTeamA);
         mRecyclerViewA.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewA.setAdapter(dtaLVA);
         mRecyclerViewA.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
         mRecyclerViewA.setHasFixedSize(true);
 
+
         mRecyclerViewB = (RecyclerView) findViewById(R.id.listPointTeamB);
         mRecyclerViewB.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewB.setAdapter(dtaLVB);
         mRecyclerViewB.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
         mRecyclerViewB.setHasFixedSize(true);
+
 
         teamAText = (TextView) findViewById(R.id.teamASummary);
         teamBText = (TextView) findViewById(R.id.teamBSummary);
@@ -324,4 +333,5 @@ public class SummaryActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
 }

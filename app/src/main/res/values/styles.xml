@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Summary" parent="Theme.AppCompat">
-        <item name="android:actionBarStyle">@style/actionStyle</item>
-        <item name="android:windowActionBar">true</item>
+    <style name="Summary" parent="Theme.AppCompat.NoActionBar">
+        <!--<item name="android:actionBarStyle">@style/actionStyle</item>-->
+        <!--<item name="android:windowActionBar">false</item>-->
     </style>
 
-    <style name="actionStyle" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:background">@color/SfondoBase</item>
-        <item name="android:textColor">@color/Nero</item>
-        <item name="android:actionBarTabTextStyle">@style/actionTextStyle</item>
-    </style>
+    <!--<style name="actionStyle" parent="@android:style/Theme.Holo.NoActionBar">-->
+        <!--<item name="android:background">@color/SfondoBase</item>-->
+        <!--<item name="android:textColor">@color/Nero</item>-->
+        <!--<item name="android:actionBarTabTextStyle">@style/actionTextStyle</item>-->
+    <!--</style>-->
 
-    <style name="actionTextStyle" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/Nero</item>
-        <item name="android:background">@color/SfondoLay</item>
-        <item name="android:textSize">@dimen/testoEnorme</item>
-    </style>
+    <!--<style name="actionTextStyle" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+        <!--<item name="android:textColor">@color/Nero</item>-->
+        <!--<item name="android:background">@color/SfondoLay</item>-->
+        <!--<item name="android:textSize">@dimen/testoEnorme</item>-->
+    <!--</style>-->
 
     <style name="FeatureDialog" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowNoTitle">true</item>
@@ -28,7 +28,7 @@
         <item name="android:textColorSecondaryInverse">@drawable/text_layout</item>
         <item name="android:textColorTertiaryInverse">@drawable/text_layout</item>
         <item name="android:textColor">@drawable/text_layout</item>
-        <item name="android:background">@color/SfondoRes</item>
+        <item name="android:background">@color/SfondoBase</item>
     </style>
 
 </resources>

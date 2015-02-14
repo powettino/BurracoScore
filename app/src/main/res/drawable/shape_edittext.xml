@@ -2,14 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/SfondoBase" />
+            <solid android:color="@color/SfondoOmbre" />
 
             <padding android:bottom="@dimen/insignificantMargin" android:left="@dimen/lowMargin" android:right="@dimen/noSpace" android:top="@dimen/lowMargin" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="@color/SfondoPunti" />
+            <solid android:color="@color/SfondoMedio" />
           
             <padding android:bottom="@dimen/insignificantMargin" android:left="@dimen/insignificantMargin" android:right="@dimen/insignificantMargin" android:top="@dimen/lowMargin" />
         </shape>

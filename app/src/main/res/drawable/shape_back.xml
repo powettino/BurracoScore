@@ -6,7 +6,7 @@
             <!-- set the shadow color here -->
             <stroke
                 android:width="5dp"
-                android:color="@color/SfondoBase" />
+                android:color="@color/SfondoOmbre" />
             <!-- setting the thickness of shadow (positive value will give shadow on that side)-->
             <padding
                 android:bottom="3dp"

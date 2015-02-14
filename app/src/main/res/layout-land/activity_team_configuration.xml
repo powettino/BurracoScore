@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/lowMargin"
-                android:background="@color/SfondoPunti"
+                android:background="@color/SfondoMedio"
                 android:clickable="true"
                 android:drawableLeft="@drawable/head"
                 android:drawableRight="@drawable/head"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/lowMargin"
-                android:background="@color/SfondoPunti"
+                android:background="@color/SfondoMedio"
                 android:clickable="true"
                 android:drawableLeft="@drawable/d_head"
                 android:drawableRight="@drawable/d_head"
@@ -69,7 +69,7 @@
                 android:enabled="false"
                 android:text="@string/teamAName"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/SquadraA" />
+                android:textColor="@color/Rosso" />
 
             <EditText
                 android:id="@+id/giocatore11"
@@ -116,7 +116,7 @@
                 android:enabled="false"
                 android:text="@string/teamBName"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/SquadraB" />
+                android:textColor="@color/Azzurro" />
 
             <EditText
                 android:id="@+id/giocatore21"
@@ -168,7 +168,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/insignificantMargin"
-            android:background="@color/SfondoPunti"
+            android:background="@color/SfondoMedio"
             android:enabled="false"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
@@ -183,7 +183,7 @@
             android:layout_alignParentBottom="false"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:background="@color/SfondoPunti"
+            android:background="@color/SfondoMedio"
             android:enabled="false"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
@@ -197,7 +197,7 @@
             android:layout_alignParentBottom="false"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/insignificantMargin"
-            android:background="@color/SfondoPunti"
+            android:background="@color/SfondoMedio"
             android:enabled="true"
             android:paddingLeft="@dimen/insignificantMargin"
             android:paddingRight="@dimen/insignificantMargin"
