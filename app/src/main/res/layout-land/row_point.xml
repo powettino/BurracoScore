@@ -5,30 +5,28 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:paddingBottom="3sp"
+    android:paddingEnd="@dimen/lowMargin"
+    android:paddingStart="@dimen/lowMargin"
     android:paddingTop="3sp">
 
     <TextView
         android:id="@+id/textRowPointLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/lowMargin"
         android:clickable="false"
-        android:layout_gravity="left"
+        android:text="asdasd"
         android:textColor="@color/Nero"
-        android:textSize="@dimen/testoMedio"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="true" />
+        android:textSize="@dimen/testoMedio" />
 
     <TextView
         android:id="@+id/textRowPointRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/lowMargin"
         android:clickable="false"
+        android:layout_alignParentRight="true"
         android:gravity="center|right"
         android:layout_gravity="right"
+        android:text="adsasd"
         android:textColor="@color/Nero"
-        android:textSize="@dimen/testoMedio"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="true" />
+        android:textSize="@dimen/testoMedio" />
 </RelativeLayout>

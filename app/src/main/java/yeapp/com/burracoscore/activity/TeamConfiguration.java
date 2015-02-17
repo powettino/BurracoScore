@@ -111,7 +111,8 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
 
     private void restoreFromMain() {
         Intent startingIntent = getIntent();
-        numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+
+       // numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
         tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
         tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
 

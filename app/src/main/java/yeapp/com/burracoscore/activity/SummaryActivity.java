@@ -6,36 +6,32 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.layoutModel.adapter.ScoreRecyclerAdapter;
-import yeapp.com.burracoscore.layoutModel.decorator.DividerItemDecoration;
+import yeapp.com.burracoscore.layoutModel.adapter.ListPointAdapter;
 
-public class SummaryActivity extends ActionBarActivity implements View.OnClickListener {
-
-
+public class SummaryActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     Toolbar toolbar;
 
-    private RecyclerView mRecyclerViewA;
-    private RecyclerView mRecyclerViewB;
+//    private RecyclerView mRecyclerViewA;
+//    private RecyclerView mRecyclerViewB;
 
-    public static String teamAKey = "teamA";
-    public static String teamBKey = "teamB";
-    public static String numberOfPlayer = "numberOfPlayer";
-    public static String hand = "hand";
-    public static String setButtonA = "setButtonA";
-    public static String setButtonB = "setButtonB";
-    public static String setDialog = "dialog";
+    public static final String teamAKey = "teamA";
+    public static final String teamBKey = "teamB";
+    public static final String numberOfPlayer = "numberOfPlayer";
+    public static final String hand = "hand";
+    public static final String setButtonA = "setButtonA";
+    public static final String setButtonB = "setButtonB";
+    public static final String setDialog = "dialog";
 
     private TextView teamAText;
     private TextView teamBText;
@@ -46,8 +42,11 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     private int numberOfPlayerForTeam = 0;
     private Team teamA;
     private Team teamB;
-    ScoreRecyclerAdapter dtaLVA = new ScoreRecyclerAdapter(true);
-    ScoreRecyclerAdapter dtaLVB = new ScoreRecyclerAdapter(false);
+    //    ScoreRecyclerAdapter dtaLVA = new ScoreRecyclerAdapter(true);
+//    ScoreRecyclerAdapter dtaLVB = new ScoreRecyclerAdapter(false);
+    ListPointAdapter dtaLVA = new ListPointAdapter(this, true);
+    ListPointAdapter dtaLVB = new ListPointAdapter(this, false);
+
     private TextView resultA;
     private TextView resultB;
     private TextView punteggioTotA;
@@ -63,22 +62,24 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
-        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_summary);
+        toolbar.setOnMenuItemClickListener(this);
+//        setSupportActionBar(toolbar);
 
-        mRecyclerViewA = (RecyclerView) findViewById(R.id.listPointTeamA);
-        mRecyclerViewA.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewA.setAdapter(dtaLVA);
-        mRecyclerViewA.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
-        mRecyclerViewA.setHasFixedSize(true);
-
-
-        mRecyclerViewB = (RecyclerView) findViewById(R.id.listPointTeamB);
-        mRecyclerViewB.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewB.setAdapter(dtaLVB);
-        mRecyclerViewB.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
-        mRecyclerViewB.setHasFixedSize(true);
+//        mRecyclerViewA = (RecyclerView) findViewById(R.id.listPointTeamA);
+//        mRecyclerViewA.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerViewA.setAdapter(dtaLVA);
+//        mRecyclerViewA.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
+//        mRecyclerViewA.setHasFixedSize(true);
+//
+//
+//        mRecyclerViewB = (RecyclerView) findViewById(R.id.listPointTeamB);
+//        mRecyclerViewB.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerViewB.setAdapter(dtaLVB);
+//        mRecyclerViewB.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
+//        mRecyclerViewB.setHasFixedSize(true);
 
 
         teamAText = (TextView) findViewById(R.id.teamASummary);
@@ -86,8 +87,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         teamA = new Team("A");
         teamB = new Team("B");
 
-        // ((ListView) findViewById(R.id.listPointTeamA)).setAdapter(dtaLVA);
-        //((ListView) findViewById(R.id.listPointTeamB)).setAdapter(dtaLVB);
+        ((ListView) findViewById(R.id.listPointTeamA)).setAdapter(dtaLVA);
+        ((ListView) findViewById(R.id.listPointTeamB)).setAdapter(dtaLVB);
 
         findViewById(R.id.setTeamA).setOnClickListener(this);
         findViewById(R.id.setTeamB).setOnClickListener(this);
@@ -108,8 +109,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
             String p12 = teamA.getPlayer2();
             String p21 = teamB.getPlayer1();
             String p22 = teamB.getPlayer2();
-            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "-" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
-            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "-" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
+            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "|" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
+            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "|" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
         }
     }
 
@@ -152,7 +153,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_summary, menu);
+//        getMenuInflater().inflate(R.menu.menu_summary, menu);
         return true;
     }
 
@@ -209,7 +210,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                     } else {
                         dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
                     }
-                    dtaLVA.notifyItemInserted(lastGame);
+                    dtaLVA.notifyDataSetChanged();
+//                    dtaLVA.notifyItemInserted(lastGame);
                     checkWinner();
                 }
                 break;
@@ -225,7 +227,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                     } else {
                         dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
                     }
-                    dtaLVB.notifyItemInserted(lastGame);
+                    dtaLVB.notifyDataSetChanged();
+//                    dtaLVB.notifyItemInserted(lastGame);
                     checkWinner();
                 }
                 break;
@@ -238,7 +241,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void checkWinner() {
-        if (dtaLVA.getItemCount() == dtaLVB.getItemCount()) {
+        if (dtaLVA.getCount() == dtaLVB.getCount()) {
             int totA = teamA.getTotale();
             int totB = teamB.getTotale();
 //            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
@@ -287,12 +290,14 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void resetGames() {
-        int oldSize = dtaLVA.getItemCount();
+        int oldSize = dtaLVA.getCount();
         dtaLVA.clearData();
-        dtaLVA.notifyItemRangeRemoved(0, oldSize);
-        oldSize = dtaLVB.getItemCount();
+//        dtaLVA.notifyItemRangeRemoved(0, oldSize);
+        oldSize = dtaLVB.getCount();
+        dtaLVA.notifyDataSetChanged();
         dtaLVB.clearData();
-        dtaLVB.notifyItemRangeRemoved(0, oldSize);
+        dtaLVB.notifyDataSetChanged();
+//        dtaLVB.notifyItemRangeRemoved(0, oldSize);
         resultA.setText("");
         resultB.setText("");
         teamA.cleanPunteggio();
@@ -334,4 +339,32 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.chiudiAppMenuSum: {
+                finish();
+                return true;
+            }
+            case R.id.configuraMenuSum: {
+                Intent configurazione = new Intent(this, TeamConfiguration.class);
+                configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
+                        .putExtra(teamAKey, teamA)
+                        .putExtra(teamBKey, teamB);
+                startActivityForResult(configurazione, CODE_FOR_CONF);
+                return true;
+            }
+            case R.id.cancellaGame: {
+                resetGames();
+                return true;
+            }
+            case R.id.cancellaTutto: {
+                resetAll();
+                return true;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
 }

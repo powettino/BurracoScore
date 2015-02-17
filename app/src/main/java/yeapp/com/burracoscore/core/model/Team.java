@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Team implements Parcelable {
@@ -36,8 +35,8 @@ public class Team implements Parcelable {
         side = in.readString();
         this.player1 = in.readString();
         this.player2 = in.readString();
-        in.readList(punteggio, ArrayList.class.getClassLoader());
-        in.readList(mani, ArrayList.class.getClassLoader());
+        in.readList(punteggio, getClass().getClassLoader());
+        in.readList(mani, getClass().getClassLoader());
         totale = in.readInt();
         gameVinti = in.readInt();
     }
@@ -105,8 +104,8 @@ public class Team implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(side);
-        dest.writeString(this.player1);
-        dest.writeString(this.player2);
+        dest.writeString(player1);
+        dest.writeString(player2);
         dest.writeList(punteggio);
         dest.writeList(mani);
         dest.writeInt(totale);

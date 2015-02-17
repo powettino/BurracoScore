@@ -39,9 +39,9 @@
     <string name="configurazione">Configura Team</string>
     <string name="gameSingolo">1 vs 1</string>
     <string name="gameDoppio">2 vs 2</string>
-    <string name="teamAName">Team A</string>
+    <string name="teamAName">Team\n\nA</string>
     <string name="VS">VS</string>
-    <string name="teamBName">Team B</string>
+    <string name="teamBName">Team\n\nB</string>
     <string name="cup_description">Cup</string>
     <string name="zeroValue">0</string>
     <string name="setPoint">Segna</string>

@@ -8,69 +8,56 @@
     tools:context="yeapp.com.burracoscore.activity.SummaryActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/my_awesome_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/SfondoToolbar"
         android:minHeight="?attr/actionBarSize"
+        android:titleTextAppearance="@style/ToolbarTitle"
         android:title="@string/app_name" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/standard_margin">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearInt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+        <!--<LinearLayout-->
+        <!--android:id="@+id/linearInt"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center">-->
 
-            <TextView
-                android:id="@+id/teamASummary"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:saveEnabled="true"
-                android:text="@string/teamAName"
-                android:textColor="@color/Rosso"
-                android:textSize="@dimen/testoMedio"
-                android:typeface="monospace" />
+        <!--<TextView-->
+        <!--android:id="@+id/teamASummary"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center"-->
+        <!--android:saveEnabled="true"-->
+        <!--android:text="@string/teamAName"-->
+        <!--android:textColor="@color/Rosso"-->
+        <!--android:textSize="@dimen/testoMedio"-->
+        <!--android:typeface="monospace" />-->
 
-            <!--<TextView-->
-            <!--android:id="@+id/tvstSummary"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:enabled="true"-->
-            <!--android:gravity="center"-->
-            <!--android:saveEnabled="true"-->
-            <!--android:text="@string/VS"-->
-            <!--android:textSize="@dimen/testoMedio"-->
-            <!--android:typeface="monospace" />-->
-
-            <TextView
-                android:id="@+id/teamBSummary"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/teamBName"
-                android:textColor="@color/Azzurro"
-                android:textSize="@dimen/testoMedio"
-                android:typeface="monospace" />
-        </LinearLayout>
+        <!--<TextView-->
+        <!--android:id="@+id/teamBSummary"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/teamBName"-->
+        <!--android:textColor="@color/Azzurro"-->
+        <!--android:textSize="@dimen/testoMedio"-->
+        <!--android:typeface="monospace" />-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/linearScroll"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/noSpace"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/resultTextSection"
-            android:layout_below="@+id/linearInt"
+            android:background="@drawable/shape_back"
             android:layout_marginBottom="2dp"
-
-            android:layout_marginTop="@dimen/lowMargin"
-
             android:baselineAligned="false">
 
             <RelativeLayout
@@ -93,14 +80,34 @@
                 <!--android:background="@color/SfondoPunti"-->
                 <!--android:clickable="false" />-->
 
-                <android.support.v7.widget.RecyclerView
+                <ListView
                     android:id="@+id/listPointTeamA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/SfondoMedio"
                     android:scrollbars="vertical" />
 
+
+                <TextView
+                    android:id="@+id/teamASummary"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/lowMargin"
+                    android:layout_weight="1"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:saveEnabled="true"
+                    android:background="@drawable/shape_back"
+                    android:maxEms="1"
+                    android:singleLine="false"
+                    android:text="@string/teamAName"
+                    android:textColor="@color/Rosso"
+                    android:textSize="@dimen/testoMedio"
+                    android:typeface="monospace" />
+
             </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="@dimen/insignificantMargin"
@@ -128,12 +135,29 @@
                 <!--android:layout_height="match_parent"-->
                 <!--android:background="@color/SfondoPunti"-->
                 <!--android:clickable="false" />-->
-                <android.support.v7.widget.RecyclerView
+                <ListView
                     android:id="@+id/listPointTeamB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/SfondoMedio"
                     android:scrollbars="vertical" />
+
+                <TextView
+                    android:id="@+id/teamBSummary"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/lowMargin"
+                    android:elevation="8dp"
+                    android:background="@drawable/shape_back"
+                    android:gravity="center"
+                    android:maxEms="1"
+                    android:singleLine="false"
+                    android:text="@string/teamBName"
+                    android:textColor="@color/Azzurro"
+                    android:textSize="@dimen/testoMedio"
+                    android:typeface="monospace" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -142,8 +166,8 @@
             android:id="@+id/resultTextSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonSection"
-            android:background="@drawable/shape_back">
+            android:background="@drawable/shape_back"
+            android:layout_above="@+id/buttonSection">
 
             <TextView
                 android:id="@+id/resultA"

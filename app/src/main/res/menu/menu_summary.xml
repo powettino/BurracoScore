@@ -21,6 +21,6 @@
         android:id="@+id/configuraMenuSum"
         android:orderInCategory="3"
         android:title="@string/configurazione"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/head"
         app:showAsAction="always" />
 </menu>
