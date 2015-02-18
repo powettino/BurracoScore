@@ -1,14 +1,14 @@
 package yeapp.com.burracoscore.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import yeapp.com.burracoscore.R;
@@ -16,9 +16,11 @@ import yeapp.com.burracoscore.core.model.Team;
 
 import static android.view.View.OnClickListener;
 
-public class TeamConfiguration extends Activity implements OnClickListener, TextWatcher {
-    private Button salvaButton;
-    private Button resetButton;
+public class TeamConfiguration extends ActionBarActivity implements OnClickListener, TextWatcher {
+
+    Toolbar toolbar;
+    private MenuItem salvaButton;
+    private MenuItem resetButton;
     private EditText gioc11Text;
     private EditText gioc12Text;
     private EditText gioc21Text;
@@ -37,23 +39,23 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
             }
             case R.id.singleConf: {
                 numberOfPlayerForTeam = 1;
-                changeVisualConfigurationByPlayers();
+                changeDisplayName();
                 break;
             }
             case R.id.coupleConf: {
                 numberOfPlayerForTeam = 2;
-                changeVisualConfigurationByPlayers();
+                changeDisplayName();
                 break;
             }
             case R.id.salvaConf: {
-                salvaNomi();
+                completeAndSend();
                 break;
             }
-            case R.id.chiudiConf: {
-                setResult(RESULT_CANCELED);
-                finish();
-                break;
-            }
+//            case R.id.chiudiConf: {
+//                setResult(RESULT_CANCELED);
+//                finish();
+//                break;
+//            }
             default: {
                 break;
             }
@@ -73,11 +75,15 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         }
     }
 
-    private void salvaNomi() {
+    private void saveDisplayedName() {
         tA.setPlayer1(gioc11Text.getText().toString());
         tA.setPlayer2(numberOfPlayerForTeam == 2 ? gioc12Text.getText().toString() : null);
         tB.setPlayer1(gioc21Text.getText().toString());
         tB.setPlayer2(numberOfPlayerForTeam == 2 ? gioc22Text.getText().toString() : null);
+    }
+
+    private void completeAndSend() {
+        saveDisplayedName();
         setResult(RESULT_OK, this.getIntent()
                         .putExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam)
                         .putExtra(SummaryActivity.teamAKey, tA)
@@ -90,32 +96,34 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_configuration);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.conf_name);
+        setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_action_previous_item);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(8);
+
         findViewById(R.id.singleConf).setOnClickListener(this);
         findViewById(R.id.coupleConf).setOnClickListener(this);
-        salvaButton = (Button) findViewById(R.id.salvaConf);
-        salvaButton.setOnClickListener(this);
-        resetButton = (Button) findViewById(R.id.resetConf);
-        resetButton.setOnClickListener(this);
-        findViewById(R.id.chiudiConf).setOnClickListener(this);
+//        salvaButton = (Button) findViewById(R.id.salvaConf);
+//        salvaButton.setOnClickListener(this);
+//        resetButton = (Button) findViewById(R.id.resetConf);
+//        resetButton.setOnClickListener(this);
+//        findViewById(R.id.chiudiConf).setOnClickListener(this);
         gioc11Text = (EditText) findViewById(R.id.giocatore11);
         gioc12Text = (EditText) findViewById(R.id.giocatore12);
         gioc21Text = (EditText) findViewById(R.id.giocatore21);
         gioc22Text = (EditText) findViewById(R.id.giocatore22);
 
-        gioc11Text.addTextChangedListener(this);
-        gioc12Text.addTextChangedListener(this);
-        gioc21Text.addTextChangedListener(this);
-        gioc22Text.addTextChangedListener(this);
-        restoreFromMain();
+        if (savedInstanceState == null) {
+            Intent startingIntent = getIntent();
+            numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+            tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
+            tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
+        }
     }
 
-    private void restoreFromMain() {
-        Intent startingIntent = getIntent();
-
-       // numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
-        tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
-        tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
-
+    private void setDiplayTeamName() {
         if (numberOfPlayerForTeam != 0) {
             gioc11Text.setText(tA.getPlayer1());
             gioc21Text.setText(tB.getPlayer1());
@@ -123,7 +131,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
                 gioc12Text.setText(tA.getPlayer2());
                 gioc22Text.setText(tA.getPlayer2());
             }
-            changeVisualConfigurationByPlayers();
+            changeDisplayName();
         } else {
             resetNames();
         }
@@ -131,6 +139,7 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        saveDisplayedName();
         outState.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
         outState.putParcelable(SummaryActivity.teamAKey, tA);
         outState.putParcelable(SummaryActivity.teamBKey, tB);
@@ -141,31 +150,49 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity.numberOfPlayer);
-        if (numberOfPlayerForTeam != 0) {
-            gioc11Text.setText(tA.getPlayer1());
-            gioc21Text.setText(tB.getPlayer1());
-            if (numberOfPlayerForTeam == 2) {
-                gioc12Text.setText(tA.getPlayer1());
-                gioc22Text.setText(tB.getPlayer1());
-            }
-            changeVisualConfigurationByPlayers();
-        } else {
-            resetNames();
-        }
+        tA = savedInstanceState.getParcelable(SummaryActivity.teamAKey);
+        tB = savedInstanceState.getParcelable(SummaryActivity.teamBKey);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_team_configuration, menu);
+        salvaButton = menu.findItem(R.id.salvaConfMenu);
+        resetButton = menu.findItem(R.id.resetConfMenu);
+
+        gioc11Text.addTextChangedListener(this);
+        gioc12Text.addTextChangedListener(this);
+        gioc21Text.addTextChangedListener(this);
+        gioc22Text.addTextChangedListener(this);
+        setDiplayTeamName();
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                setResult(RESULT_CANCELED);
+                finish();
+                return true;
+            }
+            case R.id.salvaConfMenu: {
+                completeAndSend();
+                return true;
+            }
+            case R.id.resetConfMenu: {
+                resetNames();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
     }
 
-    private void changeVisualConfigurationByPlayers() {
+    private void changeDisplayName() {
         if (gioc11Text.getText().length() == 0) {
             gioc11Text.setText(R.string.nomeGiocatore11);
         }
@@ -178,11 +205,11 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         if (gioc22Text.getText().length() == 0) {
             gioc22Text.setText(R.string.nomeGiocatore22);
         }
-        if (!salvaButton.isEnabled()) {
-            salvaButton.setEnabled(true);
+        if (!salvaButton.isVisible()) {
+            salvaButton.setVisible(true);
         }
-        if (!resetButton.isEnabled()) {
-            resetButton.setEnabled(true);
+        if (!resetButton.isVisible()) {
+            resetButton.setVisible(true);
         }
         if (!gioc11Text.isEnabled() && !gioc21Text.isEnabled()) {
             gioc11Text.setEnabled(true);
@@ -198,7 +225,6 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
         }
     }
 
-
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -212,11 +238,12 @@ public class TeamConfiguration extends Activity implements OnClickListener, Text
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() == 0) {
-            if (salvaButton.isEnabled())
-                salvaButton.setEnabled(false);
+            if (salvaButton.isVisible()) {
+                salvaButton.setVisible(false);
+            }
         } else {
-            if (!salvaButton.isEnabled() && numberOfPlayerForTeam != 0) {
-                salvaButton.setEnabled(true);
+            if (!salvaButton.isVisible() && numberOfPlayerForTeam != 0) {
+                salvaButton.setVisible(true);
             }
         }
     }

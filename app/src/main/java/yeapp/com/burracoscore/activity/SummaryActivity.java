@@ -66,6 +66,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu_summary);
         toolbar.setOnMenuItemClickListener(this);
+
 //        setSupportActionBar(toolbar);
 
 //        mRecyclerViewA = (RecyclerView) findViewById(R.id.listPointTeamA);
