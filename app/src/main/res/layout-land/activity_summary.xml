@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/linearResult"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/shape_back"
+                    android:background="@drawable/shape_rounded_back"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
@@ -121,6 +121,7 @@
                             android:maxEms="1"
                             android:saveEnabled="true"
                             android:singleLine="false"
+                            android:background="@drawable/shape_back"
                             android:text="@string/teamAName"
                             android:textColor="@color/Rosso"
                             android:textSize="@dimen/testoMedio"
@@ -176,6 +177,7 @@
                             android:maxEms="1"
                             android:singleLine="false"
                             android:text="@string/teamBName"
+                            android:background="@drawable/shape_back"
                             android:textColor="@color/Azzurro"
                             android:textSize="@dimen/testoMedio"
                             android:typeface="monospace" />
@@ -189,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/linearBottoni"
-                    android:background="@drawable/shape_back"
+                    android:background="@drawable/shape_rounded_back"
                     android:orientation="horizontal">
 
 

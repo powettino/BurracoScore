@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/resultTextSection"
-            android:background="@drawable/shape_back"
+            android:background="@drawable/shape_rounded_back"
             android:layout_marginBottom="2dp"
             android:baselineAligned="false">
 
@@ -101,6 +101,7 @@
                     android:maxEms="1"
                     android:singleLine="false"
                     android:text="@string/teamAName"
+                    android:background="@drawable/shape_back"
                     android:textColor="@color/Rosso"
                     android:textSize="@dimen/testoMedio"
                     android:typeface="monospace" />
@@ -153,6 +154,7 @@
                     android:maxEms="1"
                     android:singleLine="false"
                     android:text="@string/teamBName"
+                    android:background="@drawable/shape_back"
                     android:textColor="@color/Azzurro"
                     android:textSize="@dimen/testoMedio"
                     android:typeface="monospace" />
@@ -164,7 +166,7 @@
             android:id="@+id/resultTextSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_back"
+            android:background="@drawable/shape_rounded_back"
             android:layout_above="@+id/buttonSection">
 
             <TextView
