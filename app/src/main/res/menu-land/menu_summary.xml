@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="yeapp.com.burracoscore.activity.SummaryActivity">
+    <item
+        android:id="@+id/cancellaGame"
+        android:orderInCategory="1"
+        android:title="@string/reset"
+        android:icon="@drawable/ic_action_discard"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/cancellaTutto"
+        android:orderInCategory="2"
+        android:title="@string/resetAll"
+        android:icon="@drawable/ic_action_cancel"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/configuraMenuSum"
+        android:orderInCategory="3"
+        android:title="@string/configurazione"
+        android:icon="@drawable/ic_action_group"
+        app:showAsAction="always" />
+</menu>

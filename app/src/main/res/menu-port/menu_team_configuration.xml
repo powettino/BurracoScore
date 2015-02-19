@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="yeapp.com.burracoscore.activity.TeamConfiguration">
+    <item
+        android:id="@+id/salvaConfMenu"
+        android:orderInCategory="3"
+        android:title="@string/save"
+        android:visible="false"
+        android:icon="@drawable/ic_action_save"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/resetConfMenu"
+        android:orderInCategory="3"
+        android:visible="false"
+        android:title="@string/save"
+        android:icon="@drawable/ic_action_cancel"
+        app:showAsAction="always" />
+</menu>

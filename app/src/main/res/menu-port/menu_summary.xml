@@ -6,16 +6,13 @@
         android:id="@+id/cancellaGame"
         android:orderInCategory="1"
         android:title="@string/reset"
+        android:icon="@drawable/ic_action_discard"
         app:showAsAction="never" />
     <item
         android:id="@+id/cancellaTutto"
         android:orderInCategory="2"
         android:title="@string/resetAll"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/chiudiAppMenuSum"
-        android:orderInCategory="4"
-        android:title="@string/exit"
+        android:icon="@drawable/ic_action_cancel"
         app:showAsAction="never" />
     <item
         android:id="@+id/configuraMenuSum"

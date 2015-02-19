@@ -161,10 +161,10 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.chiudiAppMenuSum: {
-                finish();
-                return true;
-            }
+//            case R.id.chiudiAppMenuSum: {
+//                finish();
+//                return true;
+//            }
             case R.id.configuraMenuSum: {
                 Intent configurazione = new Intent(this, TeamConfiguration.class);
                 configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
@@ -174,6 +174,29 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                 return true;
             }
             case R.id.cancellaGame: {
+                dialogActive = true;
+                if (dialog == null) {
+                    dialog = new AlertDialog.Builder(this)
+                            .setMessage("Vuoi cominciare una nuova partita?")
+                            .setCancelable(false)
+                            .setPositiveButton("Si",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            resetGames();
+                                            dialog.cancel();
+                                            dialogActive = false;
+                                        }
+                                    })
+                            .setNegativeButton("No",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                            dialogActive = false;
+                                        }
+                                    })
+                            .create();
+                }
+                dialog.show();
                 resetGames();
                 return true;
             }
@@ -343,10 +366,10 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.chiudiAppMenuSum: {
-                finish();
-                return true;
-            }
+//            case R.id.chiudiAppMenuSum: {
+//                finish();
+//                return true;
+//            }
             case R.id.configuraMenuSum: {
                 Intent configurazione = new Intent(this, TeamConfiguration.class);
                 configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
