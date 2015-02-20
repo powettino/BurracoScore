@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/resultTextSection"
-            android:background="@drawable/shape_rounded_back"
+            android:background="@drawable/shape_back"
             android:layout_marginBottom="2dp"
             android:baselineAligned="false">
 
@@ -88,23 +88,28 @@
                     android:scrollbars="vertical" />
 
 
-                <TextView
-                    android:id="@+id/teamASummary"
-                    android:layout_width="12dp"
+                <FrameLayout
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/lowMargin"
-                    android:layout_weight="1"
-                    android:elevation="8dp"
-                    android:gravity="center"
-                    android:saveEnabled="true"
-                    android:maxEms="1"
-                    android:singleLine="false"
-                    android:text="@string/teamAName"
                     android:background="@drawable/shape_back"
-                    android:textColor="@color/Rosso"
-                    android:textSize="@dimen/testoMedio"
-                    android:typeface="monospace" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/teamASummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:saveEnabled="true"
+                        android:maxEms="1"
+                        android:singleLine="false"
+                        android:text="@string/teamAName"
+                        android:background="@color/SfondoChiaro"
+                        android:textColor="@color/Rosso"
+                        android:textSize="@dimen/testoMedio"
+                        android:typeface="monospace" />
+                </FrameLayout>
 
             </RelativeLayout>
 
@@ -142,23 +147,27 @@
                     android:background="@color/SfondoMedio"
                     android:scrollbars="vertical" />
 
-                <TextView
-                    android:id="@+id/teamBSummary"
-                    android:layout_width="12dp"
+                <FrameLayout
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/lowMargin"
-                    android:elevation="8dp"
+                    android:layout_marginLeft="@dimen/lowMargin"
+                    android:background="@drawable/shape_back">
+                <TextView
+                    android:id="@+id/teamBSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxEms="1"
                     android:singleLine="false"
                     android:text="@string/teamBName"
-                    android:background="@drawable/shape_back"
+                    android:background="@color/SfondoChiaro"
                     android:textColor="@color/Azzurro"
                     android:textSize="@dimen/testoMedio"
                     android:typeface="monospace" />
-
+                </FrameLayout>
             </RelativeLayout>
         </LinearLayout>
 
@@ -166,7 +175,7 @@
             android:id="@+id/resultTextSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_rounded_back"
+            android:background="@drawable/shape_back"
             android:layout_above="@+id/buttonSection">
 
             <TextView
