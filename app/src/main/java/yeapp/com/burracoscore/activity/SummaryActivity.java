@@ -110,8 +110,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
             String p12 = teamA.getPlayer2();
             String p21 = teamB.getPlayer1();
             String p22 = teamB.getPlayer2();
-            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "|" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
-            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "|" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
+            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
+            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
         }
     }
 

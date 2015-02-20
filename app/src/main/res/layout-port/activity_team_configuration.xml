@@ -130,7 +130,7 @@
                     android:gravity="center"
                     android:text="@string/teamBName"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/Azzurro" />
+                    android:textColor="@color/Blu" />
 
                 <EditText
                     android:id="@+id/giocatore21"
@@ -167,57 +167,6 @@
                     android:text="@string/nomeGiocatore22" />
             </GridLayout>
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/salvaConf"
-            android:layout_width="@dimen/buttonWidthEq"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/nomi"
-            android:layout_gravity="center"
-            android:layout_marginRight="@dimen/insignificantMargin"
-            android:layout_marginTop="@dimen/mediumMargin"
-            android:background="@color/SfondoMedio"
-            android:enabled="false"
-            android:paddingLeft="@dimen/insignificantMargin"
-            android:paddingRight="@dimen/insignificantMargin"
-            android:saveEnabled="true"
-            android:text="@string/save"
-            android:textColor="@drawable/text_layout" />
-
-        <Button
-            android:id="@+id/resetConf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/nomi"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/mediumMargin"
-            android:background="@color/SfondoMedio"
-            android:enabled="false"
-            android:paddingLeft="@dimen/insignificantMargin"
-            android:paddingRight="@dimen/insignificantMargin"
-            android:text="@string/reset"
-            android:textColor="@drawable/text_layout" />
-
-        <!--<Button-->
-            <!--android:id="@+id/chiudiConf"-->
-            <!--android:layout_width="@dimen/buttonWidthEq"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="false"-->
-            <!--android:layout_below="@+id/nomi"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginLeft="@dimen/insignificantMargin"-->
-            <!--android:layout_marginTop="@dimen/mediumMargin"-->
-            <!--android:background="@color/SfondoMedio"-->
-            <!--android:enabled="true"-->
-            <!--android:paddingLeft="@dimen/insignificantMargin"-->
-            <!--android:paddingRight="@dimen/insignificantMargin"-->
-            <!--android:saveEnabled="true"-->
-            <!--android:text="@string/close"-->
-            <!--android:textColor="@drawable/text_layout" />-->
 
     </RelativeLayout>
 

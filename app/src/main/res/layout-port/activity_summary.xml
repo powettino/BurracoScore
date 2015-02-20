@@ -21,64 +21,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/linearInt"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center">-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/teamASummary"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center"-->
-        <!--android:saveEnabled="true"-->
-        <!--android:text="@string/teamAName"-->
-        <!--android:textColor="@color/Rosso"-->
-        <!--android:textSize="@dimen/testoMedio"-->
-        <!--android:typeface="monospace" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/teamBSummary"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/teamBName"-->
-        <!--android:textColor="@color/Azzurro"-->
-        <!--android:textSize="@dimen/testoMedio"-->
-        <!--android:typeface="monospace" />-->
-        <!--</LinearLayout>-->
-
         <LinearLayout
             android:id="@+id/linearScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/resultTextSection"
             android:background="@drawable/shape_back"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="@dimen/insignificantMargin"
             android:baselineAligned="false">
 
             <RelativeLayout
                 android:layout_width="@dimen/noSpace"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-
-                <!--<ImageView-->
-                <!--android:id="@+id/imageView1"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/SfondoLay"-->
-                <!--android:contentDescription="@string/description"-->
-                <!--tools:ignore="ContentDescription" />-->
-
-                <!--<ListView-->
-                <!--android:id="@+id/listPointTeamA"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/SfondoPunti"-->
-                <!--android:clickable="false" />-->
 
                 <ListView
                     android:id="@+id/listPointTeamA"
@@ -126,20 +81,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <!--<ImageView-->
-                <!--android:id="@+id/imageView2"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/SfondoLay"-->
-                <!--android:contentDescription="@string/description"-->
-                <!--tools:ignore="ContentDescription" />-->
-
-                <!--<ListView-->
-                <!--android:id="@+id/listPointTeamB"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/SfondoPunti"-->
-                <!--android:clickable="false" />-->
                 <ListView
                     android:id="@+id/listPointTeamB"
                     android:layout_width="match_parent"
@@ -164,7 +105,7 @@
                     android:singleLine="false"
                     android:text="@string/teamBName"
                     android:background="@color/SfondoChiaro"
-                    android:textColor="@color/Azzurro"
+                    android:textColor="@color/Blu"
                     android:textSize="@dimen/testoMedio"
                     android:typeface="monospace" />
                 </FrameLayout>
@@ -229,7 +170,6 @@
                 android:enabled="true"
                 android:minWidth="70dp"
                 android:text="@string/setPoint"
-
                 android:textColor="@drawable/text_layout"
                 android:textSize="@dimen/testoPiccolo" />
 
@@ -320,7 +260,7 @@
                         android:paddingLeft="@dimen/lowMargin"
                         android:paddingRight="@dimen/lowMargin"
                         android:text="@string/zeroValue"
-                        android:textColor="@color/Azzurro"
+                        android:textColor="@color/Blu"
                         android:textSize="@dimen/testoEnorme"
                         android:typeface="monospace" />
                 </LinearLayout>

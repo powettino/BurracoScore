@@ -33,10 +33,6 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case (R.id.resetConf): {
-                resetNames();
-                break;
-            }
             case R.id.singleConf: {
                 numberOfPlayerForTeam = 1;
                 changeDisplayName();
@@ -47,15 +43,6 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
                 changeDisplayName();
                 break;
             }
-            case R.id.salvaConf: {
-                completeAndSend();
-                break;
-            }
-//            case R.id.chiudiConf: {
-//                setResult(RESULT_CANCELED);
-//                finish();
-//                break;
-//            }
             default: {
                 break;
             }
