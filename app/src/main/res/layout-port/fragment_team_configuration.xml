@@ -51,10 +51,15 @@
             android:textColor="@drawable/text_layout" />
     </LinearLayout>
 
-    <fragment
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/teamFragment"
-        android:name="yeapp.com.burracoscore.fragment.TeamNameFragment" />
+        android:layout_weight="1">
+
+        <fragment
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/teamFragment"
+            android:name="yeapp.com.burracoscore.fragment.TeamNameFragment" />
+    </FrameLayout>
 </LinearLayout>

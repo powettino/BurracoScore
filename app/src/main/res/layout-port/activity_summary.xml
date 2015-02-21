@@ -35,13 +35,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
+                <ViewStub
+                    android:id="@+id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout="@layout/empty_result" />
+
                 <ListView
                     android:id="@+id/listPointTeamA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/SfondoMedio"
                     android:scrollbars="vertical" />
-
 
                 <FrameLayout
                     android:layout_width="20dp"
@@ -81,6 +87,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
+                <ViewStub
+                    android:id="@+id/empty2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout="@layout/empty_result" />
+
                 <ListView
                     android:id="@+id/listPointTeamB"
                     android:layout_width="match_parent"
@@ -96,18 +109,19 @@
                     android:layout_marginRight="@dimen/lowMargin"
                     android:layout_marginLeft="@dimen/lowMargin"
                     android:background="@drawable/shape_back">
-                <TextView
-                    android:id="@+id/teamBSummary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxEms="1"
-                    android:singleLine="false"
-                    android:text="@string/teamBName"
-                    android:background="@color/SfondoChiaro"
-                    android:textColor="@color/Blu"
-                    android:textSize="@dimen/testoMedio"
-                    android:typeface="monospace" />
+
+                    <TextView
+                        android:id="@+id/teamBSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxEms="1"
+                        android:singleLine="false"
+                        android:text="@string/teamBName"
+                        android:background="@color/SfondoChiaro"
+                        android:textColor="@color/Blu"
+                        android:textSize="@dimen/testoMedio"
+                        android:typeface="monospace" />
                 </FrameLayout>
             </RelativeLayout>
         </LinearLayout>

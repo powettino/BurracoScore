@@ -51,22 +51,13 @@
                         android:layout_gravity="top"
                         android:layout_weight="1">
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView2"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:background="@color/SfondoLay"-->
-                        <!--android:contentDescription="@string/description"-->
-                        <!--tools:ignore="ContentDescription" />-->
+                        <ViewStub
+                            android:id="@+id/empty"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout="@layout/empty_result" />
 
-                        <!--<ListView-->
-                        <!--android:id="@+id/listPointTeamA"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:layout_alignParentTop="true"-->
-
-                        <!--android:background="@color/SfondoPunti"-->
-                        <!--android:clickable="false" />-->
                         <ListView
                             android:id="@+id/listPointTeamA"
                             android:layout_width="match_parent"
@@ -80,19 +71,20 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/lowMargin"
                             android:background="@drawable/shape_back">
-                        <TextView
-                            android:id="@+id/teamASummary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:maxEms="1"
-                            android:saveEnabled="true"
-                            android:singleLine="false"
-                            android:background="@color/SfondoChiaro"
-                            android:text="@string/teamAName"
-                            android:textColor="@color/Rosso"
-                            android:textSize="@dimen/testoMedio"
-                            android:typeface="monospace" />
+
+                            <TextView
+                                android:id="@+id/teamASummary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:maxEms="1"
+                                android:saveEnabled="true"
+                                android:singleLine="false"
+                                android:background="@color/SfondoChiaro"
+                                android:text="@string/teamAName"
+                                android:textColor="@color/Rosso"
+                                android:textSize="@dimen/testoMedio"
+                                android:typeface="monospace" />
                         </FrameLayout>
 
                     </RelativeLayout>
@@ -110,28 +102,20 @@
                         android:layout_gravity="top"
                         android:layout_weight="1">
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/imageView1"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:background="@color/SfondoLay"-->
-                        <!--android:contentDescription="@string/description"-->
-                        <!--tools:ignore="ContentDescription" />-->
+                        <ViewStub
+                            android:id="@+id/empty2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout="@layout/empty_result" />
 
-                        <!--<ListView-->
-                        <!--android:id="@+id/listPointTeamB"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:layout_alignParentStart="true"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:background="@color/SfondoPunti"-->
-                        <!--android:clickable="false" />-->
                         <ListView
                             android:id="@+id/listPointTeamB"
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
                             android:background="@color/SfondoMedio"
                             android:scrollbars="vertical" />
+
                         <FrameLayout
                             android:layout_width="20dp"
                             android:layout_height="wrap_content"
@@ -141,18 +125,18 @@
                             android:layout_marginLeft="@dimen/lowMargin"
                             android:background="@drawable/shape_back">
 
-                        <TextView
-                            android:id="@+id/teamBSummary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:maxEms="1"
-                            android:singleLine="false"
-                            android:text="@string/teamBName"
-                            android:background="@color/SfondoChiaro"
-                            android:textColor="@color/Blu"
-                            android:textSize="@dimen/testoMedio"
-                            android:typeface="monospace" />
+                            <TextView
+                                android:id="@+id/teamBSummary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:maxEms="1"
+                                android:singleLine="false"
+                                android:text="@string/teamBName"
+                                android:background="@color/SfondoChiaro"
+                                android:textColor="@color/Blu"
+                                android:textSize="@dimen/testoMedio"
+                                android:typeface="monospace" />
                         </FrameLayout>
 
                     </RelativeLayout>
@@ -279,7 +263,7 @@
                 android:textSize="@dimen/testoEnorme"
                 android:typeface="monospace" />
 
-            </LinearLayout>
+        </LinearLayout>
 
         <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
     </LinearLayout>

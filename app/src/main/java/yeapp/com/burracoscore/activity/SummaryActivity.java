@@ -90,6 +90,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
 
         ((ListView) findViewById(R.id.listPointTeamA)).setAdapter(dtaLVA);
         ((ListView) findViewById(R.id.listPointTeamB)).setAdapter(dtaLVB);
+        ((ListView) findViewById(R.id.listPointTeamA)).setEmptyView(findViewById(R.id.empty));
+        ((ListView) findViewById(R.id.listPointTeamB)).setEmptyView(findViewById(R.id.empty2));
 
         findViewById(R.id.setTeamA).setOnClickListener(this);
         findViewById(R.id.setTeamB).setOnClickListener(this);

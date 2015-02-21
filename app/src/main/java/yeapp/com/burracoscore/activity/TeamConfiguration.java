@@ -1,5 +1,7 @@
 package yeapp.com.burracoscore.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.fragment.TeamNameFragment;
 
 import static android.view.View.OnClickListener;
 
@@ -82,7 +85,26 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_configuration);
+
+        if (savedInstanceState == null) {
+            Intent startingIntent = getIntent();
+            numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+            tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
+            tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
+
+        }
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragTrans = fm.beginTransaction();
+
+        TeamNameFragment team = (TeamNameFragment) fm.findFragmentById(R.id.teamFragment);
+        Bundle args = new Bundle();
+        args.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+        team.setArguments(args);
+        fragTrans.replace(R.id.teamFragment, team).commit();
+
+        setContentView(R.layout.fragment_team_configuration);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.conf_name);
         setSupportActionBar(toolbar);
@@ -92,22 +114,13 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
         findViewById(R.id.singleConf).setOnClickListener(this);
         findViewById(R.id.coupleConf).setOnClickListener(this);
-//        salvaButton = (Button) findViewById(R.id.salvaConf);
-//        salvaButton.setOnClickListener(this);
-//        resetButton = (Button) findViewById(R.id.resetConf);
-//        resetButton.setOnClickListener(this);
-//        findViewById(R.id.chiudiConf).setOnClickListener(this);
-        gioc11Text = (EditText) findViewById(R.id.giocatore11);
-        gioc12Text = (EditText) findViewById(R.id.giocatore12);
-        gioc21Text = (EditText) findViewById(R.id.giocatore21);
-        gioc22Text = (EditText) findViewById(R.id.giocatore22);
 
-        if (savedInstanceState == null) {
-            Intent startingIntent = getIntent();
-            numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
-            tA = startingIntent.getParcelableExtra(SummaryActivity.teamAKey);
-            tB = startingIntent.getParcelableExtra(SummaryActivity.teamBKey);
-        }
+//        gioc11Text = (EditText) findViewById(R.id.giocatore11);
+//        gioc12Text = (EditText) findViewById(R.id.giocatore12);
+//        gioc21Text = (EditText) findViewById(R.id.giocatore21);
+//        gioc22Text = (EditText) findViewById(R.id.giocatore22);
+//
+
     }
 
     private void setDiplayTeamName() {
@@ -148,11 +161,11 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
         salvaButton = menu.findItem(R.id.salvaConfMenu);
         resetButton = menu.findItem(R.id.resetConfMenu);
 
-        gioc11Text.addTextChangedListener(this);
-        gioc12Text.addTextChangedListener(this);
-        gioc21Text.addTextChangedListener(this);
-        gioc22Text.addTextChangedListener(this);
-        setDiplayTeamName();
+//        gioc11Text.addTextChangedListener(this);
+//        gioc12Text.addTextChangedListener(this);
+//        gioc21Text.addTextChangedListener(this);
+//        gioc22Text.addTextChangedListener(this);
+//        setDiplayTeamName();
 
         return true;
     }
