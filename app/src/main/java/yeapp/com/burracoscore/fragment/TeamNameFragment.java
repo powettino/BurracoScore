@@ -17,7 +17,7 @@ import yeapp.com.burracoscore.activity.SummaryActivity;
  */
 public class TeamNameFragment extends Fragment {
 
-    private int numPlayer;
+    private int numPlayer=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,7 @@ public class TeamNameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-          numPlayer = getArguments().getInt(SummaryActivity.numberOfPlayer);
-        View view = numPlayer == 0 ? inflater.inflate(R.layout.empty_result, container) : inflater.inflate(R.layout.two_player_name_fragment, container);
-        return view;
-
+        return numPlayer == 0 ? inflater.inflate(R.layout.empty_result, container, false) : inflater.inflate(R.layout.two_player_name_fragment, container, false);
     }
 
     public void init(int number) {
@@ -40,6 +37,9 @@ public class TeamNameFragment extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {
+        if(getArguments()!=null){
+            numPlayer = getArguments().getInt(SummaryActivity.numberOfPlayer);
+        }
         super.onAttach(activity);
     }
 

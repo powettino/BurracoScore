@@ -94,14 +94,18 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
         }
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragTrans = fm.beginTransaction();
-
-        TeamNameFragment team = (TeamNameFragment) fm.findFragmentById(R.id.teamFragment);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        TeamNameFragment team = (TeamNameFragment) getFragmentManager().findFragmentById(R.id.teamFragment);
+        if(team==null){
+            team = new TeamNameFragment();
+        }
         Bundle args = new Bundle();
         args.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
         team.setArguments(args);
-        fragTrans.replace(R.id.teamFragment, team).commit();
+        ft.replace(R.id.teamFragment, team);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
 
         setContentView(R.layout.fragment_team_configuration);
 
@@ -193,36 +197,55 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     }
 
     private void changeDisplayName() {
-        if (gioc11Text.getText().length() == 0) {
-            gioc11Text.setText(R.string.nomeGiocatore11);
-        }
-        if (gioc12Text.getText().length() == 0) {
-            gioc12Text.setText(R.string.nomeGiocatore12);
-        }
-        if (gioc21Text.getText().length() == 0) {
-            gioc21Text.setText(R.string.nomeGiocatore21);
-        }
-        if (gioc22Text.getText().length() == 0) {
-            gioc22Text.setText(R.string.nomeGiocatore22);
-        }
-        if (!salvaButton.isVisible()) {
-            salvaButton.setVisible(true);
-        }
-        if (!resetButton.isVisible()) {
-            resetButton.setVisible(true);
-        }
-        if (!gioc11Text.isEnabled() && !gioc21Text.isEnabled()) {
-            gioc11Text.setEnabled(true);
-            gioc21Text.setEnabled(true);
-        }
-        if (numberOfPlayerForTeam == 1 && gioc12Text.isEnabled() && gioc22Text.isEnabled()) {
-            gioc12Text.setEnabled(false);
-            gioc22Text.setEnabled(false);
-        }
-        if (numberOfPlayerForTeam == 2 && !gioc12Text.isEnabled() && !gioc22Text.isEnabled()) {
-            gioc12Text.setEnabled(true);
-            gioc22Text.setEnabled(true);
-        }
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragTrans = fm.beginTransaction();
+
+        TeamNameFragment team = new TeamNameFragment();
+        team.init(numberOfPlayerForTeam);
+//        if(team==null){
+//            team = new TeamNameFragment();
+//            team.init(1);
+//        }
+//        Bundle args = new Bundle();
+//        args.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+//        team.setArguments(args);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.teamFragment, team);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+
+
+//        if (gioc11Text.getText().length() == 0) {
+//            gioc11Text.setText(R.string.nomeGiocatore11);
+//        }
+//        if (gioc12Text.getText().length() == 0) {
+//            gioc12Text.setText(R.string.nomeGiocatore12);
+//        }
+//        if (gioc21Text.getText().length() == 0) {
+//            gioc21Text.setText(R.string.nomeGiocatore21);
+//        }
+//        if (gioc22Text.getText().length() == 0) {
+//            gioc22Text.setText(R.string.nomeGiocatore22);
+//        }
+//        if (!salvaButton.isVisible()) {
+//            salvaButton.setVisible(true);
+//        }
+//        if (!resetButton.isVisible()) {
+//            resetButton.setVisible(true);
+//        }
+//        if (!gioc11Text.isEnabled() && !gioc21Text.isEnabled()) {
+//            gioc11Text.setEnabled(true);
+//            gioc21Text.setEnabled(true);
+//        }
+//        if (numberOfPlayerForTeam == 1 && gioc12Text.isEnabled() && gioc22Text.isEnabled()) {
+//            gioc12Text.setEnabled(false);
+//            gioc22Text.setEnabled(false);
+//        }
+//        if (numberOfPlayerForTeam == 2 && !gioc12Text.isEnabled() && !gioc22Text.isEnabled()) {
+//            gioc12Text.setEnabled(true);
+//            gioc22Text.setEnabled(true);
+//        }
     }
 
     @Override
