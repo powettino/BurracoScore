@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SfondoBase"
+    android:orientation="vertical"
+    tools:context=".TeamLogin">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SfondoToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/app_name"
+        android:titleTextAppearance="@style/ToolbarTitle" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_margin">
+
+        <Button
+            android:id="@+id/singleConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/lowMargin"
+            android:background="@color/SfondoMedio"
+            android:clickable="true"
+            android:drawableLeft="@drawable/head"
+            android:drawableRight="@drawable/head"
+            android:enabled="true"
+            android:text="@string/gameSingolo"
+            android:textColor="@drawable/text_layout" />
+
+        <Button
+            android:id="@+id/coupleConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/singleConf"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/lowMargin"
+            android:background="@color/SfondoMedio"
+            android:clickable="true"
+            android:drawableLeft="@drawable/d_head"
+            android:drawableRight="@drawable/d_head"
+            android:text="@string/gameDoppio"
+            android:textColor="@drawable/text_layout" />
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/teamFragment"
+        android:name="yeapp.com.burracoscore.fragment.TeamNameFragment" />
+</LinearLayout>
