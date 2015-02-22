@@ -36,6 +36,6 @@
     <string name="description">Lista Punti</string>
     <string name="puntiChiusura">Chiusura</string>
     <string name="puntiMazzetto">Mazzetto</string>
-    <string name="emptyList">Nessun mano\nsalvata</string>
+    <string name="emptyList">Nessuna\nmano\nsalvata</string>
 
 </resources>
