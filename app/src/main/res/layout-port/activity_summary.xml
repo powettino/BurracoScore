@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:background="@color/SfondoToolbar"
         android:minHeight="?attr/actionBarSize"
+        android:title="@string/app_name"
         android:titleTextAppearance="@style/ToolbarTitle"
-        android:title="@string/app_name" />
+        tools:ignore="UnusedAttribute" />
 
 
     <RelativeLayout
@@ -26,8 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/resultTextSection"
-            android:background="@drawable/shape_back"
             android:layout_marginBottom="@dimen/insignificantMargin"
+            android:background="@drawable/shape_back"
             android:baselineAligned="false">
 
             <RelativeLayout
@@ -54,19 +55,18 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/lowMargin"
-                    android:background="@drawable/shape_back"
-                    android:layout_weight="1">
+                    android:background="@drawable/shape_back">
 
                     <TextView
                         android:id="@+id/teamASummary"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/SfondoChiaro"
                         android:gravity="center"
-                        android:saveEnabled="true"
                         android:maxEms="1"
+                        android:saveEnabled="true"
                         android:singleLine="false"
                         android:text="@string/teamAName"
-                        android:background="@color/SfondoChiaro"
                         android:textColor="@color/Rosso"
                         android:textSize="@dimen/testoMedio"
                         android:typeface="monospace" />
@@ -106,19 +106,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/lowMargin"
                     android:layout_marginLeft="@dimen/lowMargin"
+                    android:layout_marginRight="@dimen/lowMargin"
                     android:background="@drawable/shape_back">
 
                     <TextView
                         android:id="@+id/teamBSummary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/SfondoChiaro"
                         android:gravity="center"
                         android:maxEms="1"
                         android:singleLine="false"
                         android:text="@string/teamBName"
-                        android:background="@color/SfondoChiaro"
                         android:textColor="@color/Blu"
                         android:textSize="@dimen/testoMedio"
                         android:typeface="monospace" />
@@ -130,8 +130,8 @@
             android:id="@+id/resultTextSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_back"
-            android:layout_above="@+id/buttonSection">
+            android:layout_above="@+id/buttonSection"
+            android:background="@drawable/shape_back">
 
             <TextView
                 android:id="@+id/resultA"
@@ -211,6 +211,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/insignificantMargin"
             android:layout_marginTop="@dimen/lowMargin"
+            android:baselineAligned="false"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal">
 
@@ -224,7 +225,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_weight="1"
                     android:gravity="center">
 
                     <TextView

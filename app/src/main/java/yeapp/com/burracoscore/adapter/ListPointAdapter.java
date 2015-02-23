@@ -1,4 +1,4 @@
-package yeapp.com.burracoscore.layoutModel.adapter;
+package yeapp.com.burracoscore.adapter;
 
 import android.content.Context;
 import android.util.Pair;
@@ -36,6 +36,7 @@ public class ListPointAdapter extends BaseAdapter {
         lastPosition = -1;
     }
 
+    @SuppressWarnings("unused")
     public ListPointAdapter(Context context, ArrayList<String> textLeft, ArrayList<String> textRight, boolean mainTextLeft) {
         super();
         textL = textLeft;
@@ -44,14 +45,17 @@ public class ListPointAdapter extends BaseAdapter {
         this.mainTextLeft = mainTextLeft;
     }
 
+    @SuppressWarnings("unused")
     public boolean isMainTextLeft() {
         return mainTextLeft;
     }
 
+    @SuppressWarnings("unused")
     public void setMainTextLeft(boolean mainTextLeft) {
         this.mainTextLeft = mainTextLeft;
     }
 
+    @SuppressWarnings("unused")
     public void setArrayLists(ArrayList<String> textLeft, ArrayList<String> textRight) {
         textL = textLeft;
         textR = textRight;
@@ -78,6 +82,7 @@ public class ListPointAdapter extends BaseAdapter {
         return points;
     }
 
+    @SuppressWarnings("unused")
     public Pair<String, String> getLastDoubleText() {
         if (textL.isEmpty() && textR.isEmpty()) {
             return new Pair<String, String>(null, null);
@@ -95,10 +100,12 @@ public class ListPointAdapter extends BaseAdapter {
         }
     }
 
+    @SuppressWarnings("unused")
     public ArrayList<String> getTextLeft() {
         return textL;
     }
 
+    @SuppressWarnings("unused")
     public ArrayList<String> getTextRight() {
         return textR;
     }

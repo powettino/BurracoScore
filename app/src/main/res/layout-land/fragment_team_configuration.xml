@@ -13,7 +13,8 @@
         android:background="@color/SfondoToolbar"
         android:minHeight="?attr/actionBarSize"
         android:title="@string/app_name"
-        android:titleTextAppearance="@style/ToolbarTitle" />
+        android:titleTextAppearance="@style/ToolbarTitle"
+        tools:ignore="UnusedAttribute" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,7 +26,6 @@
             android:id="@+id/singleConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/lowMargin"
             android:background="@color/SfondoMedio"
@@ -40,7 +40,6 @@
             android:id="@+id/coupleConf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/singleConf"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/lowMargin"
             android:background="@color/SfondoMedio"

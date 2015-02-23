@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="testoEnorme">80sp</dimen>
+    <dimen name="testoMedio">20sp</dimen>
+    <dimen name="testoPiccolo">15sp</dimen>
+</resources>

@@ -11,18 +11,22 @@ public class Hand implements Parcelable {
     private int base;
     private int totale;
 
+    @SuppressWarnings("unused")
     public int getCarte() {
         return carte;
     }
 
+    @SuppressWarnings("unused")
     public int getChiusura() {
         return chiusura;
     }
 
+    @SuppressWarnings("unused")
     public int getMazzetto() {
         return mazzetto;
     }
 
+    @SuppressWarnings("unused")
     public int getBase() {
         return base;
     }

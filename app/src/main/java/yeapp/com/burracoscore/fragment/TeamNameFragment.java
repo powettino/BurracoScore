@@ -3,9 +3,7 @@ package yeapp.com.burracoscore.fragment;
 import android.app.Activity;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,9 +15,6 @@ import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.SummaryActivity;
 import yeapp.com.burracoscore.core.model.Team;
 
-/**
- * Created by powered on 20/02/15.
- */
 public class TeamNameFragment extends Fragment implements TextWatcher {
 
     private int numberOfPlayerForTeam = 0;
@@ -58,6 +53,7 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
         return view;
     }
 
+    @SuppressWarnings("unused")
     private void setDiplayTeamName() {
         if (numberOfPlayerForTeam != 0) {
             gioc11Text.setText(a.getPlayer1());
@@ -166,7 +162,7 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
 //    }
 
     public interface OnChangeToolbarVisibility {
-        public void OnChangeToolbarVisibility(boolean visible);
+        public void changedToolbarVisibility(boolean visible);
     }
 
     @Override
@@ -182,9 +178,9 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() == 0) {
-            changer.OnChangeToolbarVisibility(false);
+            changer.changedToolbarVisibility(false);
         } else {
-            changer.OnChangeToolbarVisibility(true);
+            changer.changedToolbarVisibility(true);
         }
     }
 

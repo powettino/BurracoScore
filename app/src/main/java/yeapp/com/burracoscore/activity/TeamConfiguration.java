@@ -1,21 +1,16 @@
 package yeapp.com.burracoscore.activity;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.fragment.TeamNameFragment;
 
 import static android.view.View.OnClickListener;
@@ -24,7 +19,6 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
     Toolbar toolbar;
     private MenuItem salvaButton;
-    private MenuItem resetButton;
 
     private int numberOfPlayerForTeam = 0;
 
@@ -37,13 +31,13 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.singleConf: {
-                String oldTeam = Integer.toString(numberOfPlayerForTeam);
+//                String oldTeam = Integer.toString(numberOfPlayerForTeam);
                 numberOfPlayerForTeam = 1;
                 changeDisplayName();
                 break;
             }
             case R.id.coupleConf: {
-                String oldTeam = Integer.toString(numberOfPlayerForTeam);
+//                String oldTeam = Integer.toString(numberOfPlayerForTeam);
                 numberOfPlayerForTeam = 2;
                 changeDisplayName();
                 break;
@@ -108,7 +102,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity.numberOfPlayer);
 //        tA = savedInstanceState.getParcelable(SummaryActivity.teamAKey);
@@ -120,7 +114,11 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_team_configuration, menu);
         salvaButton = menu.findItem(R.id.salvaConfMenu);
-        resetButton = menu.findItem(R.id.resetConfMenu);
+        MenuItem resetButton = menu.findItem(R.id.resetConfMenu);
+        if (numberOfPlayerForTeam != 0) {
+            salvaButton.setVisible(true);
+            resetButton.setVisible(true);
+        }
         return true;
     }
 
@@ -173,7 +171,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 //    }
 
     @Override
-    public void OnChangeToolbarVisibility(boolean visible) {
+    public void changedToolbarVisibility(boolean visible) {
         if (visible && !salvaButton.isVisible()) {
             salvaButton.setVisible(true);
         }

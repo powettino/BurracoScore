@@ -20,11 +20,13 @@ public class Team implements Parcelable {
         setSide(side);
     }
 
+    @SuppressWarnings("unused")
     public Team(String nomePlayer1, String nomePlayer2) {
         setPlayer1(nomePlayer1);
         setPlayer2(nomePlayer2);
     }
 
+    @SuppressWarnings("unused")
     public Team(String side, String nomePlayer1, String nomePlayer2) {
         setSide(side);
         setPlayer1(nomePlayer1);
@@ -88,6 +90,7 @@ public class Team implements Parcelable {
         this.player2 = player2;
     }
 
+    @SuppressWarnings("unused")
     public String getSide() {
         return side;
     }

@@ -17,19 +17,22 @@
         android:background="@color/SfondoToolbar"
         android:minHeight="?attr/actionBarSize"
         android:title="@string/app_name"
-        android:titleTextAppearance="@style/ToolbarTitle" />
+        android:titleTextAppearance="@style/ToolbarTitle"
+        tools:ignore="UnusedAttribute" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="@dimen/noSpace"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="InefficientWeight">
 
             <RelativeLayout
                 android:layout_width="match_parent"

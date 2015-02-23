@@ -1,10 +1,10 @@
 package yeapp.com.burracoscore.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
+import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.layoutModel.adapter.ListPointAdapter;
 
 public class SummaryActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     Toolbar toolbar;
@@ -54,7 +54,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     private boolean dialogActive;
     AlertDialog dialog = null;
 
-    Dialog diaPoint = null;
+//    Dialog diaPoint = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,21 +104,22 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void createTeamName() {
-        if (teamA.getPlayer1() == null && teamB.getPlayer2() == null) {
+        String p11 = teamA.getPlayer1();
+        String p12 = teamA.getPlayer2();
+        String p21 = teamB.getPlayer1();
+        String p22 = teamB.getPlayer2();
+        if (p11 == null && p21 == null) {
             teamAText.setText(R.string.teamAName);
             teamBText.setText(R.string.teamBName);
         } else {
-            String p11 = teamA.getPlayer1();
-            String p12 = teamA.getPlayer2();
-            String p21 = teamB.getPlayer1();
-            String p22 = teamB.getPlayer2();
+            assert p11 != null;
             teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
             teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
         }
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numberOfPlayerForTeam = savedInstanceState.getInt(numberOfPlayer);
         teamA = savedInstanceState.getParcelable(teamAKey);
@@ -316,10 +317,10 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void resetGames() {
-        int oldSize = dtaLVA.getCount();
+//        int oldSize = dtaLVA.getCount();
         dtaLVA.clearData();
 //        dtaLVA.notifyItemRangeRemoved(0, oldSize);
-        oldSize = dtaLVB.getCount();
+//        oldSize = dtaLVB.getCount();
         dtaLVA.notifyDataSetChanged();
         dtaLVB.clearData();
         dtaLVB.notifyDataSetChanged();

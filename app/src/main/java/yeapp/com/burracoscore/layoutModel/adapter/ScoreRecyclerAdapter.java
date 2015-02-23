@@ -1,29 +1,23 @@
 package yeapp.com.burracoscore.layoutModel.adapter;
 
-import android.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
 
-/**
- * Created by iacopo on 03/02/15.
- */
+@SuppressWarnings("unused")
 public class ScoreRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private ArrayList<String> textL;
     private ArrayList<String> textR;
     private boolean mainTextLeft = true;
-
 
     public ScoreRecyclerAdapter(boolean mainTextLeft) {
         super();
@@ -91,7 +85,7 @@ public class ScoreRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_point, parent, false);
         if (mainTextLeft) {
-            View text = (TextView) v.findViewById(R.id.textRowPointRight);
+            View text = v.findViewById(R.id.textRowPointRight);
             text.setBackgroundResource(R.drawable.shape_image_game);
         } else {
             View textL = v.findViewById(R.id.textRowPointLeft);
