@@ -73,7 +73,8 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
                         chiusura.isChecked(),
                         mazzetto.isChecked());
                 setResult(RESULT_OK, getIntent()
-                        .putExtra(SummaryActivity.hand, mano));
+                        .putExtra(SummaryActivity.handA, mano)
+                        .putExtra(SummaryActivity.handB, mano));
                 finish();
                 break;
             }

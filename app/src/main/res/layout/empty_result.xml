@@ -4,6 +4,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
+    android:background="@color/SfondoOmbre"
     android:gravity="center_vertical|center_horizontal">
 
    <TextView

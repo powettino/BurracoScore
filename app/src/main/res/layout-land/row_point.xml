@@ -16,7 +16,7 @@
         android:clickable="false"
 
         android:textColor="@color/Nero"
-        android:textSize="@dimen/testoMedio" />
+        android:textSize="@dimen/mediumText" />
 
     <TextView
         android:id="@+id/textRowPointRight"
@@ -28,5 +28,5 @@
         android:layout_gravity="right"
 
         android:textColor="@color/Nero"
-        android:textSize="@dimen/testoMedio" />
+        android:textSize="@dimen/mediumText" />
 </RelativeLayout>

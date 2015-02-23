@@ -3,58 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/SfondoBase"
-    android:orientation="vertical"
-    tools:context=".TeamLogin">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/SfondoToolbar"
+        android:elevation="8dp"
         android:minHeight="?attr/actionBarSize"
         android:title="@string/app_name"
         android:titleTextAppearance="@style/ToolbarTitle"
         tools:ignore="UnusedAttribute" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/standard_margin">
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/singleConf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/lowMargin"
-            android:background="@color/SfondoMedio"
-            android:clickable="true"
-            android:drawableLeft="@drawable/head"
-            android:drawableRight="@drawable/head"
-            android:enabled="true"
-            android:text="@string/gameSingolo"
-            android:textColor="@drawable/text_layout" />
+            android:gravity="center"
+            android:padding="@dimen/standard_margin">
 
-        <Button
-            android:id="@+id/coupleConf"
+            <Button
+                android:id="@+id/singleConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/lowMargin"
+                android:background="@color/SfondoMedio"
+                android:clickable="true"
+                android:drawableLeft="@drawable/head"
+                android:drawableRight="@drawable/head"
+                android:enabled="true"
+                android:text="@string/gameSingolo"
+                android:textColor="@drawable/text_layout" />
+
+            <Button
+                android:id="@+id/coupleConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/lowMargin"
+                android:background="@color/SfondoMedio"
+                android:clickable="true"
+                android:drawableLeft="@drawable/d_head"
+                android:drawableRight="@drawable/d_head"
+                android:text="@string/gameDoppio"
+                android:textColor="@drawable/text_layout" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentCont"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/lowMargin"
-            android:background="@color/SfondoMedio"
-            android:clickable="true"
-            android:drawableLeft="@drawable/d_head"
-            android:drawableRight="@drawable/d_head"
-            android:text="@string/gameDoppio"
-            android:textColor="@drawable/text_layout" />
+            android:layout_height="match_parent">
+
+        </FrameLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:id="@+id/fragmentCont"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 
 </LinearLayout>

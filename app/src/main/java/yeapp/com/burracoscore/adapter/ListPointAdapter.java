@@ -153,8 +153,8 @@ public class ListPointAdapter extends BaseAdapter {
         return convertView;
     }
 
-    @Override
-    public boolean isEnabled(int position) {
-        return false;
-    }
+//    @Override
+//    public boolean isEnabled(int position) {
+//        return false;
+//    }
 }

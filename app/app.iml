@@ -81,6 +81,7 @@
       <excludeFolder url="file:///media/dati/workspace-android/BurracoScore/app/build/intermediates/rs" />
       <excludeFolder url="file:///media/dati/workspace-android/BurracoScore/app/build/intermediates/symbols" />
       <excludeFolder url="file:///media/dati/workspace-android/BurracoScore/app/build/outputs" />
+      <excludeFolder url="file:///media/dati/workspace-android/BurracoScore/app/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

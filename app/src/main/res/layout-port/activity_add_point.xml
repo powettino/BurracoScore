@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/puntiBase"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
         <EditText
@@ -31,7 +31,7 @@
             android:inputType="number"
             android:maxLength="4"
             android:text="@string/zeroValue"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
     </RelativeLayout>
@@ -51,7 +51,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiCarte"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
         <EditText
@@ -64,7 +64,7 @@
             android:inputType="number|numberSigned"
             android:maxLength="3"
             android:text="@string/zeroValue"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
     </RelativeLayout>
@@ -85,7 +85,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiChiusura"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
         <CheckBox
@@ -94,9 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:background="@drawable/shape_check"
+            android:background="@drawable/checkbox_style"
             android:gravity="center"
-            android:textSize="@dimen/testoMedio"
+            android:textSize="@dimen/mediumText"
             android:typeface="monospace" />
 
     </RelativeLayout>
@@ -115,7 +115,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/mediumMargin"
             android:text="@string/puntiMazzetto"
-            android:textSize="@dimen/testoPiccolo"
+            android:textSize="@dimen/smallText"
             android:typeface="monospace" />
 
 
@@ -125,9 +125,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/mediumMargin"
-            android:background="@drawable/shape_check"
+            android:background="@drawable/checkbox_style"
             android:gravity="center"
-            android:textSize="@dimen/testoMedio"
+            android:textSize="@dimen/mediumText"
             android:typeface="monospace" />
 
     </RelativeLayout>
