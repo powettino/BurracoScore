@@ -397,7 +397,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         Log.d(LOG_TAG, "--> View, event: " + view.getId() + ", " + motionEvent.getAction() + ", " + view.isFocused());
         Log.d(LOG_TAG, "--> " + listA.isFocused() + ", " + listB.isFocused());
 
-        
+
 //        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && requestedFocus == false) {
 //            view.requestFocus();
 //            requestedFocus = true;
