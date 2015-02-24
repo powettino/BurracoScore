@@ -21,6 +21,7 @@ public class ListPointAdapter extends BaseAdapter {
     private ArrayList<String> textR;
     private int lastPosition = -1;
     private boolean mainTextLeft = true;
+    private static final int padding = 60;
 
     public ListPointAdapter(Context context, boolean mainTextLeft) {
         super();
@@ -91,6 +92,10 @@ public class ListPointAdapter extends BaseAdapter {
     }
 
     public void addLastDoubleText(String points, String game) {
+        if (textL.size() != 0) {
+            textL.remove(textL.size() - 1);
+            textR.remove(textR.size() - 1);
+        }
         if (mainTextLeft) {
             textL.add(formatPoints(points));
             textR.add(game);
@@ -98,6 +103,8 @@ public class ListPointAdapter extends BaseAdapter {
             textL.add(game);
             textR.add(formatPoints(points));
         }
+        textL.add("");
+        textR.add("");
     }
 
     @SuppressWarnings("unused")
@@ -131,19 +138,21 @@ public class ListPointAdapter extends BaseAdapter {
             convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                     .inflate(R.layout.row_point, parent, false);
         }
-        if (mainTextLeft) {
-            convertView.setPadding(50, convertView.getPaddingTop(), convertView.getPaddingRight(), convertView.getPaddingBottom());
-            TextView text = (TextView) convertView.findViewById(R.id.textRowPointRight);
-            text.setBackgroundResource(R.drawable.shape_image_game);
-            text.setText(textR.get(position));
-            ((TextView) convertView.findViewById(R.id.textRowPointLeft)).setText(textL.get(position));
-        } else {
-            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(), 50, convertView.getPaddingBottom());
-            TextView text = (TextView) convertView.findViewById(R.id.textRowPointLeft);
-            text.setBackgroundResource(R.drawable.shape_image_game);
-            text.setText(textL.get(position));
-            ((TextView) convertView.findViewById(R.id.textRowPointRight)).setText(textR.get(position));
+        if (lastPosition != position) {
+            if (mainTextLeft) {
+                convertView.setPadding(padding, convertView.getPaddingTop(), convertView.getPaddingRight(), convertView.getPaddingBottom());
+                TextView text = (TextView) convertView.findViewById(R.id.textRowPointRight);
+                text.setBackgroundResource(R.drawable.shape_image_game);
+                text.setText(textR.get(position));
+                ((TextView) convertView.findViewById(R.id.textRowPointLeft)).setText(textL.get(position));
+            } else {
+                convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(), padding, convertView.getPaddingBottom());
+                TextView text = (TextView) convertView.findViewById(R.id.textRowPointLeft);
+                text.setBackgroundResource(R.drawable.shape_image_game);
+                text.setText(textL.get(position));
+                ((TextView) convertView.findViewById(R.id.textRowPointRight)).setText(textR.get(position));
 
+            }
         }
         if (lastPosition < position) {
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.go_down);

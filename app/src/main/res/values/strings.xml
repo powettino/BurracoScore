@@ -31,12 +31,12 @@
     <string name="nomeGiocatore22">giocatore 2B</string>
     <string name="puntiBase">Base</string>
     <string name="puntiCarte">Carte</string>
-
-    <!-- Utility -->
     <string name="description">Lista Punti</string>
     <string name="puntiChiusura">Chiusura</string>
     <string name="puntiMazzetto">Mazzetto</string>
     <string name="emptyList">Nessuna\nmano\nsalvata</string>
     <string name="plus">+</string>
+    <string name="labelA">A</string>
+    <string name="labelB">B</string>
 
 </resources>

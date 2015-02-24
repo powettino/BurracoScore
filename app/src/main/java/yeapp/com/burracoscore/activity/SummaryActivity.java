@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -23,12 +22,10 @@ import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
 
 public class SummaryActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, View.OnTouchListener {
-    private static final String LOG_TAG = "mio" ;
+
     Toolbar toolbar;
-
-//    private RecyclerView mRecyclerViewA;
-//    private RecyclerView mRecyclerViewB;
-
+    private boolean requestedFocus = false;
+    private static final int maxPoint = 500;
     public static final String teamAKey = "teamA";
     public static final String teamBKey = "teamB";
     public static final String numberOfPlayer = "numberOfPlayer";
@@ -46,8 +43,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     private int numberOfPlayerForTeam = 0;
     private Team teamA;
     private Team teamB;
-    //    ScoreRecyclerAdapter dtaLVA = new ScoreRecyclerAdapter(true);
-//    ScoreRecyclerAdapter dtaLVB = new ScoreRecyclerAdapter(false);
+
     ListPointAdapter dtaLVA = new ListPointAdapter(this, true);
     ListPointAdapter dtaLVB = new ListPointAdapter(this, false);
 
@@ -59,9 +55,9 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     private TextView punteggioTotA;
     private TextView punteggioTotB;
     private boolean dialogActive;
-    AlertDialog dialog = null;
-
-//    Dialog diaPoint = null;
+    AlertDialog winnerDialog = null;
+    AlertDialog resetDialog = null;
+    AlertDialog gameDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,22 +69,6 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu_summary);
         toolbar.setOnMenuItemClickListener(this);
-
-//        setSupportActionBar(toolbar);
-
-//        mRecyclerViewA = (RecyclerView) findViewById(R.id.listPointTeamA);
-//        mRecyclerViewA.setLayoutManager(new LinearLayoutManager(this));
-//        mRecyclerViewA.setAdapter(dtaLVA);
-//        mRecyclerViewA.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
-//        mRecyclerViewA.setHasFixedSize(true);
-//
-//
-//        mRecyclerViewB = (RecyclerView) findViewById(R.id.listPointTeamB);
-//        mRecyclerViewB.setLayoutManager(new LinearLayoutManager(this));
-//        mRecyclerViewB.setAdapter(dtaLVB);
-//        mRecyclerViewB.addItemDecoration(new DividerItemDecoration(this, getResources().getConfiguration().orientation));
-//        mRecyclerViewB.setHasFixedSize(true);
-
 
         teamAText = (TextView) findViewById(R.id.teamASummary);
         teamBText = (TextView) findViewById(R.id.teamBSummary);
@@ -104,8 +84,10 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         listB.setAdapter(dtaLVB);
         listA.setEmptyView(findViewById(R.id.empty));
         listB.setEmptyView(findViewById(R.id.empty2));
-        listB.setOnTouchListener(this);
         listA.setOnTouchListener(this);
+        listB.setOnTouchListener(this);
+        listA.setFocusableInTouchMode(true);
+        listB.setFocusableInTouchMode(true);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             findViewById(R.id.cancellaGame).setOnClickListener(this);
             findViewById(R.id.cancellaTutto).setOnClickListener(this);
@@ -117,6 +99,71 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
 
         punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
         punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
+        if (winnerDialog == null) {
+            winnerDialog = new AlertDialog.Builder(this).setTitle("VITTORIA!!!")
+                    .setMessage("Complimenti, la partita è conclusa.\n\nVuoi cominciare una nuova partita?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    resetGames();
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    findViewById(R.id.addHand).setEnabled(false);
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .create();
+        }
+        if (resetDialog == null) {
+            resetDialog = new AlertDialog.Builder(this)
+                    .setMessage("Sei sicuro di voler cancellare la partite non salvate?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    resetAll();
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .create();
+        }
+        if (gameDialog == null) {
+            gameDialog = new AlertDialog.Builder(this)
+                    .setMessage("Vuoi cominciare una nuova partita?")
+                    .setCancelable(false)
+                    .setPositiveButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    resetGames();
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    dialogActive = false;
+                                }
+                            })
+                    .create();
+
+        }
     }
 
     private void createTeamName() {
@@ -151,7 +198,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         punteggioTotB.setText(String.valueOf(teamB.getTotGames()));
         findViewById(R.id.addHand).setEnabled(savedInstanceState.getBoolean(addHand));
         if (savedInstanceState.getBoolean(setDialog)) {
-            createDialogWinner();
+            dialogActive=true;
+            winnerDialog.show();
         }
     }
 
@@ -164,66 +212,14 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         outState.putBoolean(addHand, findViewById(R.id.addHand).isEnabled());
         outState.putBoolean(setDialog, dialogActive);
 
-        if (dialog != null && dialog.isShowing()) {
-            dialog.cancel();
-        }
+//        if (dialog != null && dialog.isShowing()) {
+//            dialog.cancel();
+//        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
-    }
-
-    private void cancellaGameDialog() {
-        dialogActive = true;
-        if (dialog == null) {
-            dialog = new AlertDialog.Builder(this)
-                    .setMessage("Vuoi cominciare una nuova partita?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    resetGames();
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .create();
-        }
-        dialog.show();
-    }
-
-    private void cancellaTuttoDialog() {
-        dialogActive = true;
-        if (dialog == null) {
-            dialog = new AlertDialog.Builder(this)
-                    .setMessage("Sei sicuro di voler cancellare la partite non salvate?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    resetAll();
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .create();
-        }
-        dialog.show();
     }
 
     @Override
@@ -250,6 +246,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                     } else {
                         dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
                     }
+                    dtaLVA.notifyDataSetChanged();
                     mano = data.getParcelableExtra(handB);
                     teamB.addMano(mano);
                     resultB.setText(String.valueOf(teamB.getTotale()));
@@ -259,7 +256,6 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                         dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
                     }
                     dtaLVB.notifyDataSetChanged();
-                    dtaLVA.notifyDataSetChanged();
                     checkWinner();
                 }
                 break;
@@ -273,51 +269,23 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     private void checkWinner() {
-        if (dtaLVA.getCount() == dtaLVB.getCount()) {
-            int totA = teamA.getTotale();
-            int totB = teamB.getTotale();
+        int totA = teamA.getTotale();
+        int totB = teamB.getTotale();
 //            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
 //            int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-            if (totA >= 200 || totB >= 200) {
-                if (totA != totB) {
-                    if (totA > totB) {
-                        teamA.addGame();
-                        punteggioTotA.setText(String.valueOf(teamA.getTotGames()));
-                    } else if (totB > totA) {
-                        teamB.addGame();
-                        punteggioTotB.setText(String.valueOf(teamB.getTotGames()));
-                    }
-                    createDialogWinner();
+        if (totA >= maxPoint || totB >= maxPoint) {
+            if (totA != totB) {
+                if (totA > totB) {
+                    teamA.addGame();
+                    punteggioTotA.setText(String.valueOf(teamA.getTotGames()));
+                } else if (totB > totA) {
+                    teamB.addGame();
+                    punteggioTotB.setText(String.valueOf(teamB.getTotGames()));
                 }
+                dialogActive=true;
+                winnerDialog.show();
             }
         }
-    }
-
-    private void createDialogWinner() {
-        dialogActive = true;
-        if (dialog == null) {
-            dialog = new AlertDialog.Builder(this).setTitle("VITTORIA!!!")
-                    .setMessage("Complimenti, la partita è conclusa.\n\nVuoi cominciare una nuova partita?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    resetGames();
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    findViewById(R.id.addHand).setEnabled(false);
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .create();
-        }
-        dialog.show();
     }
 
     private void resetGames() {
@@ -329,6 +297,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         resultB.setText("");
         teamA.cleanPunteggio();
         teamB.cleanPunteggio();
+        findViewById(R.id.addHand).setEnabled(true);
     }
 
     private void resetAll() {
@@ -349,11 +318,11 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancellaGame: {
-                cancellaGameDialog();
+                gameDialog.show();
                 break;
             }
             case R.id.cancellaTutto: {
-                cancellaTuttoDialog();
+                resetDialog.show();
                 break;
             }
             case (R.id.addHand): {
@@ -379,11 +348,11 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                 return true;
             }
             case R.id.cancellaGame: {
-                cancellaGameDialog();
+                gameDialog.show();
                 return true;
             }
             case R.id.cancellaTutto: {
-                cancellaTuttoDialog();
+                resetDialog.show();
                 return true;
             }
             default: {
@@ -394,25 +363,19 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        Log.d(LOG_TAG, "--> View, event: " + view.getId() + ", " + motionEvent.getAction() + ", " + view.isFocused());
-        Log.d(LOG_TAG, "--> " + listA.isFocused() + ", " + listB.isFocused());
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !requestedFocus) {
+            view.requestFocus();
+            requestedFocus = true;
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            requestedFocus = false;
+        }
 
-
-//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && requestedFocus == false) {
-//            view.requestFocus();
-//            requestedFocus = true;
-//        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//            requestedFocus = false;
-//        }
-//
-//        if (view.getId() == R.id.scrollview_left && view.isFocused()) {
-//            scrollViewRight.dispatchTouchEvent(motionEvent);
-//        } else if (view.getId() == R.id.scrollview_right && view.isFocused()) {
-//            scrollViewLeft.dispatchTouchEvent(motionEvent);
-//        }
+        if (view.getId() == R.id.listPointTeamA && view.isFocused()) {
+            listB.dispatchTouchEvent(motionEvent);
+        } else if (view.getId() == R.id.listPointTeamB && view.isFocused()) {
+            listA.dispatchTouchEvent(motionEvent);
+        }
 
         return super.onTouchEvent(motionEvent);
     }
-
-
 }

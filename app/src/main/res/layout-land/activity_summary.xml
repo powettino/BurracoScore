@@ -49,8 +49,8 @@
                 android:id="@+id/linearScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/insignificantMargin"
                 android:baselineAligned="false"
+                android:layout_above="@+id/resultTextSection"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -148,18 +148,18 @@
                 android:layout_above="@+id/resultTextSection"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="-25dp"
-                android:background="@drawable/round_shadow">
+                android:background="@drawable/border_round_shadow">
 
                 <Button
                     android:id="@+id/addHand"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/round_background"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/background_round"
                     android:gravity="center"
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:text="@string/plus"
-                    android:textColor="@color/SfondoOmbre"
+                    android:textColor="@drawable/button_round_text_layout"
                     android:textSize="@dimen/largeText" />
             </FrameLayout>
 

@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="yeapp.com.burracoscore.activity.SummaryActivity">
     <item
-        android:id="@+id/cancellaTutto"
-        android:icon="@drawable/ic_action_discard"
-        android:orderInCategory="1"
-        android:title="@string/reset"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/cancellaGame"
         android:icon="@drawable/ic_action_cancel"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="@string/resetAll"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/cancellaTutto"
+        android:icon="@drawable/ic_action_discard"
+        android:orderInCategory="2"
+        android:title="@string/reset"
         app:showAsAction="always" />
     <item
         android:id="@+id/configuraMenuSum"
