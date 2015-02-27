@@ -47,13 +47,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout="@layout/empty_result" />
+                        android:layout="@layout/empty_list_result" />
 
                     <ListView
                         android:id="@+id/listPointTeamA"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/SfondoMedio"
+                        android:paddingBottom="@dimen/enormousMargin"
+                        android:clipToPadding="false"
                         android:scrollbars="vertical" />
 
                     <FrameLayout
@@ -73,7 +75,7 @@
                             android:saveEnabled="true"
                             android:singleLine="false"
                             android:text="@string/teamAName"
-                            android:textColor="@color/Rosso"
+                            android:textColor="@color/Arancio"
                             android:textSize="@dimen/mediumText"
                             android:typeface="monospace" />
                     </FrameLayout>
@@ -95,11 +97,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout="@layout/empty_result" />
+                        android:layout="@layout/empty_list_result" />
 
                     <ListView
                         android:id="@+id/listPointTeamB"
                         android:layout_width="match_parent"
+                        android:paddingBottom="@dimen/enormousMargin"
+                        android:clipToPadding="false"
                         android:layout_height="match_parent"
                         android:background="@color/SfondoMedio"
                         android:scrollbars="vertical" />
@@ -222,7 +226,7 @@
                         android:paddingLeft="@dimen/lowMargin"
                         android:paddingRight="@dimen/lowMargin"
                         android:text="@string/zeroValue"
-                        android:textColor="@color/Rosso"
+                        android:textColor="@color/Arancio"
                         android:textSize="@dimen/enormousText"
                         android:typeface="monospace" />
                 </LinearLayout>
@@ -276,24 +280,32 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/Blu"
-            android:minHeight="?attr/actionBarSize"
+
             android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/cancellaGame"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_action_cancel" />
-
-            <ImageButton
-                android:id="@+id/cancellaTutto"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_action_discard" />
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_height="fill_parent">-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/cancellaGame"-->
+                    <!--android:layout_width="70dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:src="@drawable/ic_action_cancel" />-->
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_height="fill_parent">-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/cancellaTutto"-->
+                    <!--android:layout_width="70dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:src="@drawable/ic_action_discard" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

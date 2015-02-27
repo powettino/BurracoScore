@@ -5,11 +5,16 @@ import android.os.Parcelable;
 
 public class Hand implements Parcelable {
 
+    public static final int WON = 1;
+    public static final int LOST=-1;
+    public static final int PAIR = 0;
+
     private int carte;
     private int chiusura;
     private int mazzetto;
     private int base;
     private int totale;
+    private int won = PAIR;
 
     @SuppressWarnings("unused")
     public int getCarte() {
@@ -35,6 +40,8 @@ public class Hand implements Parcelable {
         return totale;
     }
 
+    public int getWon(){return won;}
+
     public Hand(int base, int carte, boolean chiusura, boolean mazzetto) {
         this.carte = carte;
         this.base = base;
@@ -43,12 +50,17 @@ public class Hand implements Parcelable {
         this.totale = this.carte + this.chiusura + this.mazzetto + this.base;
     }
 
+    public void setWon(int vinto){
+        this.won = vinto;
+    }
+
     public Hand(Parcel in) {
         this.base = in.readInt();
         this.carte = in.readInt();
         this.chiusura = in.readInt();
         this.mazzetto = in.readInt();
         this.totale = in.readInt();
+        this.won = in.readInt();
     }
 
 
@@ -64,6 +76,8 @@ public class Hand implements Parcelable {
         dest.writeInt(this.chiusura);
         dest.writeInt(this.mazzetto);
         dest.writeInt(this.totale);
+        dest.writeInt(won);
+//        dest.writeInt(won ? 1 : 0);
     }
 
     public static final Parcelable.Creator<Hand> CREATOR = new Parcelable.Creator<Hand>() {

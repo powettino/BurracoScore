@@ -11,7 +11,7 @@ public class Team implements Parcelable {
     private String player1 = null;
     private String player2 = null;
     private String side;
-    private ArrayList<Integer> punteggio = new ArrayList<Integer>();
+//    private ArrayList<Integer> punteggio = new ArrayList<Integer>();
     private ArrayList<Hand> mani = new ArrayList<Hand>();
     private int totale = 0;
     private int gameVinti = 0;
@@ -37,7 +37,7 @@ public class Team implements Parcelable {
         side = in.readString();
         this.player1 = in.readString();
         this.player2 = in.readString();
-        in.readList(punteggio, getClass().getClassLoader());
+//        in.readList(punteggio, getClass().getClassLoader());
         in.readList(mani, getClass().getClassLoader());
         totale = in.readInt();
         gameVinti = in.readInt();
@@ -60,12 +60,24 @@ public class Team implements Parcelable {
     }
 
     public ArrayList<Integer> getPunti() {
-        return punteggio;
+        ArrayList<Integer> punti = new ArrayList<Integer>();
+        for(int i = 0; i<mani.size();i++){
+            punti.add(mani.get(i).getTotaleMano());
+        }
+        return punti;
+    }
+
+    public ArrayList<Integer> getStatus() {
+        ArrayList<Integer> status = new ArrayList<Integer>();
+        for(int i = 0; i<mani.size();i++){
+            status.add(mani.get(i).getWon());
+        }
+        return status;
     }
 
     public void addMano(Hand mano) {
         totale += mano.getTotaleMano();
-        punteggio.add(mano.getTotaleMano());
+//        punteggio.add(mano.getTotaleMano());
         mani.add(mano);
     }
 
@@ -109,7 +121,7 @@ public class Team implements Parcelable {
         dest.writeString(side);
         dest.writeString(player1);
         dest.writeString(player2);
-        dest.writeList(punteggio);
+//        dest.writeList(punteggio);
         dest.writeList(mani);
         dest.writeInt(totale);
         dest.writeInt(gameVinti);
@@ -129,7 +141,7 @@ public class Team implements Parcelable {
     };
 
     public void cleanPunteggio() {
-        punteggio.clear();
+//        punteggio.clear();
         mani.clear();
         this.totale = 0;
     }
@@ -137,4 +149,5 @@ public class Team implements Parcelable {
     public void cleanGames() {
         this.gameVinti = 0;
     }
+
 }

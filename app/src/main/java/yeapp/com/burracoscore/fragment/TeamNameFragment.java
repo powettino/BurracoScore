@@ -40,7 +40,7 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = (numberOfPlayerForTeam == 0 ? inflater.inflate(R.layout.empty_result, container, false) :
+        View view = (numberOfPlayerForTeam == 0 ? inflater.inflate(R.layout.empty_team_configuration, container, false) :
                 ((numberOfPlayerForTeam == 1) ? inflater.inflate(R.layout.one_player_name_fragment, container, false) :
                         inflater.inflate(R.layout.two_player_name_fragment, container, false)));
         if (numberOfPlayerForTeam > 0) {
@@ -99,9 +99,11 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
 
     public void resetNames() {
         gioc11Text.setText(R.string.nomeGiocatore11);
-        gioc12Text.setText(R.string.nomeGiocatore12);
         gioc21Text.setText(R.string.nomeGiocatore21);
-        gioc22Text.setText(R.string.nomeGiocatore22);
+        if(numberOfPlayerForTeam==2) {
+            gioc12Text.setText(R.string.nomeGiocatore12);
+            gioc22Text.setText(R.string.nomeGiocatore22);
+        }
     }
 
     public interface OnChangeToolbarVisibility {

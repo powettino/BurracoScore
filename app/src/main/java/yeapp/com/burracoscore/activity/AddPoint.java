@@ -91,11 +91,21 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
                         !carteA.getText().toString().isEmpty() ? Integer.valueOf(carteA.getText().toString()) : 0,
                         chiusuraA.isChecked(),
                         mazzettoA.isChecked());
+                int resA = manoA.getTotaleMano();
                 Hand manoB = new Hand(
                         !baseB.getText().toString().isEmpty() ? Integer.valueOf(baseB.getText().toString()) : 0,
                         !carteB.getText().toString().isEmpty() ? Integer.valueOf(carteB.getText().toString()) : 0,
                         chiusuraB.isChecked(),
                         mazzettoB.isChecked());
+                int resB = manoB.getTotaleMano();
+                if(resB > resA){
+                    manoB.setWon(Hand.WON);
+                    manoA.setWon(Hand.LOST);
+                }else
+                if(resA > resB){
+                    manoA.setWon(Hand.WON);
+                    manoB.setWon(Hand.LOST);
+                }
                 setResult(RESULT_OK, getIntent()
                         .putExtra(SummaryActivity.handA, manoA)
                         .putExtra(SummaryActivity.handB, manoB));

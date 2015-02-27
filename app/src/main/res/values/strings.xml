@@ -35,6 +35,7 @@
     <string name="puntiChiusura">Chiusura</string>
     <string name="puntiMazzetto">Mazzetto</string>
     <string name="emptyList">Nessuna\nmano\nsalvata</string>
+    <string name="emptyConfiguration">Nessuna\nteam\nconfigurato</string>
     <string name="plus">+</string>
     <string name="labelA">A</string>
     <string name="labelB">B</string>

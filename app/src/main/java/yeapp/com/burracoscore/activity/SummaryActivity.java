@@ -84,10 +84,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         listB.setAdapter(dtaLVB);
         listA.setEmptyView(findViewById(R.id.empty));
         listB.setEmptyView(findViewById(R.id.empty2));
-        listA.setOnTouchListener(this);
-        listB.setOnTouchListener(this);
-        listA.setFocusableInTouchMode(true);
-        listB.setFocusableInTouchMode(true);
+//
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             findViewById(R.id.cancellaGame).setOnClickListener(this);
             findViewById(R.id.cancellaTutto).setOnClickListener(this);
@@ -188,8 +185,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         teamA = savedInstanceState.getParcelable(teamAKey);
         teamB = savedInstanceState.getParcelable(teamBKey);
         createTeamName();
-        dtaLVA.restore(teamA.getPunti());
-        dtaLVB.restore(teamB.getPunti());
+        dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
+        dtaLVB.restore(teamB.getPunti(), teamB.getStatus());
         dtaLVA.notifyDataSetChanged();
         dtaLVB.notifyDataSetChanged();
         resultA.setText(teamA.getTotale() == 0 ? "" : String.valueOf(teamA.getTotale()));
@@ -211,10 +208,6 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
         outState.putParcelable(teamBKey, teamB);
         outState.putBoolean(addHand, findViewById(R.id.addHand).isEnabled());
         outState.putBoolean(setDialog, dialogActive);
-
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.cancel();
-//        }
     }
 
     @Override
@@ -238,23 +231,23 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
             case CODE_FOR_SET: {
                 if (resultCode == RESULT_OK) {
                     Hand mano = data.getParcelableExtra(handA);
-                    int lastGame = teamA.getNumberHands();
+//                    int lastGame = teamA.getNumberHands();
                     teamA.addMano(mano);
                     resultA.setText(String.valueOf(teamA.getTotale()));
-                    if (lastGame == 0) {
-                        dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G1");
-                    } else {
-                        dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
-                    }
+//                    if (lastGame == 0) {
+                    dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), mano.getWon());
+//                    } else {
+//                        dtaLVA.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
+//                    }
                     dtaLVA.notifyDataSetChanged();
                     mano = data.getParcelableExtra(handB);
                     teamB.addMano(mano);
                     resultB.setText(String.valueOf(teamB.getTotale()));
-                    if (lastGame == 0) {
-                        dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G1");
-                    } else {
-                        dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
-                    }
+//                    if (lastGame == 0) {
+                    dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), mano.getWon());
+//                    } else {
+//                        dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
+//                    }
                     dtaLVB.notifyDataSetChanged();
                     checkWinner();
                 }

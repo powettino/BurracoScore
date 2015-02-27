@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="Giallo">#fffeff18</color>
+    <color name="Arancio">#ffff8100</color>
     <color name="Nero">#ff000000</color>
     <color name="Bianco">#ffffffff</color>
     <color name="Rosso">#fff1150d</color>
     <color name="Blu">#ff2d81ff</color>
     <color name="Grigio">#15000000</color>
+    <color name="Verde">#ff00ef00</color>
 
     <color name="SfondoToolbar">#ff1c86dd</color>
     <color name="SfondoChiaro">#ffe8f3f8</color>

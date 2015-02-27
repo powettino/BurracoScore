@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="@string/labelA"
-                    android:textColor="@color/Rosso"
+                    android:textColor="@color/Arancio"
                     android:textSize="@dimen/mediumText"
                     android:typeface="monospace" />
 
