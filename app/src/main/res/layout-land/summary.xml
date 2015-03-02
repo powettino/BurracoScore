@@ -1,38 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/SfondoBase"
     android:gravity="end"
-    android:orientation="vertical"
-
-    tools:context="yeapp.com.burracoscore.activity.SummaryActivity"
-    tools:ignore="RtlSymmetry">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/SfondoToolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:title="@string/app_name"
-        android:titleTextAppearance="@style/ToolbarTitle"
-        tools:ignore="UnusedAttribute" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="@dimen/noSpace"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="bottom"-->
-        <!--android:orientation="vertical"-->
-        <!--tools:ignore="InefficientWeight">-->
+    android:orientation="horizontal"
+    tools:context="yeapp.com.burracoscore.activity.SummaryActivity_old"
+    tools:ignore="RtlSymmetry"
+    android:baselineAligned="false">
 
         <RelativeLayout
             android:id="@+id/containerMain"
@@ -121,7 +98,7 @@
                     android:layout_width="@dimen/noSpace"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/SfondoMedio"
+                    android:background="@color/SfondoOmbre"
                     android:gravity="center"
                     android:text=""
                     android:textColor="@color/Nero"
@@ -137,7 +114,7 @@
                     android:layout_width="@dimen/noSpace"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/SfondoMedio"
+                    android:background="@color/SfondoOmbre"
                     android:gravity="center"
                     android:text=""
                     android:textColor="@color/Nero"
@@ -147,22 +124,20 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/resultTextSection"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-25dp"
-                android:background="@drawable/border_round_shadow">
+                android:layout_marginBottom="@dimen/lowMargin"
+                android:layout_alignParentBottom="true">
 
-                <Button
+                  <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/addHand"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/background_round"
-                    android:gravity="center"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:text="@string/plus"
-                    android:textColor="@drawable/button_round_text_layout"
-                    android:textSize="@dimen/largeText" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_action_new"
+                    fab:fab_colorNormal="@color/SfondoToolbar"
+                    fab:fab_colorPressed="@color/SfondoChiaro"
+                    fab:fab_colorRipple="@color/SfondoMedio" />
             </FrameLayout>
 
             <FrameLayout
@@ -211,55 +186,8 @@
             </FrameLayout>
 
         </RelativeLayout>
-        <!--</LinearLayout>-->
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/highMargin"
-            android:layout_marginRight="@dimen/highMargin"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/insignificantMargin">
-
-            <TextView
-                android:id="@+id/punteggioASummary"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/zeroValue"
-                android:textColor="@color/Arancio"
-                android:textSize="@dimen/enormousText"
-                android:typeface="monospace" />
-
-            <ImageView
-                android:id="@+id/coppaSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:contentDescription="@string/cup_description"
-                android:gravity="center_vertical"
-                android:src="@drawable/coppa_style" />
-
-            <TextView
-                android:id="@+id/punteggioBSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/zeroValue"
-                android:textColor="@color/Blu"
-                android:textSize="@dimen/enormousText"
-                android:typeface="monospace" />
-
-        </LinearLayout>
 
         <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
-    </LinearLayout>
 
 </LinearLayout>
 

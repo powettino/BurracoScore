@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +23,8 @@ import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
 
-public class SummaryActivity extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, View.OnTouchListener {
+@Deprecated
+public class SummaryActivity_old extends ActionBarActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener, View.OnTouchListener {
 
     Toolbar toolbar;
     private boolean requestedFocus = false;
@@ -63,7 +66,7 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_summary);
+        setContentView(R.layout.summary);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
@@ -249,6 +252,8 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
 //                        dtaLVB.addLastDoubleText(String.valueOf(mano.getTotaleMano()), "G" + (lastGame + 1));
 //                    }
                     dtaLVB.notifyDataSetChanged();
+                    resultB.setBackgroundResource(R.color.SfondoMedio);
+                    resultA.setBackgroundResource(R.color.SfondoMedio);
                     checkWinner();
                 }
                 break;
@@ -319,8 +324,26 @@ public class SummaryActivity extends ActionBarActivity implements View.OnClickLi
                 break;
             }
             case (R.id.addHand): {
-                Intent add = new Intent(this, AddPoint.class);
-                startActivityForResult(add, CODE_FOR_SET);
+
+                Animation anim = AnimationUtils.loadAnimation(this, R.anim.spin);
+                anim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Intent add = new Intent(SummaryActivity_old.this, AddPoint_old.class);
+                        startActivityForResult(add, CODE_FOR_SET);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                v.startAnimation(anim);
                 break;
             }
             default: {

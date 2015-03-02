@@ -56,9 +56,9 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 //        TeamNameFragment t = (TeamNameFragment) getFragmentManager().findFragmentByTag(Integer.toString(numberOfPlayerForTeam));
         actualTeam.saveDisplayedName();
         setResult(RESULT_OK, this.getIntent()
-                        .putExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam)
-                        .putExtra(SummaryActivity.teamAKey, actualTeam.getTeamA())
-                        .putExtra(SummaryActivity.teamBKey, actualTeam.getTeamB())
+                        .putExtra(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam)
+                        .putExtra(SummaryActivity_old.teamAKey, actualTeam.getTeamA())
+                        .putExtra(SummaryActivity_old.teamBKey, actualTeam.getTeamB())
         );
         finish();
     }
@@ -67,7 +67,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.fragment_team_configuration);
+        setContentView(R.layout.team_configuration_container);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.conf_name);
@@ -79,7 +79,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
         if (savedInstanceState == null) {
             Intent startingIntent = getIntent();
-            numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+            numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam);
 
             actualTeam = new TeamNameFragment();
             actualTeam.setArguments(startingIntent.getExtras());
@@ -92,14 +92,14 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
+        outState.putInt(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity.numberOfPlayer);
+        numberOfPlayerForTeam = savedInstanceState.getInt(SummaryActivity_old.numberOfPlayer);
         actualTeam = (TeamNameFragment) getFragmentManager().findFragmentByTag(Integer.toString(numberOfPlayerForTeam));
     }
 
@@ -140,9 +140,9 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
 
     private void changeFragment() {
         Bundle b = new Bundle();
-        b.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
-        b.putParcelable(SummaryActivity.teamAKey, actualTeam.getTeamA());
-        b.putParcelable(SummaryActivity.teamBKey, actualTeam.getTeamB());
+        b.putInt(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam);
+        b.putParcelable(SummaryActivity_old.teamAKey, actualTeam.getTeamA());
+        b.putParcelable(SummaryActivity_old.teamBKey, actualTeam.getTeamB());
         actualTeam = new TeamNameFragment();
         actualTeam.setArguments(b);
         FragmentTransaction ft = getFragmentManager().beginTransaction();

@@ -1,33 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/master"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/SfondoBase"
     android:orientation="vertical"
-    tools:context="yeapp.com.burracoscore.activity.SummaryActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/SfondoToolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:title="@string/app_name"
-        android:titleTextAppearance="@style/ToolbarTitle"
-        tools:ignore="UnusedAttribute" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:context="yeapp.com.burracoscore.activity.SummaryActivity_old">
 
         <RelativeLayout
             android:id="@+id/containerMain"
             android:layout_width="match_parent"
             android:background="@drawable/border_shadow"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/relativeFinaleSummary"
             android:orientation="vertical">
 
             <LinearLayout
@@ -133,7 +118,6 @@
                 </RelativeLayout>
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/resultTextSection"
                 android:layout_width="match_parent"
@@ -146,7 +130,7 @@
                     android:layout_width="@dimen/noSpace"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/SfondoMedio"
+                    android:background="@color/SfondoOmbre"
                     android:enabled="true"
                     android:gravity="center"
                     android:text=""
@@ -165,7 +149,7 @@
                     android:layout_width="@dimen/noSpace"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/SfondoMedio"
+                    android:background="@color/SfondoOmbre"
                     android:enabled="true"
                     android:gravity="center"
                     android:text=""
@@ -174,140 +158,29 @@
                 />
             </LinearLayout>
 
-
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/resultTextSection"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-25dp"
-                android:background="@drawable/border_round_shadow">
+                android:paddingBottom="@dimen/lowMargin"
+                android:layout_alignParentBottom="true">
 
-                <Button
+                <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/addHand"
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/background_round"
-                    android:gravity="center"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:text="@string/plus"
-                    android:textColor="@drawable/button_round_text_layout"
-                    android:textSize="@dimen/largeText" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_action_new"
+                    fab:fab_colorNormal="@color/SfondoToolbar"
+                    fab:fab_colorPressed="@color/SfondoChiaro"
+                    fab:fab_colorRipple="@color/SfondoMedio" />
             </FrameLayout>
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/relativeFinaleSummary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/footer"
-            android:layout_centerHorizontal="true"
-            android:baselineAligned="false"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        <!--&lt;!&ndash; SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE&ndash;&gt;-->
+        <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/punteggioASummary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/lowMargin"
-                        android:paddingRight="@dimen/lowMargin"
-                        android:text="@string/zeroValue"
-                        android:textColor="@color/Arancio"
-                        android:textSize="@dimen/enormousText"
-                        android:typeface="monospace" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/coppaSummary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/cup_description"
-                    android:src="@drawable/coppa_style" />
-            </LinearLayout>
-
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/punteggioBSummary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/lowMargin"
-                        android:paddingRight="@dimen/lowMargin"
-                        android:text="@string/zeroValue"
-                        android:textColor="@color/Blu"
-                        android:textSize="@dimen/enormousText"
-                        android:typeface="monospace" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/footer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/Blu"
-
-            android:orientation="horizontal">
-            <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_height="fill_parent">-->
-                <!--<ImageButton-->
-                    <!--android:id="@+id/cancellaGame"-->
-                    <!--android:layout_width="70dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:src="@drawable/ic_action_cancel" />-->
-            <!--</LinearLayout>-->
-            <!--<LinearLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_height="fill_parent">-->
-                <!--<ImageButton-->
-                    <!--android:id="@+id/cancellaTutto"-->
-                    <!--android:layout_width="70dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:src="@drawable/ic_action_discard" />-->
-            <!--</LinearLayout>-->
-        </LinearLayout>
-    </RelativeLayout>
 </LinearLayout>
 
 

@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SfondoBase"
+    android:orientation="vertical"
+    tools:context="yeapp.com.burracoscore.activity.SummaryContainer">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SfondoToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/app_name"
+        android:elevation="8dp"
+        android:titleTextAppearance="@style/ToolbarTitle" />
+
+
+        <FrameLayout
+            android:id="@+id/fragmentContSum"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="false"
+            android:layout_toLeftOf="@+id/punteggioCont">
+
+        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/punteggioCont"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/highMargin"
+            android:layout_marginRight="@dimen/highMargin"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/insignificantMargin"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/toolbar">
+
+            <TextView
+                android:id="@+id/punteggioASummary"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/zeroValue"
+                android:textColor="@color/Arancio"
+                android:textSize="@dimen/enormousText"
+                android:typeface="monospace" />
+
+            <ImageView
+                android:id="@+id/coppaSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:contentDescription="@string/cup_description"
+                android:gravity="center_vertical"
+                android:src="@drawable/coppa_style" />
+
+            <TextView
+                android:id="@+id/punteggioBSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/zeroValue"
+                android:textColor="@color/Blu"
+                android:textSize="@dimen/enormousText"
+                android:typeface="monospace" />
+
+        </LinearLayout>
+
+</RelativeLayout>

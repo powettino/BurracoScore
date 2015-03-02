@@ -128,7 +128,7 @@ public class ListPointAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                    .inflate(R.layout.row_point, parent, false);
+                    .inflate(R.layout.row_list_result, parent, false);
         }
         Drawable background = context.getResources().getDrawable(R.drawable.shape_image_game);
         if(textStatus.get(position) == Hand.WON){
@@ -152,7 +152,7 @@ public class ListPointAdapter extends BaseAdapter {
             ((TextView) convertView.findViewById(R.id.textRowPointRight)).setText(textPoint.get(position));
         }
         if (lastPosition < position) {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.go_down);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.bouncing_down);
             convertView.startAnimation(animation);
         }
         lastPosition = position > lastPosition ? position : lastPosition;

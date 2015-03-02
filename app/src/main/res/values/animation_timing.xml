@@ -1,4 +1,8 @@
 <resources>
-    <integer name="card_flip_time_full">300</integer>
-    <integer name="card_flip_time_half">150</integer>
+    <integer name="stopped">400</integer>
+    <integer name="slowest">300</integer>
+    <integer name="slow">250</integer>
+    <integer name="fast">150</integer>
+    <integer name="medium">200</integer>
+    <integer name="fastest">100</integer>
 </resources>

@@ -11,7 +11,8 @@
 
     <color name="SfondoToolbar">#ff1c86dd</color>
     <color name="SfondoChiaro">#ffe8f3f8</color>
-    <color name="SfondoMedio">#ffc2cbce</color>
+    <!--<color name="SfondoMedio">#ffc2cbce</color>-->
+    <color name="SfondoMedio">#ffe6fcff</color>
     <color name="SfondoBase">#ffa4bcc2</color>
     <color name="SfondoOmbre">#ff81a8b8</color>
 </resources>

@@ -12,8 +12,8 @@ import android.widget.EditText;
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Hand;
 
-
-public class AddPoint extends Activity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+@Deprecated
+public class AddPoint_old extends Activity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     EditText baseA;
     EditText carteA;
@@ -27,7 +27,7 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_point);
+        setContentView(R.layout.add_point);
         baseA = (EditText) findViewById(R.id.puntiBaseTextA);
         baseB = (EditText) findViewById(R.id.puntiBaseTextB);
         carteA = (EditText) findViewById(R.id.puntiCarteTextA);
@@ -107,8 +107,8 @@ public class AddPoint extends Activity implements CompoundButton.OnCheckedChange
                     manoB.setWon(Hand.LOST);
                 }
                 setResult(RESULT_OK, getIntent()
-                        .putExtra(SummaryActivity.handA, manoA)
-                        .putExtra(SummaryActivity.handB, manoB));
+                        .putExtra(SummaryActivity_old.handA, manoA)
+                        .putExtra(SummaryActivity_old.handB, manoB));
                 finish();
                 break;
             }

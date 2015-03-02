@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.activity.SummaryActivity;
+import yeapp.com.burracoscore.activity.SummaryActivity_old;
 import yeapp.com.burracoscore.core.model.Team;
 
 public class TeamNameFragment extends Fragment implements TextWatcher {
@@ -32,17 +32,17 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        numberOfPlayerForTeam = getArguments().getInt(SummaryActivity.numberOfPlayer);
-        a = getArguments().getParcelable(SummaryActivity.teamAKey);
-        b = getArguments().getParcelable(SummaryActivity.teamBKey);
+        numberOfPlayerForTeam = getArguments().getInt(SummaryActivity_old.numberOfPlayer);
+        a = getArguments().getParcelable(SummaryActivity_old.teamAKey);
+        b = getArguments().getParcelable(SummaryActivity_old.teamBKey);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         View view = (numberOfPlayerForTeam == 0 ? inflater.inflate(R.layout.empty_team_configuration, container, false) :
-                ((numberOfPlayerForTeam == 1) ? inflater.inflate(R.layout.one_player_name_fragment, container, false) :
-                        inflater.inflate(R.layout.two_player_name_fragment, container, false)));
+                ((numberOfPlayerForTeam == 1) ? inflater.inflate(R.layout.one_player_fragment, container, false) :
+                        inflater.inflate(R.layout.two_player_fragment, container, false)));
         if (numberOfPlayerForTeam > 0) {
             gioc11Text = (EditText) view.findViewById(R.id.giocatore11);
             gioc21Text = (EditText) view.findViewById(R.id.giocatore21);
@@ -65,9 +65,9 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         saveDisplayedName();
-        outState.putInt(SummaryActivity.numberOfPlayer, numberOfPlayerForTeam);
-        outState.putParcelable(SummaryActivity.teamAKey, a);
-        outState.putParcelable(SummaryActivity.teamBKey, b);
+        outState.putInt(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam);
+        outState.putParcelable(SummaryActivity_old.teamAKey, a);
+        outState.putParcelable(SummaryActivity_old.teamBKey, b);
         super.onSaveInstanceState(outState);
     }
 

@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/SfondoBase"
+    android:orientation="vertical"
+    tools:context="yeapp.com.burracoscore.activity.SummaryContainer">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SfondoToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/app_name"
+        android:elevation="8dp"
+        android:titleTextAppearance="@style/ToolbarTitle" />
+
+    <FrameLayout
+        android:id="@+id/fragmentContSum"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/relativeFinaleSummary"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/relativeFinaleSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/punteggioASummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/lowMargin"
+                    android:paddingRight="@dimen/lowMargin"
+                    android:text="@string/zeroValue"
+                    android:textColor="@color/Arancio"
+                    android:textSize="@dimen/enormousText"
+                    android:typeface="monospace" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/coppaSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/cup_description"
+                android:src="@drawable/coppa_style" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/punteggioBSummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/lowMargin"
+                    android:paddingRight="@dimen/lowMargin"
+                    android:text="@string/zeroValue"
+                    android:textColor="@color/Blu"
+                    android:textSize="@dimen/enormousText"
+                    android:typeface="monospace" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE-->
+    </LinearLayout>
+
+</RelativeLayout>

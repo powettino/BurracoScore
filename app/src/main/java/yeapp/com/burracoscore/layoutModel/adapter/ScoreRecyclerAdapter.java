@@ -83,7 +83,7 @@ public class ScoreRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_point, parent, false);
+                .inflate(R.layout.row_list_result, parent, false);
         if (mainTextLeft) {
             View text = v.findViewById(R.id.textRowPointRight);
             text.setBackgroundResource(R.drawable.shape_image_game);

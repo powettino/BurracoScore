@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/insignificantMargin"
     android:paddingLeft="@dimen/lowMargin"
     android:paddingRight="@dimen/lowMargin"
-    tools:context="yeapp.com.burracoscore.activity.AddPoint">
+    tools:context="yeapp.com.burracoscore.activity.AddPoint_old">
 
 
     <LinearLayout
@@ -34,18 +34,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text=""
-                    android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="@string/labelA"
                     android:textColor="@color/Arancio"
                     android:textSize="@dimen/mediumText"
+                    android:typeface="monospace" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
 
                 <TextView
@@ -65,13 +64,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/puntiBase"
-                    android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+
 
                 <EditText
                     android:id="@+id/puntiBaseTextA"
@@ -83,6 +76,15 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:text="@string/zeroValue"
+                    android:textSize="@dimen/smallText"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/puntiBase"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
 
@@ -107,13 +109,7 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/puntiCarte"
-                    android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+
 
                 <EditText
                     android:id="@+id/puntiCarteTextA"
@@ -128,6 +124,14 @@
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/puntiCarte"
+                    android:textSize="@dimen/smallText"
+                    android:typeface="monospace" />
                 <EditText
                     android:id="@+id/puntiCarteTextB"
                     android:layout_width="0dp"
@@ -149,14 +153,7 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/puntiChiusura"
-                    android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -174,6 +171,14 @@
                         android:typeface="monospace" />
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/puntiChiusura"
+                    android:textSize="@dimen/smallText"
+                    android:typeface="monospace" />s
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -198,16 +203,6 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:orientation="horizontal">
 
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/puntiMazzetto"
-                    android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -223,6 +218,15 @@
                         android:textSize="@dimen/mediumText"
                         android:typeface="monospace" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/puntiMazzetto"
+                    android:textSize="@dimen/smallText"
+                    android:typeface="monospace" />
 
                 <LinearLayout
                     android:layout_width="0dp"
