@@ -65,8 +65,10 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
                 if (isChecked) {
                     mazzettoA.setChecked(true);
                     mazzettoA.setEnabled(false);
+                    chiusuraB.setEnabled(false);
                 } else {
                     mazzettoA.setEnabled(true);
+                    chiusuraB.setEnabled(true);
                     mazzettoA.setChecked(false);
                 }
                 break;
@@ -75,8 +77,10 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
                 if (isChecked) {
                     mazzettoB.setChecked(true);
                     mazzettoB.setEnabled(false);
+                    chiusuraA.setEnabled(false);
                 } else {
                     mazzettoB.setEnabled(true);
+                    chiusuraA.setEnabled(true);
                     mazzettoB.setChecked(false);
                 }
                 break;
@@ -110,7 +114,7 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
                     manoA.setWon(Hand.WON);
                     manoB.setWon(Hand.LOST);
                 }
-              cb.OnSaving(manoA, manoB);
+                cb.OnSaving(manoA, manoB);
                 break;
             }
             default: {

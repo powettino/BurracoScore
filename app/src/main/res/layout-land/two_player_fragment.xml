@@ -30,7 +30,7 @@
             android:layout_row="0"
             android:layout_rowSpan="2"
             android:enabled="true"
-            android:text="@string/teamAName"
+            android:text="@string/teamANormal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Arancio" />
 
@@ -44,12 +44,14 @@
             android:layout_marginLeft="@dimen/lowMargin"
             android:layout_row="0"
             android:autoText="false"
+            android:textColor="@color/Nero"
             android:background="@drawable/border_edittext"
             android:enabled="true"
             android:inputType="textCapWords|textPersonName|textAutoComplete"
             android:maxLength="20"
             android:saveEnabled="true"
-            android:text="@string/nomeGiocatore11" />
+            android:text="@string/nomeGiocatore11"
+            style="@android:style/Widget.TextView" />
 
         <EditText
             android:id="@+id/giocatore12"
@@ -60,6 +62,8 @@
             android:layout_marginLeft="@dimen/lowMargin"
             android:layout_row="1"
             android:autoText="false"
+            style="@android:style/Widget.TextView"
+            android:textColor="@color/Nero"
             android:background="@drawable/border_edittext"
             android:enabled="true"
             android:inputType="textCapWords|textPersonName|textAutoComplete"
@@ -77,7 +81,7 @@
             android:layout_rowSpan="2"
             android:enabled="true"
             android:gravity="center"
-            android:text="@string/teamBName"
+            android:text="@string/teamBNormal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Blu" />
 
@@ -87,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_gravity="fill"
+            android:textColor="@color/Nero"
             android:layout_marginBottom="@dimen/insignificantMargin"
             android:layout_marginLeft="@dimen/lowMargin"
             android:layout_marginTop="@dimen/lowMargin"
@@ -96,6 +101,7 @@
             android:enabled="true"
             android:inputType="textCapWords|textPersonName|textAutoComplete"
             android:maxLength="20"
+            style="@android:style/Widget.TextView"
             android:saveEnabled="true"
             android:text="@string/nomeGiocatore21" />
 
@@ -108,6 +114,8 @@
             android:layout_marginLeft="@dimen/lowMargin"
             android:layout_row="3"
             android:autoText="false"
+            style="@android:style/Widget.TextView"
+            android:textColor="@color/Nero"
             android:background="@drawable/border_edittext"
             android:enabled="true"
             android:inputType="textCapWords|textPersonName|textAutoComplete"

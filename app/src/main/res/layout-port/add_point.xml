@@ -1,14 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="270sp"
     android:layout_height="270sp"
     android:layout_centerInParent="true"
     android:paddingTop="@dimen/insignificantMargin"
     android:paddingBottom="@dimen/insignificantMargin"
     android:paddingLeft="@dimen/lowMargin"
-    android:paddingRight="@dimen/lowMargin"
-    tools:context="yeapp.com.burracoscore.activity.AddPoint_old">
-
+    android:paddingRight="@dimen/lowMargin">
 
     <LinearLayout
         android:baselineAligned="false"
@@ -64,8 +61,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
-
                 <EditText
                     android:id="@+id/puntiBaseTextA"
                     android:layout_width="0dp"
@@ -74,6 +69,7 @@
                     android:ems="4"
                     android:gravity="center_horizontal"
                     android:inputType="number"
+                    style="@android:style/Widget.EditText"
                     android:maxLength="4"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
@@ -84,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    style="@android:style/Widget.TextView"
                     android:text="@string/puntiBase"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
@@ -91,6 +88,7 @@
                 <EditText
                     android:id="@+id/puntiBaseTextB"
                     android:layout_width="0dp"
+                    style="@android:style/Widget.EditText"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="4"
@@ -109,11 +107,10 @@
                 android:layout_marginTop="@dimen/lowMargin"
                 android:orientation="horizontal">
 
-
-
                 <EditText
                     android:id="@+id/puntiCarteTextA"
                     android:layout_width="0dp"
+                    style="@android:style/Widget.EditText"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="4"
@@ -130,6 +127,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/puntiCarte"
+                    style="@android:style/Widget.TextView"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
                 <EditText
@@ -138,6 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="4"
+                    style="@android:style/Widget.EditText"
                     android:gravity="center"
                     android:inputType="number|numberSigned"
                     android:maxLength="3"
@@ -177,6 +176,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/puntiChiusura"
+                    style="@android:style/Widget.TextView"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />s
                 <LinearLayout
@@ -225,6 +225,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/puntiMazzetto"
+                    style="@android:style/Widget.TextView"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
 
@@ -257,7 +258,6 @@
         android:background="@color/SfondoMedio"
         android:gravity="center"
         android:text="@string/save"
-        android:textColor="@drawable/text_layout" />
-
+        style="@android:style/Widget.Button"/>
 
 </RelativeLayout>

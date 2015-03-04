@@ -12,18 +12,18 @@ import yeapp.com.burracoscore.fragment.AddResultFragment;
 
 
 public class AddPointcontainer extends Activity implements AddResultFragment.OnSavingResult{
-AddResultFragment poi;
+    AddResultFragment poi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_point_container);
         poi = new AddResultFragment();
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragmentPointcont, poi, "AddPoint");
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        ft.commit();
-
+        if(savedInstanceState==null) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.fragmentPointcont, poi, "AddPoint");
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+            ft.commit();
+        }
     }
 
     @Override
@@ -40,8 +40,8 @@ AddResultFragment poi;
     @Override
     public void OnSaving(Hand manoA, Hand manoB) {
         setResult(RESULT_OK, getIntent()
-                .putExtra(SummaryActivity_old.handA, manoA)
-                .putExtra(SummaryActivity_old.handB, manoB));
+                .putExtra(SummaryContainer.handA, manoA)
+                .putExtra(SummaryContainer.handB, manoB));
         finish();
     }
 }

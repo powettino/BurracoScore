@@ -18,21 +18,12 @@ import com.melnykov.fab.FloatingActionButton;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.AddPointcontainer;
+import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener {
-
-    public static final int CODE_FOR_SET = 1;
-    private static final int maxPoint = 500;
-    public static final String teamAKey = "teamA";
-    public static final String teamBKey = "teamB";
-    public static final String numberOfPlayer = "numberOfPlayer";
-    public static final String handA = "handA";
-    public static final String handB = "handB";
-
-    public static final String addHand = "addHand";
 
     private TextView teamAText;
     private TextView teamBText;
@@ -51,20 +42,24 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     private TextView resultA;
     private TextView resultB;
 
-
     private FloatingActionButton addButton;
 
     OnScoreChanging changingCB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        if (teamA == null) {
-            teamA = new Team("A");
-        }
-        if (teamB == null) {
-            teamB = new Team("B");
+        if(savedInstanceState==null){
+            if (teamA == null) {
+                teamA = new Team("A");
+            }
+            if (teamB == null) {
+                teamB = new Team("B");
+            }
+        }else{
+            numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
+            teamA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
+            teamB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
         }
     }
 
@@ -94,6 +89,21 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
 
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
+        if(savedInstanceState!=null) {
+            createTeamName();
+            addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
+            dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
+            dtaLVB.restore(teamB.getPunti(), teamB.getStatus());
+            dtaLVA.notifyDataSetChanged();
+            dtaLVB.notifyDataSetChanged();
+            resultA.setText(teamA.getTotale() == 0 ? "" : String.valueOf(teamA.getTotale()));
+            resultB.setText(teamB.getTotale() == 0 ? "" : String.valueOf(teamB.getTotale()));
+            if(teamA.getTotale() != 0) {
+                resultB.setBackgroundResource(R.color.SfondoMedio);
+                resultA.setBackgroundResource(R.color.SfondoMedio);
+            }
+            addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
+        }
         return view;
     }
 
@@ -107,33 +117,36 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
             teamBText.setText(R.string.teamBName);
         } else {
             assert p11 != null;
-            teamAText.setText(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p12.substring(0, (p12.length() >= 3 ? 3 : p12.length())) : ""));
-            teamBText.setText(p21.substring(0, (p21.length() >= 3 ? 3 : p21.length())) + (numberOfPlayerForTeam == 2 ? "∞" + p22.substring(0, (p22.length() >= 3 ? 3 : p22.length())) : ""));
+            teamAText.setText(formattedName(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p12.substring(0, (p12.length() >= 3 ? 3 : p12.length()))) : ""));
+            teamBText.setText(formattedName(p21.substring(0, ((p21.length() >= 3) ? 3 : p21.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p22.substring(0, (p22.length() >= 3 ? 3 : p22.length()))) : ""));
         }
+    }
+
+    private String formattedName(String originalName)
+    {
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<originalName.length();i++) {
+            result.append(originalName.charAt(i));
+            if (i+1 < originalName.length()) {
+                result.append('\n');
+            }
+        }
+        return result.toString();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null) {
-            createTeamName();
-            dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
-            dtaLVB.restore(teamB.getPunti(), teamB.getStatus());
-            dtaLVA.notifyDataSetChanged();
-            dtaLVB.notifyDataSetChanged();
-            resultA.setText(teamA.getTotale() == 0 ? "" : String.valueOf(teamA.getTotale()));
-            resultB.setText(teamB.getTotale() == 0 ? "" : String.valueOf(teamB.getTotale()));
-            addButton.setEnabled(savedInstanceState.getBoolean(addHand));
-        }
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(numberOfPlayer, numberOfPlayerForTeam);
-        outState.putParcelable(teamAKey, teamA);
-        outState.putParcelable(teamBKey, teamB);
-        outState.putBoolean(addHand, addButton.isEnabled());
+        outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
+        outState.putParcelable(SummaryContainer.teamAKey, teamA);
+        outState.putParcelable(SummaryContainer.teamBKey, teamB);
+        outState.putBoolean(SummaryContainer.addHand, addButton.isEnabled());
     }
 
     private void checkWinner() {
@@ -141,14 +154,14 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
         int totB = teamB.getTotale();
 //            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
 //            int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-        if (totA >= maxPoint || totB >= maxPoint) {
+        if (totA >= SummaryContainer.maxPoint || totB >= SummaryContainer.maxPoint) {
             if (totA != totB) {
                 if (totA > totB) {
                     teamA.addGame();
                 } else if (totB > totA) {
                     teamB.addGame();
                 }
-                changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames());
+                changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames(), true);
             }
         }
     }
@@ -165,7 +178,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
         resultB.setBackgroundResource(R.color.SfondoOmbre);
         resultA.setBackgroundResource(R.color.SfondoOmbre);
         addButton.setEnabled(true);
-        changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames());
+        changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames(), false);
     }
 
     public void resetAll() {
@@ -177,15 +190,12 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
         numberOfPlayerForTeam = 0;
         teamAText.setText(R.string.teamAName);
         teamBText.setText(R.string.teamBName);
-        changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames());
     }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.addHand): {
-
                 Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.bouncing_button);
                 anim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -195,13 +205,11 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent add = new Intent(getActivity(), AddPointcontainer.class);
-                        startActivityForResult(add, CODE_FOR_SET);
-
+                        startActivityForResult(add, SummaryContainer.CODE_FOR_SET);
                     }
 
                     @Override
                     public void onAnimationRepeat(Animation animation) {
-
                     }
                 });
                 v.startAnimation(anim);
@@ -240,10 +248,10 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case CODE_FOR_SET: {
+            case SummaryContainer.CODE_FOR_SET: {
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    Hand manoA = data.getParcelableExtra(handA);
-                    Hand manoB = data.getParcelableExtra(handB);
+                    Hand manoA = data.getParcelableExtra(SummaryContainer.handA);
+                    Hand manoB = data.getParcelableExtra(SummaryContainer.handB);
                     teamA.addMano(manoA);
                     resultA.setText(String.valueOf(teamA.getTotale()));
                     dtaLVA.addLastDoubleText(String.valueOf(manoA.getTotaleMano()), manoA.getWon());
@@ -270,6 +278,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     }
 
     public interface OnScoreChanging {
-        public void scoreChanged(int puntiA, int puntiB);
+        public void scoreChanged(int puntiA, int puntiB, boolean won);
     }
 }

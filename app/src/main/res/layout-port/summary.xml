@@ -5,181 +5,177 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/SfondoBase"
-    android:orientation="vertical"
-    tools:context="yeapp.com.burracoscore.activity.SummaryActivity_old">
+    android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/containerMain"
+    <RelativeLayout
+        android:id="@+id/containerMain"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearScroll"
             android:layout_width="match_parent"
-            android:background="@drawable/border_shadow"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_above="@+id/resultTextSection"
+            android:baselineAligned="false">
 
-            <LinearLayout
-                android:id="@+id/linearScroll"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="@dimen/noSpace"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/resultTextSection"
-                android:baselineAligned="false">
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/SfondoMedio"
+                    android:layout_centerVertical="true">
 
-                    <ViewStub
-                        android:id="@+id/empty"
+                    <TextView
+                        android:id="@+id/teamASummary"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout="@layout/empty_list_result" />
-
-                    <ListView
-                        android:id="@+id/listPointTeamA"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/SfondoMedio"
-                        android:paddingBottom="@dimen/enormousMargin"
-                        android:clipToPadding="false"
-                        android:scrollbars="vertical" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/lowMargin"
-                        android:background="@drawable/border_shadow">
-
-                        <TextView
-                            android:id="@+id/teamASummary"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/background_name"
-                            android:gravity="center"
-                            android:maxEms="1"
-                            android:saveEnabled="true"
-                            android:singleLine="false"
-                            android:text="@string/teamAName"
-                            android:textColor="@color/Arancio"
-                            android:textSize="@dimen/mediumText"
-                            android:typeface="monospace" />
-                    </FrameLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="@dimen/insignificantMargin"
-                    android:layout_height="match_parent"
-                    android:background="@color/SfondoOmbre" />
-
-                <RelativeLayout
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ViewStub
-                        android:id="@+id/empty2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:maxEms="1"
+                        android:alpha="0.2"
                         android:layout_gravity="center"
-                        android:layout="@layout/empty_list_result" />
+                        android:singleLine="false"
+                        android:text="@string/teamAName"
+                        android:textColor="@color/Arancio"
+                        android:textSize="@dimen/extraLargeText"
+                        android:typeface="monospace" />
+                </FrameLayout>
 
-                    <ListView
-                        android:id="@+id/listPointTeamB"
+                <ViewStub
+                    android:id="@+id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout="@layout/empty_list_result" />
+
+                <ListView
+                    android:id="@+id/listPointTeamA"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/enormousMargin"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical" />
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="@dimen/insignificantMargin"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/Blu" />-->
+
+            <RelativeLayout
+                android:layout_width="@dimen/noSpace"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/SfondoMedio"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/teamBSummary"
                         android:layout_width="match_parent"
-                        android:paddingBottom="@dimen/enormousMargin"
-                        android:clipToPadding="false"
-                        android:layout_height="match_parent"
-                        android:background="@color/SfondoMedio"
-                        android:scrollbars="vertical" />
-
-                    <FrameLayout
-                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/lowMargin"
-                        android:layout_marginRight="@dimen/lowMargin"
-                        android:background="@drawable/border_shadow">
+                        android:gravity="center"
+                        android:maxEms="1"
+                        android:alpha="0.2"
+                        android:layout_gravity="center"
+                        android:singleLine="false"
+                        android:text="@string/teamBName"
+                        android:textColor="@color/Blu"
+                        android:textSize="@dimen/extraLargeText"
+                        android:typeface="monospace" />
+                </FrameLayout>
 
-                        <TextView
-                            android:id="@+id/teamBSummary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/background_name"
-                            android:gravity="center"
-                            android:maxEms="1"
-                            android:singleLine="false"
-                            android:text="@string/teamBName"
-                            android:textColor="@color/Blu"
-                            android:textSize="@dimen/mediumText"
-                            android:typeface="monospace" />
-                    </FrameLayout>
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/resultTextSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="1dp">
-
-                <TextView
-                    android:id="@+id/resultA"
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoOmbre"
-                    android:enabled="true"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/Nero"
-                    android:textSize="@dimen/largeText" />
-
-                <RelativeLayout
-                    android:layout_width="@dimen/insignificantMargin"
+                <ViewStub
+                    android:id="@+id/empty2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/SfondoOmbre">
+                    android:layout_gravity="center"
+                    android:layout="@layout/empty_list_result" />
 
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/resultB"
-                    android:layout_width="@dimen/noSpace"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/SfondoOmbre"
-                    android:enabled="true"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/Nero"
-                    android:textSize="@dimen/largeText" />
-                />
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:paddingBottom="@dimen/lowMargin"
-                android:layout_alignParentBottom="true">
-
-                <com.melnykov.fab.FloatingActionButton
-                    android:id="@+id/addHand"
-                    android:layout_width="60dp"
+                <ListView
+                    android:id="@+id/listPointTeamB"
+                    android:layout_width="match_parent"
+                    android:paddingBottom="@dimen/enormousMargin"
+                    android:clipToPadding="false"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ic_action_new"
-                    fab:fab_colorNormal="@color/SfondoToolbar"
-                    fab:fab_colorPressed="@color/SfondoChiaro"
-                    fab:fab_colorRipple="@color/SfondoMedio" />
-            </FrameLayout>
-        </RelativeLayout>
+                    android:background="@android:color/transparent"
+                    android:scrollbars="vertical" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resultTextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/resultA"
+                android:layout_width="@dimen/noSpace"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/SfondoOmbre"
+                android:enabled="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/Nero"
+                android:textSize="@dimen/extraLargeText" />
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="@dimen/insignificantMargin"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/Blu">-->
+
+            <!--</RelativeLayout>-->
+
+            <TextView
+                android:id="@+id/resultB"
+                android:layout_width="@dimen/noSpace"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/SfondoOmbre"
+                android:enabled="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/Nero"
+                android:textSize="@dimen/extraLargeText" />
+            />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/lowMargin"
+            android:layout_alignParentBottom="true">
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/addHand"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_action_new"
+                fab:fab_colorNormal="@color/SfondoToolbar"
+                fab:fab_colorPressed="@color/SfondoChiaro"
+                fab:fab_colorRipple="@color/SfondoMedio" />
+        </FrameLayout>
+    </RelativeLayout>
 
 
-        <!--&lt;!&ndash; SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE&ndash;&gt;-->
-        <!--</LinearLayout>-->
+    <!--&lt;!&ndash; SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE&ndash;&gt;-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>
 

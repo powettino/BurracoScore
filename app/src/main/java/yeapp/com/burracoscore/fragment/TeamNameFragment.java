@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.activity.SummaryActivity_old;
+import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.core.model.Team;
 
 public class TeamNameFragment extends Fragment implements TextWatcher {
@@ -26,15 +26,20 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     private Team a = null;
     private Team b = null;
 
-    //    private OnDataPass passer;
     private OnChangeToolbarVisibility changer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        numberOfPlayerForTeam = getArguments().getInt(SummaryActivity_old.numberOfPlayer);
-        a = getArguments().getParcelable(SummaryActivity_old.teamAKey);
-        b = getArguments().getParcelable(SummaryActivity_old.teamBKey);
+        if(savedInstanceState==null) {
+            numberOfPlayerForTeam = getArguments().getInt(SummaryContainer.numberOfPlayer);
+            a = getArguments().getParcelable(SummaryContainer.teamAKey);
+            b = getArguments().getParcelable(SummaryContainer.teamBKey);
+        }else{
+            numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
+            a = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
+            b = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
+        }
     }
 
     @Override
@@ -65,15 +70,10 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         saveDisplayedName();
-        outState.putInt(SummaryActivity_old.numberOfPlayer, numberOfPlayerForTeam);
-        outState.putParcelable(SummaryActivity_old.teamAKey, a);
-        outState.putParcelable(SummaryActivity_old.teamBKey, b);
+        outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
+        outState.putParcelable(SummaryContainer.teamAKey, a);
+        outState.putParcelable(SummaryContainer.teamBKey, b);
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -108,17 +108,14 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
 
     public interface OnChangeToolbarVisibility {
         public void changedToolbarVisibility(boolean visible);
-
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
     @Override
@@ -129,5 +126,4 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
             changer.changedToolbarVisibility(true);
         }
     }
-
 }

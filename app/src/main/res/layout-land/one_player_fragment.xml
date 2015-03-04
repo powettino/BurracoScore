@@ -29,7 +29,7 @@
             android:layout_row="0"
             android:enabled="true"
             android:gravity="center"
-            android:text="@string/teamAName"
+            android:text="@string/teamANormal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Arancio" />
 
@@ -42,29 +42,15 @@
             android:layout_marginBottom="@dimen/insignificantMargin"
             android:layout_marginLeft="@dimen/lowMargin"
             android:layout_row="0"
+            style="@android:style/Widget.TextView"
             android:autoText="false"
             android:background="@drawable/border_edittext"
             android:enabled="true"
             android:inputType="textCapWords|textPersonName|textAutoComplete"
             android:maxLength="20"
+            android:textColor="@color/Nero"
             android:saveEnabled="true"
             android:text="@string/nomeGiocatore11" />
-
-        <!--<EditText-->
-        <!--android:id="@+id/giocatore12"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_column="1"-->
-        <!--android:layout_gravity="fill"-->
-        <!--android:layout_marginLeft="@dimen/lowMargin"-->
-        <!--android:layout_row="1"-->
-        <!--android:autoText="false"-->
-        <!--android:background="@drawable/border_edittext"-->
-        <!--android:enabled="false"-->
-        <!--android:inputType="textCapWords|textPersonName|textAutoComplete"-->
-        <!--android:maxLength="20"-->
-        <!--android:saveEnabled="true"-->
-        <!--android:text="@string/nomeGiocatore12" />-->
 
         <TextView
             android:id="@+id/teamBConf"
@@ -75,7 +61,7 @@
             android:layout_row="1"
             android:enabled="true"
             android:gravity="center"
-            android:text="@string/teamBName"
+            android:text="@string/teamBNormal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Blu" />
 
@@ -84,6 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:textColor="@color/Nero"
+            style="@android:style/Widget.TextView"
             android:layout_gravity="fill"
             android:layout_marginBottom="@dimen/insignificantMargin"
             android:layout_marginLeft="@dimen/lowMargin"
@@ -97,20 +85,5 @@
             android:saveEnabled="true"
             android:text="@string/nomeGiocatore21" />
 
-        <!--<EditText-->
-        <!--android:id="@+id/giocatore22"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_column="1"-->
-        <!--android:layout_gravity="fill"-->
-        <!--android:layout_marginLeft="@dimen/lowMargin"-->
-        <!--android:layout_row="3"-->
-        <!--android:autoText="false"-->
-        <!--android:background="@drawable/border_edittext"-->
-        <!--android:enabled="false"-->
-        <!--android:inputType="textCapWords|textPersonName|textAutoComplete"-->
-        <!--android:maxLength="20"-->
-        <!--android:saveEnabled="true"-->
-        <!--android:text="@string/nomeGiocatore22" />-->
     </GridLayout>
 </RelativeLayout>

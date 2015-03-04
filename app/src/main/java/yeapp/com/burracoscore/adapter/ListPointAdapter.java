@@ -2,14 +2,20 @@ package yeapp.com.burracoscore.adapter;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Pair;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +30,7 @@ public class ListPointAdapter extends BaseAdapter {
     private ArrayList<Integer> textStatus;
     private int lastPosition = -1;
     private boolean mainTextLeft = true;
-    private static final int padding = 60;
+    private static final int padding = 80;
 
     public ListPointAdapter(Context context, boolean mainTextLeft) {
         super();
@@ -66,8 +72,8 @@ public class ListPointAdapter extends BaseAdapter {
     }
 
     public void restore(ArrayList<Integer> pointText, ArrayList<Integer> status) {
-        textPoint.clear();
-        textStatus.clear();
+//        textPoint.clear();
+//        textStatus.clear();
         for (int i = 0; i < pointText.size(); i++) {
             textPoint.add(String.valueOf(pointText.get(i)));
             textStatus.add(status.get(i));
@@ -90,13 +96,8 @@ public class ListPointAdapter extends BaseAdapter {
     }
 
     public void addLastDoubleText(String points, int status) {
-//        if (textL.size() != 0) {
-//            textL.remove(textL.size() - 1);
-//            textR.remove(textR.size() - 1);
-//        }
         textPoint.add(formatPoints(points));
         textStatus.add(status);
-
     }
 
     @SuppressWarnings("unused")
@@ -139,17 +140,29 @@ public class ListPointAdapter extends BaseAdapter {
             background.setColorFilter(context.getResources().getColor(R.color.Grigio), PorterDuff.Mode.SRC_IN);
         }
         if (mainTextLeft) {
-            convertView.setPadding(padding, convertView.getPaddingTop(), convertView.getPaddingRight(), convertView.getPaddingBottom());
-            TextView text = (TextView) convertView.findViewById(R.id.textRowPointRight);
-            text.setBackground(background);
-            text.setText("G"+(position+1));
-            ((TextView) convertView.findViewById(R.id.textRowPointLeft)).setText(textPoint.get(position));
+            TextView left = (TextView)convertView.findViewById(R.id.textRowPointLeft);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(left.getLayoutParams());
+            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            left.setLayoutParams(lp);
+            left.setTypeface(null, Typeface.BOLD);
+            left.setText(textPoint.get(position));
+            //convertView.setPadding(padding, convertView.getPaddingTop(), convertView.getPaddingRight(), convertView.getPaddingBottom());
+            TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
+            right.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.mediumText));
+            right.setBackground(background);
+            right.setText("G" + (position + 1));
         } else {
-            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(), padding, convertView.getPaddingBottom());
-            TextView text = (TextView) convertView.findViewById(R.id.textRowPointLeft);
-            text.setBackground(background);
-            text.setText("G"+(position+1));
-            ((TextView) convertView.findViewById(R.id.textRowPointRight)).setText(textPoint.get(position));
+            TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(right.getLayoutParams());
+            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            right.setLayoutParams(lp);
+            right.setTypeface(null, Typeface.BOLD);
+            right.setText(textPoint.get(position));
+//            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(), padding, convertView.getPaddingBottom());
+            TextView left = (TextView) convertView.findViewById(R.id.textRowPointLeft);
+            left.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.mediumText));
+            left.setBackground(background);
+            left.setText("G" + (position + 1));
         }
         if (lastPosition < position) {
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.bouncing_down);

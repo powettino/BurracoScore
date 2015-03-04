@@ -21,9 +21,16 @@ public class SummaryContainer extends ActionBarActivity implements Toolbar.OnMen
     SummaryFragment sum;
     Toolbar toolbar;
     public static final int CODE_FOR_CONF = 0;
+    public static final int CODE_FOR_SET = 1;
 
+    public static final String handA = "handA";
+    public static final String handB = "handB";
+    public static final int maxPoint = 500;
     public static final String teamAKey = "teamA";
     public static final String teamBKey = "teamB";
+
+    public static final String addHand = "addHand";
+
     public static final String numberOfPlayer = "numberOfPlayer";
 
     public static final String setDialog = "dialog";
@@ -40,13 +47,16 @@ public class SummaryContainer extends ActionBarActivity implements Toolbar.OnMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_container);
-        sum = new SummaryFragment();
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragmentContSum, sum, "Summary");
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        ft.commit();
-
+        if(savedInstanceState == null) {
+            sum = new SummaryFragment();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.fragmentContSum, sum, "Summary");
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+            ft.commit();
+        }
+//        else{
+//            sum = (SummaryFragment) getFragmentManager().findFragmentByTag("Summary");
+//        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu_summary);
@@ -150,6 +160,7 @@ public class SummaryContainer extends ActionBarActivity implements Toolbar.OnMen
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        sum = (SummaryFragment) getFragmentManager().findFragmentByTag("Summary");
         if (savedInstanceState.getBoolean(setDialog)) {
             dialogActive=true;
             winnerDialog.show();
@@ -175,27 +186,18 @@ public class SummaryContainer extends ActionBarActivity implements Toolbar.OnMen
                 }
                 break;
             }
-//            case CODE_FOR_SET: {
-//                if (resultCode == RESULT_OK) {
-//                    Hand manoA = data.getParcelableExtra(handA);
-//                    Hand manoB = data.getParcelableExtra(handB);
-//                    sum.updatePoint(manoA, manoB);
-//                }
-//                break;
-//            }
             default: {
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
             }
         }
-
     }
 
     @Override
-    public void scoreChanged(int puntiA, int puntiB) {
+    public void scoreChanged(int puntiA, int puntiB, boolean won) {
         punteggioTotA.setText(String.valueOf(puntiA));
         punteggioTotB.setText(String.valueOf(puntiB));
-        if(puntiA != 0 || puntiB != 0) {
+        if(won){
             dialogActive = true;
             winnerDialog.show();
         }

@@ -41,7 +41,7 @@
                 android:drawableRight="@drawable/head"
                 android:enabled="true"
                 android:text="@string/gameSingolo"
-                android:textColor="@drawable/text_layout" />
+                style="@android:style/Widget.Button" />
 
             <Button
                 android:id="@+id/coupleConf"
@@ -54,7 +54,7 @@
                 android:drawableLeft="@drawable/d_head"
                 android:drawableRight="@drawable/d_head"
                 android:text="@string/gameDoppio"
-                android:textColor="@drawable/text_layout" />
+                style="@android:style/Widget.Button" />
         </LinearLayout>
 
         <FrameLayout
