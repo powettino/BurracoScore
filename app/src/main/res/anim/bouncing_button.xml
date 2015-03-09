@@ -26,5 +26,5 @@
         android:fromYScale="0.95"
         android:toXScale="1"
         android:toYScale="1"
-        android:interpolator="@android:interpolator/bounce"/>
+        android:interpolator="@android:interpolator/linear"/>
 </set>

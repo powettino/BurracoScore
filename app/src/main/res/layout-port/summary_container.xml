@@ -27,10 +27,11 @@
     <LinearLayout
         android:id="@+id/relativeFinaleSummary"
         android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
-
-        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/SfondoMedio"
+        android:gravity="center"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
 
@@ -50,8 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/lowMargin"
-                    android:paddingRight="@dimen/lowMargin"
                     android:text="@string/zeroValue"
                     android:textColor="@color/Arancio"
                     android:textSize="@dimen/enormousText"
@@ -62,13 +61,14 @@
         <LinearLayout
             android:id="@+id/coppaSummary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="match_parent">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/cup_description"
-                android:src="@drawable/coppa_style" />
+                android:src="@drawable/coppa_style_nero" />
         </LinearLayout>
 
 
@@ -89,8 +89,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/lowMargin"
-                    android:paddingRight="@dimen/lowMargin"
                     android:text="@string/zeroValue"
                     android:textColor="@color/Blu"
                     android:textSize="@dimen/enormousText"

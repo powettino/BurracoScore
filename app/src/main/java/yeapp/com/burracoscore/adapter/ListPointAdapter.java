@@ -2,7 +2,6 @@ package yeapp.com.burracoscore.adapter;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.util.TypedValue;
@@ -12,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class ListPointAdapter extends BaseAdapter {
     private ArrayList<Integer> textStatus;
     private int lastPosition = -1;
     private boolean mainTextLeft = true;
-    private static final int padding = 80;
+    private final int margin = 50;
 
     public ListPointAdapter(Context context, boolean mainTextLeft) {
         super();
@@ -72,8 +69,6 @@ public class ListPointAdapter extends BaseAdapter {
     }
 
     public void restore(ArrayList<Integer> pointText, ArrayList<Integer> status) {
-//        textPoint.clear();
-//        textStatus.clear();
         for (int i = 0; i < pointText.size(); i++) {
             textPoint.add(String.valueOf(pointText.get(i)));
             textStatus.add(status.get(i));
@@ -141,24 +136,33 @@ public class ListPointAdapter extends BaseAdapter {
         }
         if (mainTextLeft) {
             TextView left = (TextView)convertView.findViewById(R.id.textRowPointLeft);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(left.getLayoutParams());
-            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(left.getLayoutParams());
+            lp.weight = 1;
+            lp.width = 0;
+            lp.rightMargin = margin;
+            lp.gravity = Gravity.RIGHT;
+//            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
             left.setLayoutParams(lp);
-            left.setTypeface(null, Typeface.BOLD);
+
+            left.setGravity(Gravity.RIGHT);
+            //left.setTypeface(null, Typeface.BOLD);
             left.setText(textPoint.get(position));
-            //convertView.setPadding(padding, convertView.getPaddingTop(), convertView.getPaddingRight(), convertView.getPaddingBottom());
             TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
             right.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.mediumText));
             right.setBackground(background);
             right.setText("G" + (position + 1));
         } else {
             TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(right.getLayoutParams());
-            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(right.getLayoutParams());
+//            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            lp.weight = 1;
+            lp.width = 0;
+            lp.leftMargin = margin;
+            lp.gravity = Gravity.LEFT;
             right.setLayoutParams(lp);
-            right.setTypeface(null, Typeface.BOLD);
+            right.setGravity(Gravity.LEFT);
+            //right.setTypeface(null, Typeface.BOLD);
             right.setText(textPoint.get(position));
-//            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(), padding, convertView.getPaddingBottom());
             TextView left = (TextView) convertView.findViewById(R.id.textRowPointLeft);
             left.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.mediumText));
             left.setBackground(background);
@@ -171,9 +175,4 @@ public class ListPointAdapter extends BaseAdapter {
         lastPosition = position > lastPosition ? position : lastPosition;
         return convertView;
     }
-
-//    @Override
-//    public boolean isEnabled(int position) {
-//        return false;
-//    }
 }

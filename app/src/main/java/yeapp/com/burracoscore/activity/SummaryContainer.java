@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,7 +16,7 @@ import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
 
-public class SummaryContainer extends ActionBarActivity implements Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
+public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
 
     SummaryFragment sum;
     Toolbar toolbar;

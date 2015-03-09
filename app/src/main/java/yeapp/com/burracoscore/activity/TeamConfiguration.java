@@ -20,7 +20,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     private MenuItem resetButton;
     private int numberOfPlayerForTeam = 0;
 
-    TeamNameFragment actualTeam = null;
+    TeamNameFragment fragment1 = null;
 
     @Override
     public void onClick(View v) {
@@ -46,11 +46,11 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     }
 
     private void completeAndSend() {
-        actualTeam.saveDisplayedName();
+        fragment1.saveDisplayedName();
         setResult(RESULT_OK, this.getIntent()
                         .putExtra(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam)
-                        .putExtra(SummaryContainer.teamAKey, actualTeam.getTeamA())
-                        .putExtra(SummaryContainer.teamBKey, actualTeam.getTeamB())
+                        .putExtra(SummaryContainer.teamAKey, fragment1.getTeamA())
+                        .putExtra(SummaryContainer.teamBKey, fragment1.getTeamB())
         );
         finish();
     }
@@ -72,10 +72,10 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
             Intent startingIntent = getIntent();
             numberOfPlayerForTeam = startingIntent.getIntExtra(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
 
-            actualTeam = new TeamNameFragment();
-            actualTeam.setArguments(startingIntent.getExtras());
+            fragment1 = new TeamNameFragment();
+            fragment1.setArguments(startingIntent.getExtras());
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.fragmentCont, actualTeam, Integer.toString(numberOfPlayerForTeam));
+            ft.add(R.id.fragmentCont, fragment1, Integer.toString(numberOfPlayerForTeam));
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
         }
@@ -84,8 +84,8 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
-        outState.putParcelable(SummaryContainer.teamAKey, actualTeam.getTeamA());
-        outState.putParcelable(SummaryContainer.teamBKey, actualTeam.getTeamB());
+        outState.putParcelable(SummaryContainer.teamAKey, fragment1.getTeamA());
+        outState.putParcelable(SummaryContainer.teamBKey, fragment1.getTeamB());
         super.onSaveInstanceState(outState);
     }
 
@@ -93,7 +93,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
-        actualTeam = (TeamNameFragment) getFragmentManager().findFragmentByTag(Integer.toString(numberOfPlayerForTeam));
+        fragment1 = (TeamNameFragment) getFragmentManager().findFragmentByTag(Integer.toString(numberOfPlayerForTeam));
     }
 
     @Override
@@ -121,7 +121,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
                 return true;
             }
             case R.id.resetConfMenu: {
-                actualTeam.resetNames();
+                fragment1.resetNames();
                 return true;
             }
             default: {
@@ -133,17 +133,17 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     private void changeFragment() {
         Bundle b = new Bundle();
         b.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
-        b.putParcelable(SummaryContainer.teamAKey, actualTeam.getTeamA());
-        b.putParcelable(SummaryContainer.teamBKey, actualTeam.getTeamB());
-        actualTeam = new TeamNameFragment();
-        actualTeam.setArguments(b);
+        b.putParcelable(SummaryContainer.teamAKey, fragment1.getTeamA());
+        b.putParcelable(SummaryContainer.teamBKey, fragment1.getTeamB());
+        fragment1 = new TeamNameFragment();
+        fragment1.setArguments(b);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (2 == numberOfPlayerForTeam) {
             ft.setCustomAnimations(R.anim.card_flip_left_in, R.anim.card_flip_left_out);
         } else {
             ft.setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_right_out);
         }
-        ft.replace(R.id.fragmentCont, actualTeam, Integer.toString(numberOfPlayerForTeam));
+        ft.replace(R.id.fragmentCont, fragment1, Integer.toString(numberOfPlayerForTeam));
         ft.commit();
         salvaButton.setVisible(true);
         resetButton.setVisible(true);

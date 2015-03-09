@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AddPointcontainer"
+            android:name=".activity.AddPointsContainer"
             android:label="@string/add_point_name"
             android:theme="@style/FeatureDialog"
             android:windowSoftInputMode="stateHidden" />

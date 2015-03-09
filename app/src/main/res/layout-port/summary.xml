@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/master"
     android:layout_width="match_parent"
@@ -9,43 +8,89 @@
 
     <RelativeLayout
         android:id="@+id/containerMain"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearScroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@+id/resultTextSection"
             android:baselineAligned="false">
 
             <RelativeLayout
+                android:id="@+id/relaA"
                 android:layout_width="@dimen/noSpace"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/SfondoMedio"
-                    android:layout_centerVertical="true">
+                    android:gravity="center_vertical"
+                    android:background="@color/SfondoMedio">
 
                     <TextView
                         android:id="@+id/teamASummary"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:paddingLeft="@dimen/mediumMargin"
                         android:maxEms="1"
                         android:alpha="0.2"
-                        android:layout_gravity="center"
                         android:singleLine="false"
                         android:text="@string/teamAName"
                         android:textColor="@color/Arancio"
                         android:textSize="@dimen/extraLargeText"
                         android:typeface="monospace" />
-                </FrameLayout>
+                </RelativeLayout>
+
+                <ViewStub
+                    android:id="@+id/empty2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout="@layout/empty_list_result" />
+
+
+                <ListView
+                    android:id="@+id/listPointTeamA"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/standard_margin"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaB"
+                android:layout_width="@dimen/noSpace"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@color/SfondoMedio">
+
+                    <TextView
+                        android:id="@+id/teamBSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/mediumMargin"
+                        android:maxEms="1"
+                        android:alpha="0.2"
+                        android:layout_alignParentEnd="true"
+                        android:singleLine="false"
+                        android:text="@string/teamBName"
+                        android:textColor="@color/Blu"
+                        android:textSize="@dimen/extraLargeText"
+                        android:typeface="monospace" />
+                </RelativeLayout>
 
                 <ViewStub
                     android:id="@+id/empty"
@@ -55,58 +100,9 @@
                     android:layout="@layout/empty_list_result" />
 
                 <ListView
-                    android:id="@+id/listPointTeamA"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/enormousMargin"
-                    android:clipToPadding="false"
-                    android:scrollbars="vertical" />
-
-            </RelativeLayout>
-
-            <!--<RelativeLayout-->
-            <!--android:layout_width="@dimen/insignificantMargin"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/Blu" />-->
-
-            <RelativeLayout
-                android:layout_width="@dimen/noSpace"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/SfondoMedio"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true">
-
-                    <TextView
-                        android:id="@+id/teamBSummary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxEms="1"
-                        android:alpha="0.2"
-                        android:layout_gravity="center"
-                        android:singleLine="false"
-                        android:text="@string/teamBName"
-                        android:textColor="@color/Blu"
-                        android:textSize="@dimen/extraLargeText"
-                        android:typeface="monospace" />
-                </FrameLayout>
-
-                <ViewStub
-                    android:id="@+id/empty2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout="@layout/empty_list_result" />
-
-                <ListView
                     android:id="@+id/listPointTeamB"
                     android:layout_width="match_parent"
-                    android:paddingBottom="@dimen/enormousMargin"
+                    android:paddingBottom="@dimen/standard_margin"
                     android:clipToPadding="false"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -168,15 +164,12 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_action_new"
                 fab:fab_colorNormal="@color/SfondoToolbar"
-                fab:fab_colorPressed="@color/SfondoChiaro"
                 fab:fab_colorRipple="@color/SfondoMedio" />
         </FrameLayout>
     </RelativeLayout>
 
-
     <!--&lt;!&ndash; SAREBBE FIGO AVERE UNA PROGRESS BAR VERTICALE MA BISOGNA ESTENDERE QUELLA ORIGINALE&ndash;&gt;-->
     <!--</LinearLayout>-->
-
 </LinearLayout>
 
 

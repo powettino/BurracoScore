@@ -8,19 +8,20 @@ import android.view.MenuItem;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Hand;
-import yeapp.com.burracoscore.fragment.AddResultFragment;
+import yeapp.com.burracoscore.fragment.AddPointsFragment;
 
 
-public class AddPointcontainer extends Activity implements AddResultFragment.OnSavingResult{
-    AddResultFragment poi;
+public class AddPointsContainer extends Activity implements AddPointsFragment.OnSavingResult{
+    AddPointsFragment pointFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_point_container);
-        poi = new AddResultFragment();
         if(savedInstanceState==null) {
+            pointFragment = new AddPointsFragment();
+            pointFragment.setArguments(getIntent().getExtras());
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.fragmentPointcont, poi, "AddPoint");
+            ft.add(android.R.id.content, pointFragment, "AddPoint");
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
         }

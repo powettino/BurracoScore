@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import yeapp.com.burracoscore.R;
+import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.core.model.Hand;
 
-public class AddResultFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
+public class AddPointsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
 
     EditText baseA;
     EditText carteA;
@@ -24,6 +26,7 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
     EditText carteB;
     CheckBox mazzettoB;
     CheckBox chiusuraB;
+    View salva;
 
     OnSavingResult cb;
 
@@ -41,14 +44,41 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
         carteA = (EditText) view.findViewById(R.id.puntiCarteTextA);
         mazzettoA = (CheckBox) view.findViewById(R.id.checkMazzettoA);
         chiusuraA = (CheckBox) view.findViewById(R.id.checkChiusuraA);
-        mazzettoA.setOnCheckedChangeListener(this);
-        chiusuraA.setOnCheckedChangeListener(this);
         carteB = (EditText) view.findViewById(R.id.puntiCarteTextB);
         mazzettoB = (CheckBox) view.findViewById(R.id.checkMazzettoB);
         chiusuraB = (CheckBox) view.findViewById(R.id.checkChiusuraB);
+        ((TextView)view.findViewById(R.id.gameNumber)).setText("GAME "+ getArguments().getInt(SummaryFragment.gameNumber));
+        Hand manoA = getArguments().getParcelable(SummaryContainer.handA);
+        Hand manoB = getArguments().getParcelable(SummaryContainer.handB);
         mazzettoB.setOnCheckedChangeListener(this);
         chiusuraB.setOnCheckedChangeListener(this);
-        view.findViewById(R.id.salvaPunti).setOnClickListener(this);
+        mazzettoA.setOnCheckedChangeListener(this);
+        chiusuraA.setOnCheckedChangeListener(this);
+        salva = view.findViewById(R.id.salvaPunti);
+        if(manoA != null && manoB != null){
+            baseA.setText(String.valueOf(manoA.getBase()));
+            baseB.setText(String.valueOf(manoB.getBase()));
+            baseA.setEnabled(false);
+            baseB.setEnabled(false);
+
+            carteA.setText(String.valueOf(manoA.getCarte()));
+            carteB.setText(String.valueOf(manoB.getCarte()));
+            carteA.setEnabled(false);
+            carteB.setEnabled(false);
+
+            mazzettoA.setChecked(manoA.getMazzetto()==0);
+            mazzettoB.setChecked(manoB.getMazzetto()==0);
+            mazzettoB.setEnabled(false);
+            mazzettoA.setEnabled(false);
+
+            chiusuraA.setChecked(manoA.getChiusura()>0);
+            chiusuraB.setChecked(manoB.getChiusura()>0);
+            chiusuraA.setEnabled(false);
+            chiusuraB.setEnabled(false);
+            salva.setEnabled(false);
+        }
+        //Questo deve stare dopo l'aggancio con i listener altrimenti si cambia la visiilita'
+        salva.setOnClickListener(this);
         return view;
     }
 
@@ -63,26 +93,28 @@ public class AddResultFragment extends Fragment implements CompoundButton.OnChec
         switch (buttonView.getId()) {
             case R.id.checkChiusuraA: {
                 if (isChecked) {
-                    mazzettoA.setChecked(true);
-                    mazzettoA.setEnabled(false);
-                    chiusuraB.setEnabled(false);
+                    mazzettoA.setChecked(isChecked);
+                    mazzettoA.setEnabled(!isChecked);
+                    chiusuraB.setEnabled(!isChecked);
                 } else {
-                    mazzettoA.setEnabled(true);
-                    chiusuraB.setEnabled(true);
-                    mazzettoA.setChecked(false);
+                    mazzettoA.setEnabled(!isChecked);
+                    chiusuraB.setEnabled(!isChecked);
+                    mazzettoA.setChecked(isChecked);
                 }
+                salva.setEnabled(isChecked);
                 break;
             }
             case R.id.checkChiusuraB: {
                 if (isChecked) {
-                    mazzettoB.setChecked(true);
-                    mazzettoB.setEnabled(false);
-                    chiusuraA.setEnabled(false);
+                    mazzettoB.setChecked(isChecked);
+                    mazzettoB.setEnabled(!isChecked);
+                    chiusuraA.setEnabled(!isChecked);
                 } else {
-                    mazzettoB.setEnabled(true);
-                    chiusuraA.setEnabled(true);
-                    mazzettoB.setChecked(false);
+                    mazzettoB.setEnabled(!isChecked);
+                    chiusuraA.setEnabled(!isChecked);
+                    mazzettoB.setChecked(isChecked);
                 }
+                salva.setEnabled(isChecked);
                 break;
             }
             default:

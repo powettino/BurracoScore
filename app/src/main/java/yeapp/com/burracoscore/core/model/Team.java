@@ -16,6 +16,10 @@ public class Team implements Parcelable {
     private int totale = 0;
     private int gameVinti = 0;
 
+    public Hand getMano(int numberHand){
+        return mani.get(numberHand);
+    }
+
     public Team(String side) {
         setSide(side);
     }

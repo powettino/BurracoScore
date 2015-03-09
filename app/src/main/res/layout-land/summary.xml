@@ -41,9 +41,10 @@
 
                     <TextView
                         android:id="@+id/teamASummary"
-                        android:layout_width="25dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="left"
+                        android:paddingLeft="@dimen/highMargin"
                         android:maxEms="1"
                         android:layout_gravity="center"
                         android:alpha="0.2"
@@ -56,7 +57,7 @@
                 </FrameLayout>
 
                 <ViewStub
-                    android:id="@+id/empty"
+                    android:id="@android:id/empty"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -66,6 +67,7 @@
                     android:id="@+id/listPointTeamA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/standard_margin"
                     android:clipToPadding="false"
                     android:scrollbars="vertical" />
 
@@ -86,9 +88,10 @@
 
                     <TextView
                         android:id="@+id/teamBSummary"
-                        android:layout_width="25dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/highMargin"
                         android:layout_gravity="center"
                         android:maxEms="1"
                         android:alpha="0.2"
@@ -100,15 +103,16 @@
                 </FrameLayout>
 
                 <ViewStub
-                    android:id="@+id/empty2"
+                    android:id="@android:id/empty"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout="@layout/empty_list_result" />
+
                 <ListView
                     android:id="@+id/listPointTeamB"
                     android:layout_width="match_parent"
-                    android:paddingBottom="@dimen/enormousMargin"
+                    android:paddingBottom="@dimen/standard_margin"
                     android:clipToPadding="false"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical" />
@@ -169,7 +173,6 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_action_new"
                 fab:fab_colorNormal="@color/SfondoToolbar"
-                fab:fab_colorPressed="@color/SfondoChiaro"
                 fab:fab_colorRipple="@color/SfondoMedio" />
         </FrameLayout>
 

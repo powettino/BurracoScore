@@ -2,13 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentPointcont"
     android:layout_width="270sp"
     android:layout_height="270sp"
     android:layout_centerInParent="true"
     app:layout_gravity="center"
     android:paddingTop="@dimen/insignificantMargin"
     android:paddingBottom="@dimen/insignificantMargin"
-    tools:context="yeapp.com.burracoscore.activity.AddPointcontainer">
+    tools:context="yeapp.com.burracoscore.activity.AddPointsContainer">
 
 </FrameLayout>

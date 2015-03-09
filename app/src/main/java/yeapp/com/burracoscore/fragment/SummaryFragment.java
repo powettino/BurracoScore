@@ -11,19 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.melnykov.fab.FloatingActionButton;
-
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.activity.AddPointcontainer;
+import yeapp.com.burracoscore.activity.AddPointsContainer;
 import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
 
-public class SummaryFragment extends Fragment implements View.OnClickListener {
+public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private TextView teamAText;
     private TextView teamBText;
@@ -45,6 +44,11 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     private FloatingActionButton addButton;
 
     OnScoreChanging changingCB;
+
+    View relA;
+    View relB;
+
+    public static final String gameNumber = "gameNumber";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,13 +80,16 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.summary, container, false);
         teamAText = (TextView) view.findViewById(R.id.teamASummary);
         teamBText = (TextView) view.findViewById(R.id.teamBSummary);
-
+        relA = view.findViewById(R.id.relaA);
+        relB = view.findViewById(R.id.relaB);
         listA = (ListView) view.findViewById(R.id.listPointTeamA);
         listB = (ListView) view.findViewById(R.id.listPointTeamB);
         listA.setAdapter(dtaLVA);
         listB.setAdapter(dtaLVB);
         listA.setEmptyView(view.findViewById(R.id.empty));
         listB.setEmptyView(view.findViewById(R.id.empty2));
+        listA.setOnItemClickListener(this);
+        listB.setOnItemClickListener(this);
 
         addButton = (FloatingActionButton) view.findViewById(R.id.addHand);
         addButton.setOnClickListener(this);
@@ -137,7 +144,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
@@ -204,7 +210,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        Intent add = new Intent(getActivity(), AddPointcontainer.class);
+                        Intent add = new Intent(getActivity(), AddPointsContainer.class);
+                        add.putExtra(gameNumber, dtaLVA.getCount()+1);
                         startActivityForResult(add, SummaryContainer.CODE_FOR_SET);
                     }
 
@@ -253,15 +260,16 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
                     Hand manoA = data.getParcelableExtra(SummaryContainer.handA);
                     Hand manoB = data.getParcelableExtra(SummaryContainer.handB);
                     teamA.addMano(manoA);
-                    resultA.setText(String.valueOf(teamA.getTotale()));
-                    dtaLVA.addLastDoubleText(String.valueOf(manoA.getTotaleMano()), manoA.getWon());
-                    dtaLVA.notifyDataSetChanged();
                     teamB.addMano(manoB);
+                    resultA.setText(String.valueOf(teamA.getTotale()));
                     resultB.setText(String.valueOf(teamB.getTotale()));
+                    dtaLVA.addLastDoubleText(String.valueOf(manoA.getTotaleMano()), manoA.getWon());
                     dtaLVB.addLastDoubleText(String.valueOf(manoB.getTotaleMano()), manoB.getWon());
-                    dtaLVB.notifyDataSetChanged();
                     resultB.setBackgroundResource(R.color.SfondoMedio);
                     resultA.setBackgroundResource(R.color.SfondoMedio);
+                    dtaLVA.notifyDataSetChanged();
+                    dtaLVA.notifyDataSetChanged();
+                    dtaLVB.notifyDataSetChanged();
                     checkWinner();
                 }
                 break;
@@ -275,6 +283,15 @@ public class SummaryFragment extends Fragment implements View.OnClickListener {
 
     public void setEnableAdd(boolean enable){
         addButton.setEnabled(enable);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent add = new Intent(getActivity(), AddPointsContainer.class);
+        add.putExtra(gameNumber, position+1);
+        add.putExtra(SummaryContainer.handA, teamA.getMano(position))
+                .putExtra(SummaryContainer.handB, teamB.getMano(position));
+        startActivity(add);
     }
 
     public interface OnScoreChanging {

@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,37 +16,37 @@
         android:elevation="8dp"
         android:titleTextAppearance="@style/ToolbarTitle" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:baselineAligned="false">
 
         <FrameLayout
             android:id="@+id/fragmentContSum"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="false"
-            android:layout_toLeftOf="@+id/punteggioCont">
-
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
         </FrameLayout>
+
         <LinearLayout
             android:id="@+id/punteggioCont"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/highMargin"
-            android:layout_marginRight="@dimen/highMargin"
+            android:layout_marginLeft="1dp"
+            android:background="@color/SfondoMedio"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/insignificantMargin"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/toolbar">
+            android:paddingBottom="@dimen/insignificantMargin">
 
             <TextView
                 android:id="@+id/punteggioASummary"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/mediumMargin"
+                android:paddingRight="@dimen/mediumMargin"
+                android:gravity="center"
                 android:text="@string/zeroValue"
                 android:textColor="@color/Arancio"
                 android:textSize="@dimen/enormousText"
@@ -55,25 +55,23 @@
             <ImageView
                 android:id="@+id/coppaSummary"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/cup_description"
-                android:gravity="center_vertical"
-                android:src="@drawable/coppa_style" />
+                android:gravity="center"
+                android:src="@drawable/coppa_style_nero" />
 
             <TextView
                 android:id="@+id/punteggioBSummary"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/zeroValue"
                 android:textColor="@color/Blu"
                 android:textSize="@dimen/enormousText"
                 android:typeface="monospace" />
 
         </LinearLayout>
-
-</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
