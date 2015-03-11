@@ -30,8 +30,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     private Team teamA;
     private Team teamB;
 
-    private int numberOfPlayerForTeam = 0;
-
     ListPointAdapter dtaLVA = null;
     ListPointAdapter dtaLVB = null;
 
@@ -61,7 +59,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 teamB = new Team("B");
             }
         }else{
-            numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
+//            numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
             teamA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
             teamB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
         }
@@ -124,8 +122,9 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
             teamBText.setText(R.string.teamBName);
         } else {
             assert p11 != null;
-            teamAText.setText(formattedName(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p12.substring(0, (p12.length() >= 3 ? 3 : p12.length()))) : ""));
-            teamBText.setText(formattedName(p21.substring(0, ((p21.length() >= 3) ? 3 : p21.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p22.substring(0, (p22.length() >= 3 ? 3 : p22.length()))) : ""));
+            //FIXME : aggiugere i nickname delle squadre
+//            teamAText.setText(formattedName(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p12.substring(0, (p12.length() >= 3 ? 3 : p12.length()))) : ""));
+//            teamBText.setText(formattedName(p21.substring(0, ((p21.length() >= 3) ? 3 : p21.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p22.substring(0, (p22.length() >= 3 ? 3 : p22.length()))) : ""));
         }
     }
 
@@ -149,7 +148,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
+//        outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
         outState.putParcelable(SummaryContainer.teamAKey, teamA);
         outState.putParcelable(SummaryContainer.teamBKey, teamB);
         outState.putBoolean(SummaryContainer.addHand, addButton.isEnabled());
@@ -193,7 +192,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         teamA.cleanTeam();
         teamA.cleanGames();
         teamB.cleanGames();
-        numberOfPlayerForTeam = 0;
+//        numberOfPlayerForTeam = 0;
         teamAText.setText(R.string.teamAName);
         teamBText.setText(R.string.teamBName);
     }
@@ -228,13 +227,13 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         }
     }
 
-    public int getNumberOfPlayerForTeam() {
-        return numberOfPlayerForTeam;
-    }
+//    public int getNumberOfPlayerForTeam() {
+//        return numberOfPlayerForTeam;
+//    }
 
-    public void setNumberOfPlayerForTeam(int numberOfPlayerForTeam) {
-        this.numberOfPlayerForTeam = numberOfPlayerForTeam;
-    }
+//    public void setNumberOfPlayerForTeam(int numberOfPlayerForTeam) {
+//        this.numberOfPlayerForTeam = numberOfPlayerForTeam;
+//    }
 
     public Team getTeamA() {
         return teamA;

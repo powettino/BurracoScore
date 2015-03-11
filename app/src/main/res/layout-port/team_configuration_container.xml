@@ -60,13 +60,6 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
-        <!--<fragment-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:id="@+id/teamFragment"-->
-            <!--android:tag="vuoto"-->
-            <!--android:name="yeapp.com.burracoscore.fragment.TeamNameFragment" />-->
-    </FrameLayout>
+     </FrameLayout>
 
 </LinearLayout>

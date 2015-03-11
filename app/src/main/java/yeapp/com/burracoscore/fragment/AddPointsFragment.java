@@ -93,26 +93,26 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
         switch (buttonView.getId()) {
             case R.id.checkChiusuraA: {
                 if (isChecked) {
-                    mazzettoA.setChecked(isChecked);
-                    mazzettoA.setEnabled(!isChecked);
-                    chiusuraB.setEnabled(!isChecked);
+                    mazzettoA.setChecked(true);
+                    mazzettoA.setEnabled(false);
+                    chiusuraB.setEnabled(false);
                 } else {
-                    mazzettoA.setEnabled(!isChecked);
-                    chiusuraB.setEnabled(!isChecked);
-                    mazzettoA.setChecked(isChecked);
+                    mazzettoA.setEnabled(false);
+                    chiusuraB.setEnabled(false);
+                    mazzettoA.setChecked(true);
                 }
                 salva.setEnabled(isChecked);
                 break;
             }
             case R.id.checkChiusuraB: {
                 if (isChecked) {
-                    mazzettoB.setChecked(isChecked);
-                    mazzettoB.setEnabled(!isChecked);
-                    chiusuraA.setEnabled(!isChecked);
+                    mazzettoB.setChecked(true);
+                    mazzettoB.setEnabled(false);
+                    chiusuraA.setEnabled(false);
                 } else {
-                    mazzettoB.setEnabled(!isChecked);
-                    chiusuraA.setEnabled(!isChecked);
-                    mazzettoB.setChecked(isChecked);
+                    mazzettoB.setEnabled(false);
+                    chiusuraA.setEnabled(false);
+                    mazzettoB.setChecked(true);
                 }
                 salva.setEnabled(isChecked);
                 break;

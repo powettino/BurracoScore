@@ -37,11 +37,13 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
 
     private boolean dialogActive;
     AlertDialog winnerDialog = null;
-    AlertDialog resetDialog = null;
-    AlertDialog gameDialog = null;
+
 
     private TextView punteggioTotA;
     private TextView punteggioTotB;
+
+    private int numberOfPlayerForTeam = 1;
+    private boolean teamSaved = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,68 +89,86 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                             })
                     .create();
         }
-        if (resetDialog == null) {
-            resetDialog = new AlertDialog.Builder(this)
-                    .setMessage("Sei sicuro di voler cancellare le partite non salvate?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    sum.resetAll();
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .create();
-        }
-        if (gameDialog == null) {
-            gameDialog = new AlertDialog.Builder(this)
-                    .setMessage("Vuoi cominciare una nuova partita?")
-                    .setCancelable(false)
-                    .setPositiveButton("Si",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-                                    sum.resetGames();
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    dialogActive = false;
-                                }
-                            })
-                    .create();
-        }
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.configuraMenuSum: {
-                Intent configurazione = new Intent(this, TeamConfiguration.class);
-                configurazione.putExtra(numberOfPlayer, sum.getNumberOfPlayerForTeam())
-                        .putExtra(teamAKey, sum.getTeamA())
-                        .putExtra(teamBKey, sum.getTeamB());
-                startActivityForResult(configurazione, CODE_FOR_CONF);
+                if(teamSaved) {
+                    Intent configurazione = new Intent(this, TeamConfiguration.class);
+                    configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
+                            .putExtra(teamAKey, sum.getTeamA())
+                            .putExtra(teamBKey, sum.getTeamB());
+                    startActivityForResult(configurazione, CODE_FOR_CONF);
+                }else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Tipo di partita")
+                            .setSingleChoiceItems(R.array.choosePlayer, 0, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    numberOfPlayerForTeam = which + 1;
+                                }
+                            })
+                            .setCancelable(true)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent configurazione = new Intent(getBaseContext(), TeamConfiguration.class);
+                                            configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
+                                                    .putExtra(teamAKey, sum.getTeamA())
+                                                    .putExtra(teamBKey, sum.getTeamB());
+                                            startActivityForResult(configurazione, CODE_FOR_CONF);
+                                        }
+                                    })
+                            .create().show();
+                }
                 return true;
             }
             case R.id.cancellaGame: {
-                gameDialog.show();
+                new AlertDialog.Builder(this)
+                        .setMessage("Vuoi cominciare una nuova partita?")
+                        .setCancelable(true)
+                        .setPositiveButton("Si",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        sum.resetGames();
+                                        dialog.cancel();
+                                        dialogActive = false;
+                                    }
+                                })
+                        .setNegativeButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        dialogActive = false;
+                                    }
+                                })
+                        .create().show();
                 return true;
             }
             case R.id.cancellaTutto: {
-                resetDialog.show();
+                new AlertDialog.Builder(this)
+                        .setMessage("Sei sicuro di voler cancellare le partite non salvate?")
+                        .setCancelable(true)
+                        .setPositiveButton("Si",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        sum.resetAll();
+                                        numberOfPlayerForTeam = 1;
+                                        teamSaved=false;
+                                        dialog.cancel();
+                                        dialogActive = false;
+                                    }
+                                })
+                        .setNegativeButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        dialogActive = false;
+                                    }
+                                })
+                        .create().show();
                 return true;
             }
             default: {
@@ -179,10 +199,11 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-                    sum.setNumberOfPlayerForTeam(data.getIntExtra(numberOfPlayer, 0));
+                    numberOfPlayerForTeam = data.getIntExtra(numberOfPlayer, 1);
                     sum.setTeamA((Team)data.getParcelableExtra(teamAKey));
                     sum.setTeamB((Team)data.getParcelableExtra(teamBKey));
                     sum.createTeamName();
+                    teamSaved = true;
                 }
                 break;
             }

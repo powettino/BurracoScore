@@ -76,7 +76,8 @@
                     android:maxLength="4"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+                    android:typeface="monospace"
+                    android:singleLine="true" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -101,7 +102,8 @@
                     android:maxLength="4"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+                    android:typeface="monospace"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -123,7 +125,8 @@
                     android:maxLength="3"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+                    android:typeface="monospace"
+                    android:singleLine="true" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -147,7 +150,8 @@
                     android:maxLength="3"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
-                    android:typeface="monospace" />
+                    android:typeface="monospace"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <LinearLayout

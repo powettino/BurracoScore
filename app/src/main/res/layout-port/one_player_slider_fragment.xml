@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/singoloNomi"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/coupleConf"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/mediumMargin">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:singleLine="true"
+        android:maxEms="9"
+        android:gravity="center"
+        tools:text="Team A"/>
+
+    <GridLayout
+        android:id="@+id/gridNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/lowMargin"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:padding="@dimen/insignificantMargin"
+        android:paddingLeft="@dimen/lowMargin"
+        android:paddingRight="@dimen/lowMargin"
+        android:rowCount="2"
+        android:rowOrderPreserved="false"
+        android:saveEnabled="true">
+
+        <TextView
+            android:id="@+id/teamAConf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_row="0"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="@string/teamANormal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Arancio" />
+
+        <EditText
+            android:id="@+id/giocatore11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="@dimen/insignificantMargin"
+            android:layout_marginLeft="@dimen/lowMargin"
+            android:layout_row="0"
+            style="@android:style/Widget.TextView"
+            android:autoText="false"
+            android:background="@drawable/border_edittext"
+            android:enabled="true"
+            android:inputType="textCapWords|textPersonName|textAutoComplete"
+            android:maxLength="20"
+            android:textColor="@color/Nero"
+            android:saveEnabled="true"
+            android:text="@string/nomeGiocatore11" />
+
+        <TextView
+            android:id="@+id/teamBConf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:layout_row="1"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="@string/teamBNormal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Blu" />
+
+        <EditText
+            android:id="@+id/giocatore21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:textColor="@color/Nero"
+            style="@android:style/Widget.TextView"
+            android:layout_gravity="fill"
+            android:layout_marginBottom="@dimen/insignificantMargin"
+            android:layout_marginLeft="@dimen/lowMargin"
+            android:layout_marginTop="@dimen/lowMargin"
+            android:layout_row="1"
+            android:autoText="false"
+            android:background="@drawable/border_edittext"
+            android:enabled="true"
+            android:inputType="textCapWords|textPersonName|textAutoComplete"
+            android:maxLength="20"
+            android:saveEnabled="true"
+            android:text="@string/nomeGiocatore21" />
+
+    </GridLayout>
+</LinearLayout>

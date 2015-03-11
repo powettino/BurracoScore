@@ -18,7 +18,7 @@ public class TeamConfiguration extends ActionBarActivity implements OnClickListe
     Toolbar toolbar;
     private MenuItem salvaButton;
     private MenuItem resetButton;
-    private int numberOfPlayerForTeam = 0;
+    private int numberOfPlayerForTeam = 1;
 
     TeamNameFragment fragment1 = null;
 
