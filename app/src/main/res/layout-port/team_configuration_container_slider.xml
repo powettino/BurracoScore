@@ -26,6 +26,7 @@
             android:layout_marginRight="@dimen/insignificantMargin"
             android:layout_height="fill_parent">
             <ImageButton
+                android:id="@+id/goLeft"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:background="@android:color/transparent"
@@ -45,6 +46,7 @@
             android:layout_marginRight="@dimen/insignificantMargin"
             android:layout_height="fill_parent">
             <ImageButton
+                android:id="@+id/goRight"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:background="@android:color/transparent"

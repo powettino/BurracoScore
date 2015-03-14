@@ -4,16 +4,16 @@
     tools:context="yeapp.com.burracoscore.activity.TeamConfiguration">
     <item
         android:id="@+id/salvaConfMenu"
-        android:orderInCategory="3"
-        android:title="@string/save"
-        android:visible="false"
         android:icon="@drawable/ic_action_save"
+        android:orderInCategory="2"
+        android:title="@string/save"
+        android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/resetConfMenu"
-        android:orderInCategory="3"
-        android:visible="false"
-        android:title="@string/save"
         android:icon="@drawable/ic_action_cancel"
+        android:orderInCategory="2"
+        android:title="@string/save"
+        android:visible="true"
         app:showAsAction="always" />
 </menu>

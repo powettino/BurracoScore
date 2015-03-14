@@ -11,7 +11,7 @@
         android:hardwareAccelerated="true"
         android:label="@string/app_name" >
         <activity
-            android:name=".activity.TeamConfiguration"
+            android:name=".activity.TeamConfigurationContainerSlider"
             android:label="@string/configurazione"
             android:parentActivityName=".activity.SummaryContainer"
             android:theme="@style/Activity"

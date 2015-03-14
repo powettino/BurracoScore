@@ -5,15 +5,15 @@
     <item
         android:id="@+id/salvaConfMenu"
         android:icon="@drawable/ic_action_save"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/save"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/resetConfMenu"
         android:icon="@drawable/ic_action_cancel"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/save"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="always" />
 </menu>

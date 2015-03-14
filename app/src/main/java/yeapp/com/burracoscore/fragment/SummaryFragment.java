@@ -30,21 +30,15 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     private Team teamA;
     private Team teamB;
 
-    ListPointAdapter dtaLVA = null;
-    ListPointAdapter dtaLVB = null;
-
-    ListView listA = null;
-    ListView listB = null;
+    private ListPointAdapter dtaLVA = null;
+    private ListPointAdapter dtaLVB = null;
 
     private TextView resultA;
     private TextView resultB;
 
     private FloatingActionButton addButton;
 
-    OnScoreChanging changingCB;
-
-    View relA;
-    View relB;
+    private OnScoreChanging changingCB;
 
     public static final String gameNumber = "gameNumber";
 
@@ -53,13 +47,12 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         if(savedInstanceState==null){
             if (teamA == null) {
-                teamA = new Team("A");
+                teamA = new Team('A');
             }
             if (teamB == null) {
-                teamB = new Team("B");
+                teamB = new Team('B');
             }
         }else{
-//            numberOfPlayerForTeam = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
             teamA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
             teamB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
         }
@@ -78,10 +71,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         View view = inflater.inflate(R.layout.summary, container, false);
         teamAText = (TextView) view.findViewById(R.id.teamASummary);
         teamBText = (TextView) view.findViewById(R.id.teamBSummary);
-        relA = view.findViewById(R.id.relaA);
-        relB = view.findViewById(R.id.relaB);
-        listA = (ListView) view.findViewById(R.id.listPointTeamA);
-        listB = (ListView) view.findViewById(R.id.listPointTeamB);
+        ListView listA = (ListView) view.findViewById(R.id.listPointTeamA);
+        ListView listB = (ListView) view.findViewById(R.id.listPointTeamB);
         listA.setAdapter(dtaLVA);
         listB.setAdapter(dtaLVB);
         listA.setEmptyView(view.findViewById(R.id.empty));
@@ -94,8 +85,9 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
+        teamAText.setText(teamA.getAlias());
+        teamBText.setText(teamB.getAlias());
         if(savedInstanceState!=null) {
-            createTeamName();
             addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
             dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
             dtaLVB.restore(teamB.getPunti(), teamB.getStatus());
@@ -112,22 +104,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         return view;
     }
 
-    public void createTeamName() {
-        String p11 = teamA.getPlayer1();
-        String p12 = teamA.getPlayer2();
-        String p21 = teamB.getPlayer1();
-        String p22 = teamB.getPlayer2();
-        if (p11 == null && p21 == null) {
-            teamAText.setText(R.string.teamAName);
-            teamBText.setText(R.string.teamBName);
-        } else {
-            assert p11 != null;
-            //FIXME : aggiugere i nickname delle squadre
-//            teamAText.setText(formattedName(p11.substring(0, ((p11.length() >= 3) ? 3 : p11.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p12.substring(0, (p12.length() >= 3 ? 3 : p12.length()))) : ""));
-//            teamBText.setText(formattedName(p21.substring(0, ((p21.length() >= 3) ? 3 : p21.length()))) + (numberOfPlayerForTeam == 2 ? "\n∞\n" + formattedName(p22.substring(0, (p22.length() >= 3 ? 3 : p22.length()))) : ""));
-        }
-    }
-
     private String formattedName(String originalName)
     {
         StringBuilder result = new StringBuilder();
@@ -141,14 +117,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putInt(SummaryContainer.numberOfPlayer, numberOfPlayerForTeam);
         outState.putParcelable(SummaryContainer.teamAKey, teamA);
         outState.putParcelable(SummaryContainer.teamBKey, teamB);
         outState.putBoolean(SummaryContainer.addHand, addButton.isEnabled());
@@ -188,13 +158,10 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public void resetAll() {
         resetGames();
-        teamB.cleanTeam();
-        teamA.cleanTeam();
-        teamA.cleanGames();
-        teamB.cleanGames();
-//        numberOfPlayerForTeam = 0;
-        teamAText.setText(R.string.teamAName);
-        teamBText.setText(R.string.teamBName);
+        teamA.clean();
+        teamB.clean();
+        teamAText.setText(formattedName(teamA.getAlias()));
+        teamBText.setText(formattedName(teamB.getAlias()));
     }
 
     @Override
@@ -227,20 +194,13 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         }
     }
 
-//    public int getNumberOfPlayerForTeam() {
-//        return numberOfPlayerForTeam;
-//    }
-
-//    public void setNumberOfPlayerForTeam(int numberOfPlayerForTeam) {
-//        this.numberOfPlayerForTeam = numberOfPlayerForTeam;
-//    }
-
     public Team getTeamA() {
         return teamA;
     }
 
     public void setTeamA(Team teamA) {
         this.teamA = teamA;
+        teamAText.setText(formattedName(teamA.getAlias()));
     }
 
     public Team getTeamB() {
@@ -249,6 +209,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public void setTeamB(Team teamB) {
         this.teamB = teamB;
+        teamBText.setText(formattedName(teamB.getAlias()));
     }
 
     @Override

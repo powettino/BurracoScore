@@ -1,47 +1,64 @@
 package yeapp.com.burracoscore.core.model;
 
-
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
-
 
 public class Team implements Parcelable {
     private String player1 = null;
     private String player2 = null;
-    private String side;
-//    private ArrayList<Integer> punteggio = new ArrayList<Integer>();
+    private Uri imagePath = null;
+    private char side;
+
+    private String alias;
     private ArrayList<Hand> mani = new ArrayList<Hand>();
     private int totale = 0;
     private int gameVinti = 0;
+    private int numberPlayer = 1;
+
+    public Uri getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(Uri imagePath) {
+        this.imagePath = imagePath;
+    }
+
+
+    public int getNumberPlayer() {
+        return numberPlayer;
+    }
+
+    public void setNumberPlayer(int numberPlayer) {
+        this.numberPlayer = numberPlayer;
+    }
 
     public Hand getMano(int numberHand){
         return mani.get(numberHand);
     }
 
-    public Team(String side) {
+    public Team(char side) {
         setSide(side);
+        alias = Utils.getDefaultTeamName(side);
+        player1 = Utils.giocatore1;
+        player2 = Utils.giocatore2;
     }
 
-    @SuppressWarnings("unused")
-    public Team(String nomePlayer1, String nomePlayer2) {
-        setPlayer1(nomePlayer1);
-        setPlayer2(nomePlayer2);
+    public String getAlias() {
+        return alias;
     }
 
-    @SuppressWarnings("unused")
-    public Team(String side, String nomePlayer1, String nomePlayer2) {
-        setSide(side);
-        setPlayer1(nomePlayer1);
-        setPlayer2(nomePlayer2);
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public Team(Parcel in) {
-        side = in.readString();
-        this.player1 = in.readString();
-        this.player2 = in.readString();
-//        in.readList(punteggio, getClass().getClassLoader());
+        side = (char)in.readInt();
+        alias = in.readString();
+        numberPlayer = in.readInt();
+        player1 = in.readString();
+        player2 = in.readString();
         in.readList(mani, getClass().getClassLoader());
         totale = in.readInt();
         gameVinti = in.readInt();
@@ -53,10 +70,6 @@ public class Team implements Parcelable {
 
     public int getTotGames() {
         return gameVinti;
-    }
-
-    public int getNumberHands() {
-        return mani.size();
     }
 
     public int getTotale() {
@@ -81,13 +94,7 @@ public class Team implements Parcelable {
 
     public void addMano(Hand mano) {
         totale += mano.getTotaleMano();
-//        punteggio.add(mano.getTotaleMano());
         mani.add(mano);
-    }
-
-    public void cleanTeam() {
-        player1 = null;
-        player2 = null;
     }
 
     public String getPlayer1() {
@@ -106,12 +113,11 @@ public class Team implements Parcelable {
         this.player2 = player2;
     }
 
-    @SuppressWarnings("unused")
-    public String getSide() {
+    public char getSide() {
         return side;
     }
 
-    public void setSide(String side) {
+    public void setSide(char side) {
         this.side = side;
     }
 
@@ -122,10 +128,11 @@ public class Team implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(side);
+        dest.writeInt(side);
+        dest.writeString(alias);
+        dest.writeInt(numberPlayer);
         dest.writeString(player1);
         dest.writeString(player2);
-//        dest.writeList(punteggio);
         dest.writeList(mani);
         dest.writeInt(totale);
         dest.writeInt(gameVinti);
@@ -145,13 +152,16 @@ public class Team implements Parcelable {
     };
 
     public void cleanPunteggio() {
-//        punteggio.clear();
         mani.clear();
         this.totale = 0;
     }
 
-    public void cleanGames() {
+    public void clean() {
         this.gameVinti = 0;
+        numberPlayer = 1;
+        player1 = Utils.giocatore1;
+        player2 = Utils.giocatore2;
+        alias = Utils.getDefaultTeamName(side);
     }
 
 }
