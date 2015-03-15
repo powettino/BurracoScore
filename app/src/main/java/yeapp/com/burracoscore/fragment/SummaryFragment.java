@@ -21,7 +21,7 @@ import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
+import yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
