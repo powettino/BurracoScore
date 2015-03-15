@@ -47,7 +47,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_container);
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             sum = new SummaryFragment();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.fragmentContSum, sum, "Summary");
@@ -90,21 +90,15 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.configuraMenuSum: {
-                if(teamSaved) {
+                if (teamSaved) {
                     Intent configurazione = new Intent(this, TeamConfigurationContainerSlider.class);
-//                    configurazione.putExtra(numberOfPlayer, numberOfPlayerForTeam)
-                    configurazione.putExtra(teamAKey, sum.getTeamA())
+                    configurazione.putExtra(numberOfPlayer, sum.getTeamA().getNumberPlayer())
+                            .putExtra(teamAKey, sum.getTeamA())
                             .putExtra(teamBKey, sum.getTeamB());
                     startActivityForResult(configurazione, CODE_FOR_CONF);
-                }else {
+                } else {
                     new AlertDialog.Builder(this)
                             .setTitle("Tipo di partita")
-//                            .setSingleChoiceItems(R.array.choosePlayer, 0, new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    numberOfPlayerForTeam = which + 1;
-//                                }
-//                            })
                             .setCancelable(true)
                             .setItems(new CharSequence[]
                                             {"1 vs 1", "2 vs 2"},
@@ -124,16 +118,6 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                                             startActivityForResult(configurazione, CODE_FOR_CONF);
                                         }
                                     })
-//                            .setPositiveButton("1 vs 1",
-//                                    new DialogInterface.OnClickListener() {
-//                                        public void onClick(DialogInterface dialog, int id) {
-//                                            Intent configurazione = new Intent(getBaseContext(), TeamConfigurationContainerSlider.class);
-//                                            configurazione.putExtra(numberOfPlayer, 1)
-//                                                    .putExtra(teamAKey, sum.getTeamA())
-//                                                    .putExtra(teamBKey, sum.getTeamB());
-//                                            startActivityForResult(configurazione, CODE_FOR_CONF);
-//                                        }
-//                                    })
                             .create().show();
                 }
                 return true;
@@ -169,7 +153,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                                     public void onClick(DialogInterface dialog, int id) {
                                         sum.resetAll();
 //                                        numberOfPlayerForTeam = 1;
-                                        teamSaved=false;
+                                        teamSaved = false;
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
@@ -195,7 +179,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
         super.onRestoreInstanceState(savedInstanceState);
         sum = (SummaryFragment) getFragmentManager().findFragmentByTag("Summary");
         if (savedInstanceState.getBoolean(setDialog)) {
-            dialogActive=true;
+            dialogActive = true;
             winnerDialog.show();
         }
     }
@@ -213,8 +197,8 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
 //                    numberOfPlayerForTeam = data.getIntExtra(numberOfPlayer, 1);
-                    sum.setTeamA((Team)data.getParcelableExtra(teamAKey));
-                    sum.setTeamB((Team)data.getParcelableExtra(teamBKey));
+                    sum.setTeamA((Team) data.getParcelableExtra(teamAKey));
+                    sum.setTeamB((Team) data.getParcelableExtra(teamBKey));
 //                    sum.createTeamName();
                     teamSaved = true;
                 }
@@ -231,7 +215,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     public void scoreChanged(int puntiA, int puntiB, boolean won) {
         punteggioTotA.setText(String.valueOf(puntiA));
         punteggioTotB.setText(String.valueOf(puntiB));
-        if(won){
+        if (won) {
             dialogActive = true;
             winnerDialog.show();
         }

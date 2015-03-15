@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.core.model.Utils;
+import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
 import yeapp.com.burracoscore.fragment.TeamNameSliderFragment;
 
 import static android.view.View.OnClickListener;
@@ -25,18 +25,18 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     private int tempNumberPlayer = 0;
     private char currentTeam = Utils.ASide;
     public static final String teamKey = "teamName";
-    public static final String currentTeamKey = "currentTeam";
+    public static final String currentTeamKey = "currentTeamFragment";
 
-    TeamNameSliderFragment fragmentA = null;
-    TeamNameSliderFragment fragmentB = null;
+    private TeamNameSliderFragment fragmentA = null;
+    private TeamNameSliderFragment fragmentB = null;
 
-    Team tA;
-    Team tB;
+    private Team tA;
+    private Team tB;
 
-    View goLeft;
-    View goRight;
+    private View goLeft;
+    private View goRight;
 
-    ArrayList<Integer> idResEmpty = new ArrayList<Integer>();
+    private ArrayList<Integer> idResEmpty = new ArrayList<Integer>();
 
     @Override
     public void onClick(View v) {
@@ -57,9 +57,9 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
 
     private void completeAndSend() {
         if(currentTeam == Utils.ASide) {
-            fragmentA.saveDisplayedName();
+            fragmentA.saveTeamConfiguration();
         }else {
-            fragmentB.saveDisplayedName();
+            fragmentB.saveTeamConfiguration();
         }
         tA.setNumberPlayer(tempNumberPlayer);
         tB.setNumberPlayer(tempNumberPlayer);
@@ -166,7 +166,7 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     private void changeFragment() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         if(currentTeam == Utils.ASide){
-            fragmentA.saveDisplayedName();
+            fragmentA.saveTeamConfiguration();
             goLeft.setEnabled(true);
             goRight.setEnabled(false);
             currentTeam = Utils.BSide;
@@ -177,7 +177,7 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
             ft.setCustomAnimations(R.anim.card_flip_left_in, R.anim.card_flip_left_out);
             ft.replace(R.id.fragmentCont, fragmentB, Integer.toString(Utils.BSide));
         }else{
-            fragmentB.saveDisplayedName();
+            fragmentB.saveTeamConfiguration();
             currentTeam = Utils.ASide;
             goLeft.setEnabled(false);
             goRight.setEnabled(true);

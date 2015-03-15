@@ -21,6 +21,7 @@ import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -85,8 +86,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
-        teamAText.setText(teamA.getAlias());
-        teamBText.setText(teamB.getAlias());
+        teamAText.setText(Utils.formattedString(teamA.getAlias()));
+        teamBText.setText(Utils.formattedString(teamB.getAlias()));
         if(savedInstanceState!=null) {
             addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
             dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
@@ -102,18 +103,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
             addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
         }
         return view;
-    }
-
-    private String formattedName(String originalName)
-    {
-        StringBuilder result = new StringBuilder();
-        for(int i=0;i<originalName.length();i++) {
-            result.append(originalName.charAt(i));
-            if (i+1 < originalName.length()) {
-                result.append('\n');
-            }
-        }
-        return result.toString();
     }
 
     @Override
@@ -160,8 +149,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resetGames();
         teamA.clean();
         teamB.clean();
-        teamAText.setText(formattedName(teamA.getAlias()));
-        teamBText.setText(formattedName(teamB.getAlias()));
+        teamAText.setText(Utils.formattedString(teamA.getAlias()));
+        teamBText.setText(Utils.formattedString(teamB.getAlias()));
     }
 
     @Override
@@ -200,7 +189,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public void setTeamA(Team teamA) {
         this.teamA = teamA;
-        teamAText.setText(formattedName(teamA.getAlias()));
+        teamAText.setText(Utils.formattedString(teamA.getAlias()));
     }
 
     public Team getTeamB() {
@@ -209,7 +198,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public void setTeamB(Team teamB) {
         this.teamB = teamB;
-        teamBText.setText(formattedName(teamB.getAlias()));
+        teamBText.setText(Utils.formattedString(teamB.getAlias()));
     }
 
     @Override
