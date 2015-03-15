@@ -5,7 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
 
-import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
+import yeapp.com.burracoscore.utils.Utils;
 
 public class Team implements Parcelable {
     private String player1 = null;

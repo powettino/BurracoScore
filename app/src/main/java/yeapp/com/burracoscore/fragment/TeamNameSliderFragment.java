@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +24,7 @@ import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.activity.TeamConfigurationContainerSlider;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
+import yeapp.com.burracoscore.utils.Utils;
 
 public class TeamNameSliderFragment extends Fragment implements TextWatcher, ImageView.OnClickListener {
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.model.Team;
-import yeapp.com.burracoscore.yeapp.com.burracoscore.utils.Utils;
+import yeapp.com.burracoscore.utils.Utils;
 import yeapp.com.burracoscore.fragment.TeamNameSliderFragment;
 
 import static android.view.View.OnClickListener;
