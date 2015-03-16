@@ -51,7 +51,7 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
         if (numberOfPlayerForTeam > 0) {
             gioc11Text = (EditText) view.findViewById(R.id.giocatore11);
             gioc21Text = (EditText) view.findViewById(R.id.giocatore21);
-            gioc11Text.setText((a.getPlayer1() == null || a.getPlayer1().length() == 0) ? getString(R.string.nomeGiocatore11) : a.getPlayer1());
+            gioc11Text.setText((a.getPlayer1() == null || a.getPlayer1().length() == 0) ? getString(R.string.nomeGiocatore1) : a.getPlayer1());
             gioc21Text.setText((b.getPlayer1() == null || b.getPlayer1().length() == 0) ? getString(R.string.nomeGiocatore21) : b.getPlayer1());
             gioc11Text.addTextChangedListener(this);
             gioc21Text.addTextChangedListener(this);
@@ -59,7 +59,7 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
         if (numberOfPlayerForTeam > 1) {
             gioc12Text = (EditText) view.findViewById(R.id.giocatore12);
             gioc22Text = (EditText) view.findViewById(R.id.giocatore22);
-            gioc12Text.setText((a.getPlayer2() == null || a.getPlayer2().length() == 0) ? getString(R.string.nomeGiocatore12) : a.getPlayer2());
+            gioc12Text.setText((a.getPlayer2() == null || a.getPlayer2().length() == 0) ? getString(R.string.nomeGiocatore2) : a.getPlayer2());
             gioc22Text.setText((b.getPlayer2() == null || b.getPlayer2().length() == 0) ? getString(R.string.nomeGiocatore22) : b.getPlayer2());
             gioc12Text.addTextChangedListener(this);
             gioc22Text.addTextChangedListener(this);
@@ -98,10 +98,10 @@ public class TeamNameFragment extends Fragment implements TextWatcher {
     }
 
     public void resetNames() {
-        gioc11Text.setText(R.string.nomeGiocatore11);
+        gioc11Text.setText(R.string.nomeGiocatore1);
         gioc21Text.setText(R.string.nomeGiocatore21);
         if(numberOfPlayerForTeam==2) {
-            gioc12Text.setText(R.string.nomeGiocatore12);
+            gioc12Text.setText(R.string.nomeGiocatore1);
             gioc22Text.setText(R.string.nomeGiocatore22);
         }
     }

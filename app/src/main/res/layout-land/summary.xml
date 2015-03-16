@@ -33,7 +33,7 @@
                 android:layout_gravity="top"
                 android:layout_weight="1">
 
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
@@ -46,6 +46,7 @@
                         android:gravity="left"
                         android:paddingLeft="@dimen/highMargin"
                         android:maxEms="1"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:alpha="0.2"
                         android:saveEnabled="true"
@@ -54,10 +55,9 @@
                         android:textColor="@color/Arancio"
                         android:textSize="@dimen/normalText"
                         android:typeface="monospace" />
-                </FrameLayout>
-
+                </RelativeLayout>
                 <ViewStub
-                    android:id="@android:id/empty"
+                    android:id="@+id/empty2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -103,7 +103,7 @@
                 </FrameLayout>
 
                 <ViewStub
-                    android:id="@android:id/empty"
+                    android:id="@+id/empty"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"

@@ -1,4 +1,5 @@
 <resources>
+    <integer name="player1">1000</integer>
     <integer name="stopped">400</integer>
     <integer name="slowest">300</integer>
     <integer name="slow">250</integer>

@@ -27,8 +27,8 @@
     <string name="setPoint">Segna</string>
 
     <!-- EditText -->
-    <string name="nomeGiocatore11">giocatore 1A</string>
-    <string name="nomeGiocatore12">giocatore 2A</string>
+    <string name="nomeGiocatore1">giocatore 1</string>
+    <string name="nomeGiocatore2">giocatore 2</string>
     <string name="nomeGiocatore21">giocatore 1B</string>
     <string name="nomeGiocatore22">giocatore 2B</string>
     <string name="puntiBase">Base</string>

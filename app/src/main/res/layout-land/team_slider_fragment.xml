@@ -3,20 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_marginTop="@dimen/mediumMargin">
-
-    <EditText
-        android:id="@+id/teamAlias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:singleLine="true"
-        android:maxEms="9"
-        android:textSize="@dimen/largeText"
-        android:textAlignment="center"
-        android:gravity="center"
-        tools:text="Team A"/>
 
     <ImageView
         android:layout_width="@dimen/maxPicture"
@@ -27,12 +15,32 @@
         android:src="@drawable/ic_action_picture"
         android:id="@+id/foto" />
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/teamAlias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:singleLine="true"
+            android:layout_marginTop="@dimen/lowMargin"
+            android:maxEms="9"
+            android:textSize="@dimen/largeText"
+            android:textAlignment="center"
+            android:gravity="center"
+            tools:text="Team A"/>
+
         <EditText
             android:id="@+id/giocatore1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/lowMargin"
             style="@android:style/Widget.TextView"
             android:autoText="false"
@@ -60,5 +68,5 @@
             android:maxLength="20"
             android:saveEnabled="true"
             android:text="@string/nomeGiocatore2" />
-
+    </LinearLayout>
 </LinearLayout>

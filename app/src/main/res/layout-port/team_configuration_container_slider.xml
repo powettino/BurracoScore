@@ -22,15 +22,15 @@
         android:layout_height="fill_parent">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/insignificantMargin"
-            android:layout_marginRight="@dimen/insignificantMargin"
             android:layout_height="fill_parent">
             <ImageButton
                 android:id="@+id/goLeft"
                 android:layout_centerInParent="true"
+                android:paddingLeft="@dimen/insignificantMargin"
+                android:paddingRight="@dimen/insignificantMargin"
                 android:layout_width="wrap_content"
                 android:background="@android:color/transparent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:src="@drawable/ic_action_previous_item"/>
         </RelativeLayout>
         <FrameLayout
@@ -42,15 +42,15 @@
         </FrameLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/insignificantMargin"
-            android:layout_marginRight="@dimen/insignificantMargin"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent">ac
             <ImageButton
                 android:id="@+id/goRight"
+                android:paddingLeft="@dimen/insignificantMargin"
+                android:paddingRight="@dimen/insignificantMargin"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:background="@android:color/transparent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:src="@drawable/ic_action_next_item"/>
         </RelativeLayout>
     </LinearLayout>

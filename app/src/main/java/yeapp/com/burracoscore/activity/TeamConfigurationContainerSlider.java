@@ -22,13 +22,11 @@ import static android.view.View.OnClickListener;
 public class TeamConfigurationContainerSlider extends ActionBarActivity implements OnClickListener, TeamNameSliderFragment.OnTeamFragmentChanger {
 
     private MenuItem salvaButton;
-    private int tempNumberPlayer = 0;
     private char currentTeam = Utils.ASide;
     public static final String teamKey = "teamName";
     public static final String currentTeamKey = "currentTeamFragment";
 
-    private TeamNameSliderFragment fragmentA = null;
-    private TeamNameSliderFragment fragmentB = null;
+    private TeamNameSliderFragment fragment = null;
 
     private Team tA;
     private Team tB;
@@ -56,15 +54,8 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     }
 
     private void completeAndSend() {
-        if(currentTeam == Utils.ASide) {
-            fragmentA.saveTeamConfiguration();
-        }else {
-            fragmentB.saveTeamConfiguration();
-        }
-        tA.setNumberPlayer(tempNumberPlayer);
-        tB.setNumberPlayer(tempNumberPlayer);
+        fragment.saveTeamConfiguration();
         setResult(RESULT_OK, this.getIntent()
-//                        .putExtra(SummaryContainer.numberOfPlayer, tempNumberPlayer)
                         .putExtra(SummaryContainer.teamAKey, tA)
                         .putExtra(SummaryContainer.teamBKey, tB)
         );
@@ -84,21 +75,21 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
         goLeft.setOnClickListener(this);
         goRight = findViewById(R.id.goRight);
         goRight.setOnClickListener(this);
-        goLeft.setEnabled(false);
 
         if (savedInstanceState == null) {
+            goLeft.setEnabled(false);
             Intent startingIntent = getIntent();
-            tempNumberPlayer = startingIntent.getIntExtra(SummaryContainer.numberOfPlayer, tempNumberPlayer);
+            int tempNumberPlayer = startingIntent.getIntExtra(SummaryContainer.numberOfPlayer, 1);
             tA = startingIntent.getParcelableExtra(SummaryContainer.teamAKey);
             tB = startingIntent.getParcelableExtra(SummaryContainer.teamBKey);
-            Bundle b = new Bundle();
-            b.putInt(SummaryContainer.numberOfPlayer, tempNumberPlayer);
-            b.putParcelable(teamKey, tA);
-            fragmentA = new TeamNameSliderFragment();
-            fragmentA.setArguments(b);
-            fragmentB = new TeamNameSliderFragment();
+            tA.setNumberPlayer(tempNumberPlayer);
+            tB.setNumberPlayer(tempNumberPlayer);
+            Bundle ba = new Bundle();
+            ba.putParcelable(teamKey, tA);
+            fragment = new TeamNameSliderFragment();
+            fragment.setArguments(ba);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.fragmentCont, fragmentA, String.valueOf(currentTeam));
+            ft.add(R.id.fragmentCont, fragment, currentTeamKey);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
         }
@@ -107,7 +98,6 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putChar(currentTeamKey, currentTeam);
-        outState.putInt(SummaryContainer.numberOfPlayer, tempNumberPlayer);
         outState.putParcelable(SummaryContainer.teamAKey, tA);
         outState.putParcelable(SummaryContainer.teamBKey, tB);
         super.onSaveInstanceState(outState);
@@ -117,11 +107,16 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         currentTeam = savedInstanceState.getChar(currentTeamKey);
-        tempNumberPlayer = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
         tA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
         tB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
-//        fragmentA = (TeamNameSliderFragment) getFragmentManager().findFragmentByTag(Integer.toString(tempNumberPlayer));
-//        fragmentB = (TeamNameSliderFragment) getFragmentManager().findFragmentByTag(Integer.toString(tempNumberPlayer));
+        fragment = (TeamNameSliderFragment) getFragmentManager().findFragmentByTag(currentTeamKey);
+        if(currentTeam == Utils.ASide){
+            goLeft.setEnabled(false);
+            goRight.setEnabled(true);
+        }else{
+            goRight.setEnabled(false);
+            goLeft.setEnabled(true);
+        }
     }
 
     @Override
@@ -144,19 +139,9 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
                 return true;
             }
             case R.id.resetConfMenu: {
-                if(currentTeam == Utils.ASide){
-                    fragmentA.resetNames();
-                }else{
-                    fragmentB.resetNames();
-                }
+                fragment.resetNames();
                 return true;
             }
-//            case R.id.clearConfMenu: {
-//                fragmentA.resetNames();
-//                fragmentB.resetNames();
-//                idResEmpty.clear();
-//                salvaButton.setVisible(true);
-//            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
@@ -164,29 +149,26 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     }
 
     private void changeFragment() {
+        fragment.saveTeamConfiguration();
+        Bundle b = new Bundle();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        fragment = new TeamNameSliderFragment();
         if(currentTeam == Utils.ASide){
-            fragmentA.saveTeamConfiguration();
+            currentTeam = Utils.BSide;
             goLeft.setEnabled(true);
             goRight.setEnabled(false);
-            currentTeam = Utils.BSide;
-            Bundle b = new Bundle();
-            b.putInt(SummaryContainer.numberOfPlayer, tempNumberPlayer);
             b.putParcelable(teamKey, tB);
-            fragmentB.setArguments(b);
+            fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_left_in, R.anim.card_flip_left_out);
-            ft.replace(R.id.fragmentCont, fragmentB, Integer.toString(Utils.BSide));
+            ft.replace(R.id.fragmentCont, fragment, currentTeamKey);
         }else{
-            fragmentB.saveTeamConfiguration();
             currentTeam = Utils.ASide;
             goLeft.setEnabled(false);
             goRight.setEnabled(true);
-            Bundle b = new Bundle();
-            b.putInt(SummaryContainer.numberOfPlayer, tempNumberPlayer);
             b.putParcelable(teamKey, tA);
-            fragmentA.setArguments(b);
+            fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_right_out);
-            ft.replace(R.id.fragmentCont, fragmentA, Integer.toString(Utils.ASide));
+            ft.replace(R.id.fragmentCont, fragment, currentTeamKey);
         }
         ft.commit();
     }

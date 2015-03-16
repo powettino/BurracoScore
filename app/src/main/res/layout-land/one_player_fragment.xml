@@ -50,7 +50,7 @@
             android:maxLength="20"
             android:textColor="@color/Nero"
             android:saveEnabled="true"
-            android:text="@string/nomeGiocatore11" />
+            android:text="@string/nomeGiocatore1" />
 
         <TextView
             android:id="@+id/teamBConf"

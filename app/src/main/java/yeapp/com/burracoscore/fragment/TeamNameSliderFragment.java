@@ -1,24 +1,30 @@
 package yeapp.com.burracoscore.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.app.Activity;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.SummaryContainer;
@@ -26,9 +32,10 @@ import yeapp.com.burracoscore.activity.TeamConfigurationContainerSlider;
 import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.utils.Utils;
 
-public class TeamNameSliderFragment extends Fragment implements TextWatcher, ImageView.OnClickListener {
 
-    private int tempNumberPlayer = 0;
+public class TeamNameSliderFragment extends Fragment implements TextWatcher, ImageView.OnClickListener, View.OnLongClickListener {
+
+//    private int tempNumberPlayer = 0;
 
     private EditText gioc1Text;
     private EditText gioc2Text;
@@ -43,9 +50,7 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             team = getArguments().getParcelable(TeamConfigurationContainerSlider.teamKey);
-            tempNumberPlayer = getArguments().getInt(SummaryContainer.numberOfPlayer);
         } else {
-            tempNumberPlayer = savedInstanceState.getInt(SummaryContainer.numberOfPlayer);
             team = savedInstanceState.getParcelable(TeamConfigurationContainerSlider.teamKey);
         }
     }
@@ -53,8 +58,7 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = ((tempNumberPlayer == 1) ? inflater.inflate(R.layout.team_slider_fragment, container, false) :
-                inflater.inflate(R.layout.two_player_fragment, container, false));
+        View view = inflater.inflate(R.layout.team_slider_fragment, container, false);
         teamAliasText = (EditText) view.findViewById(R.id.teamAlias);
         if (team.getSide() == Utils.ASide) {
             teamAliasText.setTextColor(getResources().getColor(R.color.Arancio));
@@ -65,44 +69,66 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
 
         //FIXME: va fatto in un async
         if (team.getImagePath() != null) {
-//            try {
-//                Bitmap bm = BitmapFactory.decodeStream(
-//                        getActivity().getContentResolver().openInputStream(team.getImagePath()));
-//                teamPicture.setImageBitmap(bm);
-            teamPicture.setImageURI(team.getImagePath());
-            teamPicture.setTag(team.getImagePath());
-//            } catch (FileNotFoundException fnfe) {
-//
-//            }
+            try {
+                teamPicture.setTag(team.getImagePath());
+                teamPicture.setImageBitmap(Utils.getThumbnail(getActivity(), team.getImagePath(), 300));
+            } catch (IOException ioe) {
+            }
         }
 
         teamPicture.setOnClickListener(this);
+        teamPicture.setOnLongClickListener(this);
         teamAliasText.setText(team.getAlias());
         teamAliasText.addTextChangedListener(this);
-        if (tempNumberPlayer >= 1) {
-            gioc1Text = (EditText) view.findViewById(R.id.giocatore1);
-            gioc1Text.setText((team.getPlayer1() == null || team.getPlayer1().length() == 0) ? Utils.giocatore1 : team.getPlayer1());
-            gioc1Text.addTextChangedListener(this);
-        }
-        if (tempNumberPlayer == 2) {
-            gioc2Text = (EditText) view.findViewById(R.id.giocatore2);
-            gioc2Text.setText((team.getPlayer1() == null || team.getPlayer1().length() == 0) ? Utils.giocatore2 : team.getPlayer1());
-            gioc2Text.addTextChangedListener(this);
-        }
+        gioc1Text = (EditText) view.findViewById(R.id.giocatore1);
+        gioc1Text.setText(team.getPlayer1());
+        gioc1Text.addTextChangedListener(this);
+
+        gioc2Text = (EditText) view.findViewById(R.id.giocatore2);
+        gioc2Text.setText(team.getPlayer2());
+        gioc2Text.addTextChangedListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(team.getNumberPlayer()==1){
+            Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fading_out);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    gioc2Text.setAlpha(0);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            gioc2Text.startAnimation(anim);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(gioc1Text, "translationY", 50);
+            objectAnimator.setDuration(getResources().getInteger(R.integer.player1));
+            objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            objectAnimator.start();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         saveTeamConfiguration();
-        outState.putInt(SummaryContainer.numberOfPlayer, tempNumberPlayer);
+        outState.putInt(SummaryContainer.numberOfPlayer, team.getNumberPlayer());
         outState.putParcelable(TeamConfigurationContainerSlider.teamKey, team);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onDetach() {
-        saveTeamConfiguration();
+//        saveTeamConfiguration();
         super.onDetach();
     }
 
@@ -116,20 +142,22 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
         if (teamAliasText != null) {
             team.setAlias(teamAliasText.getText().toString());
             team.setPlayer1(gioc1Text.getText().toString());
-            team.setPlayer2(tempNumberPlayer >= 2 ? gioc2Text.getText().toString() : null);
-            team.setImagePath(teamPicture.getTag() != null ? (Uri) teamPicture.getTag() : null);
-            changer.savedTeam(team);
+            team.setPlayer2(gioc2Text.getText().toString());
+            team.setImagePath(teamPicture.getTag() != null ?  (String) teamPicture.getTag() : null);
         }
+        changer.savedTeam(team);
     }
 
     public void resetNames() {
         if (teamAliasText != null) {
+            teamPicture.setTag(null);
+            teamPicture.setImageResource(R.drawable.ic_action_picture);
             teamAliasText.setText("Team " + team.getSide());
             changer.changedToolbarVisibility(true, teamAliasText.getId() + team.getSide());
             gioc1Text.setText(Utils.giocatore1);
             changer.changedToolbarVisibility(true, gioc1Text.getId() + team.getSide());
         }
-        if (tempNumberPlayer == 2) {
+        if (team.getNumberPlayer() == 2) {
             gioc2Text.setText(Utils.giocatore2);
             changer.changedToolbarVisibility(true, gioc2Text.getId() + team.getSide());
         }
@@ -156,31 +184,11 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
         switch (requestCode) {
             case 1: {
                 if (data != null && data.getData() != null) {
-                    Uri uri = data.getData();
-//            Cursor cursor = getActivity().getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
-//            cursor.moveToFirst();
-//            final String path = cursor.getString(0);
-//            cursor.close();
-//                    team.setImagePath(uri);
-//                    try {
-//                        teamPicture.setImageBitmap(BitmapFactory.decodeStream(
-//                                getActivity().getContentResolver().openInputStream(uri)));
+                    String uri = data.getData().toString();
                     teamPicture.setTag(uri);
-
-//                    teamPicture.setImageURI(uri);
-//                    } catch (FileNotFoundException fnfe) {
-//
-//                    }
                     try {
 
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = calculateInSampleSize(options, teamPicture.getWidth(), teamPicture.getHeight());
-                        options.inJustDecodeBounds = false;
-//                        teamPicture.setImageBitmap(getThumbnail(uri));
-                     teamPicture.setImageBitmap(BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri), null, options));
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                        teamPicture.setImageBitmap(Utils.getThumbnail(getActivity(), uri, teamPicture.getWidth()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -192,60 +200,6 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
                 break;
             }
         }
-    }
-
-    public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException {
-        InputStream input = getActivity().getContentResolver().openInputStream(uri);
-
-        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
-        onlyBoundsOptions.inJustDecodeBounds = true;
-        onlyBoundsOptions.inDither = true;//optional
-        onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;//optional
-        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
-        input.close();
-        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
-            return null;
-
-        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
-
-        double ratio = (originalSize > 200) ? (originalSize / 200) : 1.0;
-
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        bitmapOptions.inDither = true;//optional
-        bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;//optional
-        input = getActivity().getContentResolver().openInputStream(uri);
-        Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
-        input.close();
-        return bitmap;
-    }
-
-    private static int getPowerOfTwoForSampleRatio(double ratio) {
-        int k = Integer.highestOneBit((int) Math.floor(ratio));
-        if (k == 0) return 1;
-        else return k;
-    }
-
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
     }
 
     @Override
@@ -265,6 +219,12 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
                 changer.changedToolbarVisibility(true, getActivity().getCurrentFocus().getId() + team.getSide());
             }
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        //FIXME: rimuovere l-immagine
+        return false;
     }
 
     public interface OnTeamFragmentChanger {

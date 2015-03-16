@@ -50,7 +50,7 @@
             android:inputType="textCapWords|textPersonName|textAutoComplete"
             android:maxLength="20"
             android:saveEnabled="true"
-            android:text="@string/nomeGiocatore11"
+            android:text="@string/nomeGiocatore1"
             style="@android:style/Widget.TextView" />
 
         <EditText
@@ -69,7 +69,7 @@
             android:inputType="textCapWords|textPersonName|textAutoComplete"
             android:maxLength="20"
             android:saveEnabled="true"
-            android:text="@string/nomeGiocatore12" />
+            android:text="@string/nomeGiocatore1" />
 
         <TextView
             android:id="@+id/teamBConf"

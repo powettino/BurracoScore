@@ -96,11 +96,11 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
             dtaLVB.notifyDataSetChanged();
             resultA.setText(teamA.getTotale() == 0 ? "" : String.valueOf(teamA.getTotale()));
             resultB.setText(teamB.getTotale() == 0 ? "" : String.valueOf(teamB.getTotale()));
-            if(teamA.getTotale() != 0) {
-                resultB.setBackgroundResource(R.color.SfondoMedio);
-                resultA.setBackgroundResource(R.color.SfondoMedio);
-            }
             addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
+        }
+        if(teamA.getTotale() != 0) {
+            resultB.setBackgroundResource(R.color.SfondoMedio);
+            resultA.setBackgroundResource(R.color.SfondoMedio);
         }
         return view;
     }

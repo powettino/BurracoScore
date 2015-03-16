@@ -8,4 +8,6 @@
     <dimen name="enormousMargin">50dp</dimen>
     <dimen name="noSpace">0dp</dimen>
     <dimen name="buttonWidthEq">80dp</dimen>
+
+    <dimen name="maxPicture">200dp</dimen>
 </resources>

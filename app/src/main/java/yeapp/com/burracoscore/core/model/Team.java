@@ -10,7 +10,7 @@ import yeapp.com.burracoscore.utils.Utils;
 public class Team implements Parcelable {
     private String player1 = null;
     private String player2 = null;
-    private Uri imagePath = null;
+    private String imagePath = null;
     private char side;
 
     private String alias;
@@ -19,11 +19,11 @@ public class Team implements Parcelable {
     private int gameVinti = 0;
     private int numberPlayer = 1;
 
-    public Uri getImagePath() {
+    public String getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(Uri imagePath) {
+    public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
 
@@ -58,6 +58,7 @@ public class Team implements Parcelable {
     public Team(Parcel in) {
         side = (char)in.readInt();
         alias = in.readString();
+        imagePath = in.readString();
         numberPlayer = in.readInt();
         player1 = in.readString();
         player2 = in.readString();
@@ -132,6 +133,7 @@ public class Team implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(side);
         dest.writeString(alias);
+        dest.writeString(imagePath);
         dest.writeInt(numberPlayer);
         dest.writeString(player1);
         dest.writeString(player2);
