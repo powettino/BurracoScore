@@ -18,7 +18,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Hand;
+import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.utils.Constants;
 
 public class ListPointAdapter extends BaseAdapter {
 
@@ -27,7 +28,6 @@ public class ListPointAdapter extends BaseAdapter {
     private ArrayList<Integer> textStatus;
     private int lastPosition = -1;
     private boolean mainTextLeft = true;
-    private final int margin = 50;
 
     public ListPointAdapter(Context context, boolean mainTextLeft) {
         super();
@@ -37,6 +37,7 @@ public class ListPointAdapter extends BaseAdapter {
         this.mainTextLeft = mainTextLeft;
     }
 
+    @SuppressWarnings("unused")
     public void clearData() {
         textPoint.clear();
         textStatus.clear();
@@ -129,9 +130,9 @@ public class ListPointAdapter extends BaseAdapter {
                     .inflate(R.layout.row_list_result, parent, false);
         }
         Drawable background = context.getResources().getDrawable(R.drawable.shape_image_game);
-        if(textStatus.get(position) == Hand.WON){
+        if(textStatus.get(position) == Hand2.WON){
             background.setColorFilter(context.getResources().getColor(R.color.Verde), PorterDuff.Mode.SRC_IN);
-        }else if (textStatus.get(position) == Hand.LOST){
+        }else if (textStatus.get(position) == Hand2.LOST){
             background.setColorFilter(context.getResources().getColor(R.color.Rosso), PorterDuff.Mode.SRC_IN);
         }else{
             background.setColorFilter(context.getResources().getColor(R.color.Grigio), PorterDuff.Mode.SRC_IN);
@@ -141,7 +142,7 @@ public class ListPointAdapter extends BaseAdapter {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(left.getLayoutParams());
             lp.weight = 1;
             lp.width = 0;
-            lp.rightMargin = margin;
+            lp.rightMargin = Constants.margin;
             lp.gravity = Gravity.RIGHT;
 //            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
             left.setLayoutParams(lp);
@@ -159,7 +160,7 @@ public class ListPointAdapter extends BaseAdapter {
 //            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
             lp.weight = 1;
             lp.width = 0;
-            lp.leftMargin = margin;
+            lp.leftMargin = Constants.margin;
             lp.gravity = Gravity.LEFT;
             right.setLayoutParams(lp);
             right.setGravity(Gravity.LEFT);

@@ -31,8 +31,8 @@ public class BurracoSession implements Parcelable {
     public void clear(){
         game.clear();
         addNewGame();
-        team_a = new Team2(Utils.ASide);
-        team_b = new Team2(Utils.BSide);
+        team_a.clean();
+        team_b.clean();
         numero_vinti_a = 0;
         numero_vinti_b = 0;
     }
@@ -69,6 +69,7 @@ public class BurracoSession implements Parcelable {
         return String.valueOf(numero_vinti_a);
     }
 
+    @SuppressWarnings("unused")
     public void setNumeroVintiA(int numero_vinti_a) {
         this.numero_vinti_a = numero_vinti_a;
     }
@@ -77,10 +78,12 @@ public class BurracoSession implements Parcelable {
         return numero_vinti_b;
     }
 
+    @SuppressWarnings("unused")
     public void setNumeroVintiB(int numero_vinti_b) {
         this.numero_vinti_b = numero_vinti_b;
     }
 
+    @SuppressWarnings("unused")
     public ArrayList<Game> getGames() {
         return game;
     }

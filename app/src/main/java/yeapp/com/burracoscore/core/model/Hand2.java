@@ -37,6 +37,7 @@ public class Hand2 implements Parcelable {
         return base;
     }
 
+    @SuppressWarnings("unused")
     public int getNumeroMano(){
         return numeroMano;
     }
@@ -70,7 +71,6 @@ public class Hand2 implements Parcelable {
         numeroMano = in.readInt();
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -85,7 +85,6 @@ public class Hand2 implements Parcelable {
         dest.writeInt(this.totale);
         dest.writeInt(won);
         dest.writeInt(numeroMano);
-//        dest.writeInt(won ? 1 : 0);
     }
 
     public static final Creator<Hand2> CREATOR = new Creator<Hand2>() {

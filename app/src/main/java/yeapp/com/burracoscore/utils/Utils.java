@@ -50,6 +50,7 @@ public class Utils {
         return bitmap;
     }
 
+    @SuppressWarnings("unused")
     public static int exifToDegrees(int exifOrientation) {
         if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90){
             return 90;

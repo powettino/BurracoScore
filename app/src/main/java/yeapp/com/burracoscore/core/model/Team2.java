@@ -3,8 +3,6 @@ package yeapp.com.burracoscore.core.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 import yeapp.com.burracoscore.utils.Utils;
 
 public class Team2 implements Parcelable {
@@ -14,11 +12,6 @@ public class Team2 implements Parcelable {
     private char side;
     private String alias;
     private int numberPlayer = 1;
-
-//    private ArrayList<Hand> mani = new ArrayList<Hand>();
-//    private int totale = 0;
-//    private int gameVinti = 0;
-
 
     public String getImagePath() {
         return imagePath;
@@ -156,13 +149,7 @@ public class Team2 implements Parcelable {
         }
     };
 
-//    public void cleanPunteggio() {
-//        mani.clear();
-//        this.totale = 0;
-//    }
-
     public void clean() {
-//        this.gameVinti = 0;
         numberPlayer = 1;
         player1 = Utils.giocatore1;
         player2 = Utils.giocatore2;

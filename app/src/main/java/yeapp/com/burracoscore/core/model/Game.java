@@ -62,6 +62,7 @@ public class Game implements Parcelable {
         return numeroMani;
     }
 
+    @SuppressWarnings("unused")
     public void setNumeroMani(int numeroMani) {
         this.numeroMani = numeroMani;
     }

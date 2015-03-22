@@ -17,4 +17,6 @@ public class Constants {
     public static final String fragmentKey = "currentTeamFragment";
     public static final String numeroMano = "numeroMano";
     public static final String currentTeamFragment = "teamAttuale";
+
+    public static final int margin = 50;
 }
