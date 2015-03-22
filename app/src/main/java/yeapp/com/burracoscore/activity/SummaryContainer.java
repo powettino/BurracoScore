@@ -13,25 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.core.model.BurracoSession;
+import yeapp.com.burracoscore.core.model.Game;
+import yeapp.com.burracoscore.core.model.Team2;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
+import yeapp.com.burracoscore.utils.Constants;
 
 public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
 
     public static final int CODE_FOR_CONF = 0;
     public static final int CODE_FOR_SET = 1;
-
-    public static final String handA = "handA";
-    public static final String handB = "handB";
-    public static final int maxPoint = 500;
-    public static final String teamAKey = "teamA";
-    public static final String teamBKey = "teamB";
-
-    public static final String addHand = "addHand";
-
-    public static final String numberOfPlayer = "numberOfPlayer";
-
-    public static final String setDialog = "dialog";
 
     private SummaryFragment sum;
     private boolean dialogActive;
@@ -40,19 +31,27 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     private TextView punteggioTotA;
     private TextView punteggioTotB;
 
-    //    private int numberOfPlayerForTeam = 1;
     private boolean teamSaved = false;
+
+    private BurracoSession sessione;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_container);
         if (savedInstanceState == null) {
+            sessione = new BurracoSession();
             sum = new SummaryFragment();
+            Bundle b = new Bundle();
+            b.putParcelable(Constants.currentGame, sessione.getCurrentGame());
+            b.putString(Constants.teamAAlias, sessione.getTeamA().getAlias());
+            b.putString(Constants.teamBAlias, sessione.getTeamB().getAlias());
+            sum.setArguments(b);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.fragmentContSum, sum, "Summary");
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
+
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
@@ -69,7 +68,8 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                     .setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    sum.resetGames();
+                                    sessione.addNewGame();
+                                    sum.resetGames(sessione.getCurrentGame());
                                     dialog.cancel();
                                     dialogActive = false;
                                 }
@@ -91,10 +91,10 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
         switch (item.getItemId()) {
             case R.id.configuraMenuSum: {
                 if (teamSaved) {
-                    Intent configurazione = new Intent(this, TeamConfigurationContainerSlider.class);
-                    configurazione.putExtra(numberOfPlayer, sum.getTeamA().getNumberPlayer())
-                            .putExtra(teamAKey, sum.getTeamA())
-                            .putExtra(teamBKey, sum.getTeamB());
+                    Intent configurazione = new Intent(this, TeamSliderContainer.class);
+                    configurazione.putExtra(Constants.numberOfPlayer, sessione.getTeamA().getNumberPlayer())
+                            .putExtra(Constants.teamAKey, sessione.getTeamA())
+                            .putExtra(Constants.teamBKey, sessione.getTeamB());
                     startActivityForResult(configurazione, CODE_FOR_CONF);
                 } else {
                     new AlertDialog.Builder(this)
@@ -104,17 +104,17 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                                             {"1 vs 1", "2 vs 2"},
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            Intent configurazione = new Intent(getBaseContext(), TeamConfigurationContainerSlider.class);
+                                            Intent configurazione = new Intent(getBaseContext(), TeamSliderContainer.class);
                                             switch (id) {
                                                 case 0:
-                                                    configurazione.putExtra(numberOfPlayer, 1);
+                                                    configurazione.putExtra(Constants.numberOfPlayer, 1);
                                                     break;
                                                 case 1:
-                                                    configurazione.putExtra(numberOfPlayer, 2);
+                                                    configurazione.putExtra(Constants.numberOfPlayer, 2);
                                                     break;
                                             }
-                                            configurazione.putExtra(teamAKey, sum.getTeamA())
-                                                    .putExtra(teamBKey, sum.getTeamB());
+                                            configurazione.putExtra(Constants.teamAKey, sessione.getTeamA())
+                                                    .putExtra(Constants.teamBKey, sessione.getTeamB());
                                             startActivityForResult(configurazione, CODE_FOR_CONF);
                                         }
                                     })
@@ -129,7 +129,8 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        sum.resetGames();
+                                        sessione.clearCurrentGame();
+                                        sum.resetGames(sessione.getCurrentGame());
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
@@ -151,9 +152,11 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        sum.resetAll();
-//                                        numberOfPlayerForTeam = 1;
+                                        sessione.clear();
+                                        sum.resetAll(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
                                         teamSaved = false;
+                                        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+                                        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
@@ -178,7 +181,8 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         sum = (SummaryFragment) getFragmentManager().findFragmentByTag("Summary");
-        if (savedInstanceState.getBoolean(setDialog)) {
+        sessione = savedInstanceState.getParcelable(Constants.gameSession);
+        if (savedInstanceState.getBoolean(Constants.dialogStatus)) {
             dialogActive = true;
             winnerDialog.show();
         }
@@ -187,7 +191,8 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(setDialog, dialogActive);
+        outState.putParcelable(Constants.gameSession, sessione);
+        outState.putBoolean(Constants.dialogStatus, dialogActive);
     }
 
     @Override
@@ -196,10 +201,9 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-//                    numberOfPlayerForTeam = data.getIntExtra(numberOfPlayer, 1);
-                    sum.setTeamA((Team) data.getParcelableExtra(teamAKey));
-                    sum.setTeamB((Team) data.getParcelableExtra(teamBKey));
-//                    sum.createTeamName();
+                    sessione.setTeamA((Team2) data.getParcelableExtra(Constants.teamAKey));
+                    sessione.setTeamB((Team2) data.getParcelableExtra(Constants.teamBKey));
+                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
                     teamSaved = true;
                 }
                 break;
@@ -212,12 +216,12 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     }
 
     @Override
-    public void scoreChanged(int puntiA, int puntiB, boolean won) {
-        punteggioTotA.setText(String.valueOf(puntiA));
-        punteggioTotB.setText(String.valueOf(puntiB));
-        if (won) {
-            dialogActive = true;
-            winnerDialog.show();
-        }
+    public void gameEnded(Game current) {
+        sessione.updateLastGame(current);
+        sessione.addNumeroVinti(current.getWinner());
+        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+        dialogActive = true;
+        winnerDialog.show();
     }
 }

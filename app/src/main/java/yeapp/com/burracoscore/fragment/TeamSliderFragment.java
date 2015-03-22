@@ -1,17 +1,10 @@
 package yeapp.com.burracoscore.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
 import android.app.Activity;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,20 +20,18 @@ import android.widget.ImageView;
 import java.io.IOException;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.activity.SummaryContainer;
-import yeapp.com.burracoscore.activity.TeamConfigurationContainerSlider;
-import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.core.model.Team2;
+import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 
 
-public class TeamNameSliderFragment extends Fragment implements TextWatcher, ImageView.OnClickListener, View.OnLongClickListener {
-
-//    private int tempNumberPlayer = 0;
+public class TeamSliderFragment extends Fragment implements TextWatcher, ImageView.OnClickListener, View.OnLongClickListener {
 
     private EditText gioc1Text;
     private EditText gioc2Text;
     private EditText teamAliasText;
-    private Team team = null;
+
+    private Team2 team = null;
     private ImageView teamPicture = null;
 
     private OnTeamFragmentChanger changer;
@@ -49,9 +40,9 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            team = getArguments().getParcelable(TeamConfigurationContainerSlider.teamKey);
+            team = getArguments().getParcelable(Constants.genericTeamKey);
         } else {
-            team = savedInstanceState.getParcelable(TeamConfigurationContainerSlider.teamKey);
+            team = savedInstanceState.getParcelable(Constants.genericTeamKey);
         }
     }
 
@@ -121,14 +112,13 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
     @Override
     public void onSaveInstanceState(Bundle outState) {
         saveTeamConfiguration();
-        outState.putInt(SummaryContainer.numberOfPlayer, team.getNumberPlayer());
-        outState.putParcelable(TeamConfigurationContainerSlider.teamKey, team);
+        outState.putInt(Constants.numberOfPlayer, team.getNumberPlayer());
+        outState.putParcelable(Constants.genericTeamKey, team);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onDetach() {
-//        saveTeamConfiguration();
         super.onDetach();
     }
 
@@ -229,7 +219,6 @@ public class TeamNameSliderFragment extends Fragment implements TextWatcher, Ima
 
     public interface OnTeamFragmentChanger {
         public void changedToolbarVisibility(boolean visible, int idRes);
-
-        public void savedTeam(Team teamSaved);
+        public void savedTeam(Team2 teamSaved);
     }
 }

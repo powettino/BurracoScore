@@ -7,8 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Hand;
+import yeapp.com.burracoscore.core.model.Hand2;
 import yeapp.com.burracoscore.fragment.AddPointsFragment;
+import yeapp.com.burracoscore.utils.Constants;
 
 
 public class AddPointsContainer extends Activity implements AddPointsFragment.OnSavingResult{
@@ -39,10 +40,10 @@ public class AddPointsContainer extends Activity implements AddPointsFragment.On
 
 
     @Override
-    public void OnSaving(Hand manoA, Hand manoB) {
+    public void OnSaving(Hand2 manoA, Hand2 manoB) {
         setResult(RESULT_OK, getIntent()
-                .putExtra(SummaryContainer.handA, manoA)
-                .putExtra(SummaryContainer.handB, manoB));
+                .putExtra(Constants.manoA, manoA)
+                .putExtra(Constants.manoB, manoB));
         finish();
     }
 }

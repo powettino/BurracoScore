@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.activity.SummaryContainer;
-import yeapp.com.burracoscore.core.model.Hand;
+import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.utils.Constants;
 
 public class AddPointsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
 
@@ -27,6 +27,9 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
     CheckBox mazzettoB;
     CheckBox chiusuraB;
     View salva;
+    int numeroMano;
+
+
 
     OnSavingResult cb;
 
@@ -47,9 +50,14 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
         carteB = (EditText) view.findViewById(R.id.puntiCarteTextB);
         mazzettoB = (CheckBox) view.findViewById(R.id.checkMazzettoB);
         chiusuraB = (CheckBox) view.findViewById(R.id.checkChiusuraB);
-        ((TextView)view.findViewById(R.id.gameNumber)).setText("GAME "+ getArguments().getInt(SummaryFragment.gameNumber));
-        Hand manoA = getArguments().getParcelable(SummaryContainer.handA);
-        Hand manoB = getArguments().getParcelable(SummaryContainer.handB);
+        Hand2 manoA = getArguments().getParcelable(Constants.manoA);
+        Hand2 manoB = getArguments().getParcelable(Constants.manoB);
+        if(savedInstanceState == null) {
+            numeroMano = getArguments().getInt(Constants.numeroMano);
+        }else{
+            savedInstanceState.getInt(Constants.numeroMano);
+        }
+        ((TextView)view.findViewById(R.id.gameNumber)).setText("GAME "+numeroMano);
         mazzettoB.setOnCheckedChangeListener(this);
         chiusuraB.setOnCheckedChangeListener(this);
         mazzettoA.setOnCheckedChangeListener(this);
@@ -80,6 +88,12 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
         //Questo deve stare dopo l'aggancio con i listener altrimenti si cambia la visiilita'
         salva.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(Constants.numeroMano, numeroMano);
     }
 
     @Override
@@ -126,25 +140,25 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.salvaPunti: {
-                Hand manoA = new Hand(
+        Hand2 manoA = new Hand2(
                         !baseA.getText().toString().isEmpty() ? Integer.valueOf(baseA.getText().toString()) : 0,
                         !carteA.getText().toString().isEmpty() ? Integer.valueOf(carteA.getText().toString()) : 0,
                         chiusuraA.isChecked(),
-                        mazzettoA.isChecked());
+                        mazzettoA.isChecked(),numeroMano);
                 int resA = manoA.getTotaleMano();
-                Hand manoB = new Hand(
+                Hand2 manoB = new Hand2(
                         !baseB.getText().toString().isEmpty() ? Integer.valueOf(baseB.getText().toString()) : 0,
                         !carteB.getText().toString().isEmpty() ? Integer.valueOf(carteB.getText().toString()) : 0,
                         chiusuraB.isChecked(),
-                        mazzettoB.isChecked());
+                        mazzettoB.isChecked(), numeroMano);
                 int resB = manoB.getTotaleMano();
                 if(resB > resA){
-                    manoB.setWon(Hand.WON);
-                    manoA.setWon(Hand.LOST);
+                    manoB.setWon(Hand2.WON);
+                    manoA.setWon(Hand2.LOST);
                 }else
                 if(resA > resB){
-                    manoA.setWon(Hand.WON);
-                    manoB.setWon(Hand.LOST);
+                    manoA.setWon(Hand2.WON);
+                    manoB.setWon(Hand2.LOST);
                 }
                 cb.OnSaving(manoA, manoB);
                 break;
@@ -156,6 +170,6 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
     }
 
     public interface OnSavingResult{
-        public void OnSaving(Hand manoA, Hand manoB);
+        public void OnSaving(Hand2 manoA, Hand2 manoB);
     }
 }

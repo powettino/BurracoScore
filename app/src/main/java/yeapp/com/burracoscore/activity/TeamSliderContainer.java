@@ -13,23 +13,22 @@ import android.view.View;
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.core.model.Team2;
+import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
-import yeapp.com.burracoscore.fragment.TeamNameSliderFragment;
+import yeapp.com.burracoscore.fragment.TeamSliderFragment;
 
 import static android.view.View.OnClickListener;
 
-public class TeamConfigurationContainerSlider extends ActionBarActivity implements OnClickListener, TeamNameSliderFragment.OnTeamFragmentChanger {
+public class TeamSliderContainer extends ActionBarActivity implements OnClickListener, TeamSliderFragment.OnTeamFragmentChanger {
 
     private MenuItem salvaButton;
     private char currentTeam = Utils.ASide;
-    public static final String teamKey = "teamName";
-    public static final String currentTeamKey = "currentTeamFragment";
 
-    private TeamNameSliderFragment fragment = null;
+    private TeamSliderFragment fragment = null;
 
-    private Team tA;
-    private Team tB;
+    private Team2 tA;
+    private Team2 tB;
 
     private View goLeft;
     private View goRight;
@@ -56,8 +55,8 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     private void completeAndSend() {
         fragment.saveTeamConfiguration();
         setResult(RESULT_OK, this.getIntent()
-                        .putExtra(SummaryContainer.teamAKey, tA)
-                        .putExtra(SummaryContainer.teamBKey, tB)
+                        .putExtra(Constants.teamAKey, tA)
+                        .putExtra(Constants.teamBKey, tB)
         );
         finish();
     }
@@ -79,17 +78,17 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
         if (savedInstanceState == null) {
             goLeft.setEnabled(false);
             Intent startingIntent = getIntent();
-            int tempNumberPlayer = startingIntent.getIntExtra(SummaryContainer.numberOfPlayer, 1);
-            tA = startingIntent.getParcelableExtra(SummaryContainer.teamAKey);
-            tB = startingIntent.getParcelableExtra(SummaryContainer.teamBKey);
+            int tempNumberPlayer = startingIntent.getIntExtra(Constants.numberOfPlayer, 1);
+            tA = startingIntent.getParcelableExtra(Constants.teamAKey);
+            tB = startingIntent.getParcelableExtra(Constants.teamBKey);
             tA.setNumberPlayer(tempNumberPlayer);
             tB.setNumberPlayer(tempNumberPlayer);
             Bundle ba = new Bundle();
-            ba.putParcelable(teamKey, tA);
-            fragment = new TeamNameSliderFragment();
+            ba.putParcelable(Constants.genericTeamKey, tA);
+            fragment = new TeamSliderFragment();
             fragment.setArguments(ba);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.fragmentCont, fragment, currentTeamKey);
+            ft.add(R.id.fragmentCont, fragment, Constants.fragmentKey);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
         }
@@ -97,19 +96,19 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putChar(currentTeamKey, currentTeam);
-        outState.putParcelable(SummaryContainer.teamAKey, tA);
-        outState.putParcelable(SummaryContainer.teamBKey, tB);
+        outState.putChar(Constants.currentTeamFragment, currentTeam);
+        outState.putParcelable(Constants.teamAKey, tA);
+        outState.putParcelable(Constants.teamBKey, tB);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        currentTeam = savedInstanceState.getChar(currentTeamKey);
-        tA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
-        tB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
-        fragment = (TeamNameSliderFragment) getFragmentManager().findFragmentByTag(currentTeamKey);
+        currentTeam = savedInstanceState.getChar(Constants.currentTeamFragment);
+        tA = savedInstanceState.getParcelable(Constants.teamAKey);
+        tB = savedInstanceState.getParcelable(Constants.teamBKey);
+        fragment = (TeamSliderFragment) getFragmentManager().findFragmentByTag(Constants.fragmentKey);
         if(currentTeam == Utils.ASide){
             goLeft.setEnabled(false);
             goRight.setEnabled(true);
@@ -152,23 +151,23 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
         fragment.saveTeamConfiguration();
         Bundle b = new Bundle();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        fragment = new TeamNameSliderFragment();
+        fragment = new TeamSliderFragment();
         if(currentTeam == Utils.ASide){
             currentTeam = Utils.BSide;
             goLeft.setEnabled(true);
             goRight.setEnabled(false);
-            b.putParcelable(teamKey, tB);
+            b.putParcelable(Constants.genericTeamKey, tB);
             fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_left_in, R.anim.card_flip_left_out);
-            ft.replace(R.id.fragmentCont, fragment, currentTeamKey);
+            ft.replace(R.id.fragmentCont, fragment, Constants.fragmentKey);
         }else{
             currentTeam = Utils.ASide;
             goLeft.setEnabled(false);
             goRight.setEnabled(true);
-            b.putParcelable(teamKey, tA);
+            b.putParcelable(Constants.genericTeamKey, tA);
             fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_right_out);
-            ft.replace(R.id.fragmentCont, fragment, currentTeamKey);
+            ft.replace(R.id.fragmentCont, fragment, Constants.fragmentKey);
         }
         ft.commit();
     }
@@ -193,7 +192,7 @@ public class TeamConfigurationContainerSlider extends ActionBarActivity implemen
     }
 
     @Override
-    public void savedTeam(Team teamSaved) {
+    public void savedTeam(Team2 teamSaved) {
         if(teamSaved.getSide() == Utils.ASide){
             tA = teamSaved;
         }else{

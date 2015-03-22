@@ -19,8 +19,9 @@ import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.AddPointsContainer;
 import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
-import yeapp.com.burracoscore.core.model.Hand;
-import yeapp.com.burracoscore.core.model.Team;
+import yeapp.com.burracoscore.core.model.Game;
+import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -28,8 +29,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     private TextView teamAText;
     private TextView teamBText;
 
-    private Team teamA;
-    private Team teamB;
+    private Game currentGame;
 
     private ListPointAdapter dtaLVA = null;
     private ListPointAdapter dtaLVB = null;
@@ -41,21 +41,13 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     private OnScoreChanging changingCB;
 
-    public static final String gameNumber = "gameNumber";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState==null){
-            if (teamA == null) {
-                teamA = new Team('A');
-            }
-            if (teamB == null) {
-                teamB = new Team('B');
-            }
+            currentGame = getArguments().getParcelable(Constants.currentGame);
         }else{
-            teamA = savedInstanceState.getParcelable(SummaryContainer.teamAKey);
-            teamB = savedInstanceState.getParcelable(SummaryContainer.teamBKey);
+            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
         }
     }
 
@@ -86,19 +78,14 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
-        teamAText.setText(Utils.formattedString(teamA.getAlias()));
-        teamBText.setText(Utils.formattedString(teamB.getAlias()));
+        teamAText.setText(Utils.formattedString(getArguments().getString(Constants.teamAAlias)));
+        teamBText.setText(Utils.formattedString(getArguments().getString(Constants.teamBAlias)));
         if(savedInstanceState!=null) {
-            addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
-            dtaLVA.restore(teamA.getPunti(), teamA.getStatus());
-            dtaLVB.restore(teamB.getPunti(), teamB.getStatus());
-            dtaLVA.notifyDataSetChanged();
-            dtaLVB.notifyDataSetChanged();
-            resultA.setText(teamA.getTotale() == 0 ? "" : String.valueOf(teamA.getTotale()));
-            resultB.setText(teamB.getTotale() == 0 ? "" : String.valueOf(teamB.getTotale()));
-            addButton.setEnabled(savedInstanceState.getBoolean(SummaryContainer.addHand));
+            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+            setUIStatus();
+            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
         }
-        if(teamA.getTotale() != 0) {
+        if( currentGame.getNumeroMani()!=0){
             resultB.setBackgroundResource(R.color.SfondoMedio);
             resultA.setBackgroundResource(R.color.SfondoMedio);
         }
@@ -108,49 +95,47 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(SummaryContainer.teamAKey, teamA);
-        outState.putParcelable(SummaryContainer.teamBKey, teamB);
-        outState.putBoolean(SummaryContainer.addHand, addButton.isEnabled());
+        outState.putParcelable(Constants.currentGame, currentGame);
+        outState.putBoolean(Constants.addManoButtonStatus, addButton.isEnabled());
     }
 
     private void checkWinner() {
-        int totA = teamA.getTotale();
-        int totB = teamB.getTotale();
-//            int winA = resultA.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultA.getText().toString());
-//            int winB = resultB.getText().toString().isEmpty() ? 0 : Integer.valueOf(resultB.getText().toString());
-        if (totA >= SummaryContainer.maxPoint || totB >= SummaryContainer.maxPoint) {
+        int totA = currentGame.getTotalePartita(Utils.ASide);
+        int totB = currentGame.getTotalePartita(Utils.BSide);
+        if (totA >= Constants.maxPoint || totB >= Constants.maxPoint) {
             if (totA != totB) {
                 if (totA > totB) {
-                    teamA.addGame();
+                    currentGame.setWinner(Utils.ASide);
                 } else if (totB > totA) {
-                    teamB.addGame();
+                    currentGame.setWinner(Utils.BSide);
                 }
-                changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames(), true);
+                changingCB.gameEnded(currentGame);
             }
         }
     }
 
-    public void resetGames() {
-        teamA.cleanPunteggio();
-        teamB.cleanPunteggio();
-        dtaLVA.clearData();
+    private void setUIStatus(){
+        dtaLVA.restore(currentGame.getPuntiMani(Utils.ASide), currentGame.getStatusMani(Utils.ASide));
+        dtaLVB.restore(currentGame.getPuntiMani(Utils.BSide), currentGame.getStatusMani(Utils.BSide));
         dtaLVA.notifyDataSetChanged();
-        dtaLVB.clearData();
         dtaLVB.notifyDataSetChanged();
-        resultA.setText("");
-        resultB.setText("");
+        int tempTot = currentGame.getTotalePartita(Utils.ASide);
+        resultA.setText(tempTot == 0 ? "" : String.valueOf(tempTot));
+        tempTot = currentGame.getTotalePartita(Utils.BSide);
+        resultB.setText(tempTot == 0 ? "" : String.valueOf(tempTot));
+    }
+
+    public void resetGames(Game cleaned) {
+        currentGame = cleaned;
+        setUIStatus();
         resultB.setBackgroundResource(R.color.SfondoOmbre);
         resultA.setBackgroundResource(R.color.SfondoOmbre);
         addButton.setEnabled(true);
-        changingCB.scoreChanged(teamA.getTotGames(), teamB.getTotGames(), false);
     }
 
-    public void resetAll() {
-        resetGames();
-        teamA.clean();
-        teamB.clean();
-        teamAText.setText(Utils.formattedString(teamA.getAlias()));
-        teamBText.setText(Utils.formattedString(teamB.getAlias()));
+    public void resetAll(Game cleaned, String aliasA, String aliasB) {
+        resetGames(cleaned);
+        updateTeamAlias(Utils.formattedString(aliasA),Utils.formattedString(aliasB));
     }
 
     @Override
@@ -166,7 +151,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent add = new Intent(getActivity(), AddPointsContainer.class);
-                        add.putExtra(gameNumber, dtaLVA.getCount()+1);
+                        add.putExtra(Constants.numeroMano, currentGame.getNumeroMani()+1);
                         startActivityForResult(add, SummaryContainer.CODE_FOR_SET);
                     }
 
@@ -183,22 +168,9 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         }
     }
 
-    public Team getTeamA() {
-        return teamA;
-    }
-
-    public void setTeamA(Team teamA) {
-        this.teamA = teamA;
-        teamAText.setText(Utils.formattedString(teamA.getAlias()));
-    }
-
-    public Team getTeamB() {
-        return teamB;
-    }
-
-    public void setTeamB(Team teamB) {
-        this.teamB = teamB;
-        teamBText.setText(Utils.formattedString(teamB.getAlias()));
+    public void updateTeamAlias(String aliasA, String aliasB){
+        teamAText.setText(aliasA);
+        teamBText.setText(aliasB);
     }
 
     @Override
@@ -206,17 +178,17 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         switch (requestCode) {
             case SummaryContainer.CODE_FOR_SET: {
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    Hand manoA = data.getParcelableExtra(SummaryContainer.handA);
-                    Hand manoB = data.getParcelableExtra(SummaryContainer.handB);
-                    teamA.addMano(manoA);
-                    teamB.addMano(manoB);
-                    resultA.setText(String.valueOf(teamA.getTotale()));
-                    resultB.setText(String.valueOf(teamB.getTotale()));
+                    Hand2 manoA = data.getParcelableExtra(Constants.manoA);
+                    Hand2 manoB = data.getParcelableExtra(Constants.manoB);
+                    currentGame.addMano(manoA, manoB);
+                    resultA.setText(String.valueOf(currentGame.getTotalePartita(Utils.ASide)));
+                    resultB.setText(String.valueOf(currentGame.getTotalePartita(Utils.BSide)));
                     dtaLVA.addLastDoubleText(String.valueOf(manoA.getTotaleMano()), manoA.getWon());
                     dtaLVB.addLastDoubleText(String.valueOf(manoB.getTotaleMano()), manoB.getWon());
-                    resultB.setBackgroundResource(R.color.SfondoMedio);
-                    resultA.setBackgroundResource(R.color.SfondoMedio);
-                    dtaLVA.notifyDataSetChanged();
+                    if(currentGame.getNumeroMani()==1) {
+                        resultB.setBackgroundResource(R.color.SfondoMedio);
+                        resultA.setBackgroundResource(R.color.SfondoMedio);
+                    }
                     dtaLVA.notifyDataSetChanged();
                     dtaLVB.notifyDataSetChanged();
                     checkWinner();
@@ -237,13 +209,13 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent add = new Intent(getActivity(), AddPointsContainer.class);
-        add.putExtra(gameNumber, position+1);
-        add.putExtra(SummaryContainer.handA, teamA.getMano(position))
-                .putExtra(SummaryContainer.handB, teamB.getMano(position));
+        add.putExtra(Constants.numeroMano, position+1);
+        add.putExtra(Constants.manoA, currentGame.getMano(position, Utils.ASide) )
+                .putExtra(Constants.manoB, currentGame.getMano(position, Utils.BSide));
         startActivity(add);
     }
 
     public interface OnScoreChanging {
-        public void scoreChanged(int puntiA, int puntiB, boolean won);
+        public void gameEnded(Game current);
     }
 }

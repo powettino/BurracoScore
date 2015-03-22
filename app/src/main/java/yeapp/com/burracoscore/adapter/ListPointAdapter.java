@@ -69,6 +69,8 @@ public class ListPointAdapter extends BaseAdapter {
     }
 
     public void restore(ArrayList<Integer> pointText, ArrayList<Integer> status) {
+        textPoint.clear();
+        textStatus.clear();
         for (int i = 0; i < pointText.size(); i++) {
             textPoint.add(String.valueOf(pointText.get(i)));
             textStatus.add(status.get(i));
