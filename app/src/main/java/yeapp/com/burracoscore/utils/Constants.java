@@ -19,4 +19,7 @@ public class Constants {
     public static final String currentTeamFragment = "teamAttuale";
 
     public static final int margin = 50;
+    public static final String summaryFragment = "summaryFragment";
+    public static final String adapterFragment = "adapterFragment";
+    public static final String fragments = "android:support:fragment";
 }

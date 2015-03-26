@@ -13,7 +13,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Team2;
+import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 import yeapp.com.burracoscore.fragment.TeamSliderFragment;
@@ -27,8 +27,8 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
 
     private TeamSliderFragment fragment = null;
 
-    private Team2 tA;
-    private Team2 tB;
+    private Team tA;
+    private Team tB;
 
     private View goLeft;
     private View goRight;
@@ -192,7 +192,7 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
     }
 
     @Override
-    public void savedTeam(Team2 teamSaved) {
+    public void savedTeam(Team teamSaved) {
         if(teamSaved.getSide() == Utils.ASide){
             tA = teamSaved;
         }else{

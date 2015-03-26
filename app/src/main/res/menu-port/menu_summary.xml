@@ -19,5 +19,12 @@
         android:orderInCategory="3"
         android:title="@string/configurazione"
         android:icon="@drawable/ic_action_group"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/addGame"
+        android:orderInCategory="4"
+        android:title="@string/addPartita"
+        android:visible="false"
+        android:icon="@drawable/ic_action_new"
+        app:showAsAction="ifRoom" />
 </menu>

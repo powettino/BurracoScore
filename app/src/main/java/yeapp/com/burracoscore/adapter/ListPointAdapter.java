@@ -1,6 +1,7 @@
 package yeapp.com.burracoscore.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Pair;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.utils.Constants;
 
 public class ListPointAdapter extends BaseAdapter {
@@ -130,9 +131,9 @@ public class ListPointAdapter extends BaseAdapter {
                     .inflate(R.layout.row_list_result, parent, false);
         }
         Drawable background = context.getResources().getDrawable(R.drawable.shape_image_game);
-        if(textStatus.get(position) == Hand2.WON){
+        if(textStatus.get(position) == Hand.WON){
             background.setColorFilter(context.getResources().getColor(R.color.Verde), PorterDuff.Mode.SRC_IN);
-        }else if (textStatus.get(position) == Hand2.LOST){
+        }else if (textStatus.get(position) == Hand.LOST){
             background.setColorFilter(context.getResources().getColor(R.color.Rosso), PorterDuff.Mode.SRC_IN);
         }else{
             background.setColorFilter(context.getResources().getColor(R.color.Grigio), PorterDuff.Mode.SRC_IN);
@@ -144,11 +145,12 @@ public class ListPointAdapter extends BaseAdapter {
             lp.width = 0;
             lp.rightMargin = Constants.margin;
             lp.gravity = Gravity.RIGHT;
-//            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
             left.setLayoutParams(lp);
-
-            left.setGravity(Gravity.RIGHT);
-            //left.setTypeface(null, Typeface.BOLD);
+            if ( context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                left.setGravity(Gravity.CENTER);
+            else{
+                left.setGravity(Gravity.RIGHT);
+            }
             left.setText(textPoint.get(position));
             TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
             right.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.mediumText));
@@ -157,14 +159,17 @@ public class ListPointAdapter extends BaseAdapter {
         } else {
             TextView right = (TextView) convertView.findViewById(R.id.textRowPointRight);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(right.getLayoutParams());
-//            lp.addRule(RelativeLayout.CENTER_IN_PARENT);
             lp.weight = 1;
             lp.width = 0;
             lp.leftMargin = Constants.margin;
             lp.gravity = Gravity.LEFT;
             right.setLayoutParams(lp);
-            right.setGravity(Gravity.LEFT);
-            //right.setTypeface(null, Typeface.BOLD);
+            right.setGravity(Gravity.CENTER);
+            if ( context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                right.setGravity(Gravity.CENTER);
+            else{
+                right.setGravity(Gravity.LEFT);
+            }
             right.setText(textPoint.get(position));
             TextView left = (TextView) convertView.findViewById(R.id.textRowPointLeft);
             left.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.mediumText));

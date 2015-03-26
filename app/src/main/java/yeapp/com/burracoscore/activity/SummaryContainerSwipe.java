@@ -1,12 +1,12 @@
 package yeapp.com.burracoscore.activity;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -17,14 +17,13 @@ import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
+import yeapp.com.burracoscore.adapter.TabSummaryAdapter;
 import yeapp.com.burracoscore.utils.Constants;
 
-public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
+public class SummaryContainerSwipe extends FragmentActivity implements ViewPager.OnPageChangeListener, Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
 
     public static final int CODE_FOR_CONF = 0;
-    public static final int CODE_FOR_SET = 1;
 
-    private SummaryFragment sum;
     private boolean dialogActive;
     private AlertDialog winnerDialog = null;
 
@@ -35,30 +34,37 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
 
     private BurracoSession sessione;
 
+    private ViewPager viewPager;
+    private TabSummaryAdapter tabAdapter;
+
+    MenuItem add;
+    MenuItem cancGame;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_container);
-        if (savedInstanceState == null) {
-            sessione = new BurracoSession();
-            sum = new SummaryFragment();
-            Bundle b = new Bundle();
-            b.putParcelable(Constants.currentGame, sessione.getCurrentGame());
-            b.putString(Constants.teamAAlias, sessione.getTeamA().getAlias());
-            b.putString(Constants.teamBAlias, sessione.getTeamB().getAlias());
-            sum.setArguments(b);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.add(R.id.fragmentContSum, sum, Constants.summaryFragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-            ft.commit();
-        }
+        tabAdapter = new TabSummaryAdapter(getSupportFragmentManager());
+
+        viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager.setAdapter(tabAdapter);
+        viewPager.setOnPageChangeListener(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu_summary);
         toolbar.setOnMenuItemClickListener(this);
 
+        add = toolbar.getMenu().findItem(R.id.addGame);
+        cancGame = toolbar.getMenu().findItem(R.id.cancellaGame);
+
         punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
         punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
+
+        if (savedInstanceState == null) {
+            sessione = new BurracoSession();
+            setNewGame();
+        }
 
         if (winnerDialog == null) {
             winnerDialog = new AlertDialog.Builder(this).setTitle("VITTORIA!!!")
@@ -67,8 +73,9 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                     .setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    sessione.addNewGame(sessione.getGameTotali());
-                                    sum.resetGames();
+//                                    tabAdapter.disableLastGame();
+                                    sessione.addNewGame(sessione.getGameTotali()+1);
+                                    setNewGame();
                                     dialog.cancel();
                                     dialogActive = false;
                                 }
@@ -76,7 +83,9 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                     .setNegativeButton("No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    sum.setEnableAdd(false);
+//                                    tabAdapter.disableLastGame();
+                                    add.setVisible(true);
+                                    cancGame.setVisible(false);
                                     dialog.cancel();
                                     dialogActive = false;
                                 }
@@ -85,9 +94,22 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
         }
     }
 
+    private void setNewGame(){
+        tabAdapter.addGame(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+        tabAdapter.notifyDataSetChanged();
+//        tabAdapter.retain();
+        viewPager.setCurrentItem(sessione.getGameTotali()-1);
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.addGame:{
+                sessione.addNewGame(sessione.getGameTotali()+1);
+                setNewGame();
+                add.setVisible(false);
+                return true;
+            }
             case R.id.configuraMenuSum: {
                 if (teamSaved) {
                     Intent configurazione = new Intent(this, TeamSliderContainer.class);
@@ -123,13 +145,13 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
             }
             case R.id.cancellaGame: {
                 new AlertDialog.Builder(this)
-                        .setMessage("Vuoi cominciare una nuova partita?")
+                        .setMessage("Vuoi cancellare la partita attuale?")
                         .setCancelable(true)
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         sessione.clearCurrentGame();
-                                        sum.resetGames();
+                                        tabAdapter.clearLastGame();
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
@@ -146,14 +168,20 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
             }
             case R.id.cancellaTutto: {
                 new AlertDialog.Builder(this)
-                        .setMessage("Sei sicuro di voler cancellare le partite non salvate?")
+                        .setMessage("Sei sicuro di voler cancellare tutte le partite?")
                         .setCancelable(true)
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         sessione.clear();
-                                        sum.resetAll();
+                                        tabAdapter.clearAll();
+                                        tabAdapter.notifyDataSetChanged();
+                                        tabAdapter.retain();
+//                                        setNewGame();
+//                                        tabAdapter.enableLastGame();
+//                                        tabAdapter.retain();
                                         teamSaved = false;
+                                        add.setVisible(false);
                                         punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
                                         punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
                                         dialog.cancel();
@@ -180,10 +208,15 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         sessione = savedInstanceState.getParcelable(Constants.gameSession);
+        tabAdapter.restore(getSupportFragmentManager().getFragments(), sessione.getGameTotali());
+        tabAdapter.notifyDataSetChanged();
+
         if (savedInstanceState.getBoolean(Constants.dialogStatus)) {
             dialogActive = true;
             winnerDialog.show();
         }
+        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
     }
 
     @Override
@@ -201,7 +234,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
                     sessione.setTeamA((Team) data.getParcelableExtra(Constants.teamAKey));
                     sessione.setTeamB((Team) data.getParcelableExtra(Constants.teamBKey));
-                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+//                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
                     teamSaved = true;
                 }
                 break;
@@ -221,5 +254,43 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
         punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
         dialogActive = true;
         winnerDialog.show();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if(position != sessione.getGameTotali()-1){
+            if(cancGame.isVisible()){
+                cancGame.setVisible(false);
+//                cancAll.setVisible(false);
+            }
+        }else{
+            if(!cancGame.isVisible()){
+                cancGame.setVisible(true);
+//                cancAll.setVisible(true);
+            }
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+    }
+
+//    private void setMenuVisibility(int position) {
+////        MenuItem cancAll = toolbar.getMenu().findItem(R.id.cancellaTutto);
+//        if(position != sessione.getGameTotali()-1){
+//            if(cancGame.isVisible()){
+//                cancGame.setVisible(false);
+////                cancAll.setVisible(false);
+//            }
+//        }else{
+//            if(!cancGame.isVisible()){
+//                cancGame.setVisible(true);
+////                cancAll.setVisible(true);
+//            }
+//        }
+//    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -13,19 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
         android:textColor="@color/Nero"
         android:textSize="@dimen/intermediateText" />
 
     <TextView
         android:id="@+id/textRowPointRight"
+        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center|right"
-        android:layout_gravity="right"
+        android:gravity="center"
         android:textColor="@color/Nero"
         android:textSize="@dimen/intermediateText" />
-</RelativeLayout>
+</LinearLayout>

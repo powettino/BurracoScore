@@ -13,16 +13,23 @@ public class Game implements Parcelable {
     private int totalePartitaB;
     private int numeroMani;
 
-    private ArrayList<Hand2> maniA = new ArrayList<Hand2>();
-    private ArrayList<Hand2> maniB = new ArrayList<Hand2>();
+    private ArrayList<Hand> maniA = new ArrayList<Hand>();
+    private ArrayList<Hand> maniB = new ArrayList<Hand>();
 
     private char winner;
 
-    public Game() {
+    private int numberOfGame=0;
+
+    public Game(int num) {
         totalePartitaA = 0;
         totalePartitaB = 0;
         numeroMani = 0;
         winner = 0;
+        numberOfGame=num;
+    }
+
+    public int getGameNumber(){
+        return numberOfGame;
     }
 
     public void clear(){
@@ -50,7 +57,7 @@ public class Game implements Parcelable {
         }
     }
 
-    public Hand2 getMano(int position, char side){
+    public Hand getMano(int position, char side){
         if(side==Utils.ASide){
             return maniA.get(position);
         }else{
@@ -95,7 +102,7 @@ public class Game implements Parcelable {
         return status;
     }
 
-    public void addMano(Hand2 manoA, Hand2 manoB) {
+    public void addMano(Hand manoA, Hand manoB) {
         totalePartitaA += manoA.getTotaleMano();
         maniA.add(manoA);
         totalePartitaB += manoB.getTotaleMano();
@@ -109,6 +116,7 @@ public class Game implements Parcelable {
         in.readList(maniA, getClass().getClassLoader());
         in.readList(maniB, getClass().getClassLoader());
         numeroMani = in.readInt();
+        numberOfGame = in.readInt();
     }
 
     @Override
@@ -123,6 +131,7 @@ public class Game implements Parcelable {
         dest.writeList(maniA);
         dest.writeList(maniB);
         dest.writeInt(numeroMani);
+        dest.writeInt(numberOfGame);
     }
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {

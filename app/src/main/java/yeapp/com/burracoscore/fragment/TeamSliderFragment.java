@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import java.io.IOException;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Team2;
+import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 
@@ -31,7 +31,7 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
     private EditText gioc2Text;
     private EditText teamAliasText;
 
-    private Team2 team = null;
+    private Team team = null;
     private ImageView teamPicture = null;
 
     private OnTeamFragmentChanger changer;
@@ -219,6 +219,6 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
 
     public interface OnTeamFragmentChanger {
         public void changedToolbarVisibility(boolean visible, int idRes);
-        public void savedTeam(Team2 teamSaved);
+        public void savedTeam(Team teamSaved);
     }
 }

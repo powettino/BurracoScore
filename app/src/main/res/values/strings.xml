@@ -41,5 +41,6 @@
     <string name="plus">+</string>
     <string name="labelA">A</string>
     <string name="labelB">B</string>
+    <string name="addPartita">Nuova partita</string>
 
 </resources>

@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.fragment.AddPointsFragment;
 import yeapp.com.burracoscore.utils.Constants;
 
@@ -40,7 +40,7 @@ public class AddPointsContainer extends Activity implements AddPointsFragment.On
 
 
     @Override
-    public void OnSaving(Hand2 manoA, Hand2 manoB) {
+    public void OnSaving(Hand manoA, Hand manoB) {
         setResult(RESULT_OK, getIntent()
                 .putExtra(Constants.manoA, manoA)
                 .putExtra(Constants.manoB, manoB));

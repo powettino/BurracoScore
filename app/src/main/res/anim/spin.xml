@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false" >
-    <scale
-        android:duration="@integer/fastest"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:fromXScale="1"
-        android:fromYScale="1"
-        android:toXScale="0.95"
-        android:toYScale="0.95"
-        android:interpolator="@android:interpolator/linear"/>
+    <!--<scale-->
+        <!--android:duration="@integer/fastest"-->
+        <!--android:pivotX="50%"-->
+        <!--android:pivotY="50%"-->
+        <!--android:fromXScale="1"-->
+        <!--android:fromYScale="1"-->
+        <!--android:toXScale="0.95"-->
+        <!--android:toYScale="0.95"-->
+        <!--android:interpolator="@android:interpolator/linear"/>-->
     <rotate
         android:pivotX="50%"
         android:pivotY="50%"
@@ -17,14 +17,14 @@
         android:fromDegrees="0"
         android:toDegrees="360"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
-    <scale
-        android:duration="@integer/fastest"
-        android:startOffset="@integer/fast"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:fromXScale="0.95"
-        android:fromYScale="0.95"
-        android:toXScale="1"
-        android:toYScale="1"
-        android:interpolator="@android:interpolator/linear"/>
+    <!--<scale-->
+        <!--android:duration="@integer/fastest"-->
+        <!--android:startOffset="@integer/fast"-->
+        <!--android:pivotX="50%"-->
+        <!--android:pivotY="50%"-->
+        <!--android:fromXScale="0.95"-->
+        <!--android:fromYScale="0.95"-->
+        <!--android:toXScale="1"-->
+        <!--android:toYScale="1"-->
+        <!--android:interpolator="@android:interpolator/linear"/>-->
 </set>

@@ -1,10 +1,10 @@
 package yeapp.com.burracoscore.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import yeapp.com.burracoscore.activity.AddPointsContainer;
 import yeapp.com.burracoscore.activity.SummaryContainer;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Game;
-import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 
@@ -83,7 +83,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         if(savedInstanceState!=null) {
             addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
             setUIStatus();
-            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
         }
         if( currentGame.getNumeroMani()!=0){
             resultB.setBackgroundResource(R.color.SfondoMedio);
@@ -110,6 +109,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                     currentGame.setWinner(Utils.BSide);
                 }
                 changingCB.gameEnded(currentGame);
+                addButton.setEnabled(false);
             }
         }
     }
@@ -125,17 +125,23 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultB.setText(tempTot == 0 ? "" : String.valueOf(tempTot));
     }
 
-    public void resetGames(Game cleaned) {
-        currentGame = cleaned;
+    public void resetGames() {
+        if(currentGame!=null) {
+            currentGame.clear();
+        }
         setUIStatus();
         resultB.setBackgroundResource(R.color.SfondoOmbre);
         resultA.setBackgroundResource(R.color.SfondoOmbre);
         addButton.setEnabled(true);
     }
 
-    public void resetAll(Game cleaned, String aliasA, String aliasB) {
-        resetGames(cleaned);
-        updateTeamAlias(Utils.formattedString(aliasA),Utils.formattedString(aliasB));
+    public void resetAll() {
+        resetGames();
+        updateTeamAlias(Utils.getDefaultTeamName(Utils.ASide), Utils.getDefaultTeamName(Utils.BSide));
+    }
+
+    public int getRepresentativeGame(){
+        return currentGame.getGameNumber();
     }
 
     @Override
@@ -169,8 +175,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     }
 
     public void updateTeamAlias(String aliasA, String aliasB){
-        teamAText.setText(aliasA);
-        teamBText.setText(aliasB);
+        teamAText.setText(Utils.formattedString(aliasA));
+        teamBText.setText(Utils.formattedString(aliasB));
     }
 
     @Override
@@ -178,8 +184,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         switch (requestCode) {
             case SummaryContainer.CODE_FOR_SET: {
                 if (resultCode == FragmentActivity.RESULT_OK) {
-                    Hand2 manoA = data.getParcelableExtra(Constants.manoA);
-                    Hand2 manoB = data.getParcelableExtra(Constants.manoB);
+                    Hand manoA = data.getParcelableExtra(Constants.manoA);
+                    Hand manoB = data.getParcelableExtra(Constants.manoB);
                     currentGame.addMano(manoA, manoB);
                     resultA.setText(String.valueOf(currentGame.getTotalePartita(Utils.ASide)));
                     resultB.setText(String.valueOf(currentGame.getTotalePartita(Utils.BSide)));

@@ -10,27 +10,27 @@ import yeapp.com.burracoscore.utils.Utils;
 public class BurracoSession implements Parcelable {
 
     private ArrayList<Game> game;
-    private Team2 team_a;
-    private Team2 team_b;
+    private Team team_a;
+    private Team team_b;
     private int numero_vinti_a;
     private int numero_vinti_b;
 
     public BurracoSession(){
         game = new ArrayList<Game>();
-        team_a = new Team2(Utils.ASide);
-        team_b = new Team2(Utils.BSide);
+        team_a = new Team(Utils.ASide);
+        team_b = new Team(Utils.BSide);
         numero_vinti_a = 0;
         numero_vinti_b = 0;
-        addNewGame();
+        addNewGame(game.size()+1);
     }
 
-    public Team2 getTeamA() {
+    public Team getTeamA() {
         return team_a;
     }
 
     public void clear(){
         game.clear();
-        addNewGame();
+        addNewGame(game.size()+1);
         team_a.clean();
         team_b.clean();
         numero_vinti_a = 0;
@@ -49,19 +49,23 @@ public class BurracoSession implements Parcelable {
         }
     }
 
+    public int getGameTotali(){
+        return game.size();
+    }
+
     public void updateLastGame(Game g){
         game.set(game.size()-1, g);
     }
 
-    public void setTeamA(Team2 team_a) {
+    public void setTeamA(Team team_a) {
         this.team_a = team_a;
     }
 
-    public Team2 getTeamB() {
+    public Team getTeamB() {
         return team_b;
     }
 
-    public void setTeamB(Team2 team_b) {
+    public void setTeamB(Team team_b) {
         this.team_b = team_b;
     }
 
@@ -92,8 +96,8 @@ public class BurracoSession implements Parcelable {
         return game.get(game.size()-1);
     }
 
-    public void addNewGame (){
-        game.add(new Game());
+    public void addNewGame (int numberGame){
+        game.add(new Game(numberGame));
     }
 
     public BurracoSession(Parcel in) {

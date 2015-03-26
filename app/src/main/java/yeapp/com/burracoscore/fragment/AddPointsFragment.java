@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.model.Hand2;
+import yeapp.com.burracoscore.core.model.Hand;
 import yeapp.com.burracoscore.utils.Constants;
 
 public class AddPointsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
@@ -50,14 +50,14 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
         carteB = (EditText) view.findViewById(R.id.puntiCarteTextB);
         mazzettoB = (CheckBox) view.findViewById(R.id.checkMazzettoB);
         chiusuraB = (CheckBox) view.findViewById(R.id.checkChiusuraB);
-        Hand2 manoA = getArguments().getParcelable(Constants.manoA);
-        Hand2 manoB = getArguments().getParcelable(Constants.manoB);
+        Hand manoA = getArguments().getParcelable(Constants.manoA);
+        Hand manoB = getArguments().getParcelable(Constants.manoB);
         if(savedInstanceState == null) {
             numeroMano = getArguments().getInt(Constants.numeroMano);
         }else{
             savedInstanceState.getInt(Constants.numeroMano);
         }
-        ((TextView)view.findViewById(R.id.gameNumber)).setText("GAME "+numeroMano);
+        ((TextView)view.findViewById(R.id.gameNumber)).setText("MANO "+numeroMano);
         mazzettoB.setOnCheckedChangeListener(this);
         chiusuraB.setOnCheckedChangeListener(this);
         mazzettoA.setOnCheckedChangeListener(this);
@@ -140,25 +140,25 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.salvaPunti: {
-        Hand2 manoA = new Hand2(
+        Hand manoA = new Hand(
                         !baseA.getText().toString().isEmpty() ? Integer.valueOf(baseA.getText().toString()) : 0,
                         !carteA.getText().toString().isEmpty() ? Integer.valueOf(carteA.getText().toString()) : 0,
                         chiusuraA.isChecked(),
                         mazzettoA.isChecked(),numeroMano);
                 int resA = manoA.getTotaleMano();
-                Hand2 manoB = new Hand2(
+                Hand manoB = new Hand(
                         !baseB.getText().toString().isEmpty() ? Integer.valueOf(baseB.getText().toString()) : 0,
                         !carteB.getText().toString().isEmpty() ? Integer.valueOf(carteB.getText().toString()) : 0,
                         chiusuraB.isChecked(),
                         mazzettoB.isChecked(), numeroMano);
                 int resB = manoB.getTotaleMano();
                 if(resB > resA){
-                    manoB.setWon(Hand2.WON);
-                    manoA.setWon(Hand2.LOST);
+                    manoB.setWon(Hand.WON);
+                    manoA.setWon(Hand.LOST);
                 }else
                 if(resA > resB){
-                    manoA.setWon(Hand2.WON);
-                    manoB.setWon(Hand2.LOST);
+                    manoA.setWon(Hand.WON);
+                    manoB.setWon(Hand.LOST);
                 }
                 cb.OnSaving(manoA, manoB);
                 break;
@@ -170,6 +170,6 @@ public class AddPointsFragment extends Fragment implements CompoundButton.OnChec
     }
 
     public interface OnSavingResult{
-        public void OnSaving(Hand2 manoA, Hand2 manoB);
+        public void OnSaving(Hand manoA, Hand manoB);
     }
 }
