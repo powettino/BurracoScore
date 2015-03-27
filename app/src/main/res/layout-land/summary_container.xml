@@ -28,11 +28,15 @@
             <!--android:layout_weight="1"-->
             <!--android:layout_height="match_parent">-->
         <!--</FrameLayout>-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
         <android.support.v4.view.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <android.support.v4.view.PagerTabStrip
@@ -46,6 +50,39 @@
                 android:paddingBottom="4dp" />
 
         </android.support.v4.view.ViewPager>
+
+            <TextView
+                android:id="@+id/teamASummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/highMargin"
+                android:maxEms="1"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:alpha="0.2"
+                android:saveEnabled="true"
+                android:singleLine="false"
+                android:text="@string/teamAName"
+                android:textColor="@color/Arancio"
+                android:textSize="@dimen/normalText"
+                android:typeface="monospace" />
+            <TextView
+                android:id="@+id/teamBSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="@dimen/highMargin"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:maxEms="1"
+                android:alpha="0.2"
+                android:singleLine="false"
+                android:text="@string/teamBName"
+                android:textColor="@color/Blu"
+                android:textSize="@dimen/normalText"
+                android:typeface="monospace" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/punteggioCont"

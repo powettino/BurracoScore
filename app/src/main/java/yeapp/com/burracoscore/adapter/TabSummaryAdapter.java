@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
+
 import java.util.List;
 
 import yeapp.com.burracoscore.core.model.BurracoSession;
@@ -14,29 +14,20 @@ import yeapp.com.burracoscore.utils.Constants;
 
 public class TabSummaryAdapter extends FragmentStatePagerAdapter {
 
-    private int numberGame=0;
     //    private ArrayList<SummaryFragment> sums = new ArrayList<SummaryFragment>();
-    private  SummaryFragment current;
+    Bundle bun = new Bundle();
+    private int number=0;
     private FragmentManager fm;
-    private boolean cleaning=false;
-
+    private  SummaryFragment last;
 
     public TabSummaryAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
         fm = fragmentManager;
-//        List<Fragment> lf = fragmentManager.getFragments();
-//        if(lf != null && lf.size()>0){
-//            for(Fragment f : lf){
-//                if(f instanceof SummaryFragment){
-//                    sums.put(numberGame, (SummaryFragment)f);
-//                    numberGame++;
-//                }
-//            }
-//        }
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position < numberGame)
+        if(position < number)
             return "Game  " + (position+1);
         else{
             return null;
@@ -45,105 +36,53 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int index) {
-        if(index < numberGame){
-            return current;
-//            return sums.get(index);
+        if(index < number){
+            SummaryFragment sum = new SummaryFragment();
+            if(number-1==index) {
+                sum.setArguments(bun);
+                last=sum;
+            }
+            return sum;
         }else {
             return null;
         }
     }
 
-    public void restore(List<Fragment> lista, int numGames ){
-        for(int i=0;i<lista.size();i++ ) {
-            if (i < numGames) {
-                Fragment f = lista.get(i);
-                if (f instanceof SummaryFragment) {
-                    SummaryFragment s = (SummaryFragment) f;
-                    numberGame++;
-                    current = (SummaryFragment) f;
-                }
-            }
-        }
-    }
-
     public void restore(BurracoSession sessione){
-
-        for(Game g : sessione.getGames()){
-            this.addGame(g, sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
-        }
+        List<Fragment> list = fm.getFragments();
+        last = (SummaryFragment)list.get(list.size()-1);
+        number=sessione.getGameTotali();
+        notifyDataSetChanged();
     }
 
-    public void addGame(Game game, String aliasA, String aliasB){
-        SummaryFragment temp = new SummaryFragment();
-        temp.setArguments(prepareBundle(game, aliasA, aliasB));
-//        sums.put(numberGame, temp);
-        current = temp;
-        numberGame++;
-    }
-
-    private Bundle prepareBundle(Game g, String aA, String aB){
-        Bundle b = new Bundle();
-        b.putParcelable(Constants.currentGame, g);
-        b.putString(Constants.teamAAlias, aA);
-        b.putString(Constants.teamBAlias, aB);
-        return b;
+    public void addGame(Game game){
+        bun.putParcelable(Constants.currentGame, game);
+        number++;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return numberGame;
+        return number;
     }
 
-//    public void disableLastGame() {
-//        sums.get(numberGame-1).setEnableAdd(false);
-//    }
-//
-//    public void enableLastGame() {
-//        sums.get(numberGame-1).setEnableAdd(true);
-//    }
-
     public void clearLastGame(){
-//        sums.get(numberGame-1).resetGames();
-        current.resetGames();
+        last.resetGames();
     }
 
     public void clearAll(){
-        List<Fragment> gg = fm.getFragments();
-//        FragmentTransaction ft = fm.beginTransaction();
-        for(Fragment g : gg){
-            if (g instanceof SummaryFragment){
-                ((SummaryFragment) g).resetAll();
+        for ( Fragment f : fm.getFragments()){
+            if(f instanceof SummaryFragment){
+                ((SummaryFragment) f).setNotRestore();
             }
         }
-//        ft.commit();
-
-//        for(int i=sums.size()-1 ; i >= 0 ;i--) {
-//            super.destroyItem(null, i, sums.get(i));
-//            sums.get(i).resetAll();
-//            sums.remove(i);
-//        }
-//        sums.clear();
-//        current.resetAll();
-        numberGame=1;
-        cleaning= true;
+        number=0;
+        bun.clear();
+        notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemPosition(Object object) {
-        SummaryFragment f = (SummaryFragment)object;
-        if(cleaning) {
-            f.resetAll();
-            return POSITION_NONE;
-        }else{
-            return POSITION_UNCHANGED;
-        }
+    public int getItemPosition(Object object){
+        return POSITION_NONE;
     }
 
-    public void retain(){
-        cleaning = false;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-    }
 }

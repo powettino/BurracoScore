@@ -33,25 +33,63 @@
     <!--android:layout_above="@+id/relativeFinaleSummary"-->
     <!--android:layout_height="match_parent">-->
     <!--</FrameLayout>-->
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/relativeFinaleSummary"
-        android:layout_height="match_parent">
+        android:layout_above="@+id/relativeFinaleSummary">
 
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/pager_title_strip"
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.PagerTabStrip
+                android:id="@+id/pager_title_strip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#33b5e5"
+                android:textColor="#fff"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
+
+        </android.support.v4.view.ViewPager>
+
+        <TextView
+            android:id="@+id/teamASummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="#33b5e5"
-            android:textColor="#fff"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp" />
-
-    </android.support.v4.view.ViewPager>
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/mediumMargin"
+            android:maxEms="1"
+            android:paddingBottom="@dimen/insignificantMargin"
+            android:singleLine="false"
+            android:alpha="0.3"
+            android:text="@string/teamAName"
+            android:textColor="@color/Arancio"
+            android:textSize="@dimen/extraLargeText"
+            android:typeface="monospace" />
+        <TextView
+            android:id="@+id/teamBSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/mediumMargin"
+            android:maxEms="1"
+            android:paddingBottom="@dimen/insignificantMargin"
+            android:alpha="0.3"
+            android:layout_alignParentEnd="true"
+            android:singleLine="false"
+            android:text="@string/teamBName"
+            android:textColor="@color/Blu"
+            android:textSize="@dimen/extraLargeText"
+            android:typeface="monospace" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/relativeFinaleSummary"

@@ -29,6 +29,7 @@ public class ListPointAdapter extends BaseAdapter {
     private ArrayList<Integer> textStatus;
     private int lastPosition = -1;
     private boolean mainTextLeft = true;
+    private boolean animate = true;
 
     public ListPointAdapter(Context context, boolean mainTextLeft) {
         super();
@@ -73,6 +74,7 @@ public class ListPointAdapter extends BaseAdapter {
     public void restore(ArrayList<Integer> pointText, ArrayList<Integer> status) {
         textPoint.clear();
         textStatus.clear();
+        animate = false;
         for (int i = 0; i < pointText.size(); i++) {
             textPoint.add(String.valueOf(pointText.get(i)));
             textStatus.add(status.get(i));
@@ -176,7 +178,7 @@ public class ListPointAdapter extends BaseAdapter {
             left.setBackground(background);
             left.setText("G" + (position + 1));
         }
-        if (lastPosition < position) {
+        if ((lastPosition < position) && animate) {
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.bouncing_down);
             convertView.startAnimation(animation);
         }

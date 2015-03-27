@@ -19,6 +19,7 @@ import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
 import yeapp.com.burracoscore.adapter.TabSummaryAdapter;
 import yeapp.com.burracoscore.utils.Constants;
+import yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryContainerSwipe extends FragmentActivity implements ViewPager.OnPageChangeListener, Toolbar.OnMenuItemClickListener, SummaryFragment.OnScoreChanging {
 
@@ -39,6 +40,9 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
 
     MenuItem add;
     MenuItem cancGame;
+
+    private TextView teamAText;
+    private TextView teamBText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,10 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
         punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
 
+        teamAText = (TextView) findViewById(R.id.teamASummary);
+        teamBText = (TextView) findViewById(R.id.teamBSummary);
+
+        updateTeamAlias(Utils.getDefaultTeamName(Utils.ASide), Utils.getDefaultTeamName(Utils.BSide));
         if (savedInstanceState == null) {
             sessione = new BurracoSession();
             setNewGame();
@@ -73,7 +81,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     .setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-//                                    tabAdapter.disableLastGame();
                                     sessione.addNewGame(sessione.getGameTotali()+1);
                                     setNewGame();
                                     dialog.cancel();
@@ -83,7 +90,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     .setNegativeButton("No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-//                                    tabAdapter.disableLastGame();
                                     add.setVisible(true);
                                     cancGame.setVisible(false);
                                     dialog.cancel();
@@ -94,10 +100,14 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
     }
 
+    public void updateTeamAlias(String aliasA, String aliasB){
+        teamAText.setText(Utils.formattedString(aliasA));
+        teamBText.setText(Utils.formattedString(aliasB));
+    }
+
     private void setNewGame(){
-        tabAdapter.addGame(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
-        tabAdapter.notifyDataSetChanged();
-//        tabAdapter.retain();
+//        tabAdapter.addGame(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+        tabAdapter.addGame(sessione.getCurrentGame());
         viewPager.setCurrentItem(sessione.getGameTotali()-1);
     }
 
@@ -173,13 +183,9 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        sessione.clear();
                                         tabAdapter.clearAll();
-                                        tabAdapter.notifyDataSetChanged();
-                                        tabAdapter.retain();
-//                                        setNewGame();
-//                                        tabAdapter.enableLastGame();
-//                                        tabAdapter.retain();
+                                        sessione.clear();
+                                        setNewGame();
                                         teamSaved = false;
                                         add.setVisible(false);
                                         punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
@@ -208,8 +214,9 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         sessione = savedInstanceState.getParcelable(Constants.gameSession);
-        tabAdapter.restore(getSupportFragmentManager().getFragments(), sessione.getGameTotali());
-        tabAdapter.notifyDataSetChanged();
+        tabAdapter.restore(sessione);
+//        tabAdapter.restore(getSupportFragmentManager().getFragments(), sessione.getGameTotali());
+//        tabAdapter.notifyDataSetChanged();
 
         if (savedInstanceState.getBoolean(Constants.dialogStatus)) {
             dialogActive = true;
@@ -232,9 +239,11 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-                    sessione.setTeamA((Team) data.getParcelableExtra(Constants.teamAKey));
-                    sessione.setTeamB((Team) data.getParcelableExtra(Constants.teamBKey));
-//                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+                    Team a_temp = data.getParcelableExtra(Constants.teamAKey);
+                    Team b_temp =  data.getParcelableExtra(Constants.teamBKey);
+                    sessione.setTeamA(a_temp);
+                    sessione.setTeamB(b_temp);
+                    updateTeamAlias(a_temp.getAlias(), b_temp.getAlias());
                     teamSaved = true;
                 }
                 break;
@@ -256,17 +265,19 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         winnerDialog.show();
     }
 
+    public void gameUpdate(Game current){
+        sessione.updateLastGame(current);
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if(position != sessione.getGameTotali()-1){
             if(cancGame.isVisible()){
                 cancGame.setVisible(false);
-//                cancAll.setVisible(false);
             }
         }else{
-            if(!cancGame.isVisible()){
+            if(!cancGame.isVisible() && sessione.getCurrentGame().getWinner() == 0){
                 cancGame.setVisible(true);
-//                cancAll.setVisible(true);
             }
         }
     }
@@ -274,21 +285,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     @Override
     public void onPageSelected(int position) {
     }
-
-//    private void setMenuVisibility(int position) {
-////        MenuItem cancAll = toolbar.getMenu().findItem(R.id.cancellaTutto);
-//        if(position != sessione.getGameTotali()-1){
-//            if(cancGame.isVisible()){
-//                cancGame.setVisible(false);
-////                cancAll.setVisible(false);
-//            }
-//        }else{
-//            if(!cancGame.isVisible()){
-//                cancGame.setVisible(true);
-////                cancAll.setVisible(true);
-//            }
-//        }
-//    }
 
     @Override
     public void onPageScrollStateChanged(int state) {

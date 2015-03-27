@@ -39,22 +39,22 @@
                     android:layout_centerVertical="true"
                     android:background="@color/SfondoMedio">
 
-                    <TextView
-                        android:id="@+id/teamASummary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:paddingLeft="@dimen/highMargin"
-                        android:maxEms="1"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:alpha="0.2"
-                        android:saveEnabled="true"
-                        android:singleLine="false"
-                        android:text="@string/teamAName"
-                        android:textColor="@color/Arancio"
-                        android:textSize="@dimen/normalText"
-                        android:typeface="monospace" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/teamASummary"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="left"-->
+                        <!--android:paddingLeft="@dimen/highMargin"-->
+                        <!--android:maxEms="1"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:alpha="0.2"-->
+                        <!--android:saveEnabled="true"-->
+                        <!--android:singleLine="false"-->
+                        <!--android:text="@string/teamAName"-->
+                        <!--android:textColor="@color/Arancio"-->
+                        <!--android:textSize="@dimen/normalText"-->
+                        <!--android:typeface="monospace" />-->
                 </RelativeLayout>
                 <ViewStub
                     android:id="@+id/empty2"
@@ -86,20 +86,20 @@
                     android:background="@color/SfondoMedio"
                     android:layout_centerVertical="true">
 
-                    <TextView
-                        android:id="@+id/teamBSummary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:paddingRight="@dimen/highMargin"
-                        android:layout_gravity="center"
-                        android:maxEms="1"
-                        android:alpha="0.2"
-                        android:singleLine="false"
-                        android:text="@string/teamBName"
-                        android:textColor="@color/Blu"
-                        android:textSize="@dimen/normalText"
-                        android:typeface="monospace" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/teamBSummary"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="right"-->
+                        <!--android:paddingRight="@dimen/highMargin"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:maxEms="1"-->
+                        <!--android:alpha="0.2"-->
+                        <!--android:singleLine="false"-->
+                        <!--android:text="@string/teamBName"-->
+                        <!--android:textColor="@color/Blu"-->
+                        <!--android:textSize="@dimen/normalText"-->
+                        <!--android:typeface="monospace" />-->
                 </FrameLayout>
 
                 <ViewStub

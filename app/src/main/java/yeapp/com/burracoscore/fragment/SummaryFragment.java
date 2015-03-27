@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -26,8 +27,8 @@ import yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private TextView teamAText;
-    private TextView teamBText;
+//    private TextView teamAText;
+//    private TextView teamBText;
 
     private Game currentGame;
 
@@ -40,14 +41,20 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     private FloatingActionButton addButton;
 
     private OnScoreChanging changingCB;
+    private boolean restoring = false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState==null){
+        if (getArguments() != null) {
             currentGame = getArguments().getParcelable(Constants.currentGame);
-        }else{
-            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+        }
+        if(savedInstanceState != null){
+            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
+            if(restoring) {
+                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+            }
         }
     }
 
@@ -62,8 +69,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.summary, container, false);
-        teamAText = (TextView) view.findViewById(R.id.teamASummary);
-        teamBText = (TextView) view.findViewById(R.id.teamBSummary);
         ListView listA = (ListView) view.findViewById(R.id.listPointTeamA);
         ListView listB = (ListView) view.findViewById(R.id.listPointTeamB);
         listA.setAdapter(dtaLVA);
@@ -78,16 +83,16 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
-        teamAText.setText(Utils.formattedString(getArguments().getString(Constants.teamAAlias)));
-        teamBText.setText(Utils.formattedString(getArguments().getString(Constants.teamBAlias)));
-        if(savedInstanceState!=null) {
+
+        if(savedInstanceState != null && restoring) {
             addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
             setUIStatus();
+            if (currentGame.getNumeroMani() != 0) {
+                resultB.setBackgroundResource(R.color.SfondoMedio);
+                resultA.setBackgroundResource(R.color.SfondoMedio);
+            }
         }
-        if( currentGame.getNumeroMani()!=0){
-            resultB.setBackgroundResource(R.color.SfondoMedio);
-            resultA.setBackgroundResource(R.color.SfondoMedio);
-        }
+        restoring=true;
         return view;
     }
 
@@ -96,6 +101,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         super.onSaveInstanceState(outState);
         outState.putParcelable(Constants.currentGame, currentGame);
         outState.putBoolean(Constants.addManoButtonStatus, addButton.isEnabled());
+        outState.putBoolean(Constants.restoreFragment, restoring);
+//            changingCB.gameUpdate(currentGame);
     }
 
     private void checkWinner() {
@@ -135,15 +142,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         addButton.setEnabled(true);
     }
 
-    public void resetAll() {
-        resetGames();
-        updateTeamAlias(Utils.getDefaultTeamName(Utils.ASide), Utils.getDefaultTeamName(Utils.BSide));
-    }
-
-    public int getRepresentativeGame(){
-        return currentGame.getGameNumber();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -172,11 +170,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 break;
             }
         }
-    }
-
-    public void updateTeamAlias(String aliasA, String aliasB){
-        teamAText.setText(Utils.formattedString(aliasA));
-        teamBText.setText(Utils.formattedString(aliasB));
     }
 
     @Override
@@ -221,7 +214,12 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         startActivity(add);
     }
 
+    public void setNotRestore() {
+        restoring = false;
+    }
+
     public interface OnScoreChanging {
         public void gameEnded(Game current);
+        public void gameUpdate(Game current);
     }
 }

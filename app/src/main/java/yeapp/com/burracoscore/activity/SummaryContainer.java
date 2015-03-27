@@ -48,7 +48,6 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
             b.putString(Constants.teamBAlias, sessione.getTeamB().getAlias());
             sum.setArguments(b);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.add(R.id.fragmentContSum, sum, Constants.summaryFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
         }
@@ -152,7 +151,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         sessione.clear();
-                                        sum.resetAll();
+                                        sum.resetGames();
                                         teamSaved = false;
                                         punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
                                         punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
@@ -201,7 +200,7 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                     Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
                     sessione.setTeamA((Team) data.getParcelableExtra(Constants.teamAKey));
                     sessione.setTeamB((Team) data.getParcelableExtra(Constants.teamBKey));
-                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+//                    sum.updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
                     teamSaved = true;
                 }
                 break;
@@ -221,5 +220,10 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
         punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
         dialogActive = true;
         winnerDialog.show();
+    }
+
+    @Override
+    public void gameUpdate(Game current) {
+
     }
 }
