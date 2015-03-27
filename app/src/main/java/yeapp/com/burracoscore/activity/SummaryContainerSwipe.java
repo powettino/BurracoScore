@@ -214,7 +214,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         sessione = savedInstanceState.getParcelable(Constants.gameSession);
-        tabAdapter.restore(sessione);
+        tabAdapter.restore(sessione.getGameTotali());
+        viewPager.setCurrentItem(sessione.getGameTotali()-1);
 //        tabAdapter.restore(getSupportFragmentManager().getFragments(), sessione.getGameTotali());
 //        tabAdapter.notifyDataSetChanged();
 

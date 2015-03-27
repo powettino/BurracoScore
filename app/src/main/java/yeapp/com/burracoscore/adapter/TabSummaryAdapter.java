@@ -14,7 +14,6 @@ import yeapp.com.burracoscore.utils.Constants;
 
 public class TabSummaryAdapter extends FragmentStatePagerAdapter {
 
-    //    private ArrayList<SummaryFragment> sums = new ArrayList<SummaryFragment>();
     Bundle bun = new Bundle();
     private int number=0;
     private FragmentManager fm;
@@ -48,10 +47,10 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public void restore(BurracoSession sessione){
+    public void restore(int numberGame){
         List<Fragment> list = fm.getFragments();
         last = (SummaryFragment)list.get(list.size()-1);
-        number=sessione.getGameTotali();
+        number=numberGame;
         notifyDataSetChanged();
     }
 
