@@ -15,7 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.melnykov.fab.FloatingActionButton;
+
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.AddPointsContainer;
 import yeapp.com.burracoscore.activity.SummaryContainer;
@@ -47,21 +49,26 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+//        if (getArguments() != null) {
+//            currentGame = getArguments().getParcelable(Constants.currentGame);
+//        }
+//        if(savedInstanceState != null){
+//            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
+//            if(restoring) {
+//                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+//            }
+//        }
+        if (savedInstanceState != null) {
+            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+        } else {
             currentGame = getArguments().getParcelable(Constants.currentGame);
-        }
-        if(savedInstanceState != null){
-            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
-            if(restoring) {
-                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
-            }
         }
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        changingCB = (OnScoreChanging)activity;
+        changingCB = (OnScoreChanging) activity;
         dtaLVA = new ListPointAdapter(activity, true);
         dtaLVB = new ListPointAdapter(activity, false);
     }
@@ -84,7 +91,15 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
 
-        if(savedInstanceState != null && restoring) {
+//        if(savedInstanceState != null && restoring) {
+//            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+//            setUIStatus();
+//            if (currentGame.getNumeroMani() != 0) {
+//                resultB.setBackgroundResource(R.color.SfondoMedio);
+//                resultA.setBackgroundResource(R.color.SfondoMedio);
+//            }
+//        }
+        if (savedInstanceState != null) {
             addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
             setUIStatus();
             if (currentGame.getNumeroMani() != 0) {
@@ -92,7 +107,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 resultA.setBackgroundResource(R.color.SfondoMedio);
             }
         }
-        restoring=true;
+        restoring = true;
         return view;
     }
 
@@ -121,7 +136,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         }
     }
 
-    private void setUIStatus(){
+    private void setUIStatus() {
         dtaLVA.restore(currentGame.getPuntiMani(Utils.ASide), currentGame.getStatusMani(Utils.ASide));
         dtaLVB.restore(currentGame.getPuntiMani(Utils.BSide), currentGame.getStatusMani(Utils.BSide));
         dtaLVA.notifyDataSetChanged();
@@ -133,7 +148,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     }
 
     public void resetGames() {
-        if(currentGame!=null) {
+        if (currentGame != null) {
             currentGame.clear();
         }
         setUIStatus();
@@ -155,7 +170,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent add = new Intent(getActivity(), AddPointsContainer.class);
-                        add.putExtra(Constants.numeroMano, currentGame.getNumeroMani()+1);
+                        add.putExtra(Constants.numeroMano, currentGame.getNumeroMani() + 1);
                         startActivityForResult(add, SummaryContainer.CODE_FOR_SET);
                     }
 
@@ -184,7 +199,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                     resultB.setText(String.valueOf(currentGame.getTotalePartita(Utils.BSide)));
                     dtaLVA.addLastDoubleText(String.valueOf(manoA.getTotaleMano()), manoA.getWon());
                     dtaLVB.addLastDoubleText(String.valueOf(manoB.getTotaleMano()), manoB.getWon());
-                    if(currentGame.getNumeroMani()==1) {
+                    if (currentGame.getNumeroMani() == 1) {
                         resultB.setBackgroundResource(R.color.SfondoMedio);
                         resultA.setBackgroundResource(R.color.SfondoMedio);
                     }
@@ -201,15 +216,15 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         }
     }
 
-    public void setEnableAdd(boolean enable){
+    public void setEnableAdd(boolean enable) {
         addButton.setEnabled(enable);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent add = new Intent(getActivity(), AddPointsContainer.class);
-        add.putExtra(Constants.numeroMano, position+1);
-        add.putExtra(Constants.manoA, currentGame.getMano(position, Utils.ASide) )
+        add.putExtra(Constants.numeroMano, position + 1);
+        add.putExtra(Constants.manoA, currentGame.getMano(position, Utils.ASide))
                 .putExtra(Constants.manoB, currentGame.getMano(position, Utils.BSide));
         startActivity(add);
     }
@@ -220,6 +235,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public interface OnScoreChanging {
         public void gameEnded(Game current);
+
         public void gameUpdate(Game current);
     }
 }

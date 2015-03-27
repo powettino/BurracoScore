@@ -70,11 +70,11 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
     }
 
     public void clearAll(){
-        for ( Fragment f : fm.getFragments()){
-            if(f instanceof SummaryFragment){
-                ((SummaryFragment) f).setNotRestore();
-            }
-        }
+//        for ( Fragment f : fm.getFragments()){
+//            if(f instanceof SummaryFragment){
+//                ((SummaryFragment) f).setNotRestore();
+//            }
+//        }
         number=0;
         bun.clear();
         notifyDataSetChanged();
