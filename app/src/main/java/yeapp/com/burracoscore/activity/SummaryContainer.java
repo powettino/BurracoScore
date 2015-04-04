@@ -143,32 +143,32 @@ public class SummaryContainer extends FragmentActivity implements Toolbar.OnMenu
                         .create().show();
                 return true;
             }
-            case R.id.cancellaTutto: {
-                new AlertDialog.Builder(this)
-                        .setMessage("Sei sicuro di voler cancellare le partite non salvate?")
-                        .setCancelable(true)
-                        .setPositiveButton("Si",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        sessione.clear();
-                                        sum.resetGames();
-                                        teamSaved = false;
-                                        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-                                        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
-                                        dialog.cancel();
-                                        dialogActive = false;
-                                    }
-                                })
-                        .setNegativeButton("No",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                        dialogActive = false;
-                                    }
-                                })
-                        .create().show();
-                return true;
-            }
+//            case R.id.cancellaTutto: {
+//                new AlertDialog.Builder(this)
+//                        .setMessage("Sei sicuro di voler cancellare le partite non salvate?")
+//                        .setCancelable(true)
+//                        .setPositiveButton("Si",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        sessione.clear();
+//                                        sum.resetGames();
+//                                        teamSaved = false;
+//                                        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+//                                        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+//                                        dialog.cancel();
+//                                        dialogActive = false;
+//                                    }
+//                                })
+//                        .setNegativeButton("No",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        dialog.cancel();
+//                                        dialogActive = false;
+//                                    }
+//                                })
+//                        .create().show();
+//                return true;
+//            }
             default: {
                 return true;
             }

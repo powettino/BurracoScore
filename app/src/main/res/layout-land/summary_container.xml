@@ -19,7 +19,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="horizontal"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:baselineAligned="false">
 
         <!--<FrameLayout-->
@@ -97,14 +98,15 @@
             <TextView
                 android:id="@+id/punteggioASummary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:paddingLeft="@dimen/mediumMargin"
                 android:paddingRight="@dimen/mediumMargin"
                 android:gravity="center"
                 android:text="@string/zeroValue"
                 android:textColor="@color/Arancio"
-                android:textSize="@dimen/enormousText"
+                android:textSize="@dimen/extraBigText"
                 android:typeface="monospace" />
 
             <ImageView
@@ -119,14 +121,42 @@
             <TextView
                 android:id="@+id/punteggioBSummary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/zeroValue"
                 android:textColor="@color/Blu"
-                android:textSize="@dimen/enormousText"
+                android:textSize="@dimen/extraBigText"
                 android:typeface="monospace" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/SfondoToolbar"
+        android:minHeight="@dimen/largeText"
+        android:title="@string/app_name"
+        android:elevation="8dp"
+        android:titleTextAppearance="@style/ToolbarTitle">
+        <ImageButton
+            android:id="@+id/saveGame"
+            android:layout_width="0dp"
+            android:src="@drawable/ic_action_save"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+        <ImageButton
+            android:id="@+id/cancSession"
+            android:layout_width="0dp"
+            android:src="@drawable/ic_action_discard"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
 </LinearLayout>

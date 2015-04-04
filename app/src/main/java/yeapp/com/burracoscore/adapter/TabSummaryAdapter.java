@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
 import yeapp.com.burracoscore.utils.Constants;
@@ -70,11 +69,11 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
     }
 
     public void clearAll(){
-//        for ( Fragment f : fm.getFragments()){
-//            if(f instanceof SummaryFragment){
-//                ((SummaryFragment) f).setNotRestore();
-//            }
-//        }
+        for ( Fragment f : fm.getFragments()){
+            if(f instanceof SummaryFragment){
+                ((SummaryFragment) f).setNotRestore();
+            }
+        }
         number=0;
         bun.clear();
         notifyDataSetChanged();

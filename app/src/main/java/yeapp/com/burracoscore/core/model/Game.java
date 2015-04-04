@@ -16,7 +16,7 @@ public class Game implements Parcelable {
     private ArrayList<Hand> maniA = new ArrayList<Hand>();
     private ArrayList<Hand> maniB = new ArrayList<Hand>();
 
-    private char winner;
+    private char winner = 0;
 
     private int numberOfGame=0;
 

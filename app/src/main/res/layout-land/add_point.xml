@@ -120,7 +120,7 @@
                     android:ems="4"
                     android:gravity="center"
                     android:inputType="number|numberSigned"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />
@@ -144,7 +144,7 @@
                     style="@android:style/Widget.EditText"
                     android:gravity="center"
                     android:inputType="number|numberSigned"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:text="@string/zeroValue"
                     android:textSize="@dimen/smallText"
                     android:typeface="monospace" />

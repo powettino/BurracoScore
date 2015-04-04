@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -29,9 +28,6 @@ import yeapp.com.burracoscore.utils.Utils;
 
 public class SummaryFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-//    private TextView teamAText;
-//    private TextView teamBText;
-
     private Game currentGame;
 
     private ListPointAdapter dtaLVA = null;
@@ -49,20 +45,20 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            currentGame = getArguments().getParcelable(Constants.currentGame);
-//        }
-//        if(savedInstanceState != null){
-//            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
-//            if(restoring) {
-//                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
-//            }
-//        }
-        if (savedInstanceState != null) {
-            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
-        } else {
+        if (getArguments() != null) {
             currentGame = getArguments().getParcelable(Constants.currentGame);
         }
+        if(savedInstanceState != null){
+            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
+            if(restoring) {
+                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+            }
+        }
+//        if (savedInstanceState != null) {
+//            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+//        } else {
+//            currentGame = getArguments().getParcelable(Constants.currentGame);
+//        }
     }
 
     @Override
@@ -91,15 +87,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
 
-//        if(savedInstanceState != null && restoring) {
-//            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
-//            setUIStatus();
-//            if (currentGame.getNumeroMani() != 0) {
-//                resultB.setBackgroundResource(R.color.SfondoMedio);
-//                resultA.setBackgroundResource(R.color.SfondoMedio);
-//            }
-//        }
-        if (savedInstanceState != null) {
+        if(savedInstanceState != null && restoring) {
             addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
             setUIStatus();
             if (currentGame.getNumeroMani() != 0) {
@@ -107,6 +95,14 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 resultA.setBackgroundResource(R.color.SfondoMedio);
             }
         }
+//        if (savedInstanceState != null) {
+//            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+//            setUIStatus();
+//            if (currentGame.getNumeroMani() != 0) {
+//                resultB.setBackgroundResource(R.color.SfondoMedio);
+//                resultA.setBackgroundResource(R.color.SfondoMedio);
+//            }
+//        }
         restoring = true;
         return view;
     }
@@ -133,6 +129,8 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 changingCB.gameEnded(currentGame);
                 addButton.setEnabled(false);
             }
+        }else{
+            changingCB.gameUpdate(currentGame);
         }
     }
 
@@ -235,7 +233,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
 
     public interface OnScoreChanging {
         public void gameEnded(Game current);
-
         public void gameUpdate(Game current);
     }
 }
