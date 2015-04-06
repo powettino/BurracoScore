@@ -1,25 +1,20 @@
 package yeapp.com.burracoscore.activity;
 
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.database.BurracoDBHelper;
 import yeapp.com.burracoscore.core.database.columns.HelperConstants;
-import yeapp.com.burracoscore.core.database.columns.TeamColumns;
 import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.core.model.Team;
@@ -72,7 +67,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         cancGame = toolbar.getMenu().findItem(R.id.cancellaGame);
 
         findViewById(R.id.cancSession).setOnClickListener(this);
-        findViewById(R.id.saveGame).setOnClickListener(this);
+        findViewById(R.id.confTeam).setOnClickListener(this);
+//        findViewById(R.id.saveGame).setOnClickListener(this);
 
         punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
         punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
@@ -120,7 +116,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     private void setNewGame(){
 //        tabAdapter.addGame(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
         tabAdapter.addGame(sessione.getCurrentGame());
-        viewPager.setCurrentItem(sessione.getGameTotali()-1);
+        viewPager.setCurrentItem(sessione.getGameTotali() - 1);
     }
 
     @Override
@@ -132,39 +128,39 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                 add.setVisible(false);
                 return true;
             }
-            case R.id.configuraMenuSum: {
-                if (teamSaved) {
-                    Intent configurazione = new Intent(this, TeamSliderContainer.class);
-                    configurazione.putExtra(Constants.numberOfPlayer, sessione.getTeamA().getNumberPlayer())
-                            .putExtra(Constants.teamAKey, sessione.getTeamA())
-                            .putExtra(Constants.teamBKey, sessione.getTeamB());
-                    startActivityForResult(configurazione, CODE_FOR_CONF);
-                } else {
-                    new AlertDialog.Builder(this)
-                            .setTitle("Tipo di partita")
-                            .setCancelable(true)
-                            .setItems(new CharSequence[]
-                                            {"1 vs 1", "2 vs 2"},
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            Intent configurazione = new Intent(getBaseContext(), TeamSliderContainer.class);
-                                            switch (id) {
-                                                case 0:
-                                                    configurazione.putExtra(Constants.numberOfPlayer, 1);
-                                                    break;
-                                                case 1:
-                                                    configurazione.putExtra(Constants.numberOfPlayer, 2);
-                                                    break;
-                                            }
-                                            configurazione.putExtra(Constants.teamAKey, sessione.getTeamA())
-                                                    .putExtra(Constants.teamBKey, sessione.getTeamB());
-                                            startActivityForResult(configurazione, CODE_FOR_CONF);
-                                        }
-                                    })
-                            .create().show();
-                }
-                return true;
-            }
+//            case R.id.configuraMenuSum: {
+//                if (teamSaved) {
+//                    Intent configurazione = new Intent(this, TeamSliderContainer.class);
+//                    configurazione.putExtra(Constants.numberOfPlayer, sessione.getTeamA().getNumberPlayer())
+//                            .putExtra(Constants.teamAKey, sessione.getTeamA())
+//                            .putExtra(Constants.teamBKey, sessione.getTeamB());
+//                    startActivityForResult(configurazione, CODE_FOR_CONF);
+//                } else {
+//                    new AlertDialog.Builder(this)
+//                            .setTitle("Tipo di partita")
+//                            .setCancelable(true)
+//                            .setItems(new CharSequence[]
+//                                            {"1 vs 1", "2 vs 2"},
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            Intent configurazione = new Intent(getBaseContext(), TeamSliderContainer.class);
+//                                            switch (id) {
+//                                                case 0:
+//                                                    configurazione.putExtra(Constants.numberOfPlayer, 1);
+//                                                    break;
+//                                                case 1:
+//                                                    configurazione.putExtra(Constants.numberOfPlayer, 2);
+//                                                    break;
+//                                            }
+//                                            configurazione.putExtra(Constants.teamAKey, sessione.getTeamA())
+//                                                    .putExtra(Constants.teamBKey, sessione.getTeamB());
+//                                            startActivityForResult(configurazione, CODE_FOR_CONF);
+//                                        }
+//                                    })
+//                            .create().show();
+//                }
+//                return true;
+//            }
             case R.id.cancellaGame: {
                 new AlertDialog.Builder(this)
                         .setMessage("Vuoi cancellare la partita attuale?")
@@ -233,6 +229,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
             dialogActive = true;
             winnerDialog.show();
         }
+        add.setVisible(savedInstanceState.getBoolean(Constants.addButtonStatus));
+        cancGame.setVisible(savedInstanceState.getBoolean(Constants.resetGameButtonStatus));
         punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
         punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
     }
@@ -241,6 +239,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(Constants.gameSession, sessione);
+        outState.putBoolean(Constants.addButtonStatus, add.isVisible());
+        outState.putBoolean(Constants.resetGameButtonStatus, cancGame.isVisible());
         outState.putBoolean(Constants.dialogStatus, dialogActive);
     }
 
@@ -304,18 +304,51 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.saveGame:{
-                Toast.makeText(this, "Saving session...", Toast.LENGTH_LONG).show();
-                BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
-                SQLiteDatabase sloh = bdh.getWritableDatabase();
-                ContentValues cvA = Utils.getTeamContentValues(sessione.getTeamA());
-
-                sloh.beginTransaction();
-                sloh.insert(TeamColumns.TABLE_NAME, null, cvA);
-                sloh.setTransactionSuccessful();
-                sloh.endTransaction();
-                Log.d(HelperConstants.DBTag, "aggiunto");
-                break;
+//            case R.id.saveGame:{
+//                Toast.makeText(this, "Saving session...", Toast.LENGTH_LONG).show();
+//                BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+//                SQLiteDatabase sloh = bdh.getWritableDatabase();
+//                ContentValues cvA = Utils.getTeamContentValues(sessione.getTeamA());
+//
+//                sloh.beginTransaction();
+//                sloh.insert(TeamColumns.TABLE_NAME, null, cvA);
+//                sloh.setTransactionSuccessful();
+//                sloh.endTransaction();
+//                Log.d(HelperConstants.DBTag, "aggiunto");
+//                break;
+//            }
+            case R.id.confTeam:{
+                if (teamSaved) {
+                    Intent configurazione = new Intent(this, TeamSliderContainer.class);
+                    configurazione.putExtra(Constants.numberOfPlayer, sessione.getTeamA().getNumberPlayer())
+                            .putExtra(Constants.teamAKey, sessione.getTeamA())
+                            .putExtra(Constants.teamBKey, sessione.getTeamB());
+                    startActivityForResult(configurazione, CODE_FOR_CONF);
+                } else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Tipo di partita")
+                            .setCancelable(true)
+                            .setItems(new CharSequence[]
+                                            {"1 vs 1", "2 vs 2"},
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent configurazione = new Intent(getBaseContext(), TeamSliderContainer.class);
+                                            switch (id) {
+                                                case 0:
+                                                    configurazione.putExtra(Constants.numberOfPlayer, 1);
+                                                    break;
+                                                case 1:
+                                                    configurazione.putExtra(Constants.numberOfPlayer, 2);
+                                                    break;
+                                            }
+                                            configurazione.putExtra(Constants.teamAKey, sessione.getTeamA())
+                                                    .putExtra(Constants.teamBKey, sessione.getTeamB());
+                                            startActivityForResult(configurazione, CODE_FOR_CONF);
+                                        }
+                                    })
+                            .create().show();
+                }
+               break;
             }
             case R.id.cancSession:{
                 new AlertDialog.Builder(this)

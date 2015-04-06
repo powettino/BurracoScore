@@ -22,8 +22,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/relativeFinaleSummary">
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -43,31 +42,30 @@
         <TextView
             android:id="@+id/teamASummary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_centerVertical="true"
-            android:paddingLeft="@dimen/mediumMargin"
-            android:maxEms="1"
-            android:paddingBottom="@dimen/insignificantMargin"
+            android:layout_marginTop="@dimen/highMargin"
+            android:paddingLeft="@dimen/lowMargin"
+            android:maxEms="2"
             android:singleLine="false"
             android:alpha="0.3"
-            android:text="@string/teamAName"
+            tools:text="Team A"
             android:textColor="@color/Arancio"
             android:textSize="@dimen/extraLargeText"
             android:typeface="monospace" />
+
         <TextView
             android:id="@+id/teamBSummary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_centerVertical="true"
-            android:paddingRight="@dimen/mediumMargin"
-            android:maxEms="1"
-            android:paddingBottom="@dimen/insignificantMargin"
+            android:layout_marginTop="@dimen/highMargin"
+            android:paddingRight="@dimen/lowMargin"
+            android:maxEms="2"
             android:alpha="0.3"
             android:layout_alignParentEnd="true"
             android:singleLine="false"
-            android:text="@string/teamBName"
+            tools:text="Team B"
             android:textColor="@color/Blu"
             android:textSize="@dimen/extraLargeText"
             android:typeface="monospace" />
@@ -113,6 +111,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,15 +158,17 @@
         android:title="@string/app_name"
         android:elevation="8dp"
         android:titleTextAppearance="@style/ToolbarTitle">
+
         <ImageButton
-            android:id="@+id/saveGame"
+            android:id="@+id/confTeam"
             android:layout_width="0dp"
-            android:src="@drawable/ic_action_save"
+            android:src="@drawable/ic_action_group"
             android:layout_height="match_parent"
             android:padding="0dp"
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:background="@android:color/transparent" />
+
         <ImageButton
             android:id="@+id/cancSession"
             android:layout_width="0dp"

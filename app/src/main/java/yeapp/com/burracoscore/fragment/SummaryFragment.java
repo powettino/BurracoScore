@@ -19,7 +19,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.activity.AddPointsContainer;
-import yeapp.com.burracoscore.activity.SummaryContainer;
+import yeapp.com.burracoscore.activity.SummaryContainerSwipe;
 import yeapp.com.burracoscore.adapter.ListPointAdapter;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.core.model.Hand;
@@ -96,7 +96,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
             }
         }
 //        if (savedInstanceState != null) {
-//            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+//            addButtonStatus.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
 //            setUIStatus();
 //            if (currentGame.getNumeroMani() != 0) {
 //                resultB.setBackgroundResource(R.color.SfondoMedio);
@@ -169,7 +169,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                     public void onAnimationEnd(Animation animation) {
                         Intent add = new Intent(getActivity(), AddPointsContainer.class);
                         add.putExtra(Constants.numeroMano, currentGame.getNumeroMani() + 1);
-                        startActivityForResult(add, SummaryContainer.CODE_FOR_SET);
+                        startActivityForResult(add, SummaryContainerSwipe.CODE_FOR_CONF);
                     }
 
                     @Override
@@ -188,7 +188,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case SummaryContainer.CODE_FOR_SET: {
+            case SummaryContainerSwipe.CODE_FOR_CONF: {
                 if (resultCode == FragmentActivity.RESULT_OK) {
                     Hand manoA = data.getParcelableExtra(Constants.manoA);
                     Hand manoB = data.getParcelableExtra(Constants.manoB);
@@ -212,10 +212,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 break;
             }
         }
-    }
-
-    public void setEnableAdd(boolean enable) {
-        addButton.setEnabled(enable);
     }
 
     @Override

@@ -14,12 +14,12 @@
         <!--android:orderInCategory="2"-->
         <!--android:title="@string/reset"-->
         <!--app:showAsAction="always" />-->
-    <item
-        android:id="@+id/configuraMenuSum"
-        android:orderInCategory="3"
-        android:title="@string/configurazione"
-        android:icon="@drawable/ic_action_group"
-        app:showAsAction="ifRoom" />
+    <!--<item-->
+        <!--android:id="@+id/configuraMenuSum"-->
+        <!--android:orderInCategory="3"-->
+        <!--android:title="@string/configurazione"-->
+        <!--android:icon="@drawable/ic_action_group"-->
+        <!--app:showAsAction="ifRoom" />-->
     <item
         android:id="@+id/addGame"
         android:orderInCategory="4"

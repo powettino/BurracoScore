@@ -24,62 +24,61 @@
         android:baselineAligned="false">
 
         <!--<FrameLayout-->
-            <!--android:id="@+id/fragmentContSum"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="match_parent">-->
+        <!--android:id="@+id/fragmentContSum"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="match_parent">-->
         <!--</FrameLayout>-->
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <android.support.v4.view.PagerTabStrip
-                android:id="@+id/pager_title_strip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="#33b5e5"
-                android:textColor="#fff"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp" />
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/pager_title_strip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="#33b5e5"
+                    android:textColor="#fff"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp" />
 
-        </android.support.v4.view.ViewPager>
+            </android.support.v4.view.ViewPager>
 
             <TextView
                 android:id="@+id/teamASummary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:paddingLeft="@dimen/highMargin"
-                android:maxEms="1"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:alpha="0.2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/mediumMargin"
+                android:layout_marginTop="@dimen/highMargin"
                 android:saveEnabled="true"
+                android:alpha="0.3"
+                android:maxEms="2"
                 android:singleLine="false"
-                android:text="@string/teamAName"
+                tools:text="Team A"
                 android:textColor="@color/Arancio"
                 android:textSize="@dimen/normalText"
                 android:typeface="monospace" />
+
             <TextView
                 android:id="@+id/teamBSummary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:paddingRight="@dimen/highMargin"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:maxEms="1"
-                android:alpha="0.2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="@dimen/mediumMargin"
+                android:layout_marginTop="@dimen/highMargin"
+                android:alpha="0.3"
+                android:maxEms="2"
                 android:singleLine="false"
-                android:text="@string/teamBName"
+                tools:text="Team B"
                 android:textColor="@color/Blu"
                 android:textSize="@dimen/normalText"
                 android:typeface="monospace" />
@@ -143,13 +142,15 @@
         android:title="@string/app_name"
         android:elevation="8dp"
         android:titleTextAppearance="@style/ToolbarTitle">
+
         <ImageButton
-            android:id="@+id/saveGame"
+            android:id="@+id/confTeam"
             android:layout_width="0dp"
-            android:src="@drawable/ic_action_save"
+            android:src="@drawable/ic_action_group"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent" />
+
         <ImageButton
             android:id="@+id/cancSession"
             android:layout_width="0dp"

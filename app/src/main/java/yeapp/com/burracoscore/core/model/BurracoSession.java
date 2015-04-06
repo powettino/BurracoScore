@@ -96,7 +96,7 @@ public class BurracoSession implements Parcelable {
         return game.get(game.size()-1);
     }
 
-    public void addNewGame (int numberGame){
+    public void                                                                                                                                                 addNewGame (int numberGame){
         game.add(new Game(numberGame));
     }
 
