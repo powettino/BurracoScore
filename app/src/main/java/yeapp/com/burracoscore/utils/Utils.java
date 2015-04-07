@@ -80,6 +80,7 @@ public class Utils {
         cv.put(TeamColumns.PLAYER1, t.getPlayer1());
         cv.put(TeamColumns.PLAYER2, t.getPlayer2());
         cv.put(TeamColumns.FOTO, t.getImagePath());
+        cv.put(TeamColumns.TEAM_ID, t.getId());
         return cv;
     }
 
@@ -91,16 +92,18 @@ public class Utils {
         cv.put(GameColumns.TOTALE_B, g.getTotalePartita(Utils.BSide));
         cv.put(GameColumns.VINCITORE, String.valueOf(g.getWinner()));
         cv.put(GameColumns.SESSION, idSessione);
+        cv.put(GameColumns.GAME_ID, g.getId());
         return cv;
     }
 
-    public static ContentValues getSessionContentValues(BurracoSession bs, int idTeamA, int idTeamB){
+    public static ContentValues getSessionContentValues(BurracoSession bs){
         ContentValues cv = new ContentValues();
         cv.put(SessionColumns.NUMERO_GAME_A, bs.getNumeroVintiA());
         cv.put(SessionColumns.NUMERO_GAME_B, bs.getNumeroVintiB());
         cv.put(SessionColumns.TIMESTAMP, System.currentTimeMillis());
-        cv.put(SessionColumns.TEAM_A, idTeamA);
-        cv.put(SessionColumns.TEAM_B, idTeamB);
+        cv.put(SessionColumns.TEAM_A, bs.getTeamA().getId());
+        cv.put(SessionColumns.TEAM_B, bs.getTeamB().getId());
+        cv.put(SessionColumns.SESSION_ID, bs.getId());
         return cv;
     }
 

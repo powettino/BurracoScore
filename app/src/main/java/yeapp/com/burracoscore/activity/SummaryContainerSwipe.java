@@ -1,20 +1,27 @@
 package yeapp.com.burracoscore.activity;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
+import yeapp.com.burracoscore.core.database.BurracoDBHelper;
 import yeapp.com.burracoscore.core.database.columns.HelperConstants;
+import yeapp.com.burracoscore.core.database.columns.SessionColumns;
+import yeapp.com.burracoscore.core.database.columns.TeamColumns;
 import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.core.model.Team;
@@ -68,7 +75,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
 
         findViewById(R.id.cancSession).setOnClickListener(this);
         findViewById(R.id.confTeam).setOnClickListener(this);
-//        findViewById(R.id.saveGame).setOnClickListener(this);
 
         punteggioTotA = (TextView) findViewById(R.id.punteggioASummary);
         punteggioTotB = (TextView) findViewById(R.id.punteggioBSummary);
@@ -169,7 +175,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         sessione.clearCurrentGame();
-                                        tabAdapter.clearLastGame();
+                                        tabAdapter.renewLastGame(sessione.getCurrentGame());
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
@@ -266,19 +272,34 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
     }
 
-    @Override
-    public void gameEnded(Game current) {
-        sessione.updateLastGame(current);
-        sessione.addNumeroVinti(current.getWinner());
-        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
-        dialogActive = true;
-        winnerDialog.show();
-    }
+    public void gameUpdate(Game update, boolean ended){
+        sessione.updateLastGame(update);
+        if(ended){
+            sessione.addNumeroVinti(update.getWinner());
+            punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+            punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+            dialogActive = true;
+            winnerDialog.show();
+        }
+        Log.d("Grafica", "Sessione aggiornata con id "+ update.getId());
+        BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+        SQLiteDatabase sloh = bdh.getWritableDatabase();
+        sloh.beginTransaction();
+        if(sessione.getGameTotali()==1 && update.getNumeroMani()==1) {
+            ContentValues cv = Utils.getTeamContentValues(sessione.getTeamA());
+            sloh.insert(TeamColumns.TABLE_NAME, null, cv);
+            cv = Utils.getTeamContentValues(sessione.getTeamB());
+            sloh.insert(TeamColumns.TABLE_NAME, null, cv);
+            Log.d(HelperConstants.DBTag, "aggiuntele squadre");
+        }
 
-    public void gameUpdate(Game current){
-        sessione.updateLastGame(current);
+        ContentValues cv = Utils.getSessionContentValues(sessione);
+        sloh.insert(SessionColumns.TABLE_NAME, null, cv);
+        sloh.setTransactionSuccessful();
+        sloh.endTransaction();
+        Log.d(HelperConstants.DBTag, "aggiunta sessione");
     }
+//    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -304,19 +325,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.saveGame:{
-//                Toast.makeText(this, "Saving session...", Toast.LENGTH_LONG).show();
-//                BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
-//                SQLiteDatabase sloh = bdh.getWritableDatabase();
-//                ContentValues cvA = Utils.getTeamContentValues(sessione.getTeamA());
-//
-//                sloh.beginTransaction();
-//                sloh.insert(TeamColumns.TABLE_NAME, null, cvA);
-//                sloh.setTransactionSuccessful();
-//                sloh.endTransaction();
-//                Log.d(HelperConstants.DBTag, "aggiunto");
-//                break;
-//            }
             case R.id.confTeam:{
                 if (teamSaved) {
                     Intent configurazione = new Intent(this, TeamSliderContainer.class);
@@ -348,7 +356,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                     })
                             .create().show();
                 }
-               break;
+                break;
             }
             case R.id.cancSession:{
                 new AlertDialog.Builder(this)

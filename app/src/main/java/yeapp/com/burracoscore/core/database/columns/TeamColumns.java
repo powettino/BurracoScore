@@ -11,4 +11,5 @@ public class TeamColumns implements BaseColumns {
     public static final String ALIAS = "alias";
     public static final String NUMERO_PLAYER = "numero_player";
     public static final String FOTO = "foto";
+    public static final String TEAM_ID = "team_id";
 }

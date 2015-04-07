@@ -2,6 +2,7 @@ package yeapp.com.burracoscore.core.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -9,19 +10,22 @@ import yeapp.com.burracoscore.utils.Utils;
 
 public class BurracoSession implements Parcelable {
 
-    private ArrayList<Game> game;
+    private ArrayList<Game> games;
+    private long id;
     private Team team_a;
     private Team team_b;
     private int numero_vinti_a;
     private int numero_vinti_b;
 
     public BurracoSession(){
-        game = new ArrayList<Game>();
+        id = System.currentTimeMillis();
+        games = new ArrayList<Game>();
         team_a = new Team(Utils.ASide);
         team_b = new Team(Utils.BSide);
         numero_vinti_a = 0;
         numero_vinti_b = 0;
-        addNewGame(game.size()+1);
+        addNewGame(games.size()+1);
+        Log.d("Sessione" , "creata la sessione con id: "+ id);
     }
 
     public Team getTeamA() {
@@ -29,16 +33,22 @@ public class BurracoSession implements Parcelable {
     }
 
     public void clear(){
-        game.clear();
-        addNewGame(game.size()+1);
+        id = System.currentTimeMillis();
+        games.clear();
+        addNewGame(games.size()+1);
         team_a.clean();
         team_b.clean();
         numero_vinti_a = 0;
         numero_vinti_b = 0;
+        Log.d("Sessione" , "rigenerata con id: "+ id);
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void clearCurrentGame(){
-        game.get(game.size()-1).clear();
+        games.get(games.size()-1).clear();
     }
 
     public void addNumeroVinti(char side){
@@ -50,11 +60,11 @@ public class BurracoSession implements Parcelable {
     }
 
     public int getGameTotali(){
-        return game.size();
+        return games.size();
     }
 
     public void updateLastGame(Game g){
-        game.set(game.size()-1, g);
+        games.set(games.size()-1, g);
     }
 
     public void setTeamA(Team team_a) {
@@ -89,23 +99,24 @@ public class BurracoSession implements Parcelable {
 
     @SuppressWarnings("unused")
     public ArrayList<Game> getGames() {
-        return game;
+        return games;
     }
 
     public Game getCurrentGame (){
-        return game.get(game.size()-1);
+        return games.get(games.size()-1);
     }
 
-    public void                                                                                                                                                 addNewGame (int numberGame){
-        game.add(new Game(numberGame));
+    public void addNewGame (int numberGame){
+        games.add(new Game(numberGame));
     }
 
     public BurracoSession(Parcel in) {
         numero_vinti_a = in.readInt();
         numero_vinti_b = in.readInt();
-        in.readList(game, getClass().getClassLoader());
+        in.readList(games, getClass().getClassLoader());
         team_a = in.readParcelable(BurracoSession.class.getClassLoader());
         team_b = in.readParcelable(BurracoSession.class.getClassLoader());
+        id = in.readLong();
     }
 
     @Override
@@ -117,9 +128,10 @@ public class BurracoSession implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(numero_vinti_a);
         dest.writeInt(numero_vinti_b);
-        dest.writeList(game);
+        dest.writeList(games);
         dest.writeParcelable(team_a, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeParcelable(team_b, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeLong(id);
 
     }
     public static final Creator<BurracoSession> CREATOR = new Creator<BurracoSession>() {

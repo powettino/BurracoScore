@@ -11,4 +11,5 @@ public class GameColumns implements BaseColumns {
     public static final String NUMERO_MANI = "numero_mani";
     public static final String NUMERO_PARTITA = "numero_partita";
     public static final String VINCITORE = "vincitore";
+    public static final String GAME_ID = "game_id";
 }

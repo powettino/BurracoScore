@@ -41,24 +41,25 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     private OnScoreChanging changingCB;
     private boolean restoring = false;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             currentGame = getArguments().getParcelable(Constants.currentGame);
         }
-        if(savedInstanceState != null){
-            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
-            if(restoring) {
-                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+//        if(savedInstanceState != null){
+//            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
+//            if(restoring) {
+//                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
+//            }
+//        }
+        if (savedInstanceState != null) {
+            Game tempGame = savedInstanceState.getParcelable(Constants.currentGame);
+            if (currentGame == null || (currentGame.getId() == tempGame.getId())) {
+                currentGame = tempGame;
+                restoring = true;
             }
         }
-//        if (savedInstanceState != null) {
-//            currentGame = savedInstanceState.getParcelable(Constants.currentGame);
-//        } else {
-//            currentGame = getArguments().getParcelable(Constants.currentGame);
-//        }
     }
 
     @Override
@@ -87,23 +88,15 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultA = (TextView) view.findViewById(R.id.resultA);
         resultB = (TextView) view.findViewById(R.id.resultB);
 
-        if(savedInstanceState != null && restoring) {
+        if(restoring) {
             addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
             setUIStatus();
             if (currentGame.getNumeroMani() != 0) {
                 resultB.setBackgroundResource(R.color.SfondoMedio);
                 resultA.setBackgroundResource(R.color.SfondoMedio);
             }
+            restoring = false;
         }
-//        if (savedInstanceState != null) {
-//            addButtonStatus.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
-//            setUIStatus();
-//            if (currentGame.getNumeroMani() != 0) {
-//                resultB.setBackgroundResource(R.color.SfondoMedio);
-//                resultA.setBackgroundResource(R.color.SfondoMedio);
-//            }
-//        }
-        restoring = true;
         return view;
     }
 
@@ -112,8 +105,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         super.onSaveInstanceState(outState);
         outState.putParcelable(Constants.currentGame, currentGame);
         outState.putBoolean(Constants.addManoButtonStatus, addButton.isEnabled());
-        outState.putBoolean(Constants.restoreFragment, restoring);
-//            changingCB.gameUpdate(currentGame);
     }
 
     private void checkWinner() {
@@ -126,11 +117,11 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 } else if (totB > totA) {
                     currentGame.setWinner(Utils.BSide);
                 }
-                changingCB.gameEnded(currentGame);
+                changingCB.gameUpdate(currentGame, true);
                 addButton.setEnabled(false);
             }
         }else{
-            changingCB.gameUpdate(currentGame);
+            changingCB.gameUpdate(currentGame, false);
         }
     }
 
@@ -145,16 +136,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultB.setText(tempTot == 0 ? "" : String.valueOf(tempTot));
     }
 
-    public void resetGames() {
-        if (currentGame != null) {
-            currentGame.clear();
-        }
-        setUIStatus();
-        resultB.setBackgroundResource(R.color.SfondoOmbre);
-        resultA.setBackgroundResource(R.color.SfondoOmbre);
-        addButton.setEnabled(true);
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -163,12 +144,14 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
                 anim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
+                        addButton.setEnabled(false);
                     }
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent add = new Intent(getActivity(), AddPointsContainer.class);
                         add.putExtra(Constants.numeroMano, currentGame.getNumeroMani() + 1);
+                        addButton.setEnabled(true);
                         startActivityForResult(add, SummaryContainerSwipe.CODE_FOR_CONF);
                     }
 
@@ -223,12 +206,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         startActivity(add);
     }
 
-    public void setNotRestore() {
-        restoring = false;
-    }
-
     public interface OnScoreChanging {
-        public void gameEnded(Game current);
-        public void gameUpdate(Game current);
+        public void gameUpdate(Game current, boolean ended);
     }
 }

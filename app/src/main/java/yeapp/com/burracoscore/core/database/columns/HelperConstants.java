@@ -4,6 +4,6 @@ public class HelperConstants {
 
     public static String DBName = "BurracoDB.db";
     public static String DBTag = "BurracoDBHelper";
-    public static int DBVersion = 1;
+    public static int DBVersion = 2;
 
 }
