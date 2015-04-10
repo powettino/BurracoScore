@@ -12,10 +12,15 @@
         android:layout_height="wrap_content"
         android:background="@color/SfondoToolbar"
         android:minHeight="?attr/actionBarSize"
-        android:title="@string/app_name"
+        tools:title="@string/conf_name"
         android:elevation="8dp"
-        android:titleTextAppearance="@style/ToolbarTitle" />
-
+        android:titleTextAppearance="@style/ToolbarTitle">
+        <Spinner
+            android:id="@+id/spinnerTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="horizontal"

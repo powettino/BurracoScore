@@ -1,9 +1,9 @@
-package yeapp.com.burracoscore.core.database.columns;
+package yeapp.com.burracoscore.core.database;
 
 public class HelperConstants {
 
     public static String DBName = "BurracoDB.db";
     public static String DBTag = "BurracoDBHelper";
-    public static int DBVersion = 2;
+    public static int DBVersion = 5;
 
 }

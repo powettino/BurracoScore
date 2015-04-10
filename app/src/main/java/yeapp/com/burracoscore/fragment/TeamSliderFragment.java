@@ -86,6 +86,12 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(team.getNumberPlayer()==1){
+            animatePlayerName();
+        }
+    }
+
+    public void animatePlayerName() {
+        if(team.getNumberPlayer()==1) {
             Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fading_out);
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -101,11 +107,39 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
                 public void onAnimationRepeat(Animation animation) {
                 }
             });
-            gioc2Text.startAnimation(anim);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(gioc1Text, "translationY", 50);
-            objectAnimator.setDuration(getResources().getInteger(R.integer.player1));
-            objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-            objectAnimator.start();
+//            gioc2Text.startAnimation(anim);
+            ObjectAnimator fadeOut = ObjectAnimator.ofFloat(gioc2Text, "alpha", 1f, 0f);
+            fadeOut.setDuration(getResources().getInteger(R.integer.player1));
+            fadeOut.start();
+            ObjectAnimator translation = ObjectAnimator.ofFloat(gioc1Text, "translationY", 50);
+            translation.setDuration(getResources().getInteger(R.integer.player1));
+            translation.setInterpolator(new AccelerateDecelerateInterpolator());
+            translation.start();
+        }else{
+            Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fading_in);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+//                    gioc2Text.setAlpha(1);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+//            gioc2Text.startAnimation(anim);
+            ObjectAnimator fadeIn = ObjectAnimator.ofFloat(gioc2Text, "alpha", 0f, 1f);
+            fadeIn.setDuration(getResources().getInteger(R.integer.player1));
+            fadeIn.start();
+            ObjectAnimator translation = ObjectAnimator.ofFloat(gioc1Text, "translationY", 0);
+            translation.setDuration(getResources().getInteger(R.integer.player1));
+            translation.setInterpolator(new AccelerateDecelerateInterpolator());
+            translation.start();
         }
     }
 

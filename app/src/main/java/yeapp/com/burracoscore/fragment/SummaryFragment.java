@@ -47,12 +47,6 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         if (getArguments() != null) {
             currentGame = getArguments().getParcelable(Constants.currentGame);
         }
-//        if(savedInstanceState != null){
-//            restoring = savedInstanceState.getBoolean(Constants.restoreFragment);
-//            if(restoring) {
-//                currentGame = savedInstanceState.getParcelable(Constants.currentGame);
-//            }
-//        }
         if (savedInstanceState != null) {
             Game tempGame = savedInstanceState.getParcelable(Constants.currentGame);
             if (currentGame == null || (currentGame.getId() == tempGame.getId())) {

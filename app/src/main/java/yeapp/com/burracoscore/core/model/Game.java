@@ -72,6 +72,10 @@ public class Game implements Parcelable {
         }
     }
 
+    public Hand getLastMano(char side){
+        return getMano(getNumeroMani()-1, side);
+    }
+
     public int getNumeroMani() {
         return numeroMani;
     }

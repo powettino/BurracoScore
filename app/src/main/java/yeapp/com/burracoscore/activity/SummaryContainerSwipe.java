@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 
 import yeapp.com.burracoscore.R;
 import yeapp.com.burracoscore.core.database.BurracoDBHelper;
-import yeapp.com.burracoscore.core.database.columns.HelperConstants;
+import yeapp.com.burracoscore.core.database.HelperConstants;
+import yeapp.com.burracoscore.core.database.columns.GameColumns;
+import yeapp.com.burracoscore.core.database.columns.HandColumns;
 import yeapp.com.burracoscore.core.database.columns.SessionColumns;
 import yeapp.com.burracoscore.core.database.columns.TeamColumns;
 import yeapp.com.burracoscore.core.model.BurracoSession;
@@ -120,9 +123,11 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     }
 
     private void setNewGame(){
-//        tabAdapter.addGame(sessione.getCurrentGame(), sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
         tabAdapter.addGame(sessione.getCurrentGame());
         viewPager.setCurrentItem(sessione.getGameTotali() - 1);
+
+
+
     }
 
     @Override
@@ -255,13 +260,58 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         switch (requestCode) {
             case CODE_FOR_CONF: {
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
                     Team a_temp = data.getParcelableExtra(Constants.teamAKey);
                     Team b_temp =  data.getParcelableExtra(Constants.teamBKey);
                     sessione.setTeamA(a_temp);
                     sessione.setTeamB(b_temp);
                     updateTeamAlias(a_temp.getAlias(), b_temp.getAlias());
                     teamSaved = true;
+                    new AsyncTask<Team, Void, String>(){
+
+                        @Override
+                        protected String doInBackground(Team... params) {
+
+                            BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+                            SQLiteDatabase sloh = bdh.getWritableDatabase();
+                            Team team_A = params[0];
+                            Team team_B = params[1];
+                            Cursor cur = sloh.query(TeamColumns.TABLE_NAME,
+                                    new String[]{TeamColumns.TEAM_ID},
+                                    String.format("%s = ?", TeamColumns.TEAM_ID),
+                                    new String[]{String.valueOf(team_A.getId())},
+                                    null,
+                                    null,
+                                    null);
+                            if(cur.getCount()!=0) {
+                                sloh.beginTransaction();
+                                ContentValues cv;
+                                cv = Utils.getTeamContentValues(team_A);
+                                sloh.updateWithOnConflict(TeamColumns.TABLE_NAME,
+                                        cv,
+                                        TeamColumns.TEAM_ID+"=? and "+TeamColumns.SIDE+"=?",
+                                        new String[]{String.valueOf(team_A.getId()), String.valueOf(team_A.getSide())},
+                                        SQLiteDatabase.CONFLICT_FAIL);
+                                cv = Utils.getTeamContentValues(team_B);
+                                sloh.updateWithOnConflict(TeamColumns.TABLE_NAME,
+                                        cv,
+                                        TeamColumns.TEAM_ID+"=? and "+TeamColumns.SIDE+"=?",
+                                        new String[]{String.valueOf(team_B.getId()), String.valueOf(team_B.getSide())},
+                                        SQLiteDatabase.CONFLICT_FAIL);
+                                Log.d(HelperConstants.DBTag, "aggiunte le squadre");
+                                sloh.setTransactionSuccessful();
+                                sloh.endTransaction();
+                            }
+                            cur.close();
+                            sloh.close();
+                            return null;
+
+                        }
+
+                        @Override
+                        protected void onPostExecute(String s) {
+                            Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
+                        }
+                    }.execute(a_temp, b_temp);
                 }
                 break;
             }
@@ -272,32 +322,87 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
     }
 
-    public void gameUpdate(Game update, boolean ended){
-        sessione.updateLastGame(update);
+    public void gameUpdate(Game gameUpdate, boolean ended){
+        sessione.updateLastGame(gameUpdate);
         if(ended){
-            sessione.addNumeroVinti(update.getWinner());
+            sessione.addNumeroVinti(gameUpdate.getWinner());
             punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
             punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
             dialogActive = true;
             winnerDialog.show();
         }
-        Log.d("Grafica", "Sessione aggiornata con id "+ update.getId());
-        BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
-        SQLiteDatabase sloh = bdh.getWritableDatabase();
-        sloh.beginTransaction();
-        if(sessione.getGameTotali()==1 && update.getNumeroMani()==1) {
-            ContentValues cv = Utils.getTeamContentValues(sessione.getTeamA());
-            sloh.insert(TeamColumns.TABLE_NAME, null, cv);
-            cv = Utils.getTeamContentValues(sessione.getTeamB());
-            sloh.insert(TeamColumns.TABLE_NAME, null, cv);
-            Log.d(HelperConstants.DBTag, "aggiuntele squadre");
-        }
+        Log.d("Grafica", "Sessione aggiornata con id " + gameUpdate.getId());
 
-        ContentValues cv = Utils.getSessionContentValues(sessione);
-        sloh.insert(SessionColumns.TABLE_NAME, null, cv);
-        sloh.setTransactionSuccessful();
-        sloh.endTransaction();
-        Log.d(HelperConstants.DBTag, "aggiunta sessione");
+        new AsyncTask<BurracoSession, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(BurracoSession... params) {
+
+                BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+                SQLiteDatabase sloh = bdh.getWritableDatabase();
+                sloh.beginTransaction();
+                ContentValues cv;
+                BurracoSession ses = params[0];
+                Game gameTemp = ses.getCurrentGame();
+                if(gameTemp.getNumeroMani()==1) {
+                    cv = Utils.getSessionContentValues(sessione);
+                    sloh.insertWithOnConflict(SessionColumns.TABLE_NAME,
+                            null,
+                            cv,
+                            SQLiteDatabase.CONFLICT_REPLACE);
+                    if (ses.getGameTotali() == 1) {
+                        Log.d(HelperConstants.DBTag, "Prima sessione");
+                        cv = Utils.getTeamContentValues(sessione.getTeamA());
+                        sloh.insert(TeamColumns.TABLE_NAME,
+                                null,
+                                cv);
+                        cv = Utils.getTeamContentValues(sessione.getTeamB());
+                        sloh.insert(TeamColumns.TABLE_NAME,
+                                null,
+                                cv);
+                        Log.d(HelperConstants.DBTag, "aggiunte le squadre");
+                    }
+                }
+                Cursor cur = sloh.query(GameColumns.TABLE_NAME,
+                        new String[]{GameColumns.GAME_ID},
+                        String.format("%s = ?", GameColumns.GAME_ID),
+                        new String[]{String.valueOf(gameTemp.getId())},
+                        null,
+                        null,
+                        null);
+                cv = Utils.getGameContentValues(gameTemp, sessione.getId());
+                if (cur.getCount()==0){
+                    sloh.insertWithOnConflict(GameColumns.TABLE_NAME,
+                            null,
+                            cv,
+                            SQLiteDatabase.CONFLICT_REPLACE);
+                    Log.d(HelperConstants.DBTag, "Inserita la partita");
+                }else{
+                    sloh.updateWithOnConflict(GameColumns.TABLE_NAME,
+                            cv,
+                            String.format("%s = ?", GameColumns.GAME_ID),
+                            new String[]{String.valueOf(gameTemp.getId())},
+                            SQLiteDatabase.CONFLICT_FAIL);
+                    Log.d(HelperConstants.DBTag, "Aggiornata la partita");
+                }
+                cur.close();
+                cv = Utils.getHandContentValues(gameTemp.getLastMano(Utils.ASide),Utils.ASide, gameTemp.getId());
+                sloh.insertWithOnConflict(HandColumns.TABLE_NAME,
+                        null,
+                        cv,
+                        SQLiteDatabase.CONFLICT_FAIL);
+                cv = Utils.getHandContentValues(gameTemp.getLastMano(Utils.BSide),Utils.BSide, gameTemp.getId());
+                sloh.insertWithOnConflict(HandColumns.TABLE_NAME,
+                        null,
+                        cv,
+                        SQLiteDatabase.CONFLICT_FAIL);
+                sloh.setTransactionSuccessful();
+                sloh.endTransaction();
+                sloh.close();
+                Log.d(HelperConstants.DBTag, "Salvataggio concluso");
+                return null;
+            }
+        }.execute(sessione);
     }
 //    }
 
@@ -334,10 +439,9 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     startActivityForResult(configurazione, CODE_FOR_CONF);
                 } else {
                     new AlertDialog.Builder(this)
-                            .setTitle("Tipo di partita")
+                            .setTitle("Numero di giocatori")
                             .setCancelable(true)
-                            .setItems(new CharSequence[]
-                                            {"1 vs 1", "2 vs 2"},
+                            .setItems(R.array.choosePlayer,
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             Intent configurazione = new Intent(getBaseContext(), TeamSliderContainer.class);

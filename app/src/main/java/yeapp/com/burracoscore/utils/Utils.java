@@ -84,14 +84,14 @@ public class Utils {
         return cv;
     }
 
-    public static ContentValues getGameContentValues(Game g, int idSessione){
+    public static ContentValues getGameContentValues(Game g, long idSessione){
         ContentValues cv = new ContentValues();
         cv.put(GameColumns.NUMERO_MANI, g.getNumeroMani());
         cv.put(GameColumns.NUMERO_PARTITA, g.getGameNumber());
         cv.put(GameColumns.TOTALE_A, g.getTotalePartita(Utils.ASide));
         cv.put(GameColumns.TOTALE_B, g.getTotalePartita(Utils.BSide));
         cv.put(GameColumns.VINCITORE, String.valueOf(g.getWinner()));
-        cv.put(GameColumns.SESSION, idSessione);
+        cv.put(GameColumns.SESSION_ID, idSessione);
         cv.put(GameColumns.GAME_ID, g.getId());
         return cv;
     }
@@ -101,18 +101,18 @@ public class Utils {
         cv.put(SessionColumns.NUMERO_GAME_A, bs.getNumeroVintiA());
         cv.put(SessionColumns.NUMERO_GAME_B, bs.getNumeroVintiB());
         cv.put(SessionColumns.TIMESTAMP, System.currentTimeMillis());
-        cv.put(SessionColumns.TEAM_A, bs.getTeamA().getId());
-        cv.put(SessionColumns.TEAM_B, bs.getTeamB().getId());
+        cv.put(SessionColumns.TEAM_A_ID, bs.getTeamA().getId());
+        cv.put(SessionColumns.TEAM_B_ID, bs.getTeamB().getId());
         cv.put(SessionColumns.SESSION_ID, bs.getId());
         return cv;
     }
 
-    public static ContentValues getHandContentValues(Hand h, char side, int idGame){
+    public static ContentValues getHandContentValues(Hand h, char side, long idGame){
         ContentValues cv = new ContentValues();
         cv.put(HandColumns.BASE, h.getBase());
         cv.put(HandColumns.CARTE, h.getCarte());
         cv.put(HandColumns.CHIUSURA, h.getChiusura());
-        cv.put(HandColumns.GAME, idGame);
+        cv.put(HandColumns.GAME_ID, idGame);
         cv.put(HandColumns.MAZZETTO, h.getMazzetto());
         cv.put(HandColumns.NUMERO_MANO, h.getNumeroMano());
         cv.put(HandColumns.TOTALE_MANO, h.getTotaleMano());

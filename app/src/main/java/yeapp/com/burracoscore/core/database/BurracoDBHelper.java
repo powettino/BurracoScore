@@ -7,7 +7,6 @@ import android.util.Log;
 
 import yeapp.com.burracoscore.core.database.columns.GameColumns;
 import yeapp.com.burracoscore.core.database.columns.HandColumns;
-import yeapp.com.burracoscore.core.database.columns.HelperConstants;
 import yeapp.com.burracoscore.core.database.columns.SessionColumns;
 import yeapp.com.burracoscore.core.database.columns.TeamColumns;
 
@@ -17,11 +16,11 @@ public class BurracoDBHelper extends SQLiteOpenHelper {
     private final static String CREATE_SESSION_TABLE =
             "CREATE TABLE " + SessionColumns.TABLE_NAME + " (" +
                     SessionColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    SessionColumns.TEAM_A + " INTEGER REFERENCES "+TeamColumns.TABLE_NAME+"("+TeamColumns.TEAM_ID+"), " +
-                    SessionColumns.TEAM_B + " INTEGER REFERENCES "+TeamColumns.TABLE_NAME+"("+TeamColumns.TEAM_ID+"), " +
+                    SessionColumns.TEAM_A_ID + " INTEGER REFERENCES "+TeamColumns.TABLE_NAME+"("+TeamColumns.TEAM_ID+"), " +
+                    SessionColumns.TEAM_B_ID + " INTEGER REFERENCES "+TeamColumns.TABLE_NAME+"("+TeamColumns.TEAM_ID+"), " +
                     SessionColumns.NUMERO_GAME_A + " INTEGER, " +
                     SessionColumns.NUMERO_GAME_B + " INTEGER, " +
-                    SessionColumns.SESSION_ID + " NUMERIC, "+
+                    SessionColumns.SESSION_ID + " NUMERIC UNIQUE, "+
                     SessionColumns.TIMESTAMP + " NUMERIC"+
                     ")";
 
@@ -33,26 +32,26 @@ public class BurracoDBHelper extends SQLiteOpenHelper {
                     TeamColumns.PLAYER1 + " TEXT NOT NULL, " +
                     TeamColumns.PLAYER2 + " TEXT NOT NULL, " +
                     TeamColumns.FOTO + " TEXT, "+
-                    TeamColumns.TEAM_ID + "NUMERIC, " +
+                    TeamColumns.TEAM_ID + " NUMERIC, " +
                     TeamColumns.SIDE + " TEXT"+
                     ")";
 
     private final static String CREATE_GAME_TABLE =
             "CREATE TABLE " + GameColumns.TABLE_NAME + " (" +
                     GameColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                    GameColumns.SESSION + " INTEGER REFERENCES "+SessionColumns.TABLE_NAME+"("+SessionColumns.SESSION_ID+"), " +
-                    GameColumns.NUMERO_MANI + " NUMERIC CHECK ("+ GameColumns.NUMERO_MANI +"<=2 AND "+ GameColumns.NUMERO_MANI +">=1), "+
+                    GameColumns.SESSION_ID + " INTEGER REFERENCES "+SessionColumns.TABLE_NAME+"("+SessionColumns.SESSION_ID+"), " +
+                    GameColumns.NUMERO_MANI + " INTEGER CHECK ("+GameColumns.NUMERO_MANI +">=1), "+
                     GameColumns.NUMERO_PARTITA + " INTEGER,  "+
                     GameColumns.TOTALE_A + " INTEGER, " +
                     GameColumns.TOTALE_B + " INTEGER, " +
-                    GameColumns.GAME_ID + " NUMERIC, " +
+                    GameColumns.GAME_ID + " NUMERIC UNIQUE, " +
                     GameColumns.VINCITORE+ " TEXT" +
                     ")";
 
     private final static String CREATE_HAND_TABLE =
             "CREATE TABLE " + HandColumns.TABLE_NAME + " (" +
                     HandColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                    HandColumns.GAME + " INTEGER REFERENCES "+GameColumns.TABLE_NAME+"("+GameColumns.GAME_ID+"), "+
+                    HandColumns.GAME_ID + " INTEGER REFERENCES "+GameColumns.TABLE_NAME+"("+GameColumns.GAME_ID+"), "+
                     HandColumns.BASE + " NUMERIC CHECK ("+ HandColumns.BASE +">=0),  "+
                     HandColumns.CARTE + " NUMERIC, "+
                     HandColumns.CHIUSURA + " NUMERIC CHECK ("+ HandColumns.CHIUSURA +">=0), "+

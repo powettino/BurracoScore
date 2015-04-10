@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -18,9 +21,7 @@ import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
 import yeapp.com.burracoscore.fragment.TeamSliderFragment;
 
-import static android.view.View.OnClickListener;
-
-public class TeamSliderContainer extends ActionBarActivity implements OnClickListener, TeamSliderFragment.OnTeamFragmentChanger {
+public class TeamSliderContainer extends ActionBarActivity implements View.OnClickListener, TeamSliderFragment.OnTeamFragmentChanger, AdapterView.OnItemSelectedListener {
 
     private MenuItem salvaButton;
     private char currentTeam = Utils.ASide;
@@ -34,6 +35,7 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
     private View goRight;
 
     private ArrayList<Integer> idResEmpty = new ArrayList<Integer>();
+    Spinner spinnerTeam;
 
     @Override
     public void onClick(View v) {
@@ -67,9 +69,16 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
         setContentView(R.layout.team_configuration_container_slider);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.conf_name);
+//        toolbar.setTitle(R.string.conf_name);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.choosePlayer, R.layout.support_simple_spinner_dropdown_item);
+        spinnerTeam = (Spinner)findViewById(R.id.spinnerTeam);
+        spinnerTeam.setAdapter(arrayAdapter);
+        spinnerTeam.setOnItemSelectedListener(this);
+
         goLeft = findViewById(R.id.goLeft);
         goLeft.setOnClickListener(this);
         goRight = findViewById(R.id.goRight);
@@ -91,6 +100,7 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
             ft.add(R.id.fragmentCont, fragment, Constants.fragmentKey);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.commit();
+            spinnerTeam.setSelection(tempNumberPlayer-1);
         }
     }
 
@@ -198,5 +208,19 @@ public class TeamSliderContainer extends ActionBarActivity implements OnClickLis
         }else{
             tB = teamSaved;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(tA.getNumberPlayer()!=position+1) {
+            tA.setNumberPlayer(position+1);
+            tB.setNumberPlayer(position+1);
+            fragment.animatePlayerName();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
