@@ -170,7 +170,7 @@
             android:background="@android:color/transparent" />
 
         <ImageButton
-            android:id="@+id/cancSession"
+            android:id="@+id/restartSession"
             android:layout_width="0dp"
             android:src="@drawable/ic_action_discard"
             android:layout_height="match_parent"

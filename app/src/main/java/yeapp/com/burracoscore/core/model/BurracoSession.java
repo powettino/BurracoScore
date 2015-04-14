@@ -51,20 +51,17 @@ public class BurracoSession implements Parcelable {
         games.get(games.size()-1).clear();
     }
 
-    public void addNumeroVinti(char side){
-        if(side == Utils.ASide){
-            numero_vinti_a++;
-        }else{
-            numero_vinti_b++;
-        }
-    }
-
     public int getGameTotali(){
         return games.size();
     }
 
     public void updateLastGame(Game g){
         games.set(games.size()-1, g);
+        if(g.getWinner() == Utils.ASide){
+            numero_vinti_a++;
+        }else if (g.getWinner() == Utils.BSide){
+            numero_vinti_b++;
+        }
     }
 
     public void setTeamA(Team team_a) {

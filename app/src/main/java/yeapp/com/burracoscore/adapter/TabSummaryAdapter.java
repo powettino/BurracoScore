@@ -16,7 +16,6 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
     Bundle bun = new Bundle();
     private int number=0;
     private FragmentManager fm;
-//    private  SummaryFragment last;
 
     public TabSummaryAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -38,7 +37,6 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
             SummaryFragment sum = new SummaryFragment();
             if(number-1==index) {
                 sum.setArguments(bun);
-//                last=sum;
             }
             return sum;
         }else {
@@ -47,8 +45,6 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
     }
 
     public void restore(int numberGame){
-//        List<Fragment> list = fm.getFragments();
-//        last = (SummaryFragment)list.get(list.size()-1);
         number=numberGame;
         notifyDataSetChanged();
     }
@@ -68,15 +64,9 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
         bun.clear();
         bun.putParcelable(Constants.currentGame, nuovo);
         notifyDataSetChanged();
-//        last.resetGames();
     }
 
     public void clearAll(){
-//        for ( Fragment f : fm.getFragments()){
-//            if(f instanceof SummaryFragment){
-//                ((SummaryFragment) f).setNotRestore();
-//            }
-//        }
         number=0;
         bun.clear();
         notifyDataSetChanged();

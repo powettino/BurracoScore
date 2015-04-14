@@ -42,5 +42,6 @@
     <string name="labelA">A</string>
     <string name="labelB">B</string>
     <string name="addPartita">Nuova partita</string>
+    <string name="storico">Storico sessioni</string>
 
 </resources>
