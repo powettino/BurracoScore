@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class SessionColumns implements BaseColumns {
 
-    public static final String TABLE_NAME = "session";
+    public static final String TABLE_NAME = "BurracoSession";
     public static final String TEAM_A_ID = "team_a_id";
     public static final String TEAM_B_ID = "team_b_id";
     public static final String TIMESTAMP = "data_salvataggio";

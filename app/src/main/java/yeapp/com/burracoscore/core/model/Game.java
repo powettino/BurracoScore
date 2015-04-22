@@ -29,6 +29,16 @@ public class Game implements Parcelable {
         Log.d("Game", "creata il gioco con id: " + id);
     }
 
+    public Game(long id, int numeroMani, int numeroPartita, int totaleA, int totaleB, char vincitore) {
+        this.id = id;
+        this.numeroMani = numeroMani;
+        this.numberOfGame = numeroPartita;
+        this.totalePartitaA = totaleA;
+        this.totalePartitaB = totaleB;
+        this.winner = vincitore;
+        Log.d("Game", "ricreato con id: " + id);
+    }
+
     public int getGameNumber(){
         return numberOfGame;
     }
@@ -119,6 +129,14 @@ public class Game implements Parcelable {
         totalePartitaB += manoB.getTotaleMano();
         maniB.add(manoB);
         numeroMani++;
+    }
+
+    public void addMano(Hand mano, char side){
+        if(side==Utils.ASide){
+            maniA.add(mano);
+        }else{
+            maniB.add(mano);
+        }
     }
 
     public Game(Parcel in) {

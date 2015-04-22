@@ -221,6 +221,5 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

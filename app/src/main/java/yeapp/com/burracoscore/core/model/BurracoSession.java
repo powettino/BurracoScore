@@ -1,17 +1,20 @@
 package yeapp.com.burracoscore.core.model;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+import yeapp.com.burracoscore.core.database.columns.GameColumns;
+import yeapp.com.burracoscore.core.database.columns.SessionColumns;
 import yeapp.com.burracoscore.utils.Utils;
 
 public class BurracoSession implements Parcelable {
 
     private ArrayList<Game> games;
-    private long id;
+    private long id=-1;
     private Team team_a;
     private Team team_b;
     private int numero_vinti_a;
@@ -26,6 +29,35 @@ public class BurracoSession implements Parcelable {
         numero_vinti_b = 0;
         addNewGame(games.size()+1);
         Log.d("Sessione" , "creata la sessione con id: "+ id);
+    }
+
+    public BurracoSession(Cursor cursorA, Cursor cTeam){
+        games = new ArrayList<Game>();
+        long tempIdGame = -1;
+        Game g=null;
+        while(cursorA.moveToNext()){
+            if(id==-1){
+                id = cursorA.getLong(cursorA.getColumnIndex(SessionColumns.SESSION_ID));
+                numero_vinti_a = cursorA.getInt(cursorA.getColumnIndex(SessionColumns.NUMERO_GAME_A));
+                numero_vinti_b = cursorA.getInt(cursorA.getColumnIndex(SessionColumns.NUMERO_GAME_B));
+            }
+            if(tempIdGame!= cursorA.getLong(cursorA.getColumnIndex(GameColumns.GAME_ID))) {
+                g=new Game(
+                        cursorA.getLong(cursorA.getColumnIndex(GameColumns.GAME_ID)),
+                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.NUMERO_MANI)),
+                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.NUMERO_PARTITA)),
+                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.TOTALE_A)),
+                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.TOTALE_B)),
+                        cursorA.getString(cursorA.getColumnIndex(GameColumns.VINCITORE)).charAt(0));
+                games.add(g);
+            }
+//            Hand ha = new Hand();
+//            Hand ha = new Hand();
+
+        }
+
+        Log.d("Sessione" , "creata la sessione con id: "+ id);
+
     }
 
     public Team getTeamA() {
