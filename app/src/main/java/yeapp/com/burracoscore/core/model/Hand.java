@@ -57,13 +57,14 @@ public class Hand implements Parcelable {
         this.totale = this.carte + this.chiusura + this.mazzetto + this.base;
     }
 
-    public Hand(int base, int carte, int chiusura, int mazzetto, int numMano, int totale) {
+    public Hand(int base, int carte, int chiusura, int mazzetto, int numMano, int totale, int vinto) {
         this.carte = carte;
         this.base = base;
         this.numeroMano = numMano;
         this.chiusura = chiusura;
         this.mazzetto=mazzetto;
         this.totale=totale;
+        this.won = vinto;
     }
 
     public void setWon(int vinto){

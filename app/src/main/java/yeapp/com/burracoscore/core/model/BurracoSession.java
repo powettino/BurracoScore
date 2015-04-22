@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import yeapp.com.burracoscore.core.database.columns.GameColumns;
+import yeapp.com.burracoscore.core.database.columns.HandColumns;
 import yeapp.com.burracoscore.core.database.columns.SessionColumns;
 import yeapp.com.burracoscore.utils.Utils;
 
@@ -31,26 +32,36 @@ public class BurracoSession implements Parcelable {
         Log.d("Sessione" , "creata la sessione con id: "+ id);
     }
 
-    public BurracoSession(Cursor cursorA, Cursor cTeam){
+    public BurracoSession(Cursor cursorSession, Cursor cTeam){
         games = new ArrayList<Game>();
         long tempIdGame = -1;
         Game g=null;
-        while(cursorA.moveToNext()){
+        while(cursorSession.moveToNext()){
             if(id==-1){
-                id = cursorA.getLong(cursorA.getColumnIndex(SessionColumns.SESSION_ID));
-                numero_vinti_a = cursorA.getInt(cursorA.getColumnIndex(SessionColumns.NUMERO_GAME_A));
-                numero_vinti_b = cursorA.getInt(cursorA.getColumnIndex(SessionColumns.NUMERO_GAME_B));
+                id = cursorSession.getLong(cursorSession.getColumnIndex(SessionColumns.SESSION_ID));
+                numero_vinti_a = cursorSession.getInt(cursorSession.getColumnIndex(SessionColumns.NUMERO_GAME_A));
+                numero_vinti_b = cursorSession.getInt(cursorSession.getColumnIndex(SessionColumns.NUMERO_GAME_B));
             }
-            if(tempIdGame!= cursorA.getLong(cursorA.getColumnIndex(GameColumns.GAME_ID))) {
+            if(tempIdGame!= cursorSession.getLong(cursorSession.getColumnIndex(GameColumns.GAME_ID))) {
                 g=new Game(
-                        cursorA.getLong(cursorA.getColumnIndex(GameColumns.GAME_ID)),
-                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.NUMERO_MANI)),
-                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.NUMERO_PARTITA)),
-                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.TOTALE_A)),
-                        cursorA.getInt(cursorA.getColumnIndex(GameColumns.TOTALE_B)),
-                        cursorA.getString(cursorA.getColumnIndex(GameColumns.VINCITORE)).charAt(0));
+                        cursorSession.getLong(cursorSession.getColumnIndex(GameColumns.GAME_ID)),
+                        cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.NUMERO_MANI)),
+                        cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.NUMERO_PARTITA)),
+                        cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.TOTALE_A)),
+                        cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.TOTALE_B)),
+                        cursorSession.getString(cursorSession.getColumnIndex(GameColumns.VINCITORE)).charAt(0));
                 games.add(g);
             }
+            Hand h = new Hand(
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.BASE)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.CARTE)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.CHIUSURA)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.MAZZETTO)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.NUMERO_MANO)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.TOTALE_MANO)),
+                    cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.WON)));
+
+            g.addMano(h, cursorSession.getString(cursorSession.getColumnIndex(HandColumns.SIDE)).charAt(0));
 //            Hand ha = new Hand();
 //            Hand ha = new Hand();
 
