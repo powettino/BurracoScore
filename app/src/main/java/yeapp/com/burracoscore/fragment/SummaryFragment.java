@@ -46,7 +46,9 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             currentGame = getArguments().getParcelable(Constants.currentGame);
-            restoring = getArguments().getBoolean(Constants.restoreFragment);
+            if(currentGame != null && currentGame.getNumeroMani()>0) {
+                restoring = true;
+            }
         }
         if (savedInstanceState != null) {
             Game tempGame = savedInstanceState.getParcelable(Constants.currentGame);
@@ -84,7 +86,11 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
         resultB = (TextView) view.findViewById(R.id.resultB);
 
         if(restoring) {
-            addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+//            if(savedInstanceState==null){
+                addButton.setEnabled(currentGame.getWinner()==0);
+//            }else {
+//                addButton.setEnabled(savedInstanceState.getBoolean(Constants.addManoButtonStatus));
+//            }
             setUIStatus();
             if (currentGame.getNumeroMani() != 0) {
                 resultB.setBackgroundResource(R.color.SfondoMedio);
@@ -99,7 +105,7 @@ public class SummaryFragment extends Fragment implements View.OnClickListener, A
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(Constants.currentGame, currentGame);
-        outState.putBoolean(Constants.addManoButtonStatus, addButton.isEnabled());
+//        outState.putBoolean(Constants.addManoButtonStatus, addButton.isEnabled());
     }
 
     private void checkWinner() {

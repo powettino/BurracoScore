@@ -50,10 +50,9 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void restore(BurracoSession ses){
+    public void restoreOld(BurracoSession ses){
         for(Game g : ses.getGames()) {
             addGame(g, true);
-
         }
     }
 

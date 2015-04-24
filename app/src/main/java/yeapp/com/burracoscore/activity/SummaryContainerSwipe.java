@@ -138,24 +138,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                         "t." + TeamColumns.SIDE + " DESC"
                                 );
 
-//                                if(cSes.moveToNext()){
-//                                    Cursor cTeam = sloh.query(TeamColumns.TABLE_NAME,
-//                                            new String[]{"*"},
-//                                            TeamColumns.TEAM_ID + "=? or "+TeamColumns.TEAM_ID+ "=?",
-//                                            new String[]{cSes.getString(cSes.getColumnIndex(SessionColumns.TEAM_A_ID)), cSes.getString(cSes.getColumnIndex(SessionColumns.TEAM_B_ID))},
-//                                            null,
-//                                            null,
-//                                            TeamColumns.SIDE + " DESC");
-//                                    Cursor cGame = sloh.query(GameColumns.TABLE_NAME,
-//                                            new String[]{"*"},
-//                                            GameColumns.SESSION_ID+"=?",
-//                                            new String[]{idSession},
-//                                            null,
-//                                            null,
-//                                            GameColumns.GAME_ID+" DESC");
-//                                    Cursor cHand = sloh.query(HandColumns.TABLE_NAME),
-//                                            new String[]{"*"},
-//                                    HandColumns.
                                 BurracoSession tempSession = new BurracoSession(bs, teams);
                                 bs.close();
                                 teams.close();
@@ -163,13 +145,13 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                 bdh.close();
                                 tabAdapter.clearAll();
                                 sessione = tempSession;
-                                tabAdapter.restore(sessione);
+                                tabAdapter.restoreOld(sessione);
                                 teamSaved = true;
-                                add.setVisible(false);
+                                add.setVisible(sessione.getCurrentGame().getWinner()==0 ? false : true);
                                 punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
                                 punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
                                 updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
-//                                viewPager.setCurrentItem(sessione.getGameTotali()-1);
+                                viewPager.setCurrentItem(sessione.getGameTotali()-1);
                             }
                             drawerPosition = position;
                         }
@@ -212,17 +194,21 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
 
                 @Override
                 protected void onPreExecute() {
-                    pDiag = new ProgressDialog(SummaryContainerSwipe.this);
-                    pDiag.setMessage("Loading History...");
-                    pDiag.setIndeterminate(false);
-                    pDiag.setCancelable(true);
-                    pDiag.show();
+                    if(pDiag == null  || !pDiag.isShowing()) {
+                        pDiag = new ProgressDialog(SummaryContainerSwipe.this);
+                        pDiag.setMessage("Loading History...");
+                        pDiag.setIndeterminate(false);
+                        pDiag.setCancelable(true);
+                        pDiag.show();
+                    }
                     super.onPreExecute();
                 }
 
                 @Override
                 protected void onPostExecute(Void aVoid) {
-                    pDiag.dismiss();
+                    if(pDiag.isShowing()){
+                        pDiag.dismiss();
+                    }
                     super.onPostExecute(aVoid);
                 }
             }.execute();
@@ -294,14 +280,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                                 BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
                                                 SQLiteDatabase sloh = bdh.getWritableDatabase();
                                                 sloh.beginTransaction();
-//                                                Cursor cur = sloh.query(GameColumns.TABLE_NAME,
-//                                                        new String[]{GameColumns.GAME_ID},
-//                                                        String.format("%s = ?", GameColumns.GAME_ID),
-//                                                        new String[]{String.valueOf(id)},
-//                                                        null,
-//                                                        null,
-//                                                        null);
-//                                                Log.d(HelperConstants.DBTag, "trovato "+cur.getCount()+" righe per id "+id);
                                                 int res = sloh.delete(HandColumns.TABLE_NAME,
                                                         HandColumns.GAME_ID + "=?",
                                                         new String[]{String.valueOf(id)});
@@ -379,7 +357,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     teamSaved = true;
                     if(drawerPosition!=-1) {
                         Log.d(HelperConstants.DBTag, "posizione trovata per la squadra: "+drawerPosition);
-//                                ((PrimaryDrawerItem)drawer.getDrawerItems().get(drawerPosition)).setName(team_A.getAlias() + " - " + team_B.getAlias());
                         drawer.updateName(a_temp.getAlias() + " - " + b_temp.getAlias(), drawerPosition);
                     }
                     new AsyncTask<Team, Void, String>() {
@@ -473,27 +450,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                             cv,
                             SQLiteDatabase.CONFLICT_REPLACE);
                     Log.d(HelperConstants.DBTag, "aggiornata la sessione con "+gameTemp.getNumeroMani()+" mani e "+gameTemp.getWinner()+" vincitori");
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-                    //Se c'e' il primo game allora e' una nuova partita e si aggiunge al drawer
-//                            PrimaryDrawerItem p1 = new PrimaryDrawerItem()
-//                                    .withName(bSes.getTeamA().getAlias() + " - " + bSes.getTeamB().getAlias())
-//                                    .withTag(bSes.getId())
-//                                    .withDescription("Parziale: " + bSes.getNumeroVintiA() + " - " + bSes.getNumeroVintiB())
-//                                    .withBadge("Data: " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(System.currentTimeMillis()))).toString());
-//                            if(drawerPosition==-1){
-//                                drawer.addItem(p1, 1);
-//                                drawer.addItem(new DividerDrawerItem(), 2);
-//                                drawerPosition=1;
-//                                drawer.setSelection(drawerPosition, true);
-//                            }else{
-//                                //altrimenti si aggiorna il primo elemento del drawer
-//                                drawer.updateItem(p1, drawerPosition);
-//                            }
-//                            Log.d("RunOnUI", "Eseguito il tread, ora dovrebbe essere aggiornato");
-//                        }
-//                    });
                 }
                 //Se c'e' un solo game e una sola mano e' la prima mano in generale e si salva le squadre
                 if (bSes.getGameTotali() == 1 && gameTemp.getNumeroMani() == 1) {
