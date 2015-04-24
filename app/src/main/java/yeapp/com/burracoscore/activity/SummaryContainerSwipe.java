@@ -1,6 +1,7 @@
 package yeapp.com.burracoscore.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +27,6 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import yeapp.com.burracoscore.R;
@@ -122,14 +122,14 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                 String idSession = String.valueOf(drawerItem.getTag());
                                 Log.d(HelperConstants.DBTag, idSession + " tag");
 
-                                Cursor cur = sloh.query((SessionColumns.TABLE_NAME + " bs, " + GameColumns.TABLE_NAME + " g, " + HandColumns.TABLE_NAME + " h"),
+                                Cursor bs = sloh.query((SessionColumns.TABLE_NAME + " bs, " + GameColumns.TABLE_NAME + " g, " + HandColumns.TABLE_NAME + " h"),
                                         new String[]{"bs.*", "g.*", "h.*"},
                                         "bs." + SessionColumns.SESSION_ID + "=? and bs." + SessionColumns.SESSION_ID + "=g." + GameColumns.SESSION_ID + " and h." + HandColumns.GAME_ID + "=g." + GameColumns.GAME_ID,
                                         new String[]{idSession},
                                         null,
                                         null,
-                                        "g." + GameColumns.GAME_ID + " DESC, h." + HandColumns.NUMERO_MANO + " DESC, h." + HandColumns.SIDE);
-                                Cursor cur2 = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
+                                        "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " DESC, h." + HandColumns.SIDE);
+                                Cursor teams = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
                                         new String[]{"t.*", "bs.*"},
                                         "bs." + SessionColumns.SESSION_ID + "=? and (t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_A_ID + " or t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_B_ID + ")",
                                         new String[]{idSession},
@@ -156,7 +156,20 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
 //                                    Cursor cHand = sloh.query(HandColumns.TABLE_NAME),
 //                                            new String[]{"*"},
 //                                    HandColumns.
-                                BurracoSession tempSession = new BurracoSession(cur, cur2);
+                                BurracoSession tempSession = new BurracoSession(bs, teams);
+                                bs.close();
+                                teams.close();
+                                sloh.close();
+                                bdh.close();
+                                tabAdapter.clearAll();
+                                sessione = tempSession;
+                                tabAdapter.restore(sessione);
+                                teamSaved = true;
+                                add.setVisible(false);
+                                punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+                                punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+                                updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+//                                viewPager.setCurrentItem(sessione.getGameTotali()-1);
                             }
                             drawerPosition = position;
                         }
@@ -166,6 +179,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     .build();
 
             new AsyncTask<Void, Void, Void>() {
+
+                ProgressDialog pDiag;
 
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -193,6 +208,22 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     sloh.close();
                     bdh.close();
                     return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    pDiag = new ProgressDialog(SummaryContainerSwipe.this);
+                    pDiag.setMessage("Loading History...");
+                    pDiag.setIndeterminate(false);
+                    pDiag.setCancelable(true);
+                    pDiag.show();
+                    super.onPreExecute();
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    pDiag.dismiss();
+                    super.onPostExecute(aVoid);
                 }
             }.execute();
         }
@@ -235,7 +266,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     }
 
     private void setNewGame() {
-        tabAdapter.addGame(sessione.getCurrentGame());
+        tabAdapter.addGame(sessione.getCurrentGame(), false);
         viewPager.setCurrentItem(sessione.getGameTotali() - 1);
     }
 

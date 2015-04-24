@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import yeapp.com.burracoscore.core.database.columns.GameColumns;
 import yeapp.com.burracoscore.core.database.columns.HandColumns;
 import yeapp.com.burracoscore.core.database.columns.SessionColumns;
+import yeapp.com.burracoscore.core.database.columns.TeamColumns;
 import yeapp.com.burracoscore.utils.Utils;
 
 public class BurracoSession implements Parcelable {
@@ -33,8 +34,27 @@ public class BurracoSession implements Parcelable {
     }
 
     public BurracoSession(Cursor cursorSession, Cursor cTeam){
+        while(cTeam.moveToNext()){
+            char tempSide = cTeam.getString(cTeam.getColumnIndex(TeamColumns.SIDE)).charAt(0);
+            if(tempSide==Utils.ASide){
+                team_a = new Team(tempSide,
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.ALIAS)),
+                        cTeam.getInt(cTeam.getColumnIndex(TeamColumns.NUMERO_PLAYER)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER1)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER2)),
+                        cTeam.getLong(cTeam.getColumnIndex(TeamColumns.TEAM_ID)));
+            }else{
+                team_b = new Team(tempSide,
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.ALIAS)),
+                        cTeam.getInt(cTeam.getColumnIndex(TeamColumns.NUMERO_PLAYER)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER1)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER2)),
+                        cTeam.getLong(cTeam.getColumnIndex(TeamColumns.TEAM_ID)));
+            }
+        }
+
         games = new ArrayList<Game>();
-        long tempIdGame = -1;
+        long idGame = -1;
         Game g=null;
         while(cursorSession.moveToNext()){
             if(id==-1){
@@ -42,15 +62,17 @@ public class BurracoSession implements Parcelable {
                 numero_vinti_a = cursorSession.getInt(cursorSession.getColumnIndex(SessionColumns.NUMERO_GAME_A));
                 numero_vinti_b = cursorSession.getInt(cursorSession.getColumnIndex(SessionColumns.NUMERO_GAME_B));
             }
-            if(tempIdGame!= cursorSession.getLong(cursorSession.getColumnIndex(GameColumns.GAME_ID))) {
+            long tempIdGame = cursorSession.getLong(cursorSession.getColumnIndex(GameColumns.GAME_ID));
+            if(idGame != tempIdGame) {
                 g=new Game(
-                        cursorSession.getLong(cursorSession.getColumnIndex(GameColumns.GAME_ID)),
+                        tempIdGame,
                         cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.NUMERO_MANI)),
                         cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.NUMERO_PARTITA)),
                         cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.TOTALE_A)),
                         cursorSession.getInt(cursorSession.getColumnIndex(GameColumns.TOTALE_B)),
                         cursorSession.getString(cursorSession.getColumnIndex(GameColumns.VINCITORE)).charAt(0));
                 games.add(g);
+                idGame = tempIdGame;
             }
             Hand h = new Hand(
                     cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.BASE)),
@@ -62,9 +84,6 @@ public class BurracoSession implements Parcelable {
                     cursorSession.getInt(cursorSession.getColumnIndex(HandColumns.WON)));
 
             g.addMano(h, cursorSession.getString(cursorSession.getColumnIndex(HandColumns.SIDE)).charAt(0));
-//            Hand ha = new Hand();
-//            Hand ha = new Hand();
-
         }
 
         Log.d("Sessione" , "creata la sessione con id: "+ id);

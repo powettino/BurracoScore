@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
+import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.fragment.SummaryFragment;
 import yeapp.com.burracoscore.utils.Constants;
@@ -49,8 +50,16 @@ public class TabSummaryAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void addGame(Game game){
+    public void restore(BurracoSession ses){
+        for(Game g : ses.getGames()) {
+            addGame(g, true);
+
+        }
+    }
+
+    public void addGame(Game game, boolean restore){
         bun.putParcelable(Constants.currentGame, game);
+        bun.putBoolean(Constants.restoreFragment, restore);
         number++;
         notifyDataSetChanged();
     }

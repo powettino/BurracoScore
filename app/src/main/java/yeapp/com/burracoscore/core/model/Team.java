@@ -42,6 +42,15 @@ public class Team implements Parcelable {
         id = System.currentTimeMillis();
     }
 
+    public Team(char sideDb, String aliasDb, int numeroPlayerDb, String player1Db, String player2Db, long idDb){
+        setSide(sideDb);
+        alias = aliasDb;
+        player1 = player1Db;
+        player2 = player2Db;
+        numberPlayer = numeroPlayerDb;
+        id = idDb;
+    }
+
     public String getAlias() {
         return alias;
     }
