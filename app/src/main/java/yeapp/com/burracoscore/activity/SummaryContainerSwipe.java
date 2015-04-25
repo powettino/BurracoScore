@@ -128,7 +128,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                         new String[]{idSession},
                                         null,
                                         null,
-                                        "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " DESC, h." + HandColumns.SIDE);
+                                        "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " ASC, h." + HandColumns.SIDE);
                                 Cursor teams = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
                                         new String[]{"t.*", "bs.*"},
                                         "bs." + SessionColumns.SESSION_ID + "=? and (t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_A_ID + " or t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_B_ID + ")",
@@ -147,9 +147,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                 sessione = tempSession;
                                 tabAdapter.restoreOld(sessione);
                                 teamSaved = true;
-                                add.setVisible(sessione.getCurrentGame().getWinner()==0 ? false : true);
-                                punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-                                punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+                                add.setVisible(sessione.getCurrentGame().getWinner() != 0);
+                                setPunteggioTeam();
                                 updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
                                 viewPager.setCurrentItem(sessione.getGameTotali()-1);
                             }
@@ -331,8 +330,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
         add.setVisible(savedInstanceState.getBoolean(Constants.addButtonStatus));
         cancGame.setVisible(savedInstanceState.getBoolean(Constants.resetGameButtonStatus));
-        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+       setPunteggioTeam();
     }
 
     @Override
@@ -429,6 +427,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
             drawer.setSelection(drawerPosition, true);
         }else{
             //altrimenti si aggiorna il primo elemento del drawer
+            p1.setBadge(((PrimaryDrawerItem)drawer.getDrawerItems().get(drawerPosition)).getBadge());
             drawer.updateItem(p1, drawerPosition);
         }
         Log.d("RunOnUI", "Eseguito il tread, ora dovrebbe essere aggiornato");
@@ -507,11 +506,15 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }.execute(sessione);
 
         if (ended) {
-            punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-            punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+            setPunteggioTeam();
             dialogActive = true;
             winnerDialog.show();
         }
+    }
+
+    private void setPunteggioTeam() {
+        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
+        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
     }
 
     @Override
@@ -583,8 +586,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                         setNewGame();
                                         teamSaved = false;
                                         add.setVisible(false);
-                                        punteggioTotA.setText(String.valueOf(sessione.getNumeroVintiA()));
-                                        punteggioTotB.setText(String.valueOf(sessione.getNumeroVintiB()));
+                                        setPunteggioTeam();
                                         dialog.cancel();
                                         dialogActive = false;
                                     }
