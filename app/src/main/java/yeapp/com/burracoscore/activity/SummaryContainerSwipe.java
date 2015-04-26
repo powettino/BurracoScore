@@ -27,6 +27,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import yeapp.com.burracoscore.R;
@@ -68,7 +69,9 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
     private TextView teamBText;
 
     Drawer.Result drawer = null;
-    private int drawerPosition=-1;
+    private int drawerPosition = -1;
+
+    ProgressDialog pDiag;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,41 +119,63 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                             if (view != null) {
-                                Log.d(HelperConstants.DBTag, "ricarico tutto");
-                                BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
-                                SQLiteDatabase sloh = bdh.getReadableDatabase();
-                                String idSession = String.valueOf(drawerItem.getTag());
-                                Log.d(HelperConstants.DBTag, idSession + " tag");
-
-                                Cursor bs = sloh.query((SessionColumns.TABLE_NAME + " bs, " + GameColumns.TABLE_NAME + " g, " + HandColumns.TABLE_NAME + " h"),
-                                        new String[]{"bs.*", "g.*", "h.*"},
-                                        "bs." + SessionColumns.SESSION_ID + "=? and bs." + SessionColumns.SESSION_ID + "=g." + GameColumns.SESSION_ID + " and h." + HandColumns.GAME_ID + "=g." + GameColumns.GAME_ID,
-                                        new String[]{idSession},
-                                        null,
-                                        null,
-                                        "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " ASC, h." + HandColumns.SIDE);
-                                Cursor teams = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
-                                        new String[]{"t.*", "bs.*"},
-                                        "bs." + SessionColumns.SESSION_ID + "=? and (t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_A_ID + " or t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_B_ID + ")",
-                                        new String[]{idSession},
-                                        null,
-                                        null,
-                                        "t." + TeamColumns.SIDE + " DESC"
-                                );
-
-                                BurracoSession tempSession = new BurracoSession(bs, teams);
-                                bs.close();
-                                teams.close();
-                                sloh.close();
-                                bdh.close();
                                 tabAdapter.clearAll();
-                                sessione = tempSession;
-                                tabAdapter.restoreOld(sessione);
-                                teamSaved = true;
-                                add.setVisible(sessione.getCurrentGame().getWinner() != 0);
-                                setPunteggioTeam();
-                                updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
-                                viewPager.setCurrentItem(sessione.getGameTotali()-1);
+                                new AsyncTask<String, Void, BurracoSession>() {
+
+                                    @Override
+                                    protected BurracoSession doInBackground(String... params) {
+                                        Log.d(HelperConstants.DBTag, "ricarico tutto");
+                                        String idSession = params[0];
+                                        BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+                                        SQLiteDatabase sloh = bdh.getReadableDatabase();
+                                        Log.d(HelperConstants.DBTag, idSession + " tag");
+                                        Cursor bs = sloh.query((SessionColumns.TABLE_NAME + " bs"),
+                                                new String[]{"bs.*"},
+                                                "bs." + SessionColumns.SESSION_ID + "=?",
+                                                new String[]{idSession},
+                                                null,
+                                                null,
+                                                null);
+                                        Cursor gh = sloh.query((GameColumns.TABLE_NAME + " g, " + HandColumns.TABLE_NAME + " h"),
+                                                new String[]{"g.*", "h.*"},
+                                                "g." + GameColumns.SESSION_ID + "=? and h." + HandColumns.GAME_ID + "=g." + GameColumns.GAME_ID,
+                                                new String[]{idSession},
+                                                null,
+                                                null,
+                                                "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " ASC, h." + HandColumns.SIDE);
+                                        Cursor teams = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
+                                                new String[]{"t.*", "bs.*"},
+                                                "bs." + SessionColumns.SESSION_ID + "=? and (t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_A_ID + " or t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_B_ID + ")",
+                                                new String[]{idSession},
+                                                null,
+                                                null,
+                                                "t." + TeamColumns.SIDE + " DESC"
+                                        );
+                                        BurracoSession tempSession = new BurracoSession(bs, gh, teams);
+                                        bs.close();
+                                        teams.close();
+                                        sloh.close();
+                                        bdh.close();
+                                        return tempSession;
+                                    }
+
+                                    @Override
+                                    protected void onPostExecute(BurracoSession result) {
+                                        sessione = result;
+                                        tabAdapter.restoreOld(sessione);
+                                        teamSaved = true;
+                                        add.setVisible(sessione.getCurrentGame().getWinner() != 0);
+                                        setPunteggioTeam();
+                                        updateTeamAlias(sessione.getTeamA().getAlias(), sessione.getTeamB().getAlias());
+                                        viewPager.setCurrentItem(sessione.getGameTotali() - 1);
+                                        renderSpinner(false);
+                                    }
+
+                                    @Override
+                                    protected void onPreExecute() {
+                                        renderSpinner(true);
+                                    }
+                                }.execute(String.valueOf(drawerItem.getTag()));
                             }
                             drawerPosition = position;
                         }
@@ -159,56 +184,54 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     .withActionBarDrawerToggleAnimated(true)
                     .build();
 
-            new AsyncTask<Void, Void, Void>() {
-
-                ProgressDialog pDiag;
+            new AsyncTask<Void, Void, ArrayList<PrimaryDrawerItem>>() {
 
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected ArrayList<PrimaryDrawerItem> doInBackground(Void... params) {
                     BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
                     SQLiteDatabase sloh = bdh.getReadableDatabase();
 
-                    Cursor cur = sloh.query(SessionColumns.TABLE_NAME+ " bs, "+TeamColumns.TABLE_NAME+" ta, "+TeamColumns.TABLE_NAME+" tb",
-                            new String[]{"ta."+TeamColumns.ALIAS, "tb."+TeamColumns.ALIAS, "bs."+SessionColumns.SESSION_ID, "bs."+SessionColumns.NUMERO_GAME_A,"bs."+SessionColumns.NUMERO_GAME_B,"bs."+SessionColumns.TIMESTAMP },
-                            "bs."+SessionColumns.TEAM_A_ID+"=ta."+TeamColumns.TEAM_ID+" and bs."+SessionColumns.TEAM_B_ID+"=tb."+TeamColumns.TEAM_ID+" and ta."+TeamColumns.SIDE+"='"+Utils.ASide+"' and tb."+TeamColumns.SIDE+"='"+Utils.BSide+"'",
+                    final Cursor cur = sloh.query(SessionColumns.TABLE_NAME + " bs, " + TeamColumns.TABLE_NAME + " ta, " + TeamColumns.TABLE_NAME + " tb",
+                            new String[]{"ta." + TeamColumns.ALIAS, "tb." + TeamColumns.ALIAS, "bs." + SessionColumns.SESSION_ID, "bs." + SessionColumns.NUMERO_GAME_A, "bs." + SessionColumns.NUMERO_GAME_B, "bs." + SessionColumns.TIMESTAMP},
+                            "bs." + SessionColumns.TEAM_A_ID + "=ta." + TeamColumns.TEAM_ID + " and bs." + SessionColumns.TEAM_B_ID + "=tb." + TeamColumns.TEAM_ID + " and ta." + TeamColumns.SIDE + "='" + Utils.ASide + "' and tb." + TeamColumns.SIDE + "='" + Utils.BSide + "'",
                             null,
                             null,
                             null,
-                            "bs."+SessionColumns.TIMESTAMP + " DESC");
+                            "bs." + SessionColumns.TIMESTAMP + " DESC");
                     Log.d(HelperConstants.DBTag, "Trovate nel caricamento " + cur.getCount() + " sessioni " + cur.getColumnIndex(TeamColumns.ALIAS));
+                    ArrayList<PrimaryDrawerItem> p = new ArrayList<PrimaryDrawerItem>();
                     while (cur.moveToNext()) {
-                        drawer.addItem(new PrimaryDrawerItem()
-                                        .withName(cur.getString(0) + " - " + cur.getString(1))
-                                        .withTag(cur.getString(2))
-                                        .withDescription("Parziale: " + cur.getString(3) + " - " + cur.getString(4))
-                                        .withBadge("Data: " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(cur.getString(5)))).toString())
-                        );
-                        drawer.addItem(new DividerDrawerItem());
+                        Log.d("BBB", cur.getCount() + " - 0:" + cur.getString(2));
+                        p.add(new PrimaryDrawerItem()
+                                .withName(cur.getString(0) + " - " + cur.getString(1))
+                                .withTag(cur.getString(2))
+                                .withDescription("Parziale: " + cur.getString(3) + " - " + cur.getString(4))
+                                .withBadge("Data: " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(cur.getString(5)))).toString()));
                     }
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    });
                     cur.close();
                     sloh.close();
                     bdh.close();
-                    return null;
+                    return p;
                 }
 
                 @Override
                 protected void onPreExecute() {
-                    if(pDiag == null  || !pDiag.isShowing()) {
-                        pDiag = new ProgressDialog(SummaryContainerSwipe.this);
-                        pDiag.setMessage("Loading History...");
-                        pDiag.setIndeterminate(false);
-                        pDiag.setCancelable(true);
-                        pDiag.show();
-                    }
-                    super.onPreExecute();
+                    renderSpinner(true);
                 }
 
                 @Override
-                protected void onPostExecute(Void aVoid) {
-                    if(pDiag.isShowing()){
-                        pDiag.dismiss();
+                protected void onPostExecute(ArrayList<PrimaryDrawerItem> primaryDrawerItems) {
+                    for (PrimaryDrawerItem primary : primaryDrawerItems) {
+                        drawer.addItem(primary);
+                        drawer.addItem(new DividerDrawerItem());
                     }
-                    super.onPostExecute(aVoid);
+                    renderSpinner(false);
                 }
             }.execute();
         }
@@ -245,6 +268,23 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
     }
 
+    public void renderSpinner(boolean start) {
+        if (start) {
+            if (pDiag == null || !pDiag.isShowing()) {
+                pDiag = new ProgressDialog(SummaryContainerSwipe.this);
+                pDiag.setMessage("Loading History...");
+                pDiag.setIndeterminate(false);
+                pDiag.setCancelable(true);
+                pDiag.show();
+            }
+        } else {
+            if (pDiag.isShowing()) {
+                pDiag.dismiss();
+            }
+        }
+    }
+
+
     public void updateTeamAlias(String aliasA, String aliasB) {
         teamAText.setText(Utils.formattedString(aliasA));
         teamBText.setText(Utils.formattedString(aliasB));
@@ -272,7 +312,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         new AsyncTask<Long, Void, Void>() {
-
                                             @Override
                                             protected Void doInBackground(Long... params) {
                                                 long id = params[0];
@@ -330,7 +369,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         }
         add.setVisible(savedInstanceState.getBoolean(Constants.addButtonStatus));
         cancGame.setVisible(savedInstanceState.getBoolean(Constants.resetGameButtonStatus));
-       setPunteggioTeam();
+        setPunteggioTeam();
     }
 
     @Override
@@ -353,8 +392,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     sessione.setTeamB(b_temp);
                     updateTeamAlias(a_temp.getAlias(), b_temp.getAlias());
                     teamSaved = true;
-                    if(drawerPosition!=-1) {
-                        Log.d(HelperConstants.DBTag, "posizione trovata per la squadra: "+drawerPosition);
+                    if (drawerPosition != -1) {
+                        Log.d(HelperConstants.DBTag, "posizione trovata per la squadra: " + drawerPosition);
                         drawer.updateName(a_temp.getAlias() + " - " + b_temp.getAlias(), drawerPosition);
                     }
                     new AsyncTask<Team, Void, String>() {
@@ -414,20 +453,20 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
 
     public void gameUpdate(Game gameUpdate, boolean ended) {
         sessione.updateLastGame(gameUpdate);
-        Log.d("Grafica", "Sessione aggiornata con id " + gameUpdate.getId());
+        Log.d("Grafica", "Gioco aggiornato con id " + gameUpdate.getId());
         PrimaryDrawerItem p1 = new PrimaryDrawerItem()
                 .withName(sessione.getTeamA().getAlias() + " - " + sessione.getTeamB().getAlias())
                 .withTag(sessione.getId())
                 .withDescription("Parziale: " + sessione.getNumeroVintiA() + " - " + sessione.getNumeroVintiB())
                 .withBadge("Data: " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(System.currentTimeMillis()))).toString());
-        if(drawerPosition==-1){
+        if (drawerPosition == -1) {
             drawer.addItem(p1, 1);
             drawer.addItem(new DividerDrawerItem(), 2);
-            drawerPosition=1;
+            drawerPosition = 1;
             drawer.setSelection(drawerPosition, true);
-        }else{
+        } else {
             //altrimenti si aggiorna il primo elemento del drawer
-            p1.setBadge(((PrimaryDrawerItem)drawer.getDrawerItems().get(drawerPosition)).getBadge());
+            p1.setBadge(((PrimaryDrawerItem) drawer.getDrawerItems().get(drawerPosition)).getBadge());
             drawer.updateItem(p1, drawerPosition);
         }
         Log.d("RunOnUI", "Eseguito il tread, ora dovrebbe essere aggiornato");
@@ -442,16 +481,23 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                 ContentValues cv;
                 Game gameTemp = bSes.getCurrentGame();
                 //Si aggiorna la sessione quando c'e' un nuovo game con una mano oppure e' segnato un vincitore
-                if (gameTemp.getNumeroMani() == 1 || gameTemp.getWinner()!= 0) {
+                if (gameTemp.getNumeroMani() == 1 || gameTemp.getWinner() != 0) {
                     cv = Utils.getSessionContentValues(bSes);
-                    sloh.insertWithOnConflict(SessionColumns.TABLE_NAME,
+                    Log.d("RITORNO", String.valueOf(sloh.insertWithOnConflict(SessionColumns.TABLE_NAME,
                             null,
                             cv,
-                            SQLiteDatabase.CONFLICT_REPLACE);
-                    Log.d(HelperConstants.DBTag, "aggiornata la sessione con "+gameTemp.getNumeroMani()+" mani e "+gameTemp.getWinner()+" vincitori");
+                            SQLiteDatabase.CONFLICT_REPLACE)));
+                    Log.d(HelperConstants.DBTag, "aggiornata la sessione con id " + bSes.getId() + " e " + gameTemp.getNumeroMani() + " mani e " + gameTemp.getWinner() + " vincitori con drawwe " + drawerPosition);
                 }
                 //Se c'e' un solo game e una sola mano e' la prima mano in generale e si salva le squadre
-                if (bSes.getGameTotali() == 1 && gameTemp.getNumeroMani() == 1) {
+                Cursor cur = sloh.query(TeamColumns.TABLE_NAME,
+                        new String[]{TeamColumns.TEAM_ID, TeamColumns.SIDE},
+                        String.format("%s = ?", TeamColumns.TEAM_ID),
+                        new String[]{String.valueOf(bSes.getTeamA().getId())},
+                        null,
+                        null,
+                        null);
+                if (cur.getCount() == 0) {
                     Log.d(HelperConstants.DBTag, "Prima sessione");
                     cv = Utils.getTeamContentValues(bSes.getTeamA());
                     sloh.insert(TeamColumns.TABLE_NAME,
@@ -463,29 +509,13 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                             cv);
                     Log.d(HelperConstants.DBTag, "aggiunte le squadre");
                 }
-                Cursor cur = sloh.query(GameColumns.TABLE_NAME,
-                        new String[]{GameColumns.GAME_ID},
-                        String.format("%s = ?", GameColumns.GAME_ID),
-                        new String[]{String.valueOf(gameTemp.getId())},
-                        null,
-                        null,
-                        null);
-                cv = Utils.getGameContentValues(gameTemp, bSes.getId());
-                if (cur.getCount() == 0) {
-                    sloh.insertWithOnConflict(GameColumns.TABLE_NAME,
-                            null,
-                            cv,
-                            SQLiteDatabase.CONFLICT_REPLACE);
-                    Log.d(HelperConstants.DBTag, "Inserita la partita");
-                } else {
-                    sloh.updateWithOnConflict(GameColumns.TABLE_NAME,
-                            cv,
-                            String.format("%s = ?", GameColumns.GAME_ID),
-                            new String[]{String.valueOf(gameTemp.getId())},
-                            SQLiteDatabase.CONFLICT_FAIL);
-                    Log.d(HelperConstants.DBTag, "Aggiornata la partita");
-                }
                 cur.close();
+                cv = Utils.getGameContentValues(gameTemp, bSes.getId());
+                sloh.insertWithOnConflict(GameColumns.TABLE_NAME,
+                        null,
+                        cv,
+                        SQLiteDatabase.CONFLICT_REPLACE);
+                Log.d(HelperConstants.DBTag, "Inserita la partita");
                 cv = Utils.getHandContentValues(gameTemp.getLastMano(Utils.ASide), Utils.ASide, gameTemp.getId());
                 sloh.insertWithOnConflict(HandColumns.TABLE_NAME,
                         null,
