@@ -72,7 +72,7 @@ public class Utils {
         return 0;
     }
 
-    public static ContentValues getTeamContentValues(Team t){
+    public static ContentValues getInsertTeamCV(Team t){
         ContentValues cv = new ContentValues();
         cv.put(TeamColumns.SIDE, String.valueOf(t.getSide()));
         cv.put(TeamColumns.ALIAS, t.getAlias());
@@ -84,7 +84,7 @@ public class Utils {
         return cv;
     }
 
-    public static ContentValues getGameContentValues(Game g, long idSessione){
+    public static ContentValues getInsertGameCV(Game g, long idSessione){
         ContentValues cv = new ContentValues();
         cv.put(GameColumns.NUMERO_MANI, g.getNumeroMani());
         cv.put(GameColumns.NUMERO_PARTITA, g.getGameNumber());
@@ -96,7 +96,7 @@ public class Utils {
         return cv;
     }
 
-    public static ContentValues getSessionContentValues(BurracoSession bs){
+    public static ContentValues getInsertSessionCV(BurracoSession bs){
         ContentValues cv = new ContentValues();
         cv.put(SessionColumns.NUMERO_GAME_A, bs.getNumeroVintiA());
         cv.put(SessionColumns.NUMERO_GAME_B, bs.getNumeroVintiB());
@@ -107,7 +107,15 @@ public class Utils {
         return cv;
     }
 
-    public static ContentValues getHandContentValues(Hand h, char side, long idGame){
+    public static ContentValues getUpdateSessionCV(BurracoSession bs){
+        ContentValues cv = new ContentValues();
+        cv.put(SessionColumns.NUMERO_GAME_A, bs.getNumeroVintiA());
+        cv.put(SessionColumns.NUMERO_GAME_B, bs.getNumeroVintiB());
+        cv.put(SessionColumns.TIMESTAMP, System.currentTimeMillis());
+        return cv;
+    }
+
+    public static ContentValues getInsertHandCV(Hand h, char side, long idGame){
         ContentValues cv = new ContentValues();
         cv.put(HandColumns.BASE, h.getBase());
         cv.put(HandColumns.CARTE, h.getCarte());
