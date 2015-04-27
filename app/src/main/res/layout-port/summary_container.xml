@@ -172,7 +172,7 @@
         <ImageButton
             android:id="@+id/restartSession"
             android:layout_width="0dp"
-            android:src="@drawable/ic_action_discard"
+            android:src="@drawable/ic_action_refresh"
             android:layout_height="match_parent"
             android:padding="0dp"
             android:layout_margin="0dp"
