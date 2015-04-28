@@ -41,23 +41,29 @@ public class Utils {
         return result.toString();
     }
 
-    public static Bitmap getThumbnail(Context context, String uri, int preferredSize) throws IOException {
-        InputStream input = context.getContentResolver().openInputStream(Uri.parse(uri));
-        BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
-        onlyBoundsOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
-        input.close();
-        if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
-            return null;
+    public static Bitmap getThumbnail(Context context, String uri, int preferredSize) {
+        InputStream input=null;
+        try {
+            input = context.getContentResolver().openInputStream(Uri.parse(uri));
+            BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
+            onlyBoundsOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
+            input.close();
 
-        int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
-        double ratio = (originalSize > preferredSize) ? (originalSize / preferredSize) : 1.0;
-        BitmapFactory.Options newOpt = new BitmapFactory.Options();
-        newOpt.inSampleSize = (int)(ratio * 2);
-        input = context.getContentResolver().openInputStream(Uri.parse(uri));
-        Bitmap bitmap = BitmapFactory.decodeStream(input, null, newOpt);
-        input.close();
-        return bitmap;
+            if ((onlyBoundsOptions.outWidth == -1) || (onlyBoundsOptions.outHeight == -1))
+                return null;
+
+            int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight : onlyBoundsOptions.outWidth;
+            double ratio = (originalSize > preferredSize) ? (originalSize / preferredSize) : 1.0;
+            BitmapFactory.Options newOpt = new BitmapFactory.Options();
+            newOpt.inSampleSize = (int)(ratio * 2);
+            input = context.getContentResolver().openInputStream(Uri.parse(uri));
+            Bitmap bitmap = BitmapFactory.decodeStream(input, null, newOpt);
+            input.close();
+            return bitmap;
+        }catch(Exception ioe){
+            return null;
+        }
     }
 
     @SuppressWarnings("unused")

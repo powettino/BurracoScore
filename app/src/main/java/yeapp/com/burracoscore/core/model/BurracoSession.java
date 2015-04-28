@@ -42,6 +42,7 @@ public class BurracoSession implements Parcelable {
                         cTeam.getInt(cTeam.getColumnIndex(TeamColumns.NUMERO_PLAYER)),
                         cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER1)),
                         cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER2)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.FOTO)),
                         cTeam.getLong(cTeam.getColumnIndex(TeamColumns.TEAM_ID)));
             } else {
                 team_b = new Team(tempSide,
@@ -49,6 +50,7 @@ public class BurracoSession implements Parcelable {
                         cTeam.getInt(cTeam.getColumnIndex(TeamColumns.NUMERO_PLAYER)),
                         cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER1)),
                         cTeam.getString(cTeam.getColumnIndex(TeamColumns.PLAYER2)),
+                        cTeam.getString(cTeam.getColumnIndex(TeamColumns.FOTO)),
                         cTeam.getLong(cTeam.getColumnIndex(TeamColumns.TEAM_ID)));
             }
         }

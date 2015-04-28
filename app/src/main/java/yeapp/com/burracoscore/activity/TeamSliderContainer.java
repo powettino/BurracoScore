@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
     private Team tA;
     private Team tB;
 
-    private View goLeft;
-    private View goRight;
+    private ImageButton goLeft;
+    private ImageButton goRight;
 
     private ArrayList<Integer> idResEmpty = new ArrayList<Integer>();
     Spinner spinnerTeam;
@@ -79,13 +80,15 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
         spinnerTeam.setAdapter(arrayAdapter);
         spinnerTeam.setOnItemSelectedListener(this);
 
-        goLeft = findViewById(R.id.goLeft);
+        goLeft = (ImageButton) findViewById(R.id.goLeft);
         goLeft.setOnClickListener(this);
-        goRight = findViewById(R.id.goRight);
+        goRight = (ImageButton) findViewById(R.id.goRight);
         goRight.setOnClickListener(this);
 
         if (savedInstanceState == null) {
             goLeft.setEnabled(false);
+            goLeft.setImageResource(R.drawable.ic_action_previous_item_black);
+            goLeft.setImageAlpha(50);
             Intent startingIntent = getIntent();
             int tempNumberPlayer = startingIntent.getIntExtra(Constants.numberOfPlayer, 1);
             tA = startingIntent.getParcelableExtra(Constants.teamAKey);
@@ -121,10 +124,18 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
         fragment = (TeamSliderFragment) getFragmentManager().findFragmentByTag(Constants.fragmentKey);
         if(currentTeam == Utils.ASide){
             goLeft.setEnabled(false);
+            goLeft.setImageAlpha(50);
+            goRight.setImageAlpha(255);
             goRight.setEnabled(true);
+            goRight.setImageResource(R.drawable.ic_action_next_item);
+            goLeft.setImageResource(R.drawable.ic_action_previous_item_black);
         }else{
             goRight.setEnabled(false);
+            goRight.setImageAlpha(50);
+            goLeft.setImageAlpha(255);
             goLeft.setEnabled(true);
+            goRight.setImageResource(R.drawable.ic_action_next_item_black);
+            goLeft.setImageResource(R.drawable.ic_action_previous_item);
         }
     }
 
@@ -165,7 +176,11 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
         if(currentTeam == Utils.ASide){
             currentTeam = Utils.BSide;
             goLeft.setEnabled(true);
+            goRight.setImageAlpha(50);
+            goLeft.setImageAlpha(255);
             goRight.setEnabled(false);
+            goRight.setImageResource(R.drawable.ic_action_next_item_black);
+            goLeft.setImageResource(R.drawable.ic_action_previous_item);
             b.putParcelable(Constants.genericTeamKey, tB);
             fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_left_in, R.anim.card_flip_left_out);
@@ -173,7 +188,11 @@ public class TeamSliderContainer extends ActionBarActivity implements View.OnCli
         }else{
             currentTeam = Utils.ASide;
             goLeft.setEnabled(false);
+            goLeft.setImageAlpha(50);
+            goRight.setImageAlpha(255);
             goRight.setEnabled(true);
+            goRight.setImageResource(R.drawable.ic_action_next_item);
+            goLeft.setImageResource(R.drawable.ic_action_previous_item_black);
             b.putParcelable(Constants.genericTeamKey, tA);
             fragment.setArguments(b);
             ft.setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_right_out);

@@ -144,7 +144,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                                 null,
                                                 "g." + GameColumns.GAME_ID + " ASC, h." + HandColumns.NUMERO_MANO + " ASC, h." + HandColumns.SIDE);
                                         Cursor teams = sloh.query((TeamColumns.TABLE_NAME + " t, " + SessionColumns.TABLE_NAME + " bs"),
-                                                new String[]{"t.*", "bs.*"},
+                                                new String[]{"t.*"},
                                                 "bs." + SessionColumns.SESSION_ID + "=? and (t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_A_ID + " or t." + TeamColumns.TEAM_ID + "=bs." + SessionColumns.TEAM_B_ID + ")",
                                                 new String[]{idSession},
                                                 null,
@@ -278,6 +278,14 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
             pDiag.setCancelable(true);
             pDiag.show();
         }
+    }
+
+    @Override
+    public void onPause() {
+        if(pDiag != null && pDiag.isShowing()) {
+            pDiag.dismiss();
+        }
+        super.onPause();
     }
 
     private void updateTeamAlias() {

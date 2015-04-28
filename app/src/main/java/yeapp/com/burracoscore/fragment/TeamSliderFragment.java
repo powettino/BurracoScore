@@ -4,10 +4,15 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +25,7 @@ import android.widget.ImageView;
 import java.io.IOException;
 
 import yeapp.com.burracoscore.R;
+import yeapp.com.burracoscore.activity.TeamSliderContainer;
 import yeapp.com.burracoscore.core.model.Team;
 import yeapp.com.burracoscore.utils.Constants;
 import yeapp.com.burracoscore.utils.Utils;
@@ -35,6 +41,8 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
     private ImageView teamPicture = null;
 
     private OnTeamFragmentChanger changer;
+
+    ProgressDialog pDiag;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,14 +65,48 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
             teamAliasText.setTextColor(getResources().getColor(R.color.Blu));
         }
         teamPicture = (ImageView) view.findViewById(R.id.foto);
-
-        //FIXME: va fatto in un async
-        if (team.getImagePath() != null) {
-            try {
-                teamPicture.setTag(team.getImagePath());
-                teamPicture.setImageBitmap(Utils.getThumbnail(getActivity(), team.getImagePath(), 300));
-            } catch (IOException ioe) {
+        String url = team.getImagePath();
+        if (url != null) {
+            Bitmap b = Utils.getThumbnail(getActivity(), url, getResources().getDimensionPixelSize(R.dimen.maxPicture));
+            if(b!=null) {
+                startSpinner("Caricamento immagine...");
+                teamPicture.setTag(url);
+                teamPicture.setImageBitmap(b);
+                stopSpinner();
             }
+
+//            new AsyncTask<String, Void, Bitmap>() {
+//
+//                @Override
+//                protected Bitmap doInBackground(String... params) {
+//                    String url = params[0];
+//                    int w = Integer.parseInt(params[1]);
+//                    Bitmap b = null;
+//                    try {
+//                        Log.d("FRAGMENT", "carico l'immagine di url: " + url);
+//                        b = Utils.getThumbnail(getActivity(), url, w);
+//                        Log.d("FRAGMENT", "L'immagine e': "+ (b!=null));
+//                    } catch (Exception ioe) {
+//                        Log.d("FRAGMENT", ioe.getMessage());
+//                        ioe.printStackTrace();
+//                    }finally {
+//                        Log.d("FRAGMENT", "L'immagine2 e': " + (b != null));
+//                    }
+//                    return b;
+//                }
+//
+//                @Override
+//                protected void onPostExecute(Bitmap bitmap) {
+//                    teamPicture.setImageBitmap(bitmap);
+//                    Log.d("FRAGMENT", "Ho settato l'immagine: "+ (bitmap!=null));
+//                    stopSpinner();
+//                }
+//
+//                @Override
+//                protected void onPreExecute() {
+//                    startSpinner("Caricamento immagine...");
+//                }
+//            }.execute(url, String.valueOf(teamPicture.getWidth()));
         }
 
         teamPicture.setOnClickListener(this);
@@ -87,6 +129,22 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
         super.onActivityCreated(savedInstanceState);
         if(team.getNumberPlayer()==1){
             animatePlayerName();
+        }
+    }
+
+    private void stopSpinner(){
+        if (pDiag.isShowing()) {
+            pDiag.dismiss();
+        }
+    }
+
+    private void startSpinner(String msg) {
+        if (pDiag == null || !pDiag.isShowing()) {
+            pDiag = new ProgressDialog(getActivity());
+            pDiag.setMessage(msg);
+            pDiag.setIndeterminate(false);
+            pDiag.setCancelable(true);
+            pDiag.show();
         }
     }
 
@@ -152,6 +210,14 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
     }
 
     @Override
+    public void onPause() {
+        if(pDiag != null && pDiag.isShowing()) {
+            pDiag.dismiss();
+        }
+        super.onPause();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
     }
@@ -191,10 +257,24 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.foto): {
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+                startSpinner("Caricamento immagini...");
+                Intent intent;
+                if (Build.VERSION.SDK_INT < 19){
+                    intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+                }
+                stopSpinner();
+                startActivityForResult(intent, 1);
+
+//                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
                 break;
             }
             default: {
@@ -208,14 +288,12 @@ public class TeamSliderFragment extends Fragment implements TextWatcher, ImageVi
         switch (requestCode) {
             case 1: {
                 if (data != null && data.getData() != null) {
+                    startSpinner("Caricamento immagine...");
                     String uri = data.getData().toString();
                     teamPicture.setTag(uri);
-                    try {
-
-                        teamPicture.setImageBitmap(Utils.getThumbnail(getActivity(), uri, teamPicture.getWidth()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Log.d("FRAGMENT", "uri: "+ uri);
+                    teamPicture.setImageBitmap(Utils.getThumbnail(getActivity(), uri, teamPicture.getWidth()));
+                    stopSpinner();
                 }
                 break;
             }
