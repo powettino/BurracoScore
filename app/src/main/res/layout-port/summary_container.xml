@@ -45,13 +45,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_marginTop="@dimen/highMargin"
+            android:layout_marginBottom="60dp"
             android:paddingLeft="@dimen/lowMargin"
             android:maxEms="2"
             android:singleLine="false"
             android:alpha="0.3"
             tools:text="Team A"
             android:textColor="@color/Arancio"
-            android:textSize="@dimen/extraLargeText"
+            android:textSize="@dimen/mediumText"
             android:typeface="monospace" />
 
         <TextView
@@ -60,6 +61,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_marginTop="@dimen/highMargin"
+            android:layout_marginBottom="60dp"
             android:paddingRight="@dimen/lowMargin"
             android:maxEms="2"
             android:alpha="0.3"
@@ -67,7 +69,7 @@
             android:singleLine="false"
             tools:text="Team B"
             android:textColor="@color/Blu"
-            android:textSize="@dimen/extraLargeText"
+            android:textSize="@dimen/mediumText"
             android:typeface="monospace" />
     </RelativeLayout>
 
