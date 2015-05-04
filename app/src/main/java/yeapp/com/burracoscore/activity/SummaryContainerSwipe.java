@@ -28,15 +28,12 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import yeapp.com.burracoscore.R;
-import yeapp.com.burracoscore.core.database.BurracoDBHelper;
-import yeapp.com.burracoscore.core.database.HelperConstants;
-import yeapp.com.burracoscore.core.database.columns.GameColumns;
-import yeapp.com.burracoscore.core.database.columns.HandColumns;
-import yeapp.com.burracoscore.core.database.columns.SessionColumns;
-import yeapp.com.burracoscore.core.database.columns.TeamColumns;
+import yeapp.com.burracoscore.core.database.*;
+import yeapp.com.burracoscore.core.database.columns.*;
 import yeapp.com.burracoscore.core.model.BurracoSession;
 import yeapp.com.burracoscore.core.model.Game;
 import yeapp.com.burracoscore.core.model.Team;
@@ -118,16 +115,55 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                     .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l, final IDrawerItem iDrawerItem) {
+                            final int positionClicked = i;
                             new AlertDialog.Builder(SummaryContainerSwipe.this)
                                     .setMessage("Vuoi cancellare la sessione dallo storico?")
                                     .setCancelable(true)
                                     .setPositiveButton("Si",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
-                                                    new AsyncTask<Long, Void, Void>() {
+                                                    new AsyncTask<String, Void, Void>() {
                                                         @Override
-                                                        protected Void doInBackground(Long... params) {
-                                                            deleteSessionFromDB(params);
+                                                        protected Void doInBackground(String... params) {
+                                                            String idSes = params[0];
+                                                            BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
+                                                            SQLiteDatabase sloh = bdh.getReadableDatabase();
+                                                            Log.d(HelperConstants.DBTag, idSes + " tag");
+
+                                                            Cursor teams = sloh.query(true,
+                                                                    SessionColumns.TABLE_NAME + " bs, "+ TeamColumns.TABLE_NAME+" ta, "+ TeamColumns.TABLE_NAME+" tb",
+                                                                    new String[]{"ta."+TeamColumns.TEAM_ID, "tb."+TeamColumns.TEAM_ID},
+                                                                    "bs."+SessionColumns.SESSION_ID + "=? and ta."+TeamColumns.TEAM_ID+"=bs."+SessionColumns.TEAM_A_ID+" and tb."+TeamColumns.TEAM_ID+"=bs."+SessionColumns.TEAM_B_ID,
+                                                                    new String[]{idSes},
+                                                                    null,null,null, null
+                                                            );
+
+                                                            Cursor games = sloh.query(SessionColumns.TABLE_NAME + " bs, "+ GameColumns.TABLE_NAME +" g",
+                                                                    new String[]{"g."+GameColumns.GAME_ID},
+                                                                    "g."+GameColumns.SESSION_ID+"=bs."+SessionColumns.SESSION_ID +" and bs."+SessionColumns.SESSION_ID+"=?",
+                                                                    new String[]{idSes},
+                                                                    null,null,null
+                                                            );
+                                                            String[] teamArray = new String[2];
+                                                            ArrayList<String> gamesList = new ArrayList<String>();
+                                                            if(teams.getCount()>1){
+                                                                return null;
+                                                            }else{
+                                                                teams.moveToNext();
+                                                                teamArray[0] = String.valueOf(teams.getLong(0));
+                                                                teamArray[1] = String.valueOf(teams.getLong(1));
+                                                            }
+
+                                                            while(games.moveToNext()){
+                                                                gamesList.add(String.valueOf(games.getLong(0)));
+                                                            }
+                                                            games.close();
+                                                            teams.close();
+
+                                                            deleteSessionFromDB(sloh, idSes, gamesList, teamArray);
+
+                                                            sloh.close();
+                                                            bdh.close();
                                                             return null;
                                                         }
 
@@ -139,15 +175,13 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                                         @Override
                                                         protected void onPostExecute(Void aVoid) {
                                                             stopSpinner();
-                                                            drawer.closeDrawer();
                                                         }
-                                                    }.execute(sessione.getId(), sessione.getTeamA().getId(), sessione.getTeamB().getId(), sessione.getCurrentGame().getId(), Long.valueOf(sessione.getGameTotali()));
+                                                    }.execute(String.valueOf(iDrawerItem.getTag()));
 
                                                     if (String.valueOf(sessione.getId()).equals(String.valueOf(iDrawerItem.getTag()))) {
                                                         removeCurrentSessionFromView();
-                                                        drawer.removeItem(drawerPosition + 1);
-                                                        drawer.removeItem(drawerPosition);
                                                     }
+                                                    removeBlockDrawer(positionClicked);
                                                 }
                                             })
                                     .setNegativeButton("No",
@@ -178,9 +212,8 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                                                 new String[]{"bs.*"},
                                                 "bs." + SessionColumns.SESSION_ID + "=?",
                                                 new String[]{idSession},
-                                                null,
-                                                null,
-                                                null);
+                                                null, null, null
+                                        );
                                         Cursor gh = sloh.query((GameColumns.TABLE_NAME + " g, " + HandColumns.TABLE_NAME + " h"),
                                                 new String[]{"g.*", "h.*"},
                                                 "g." + GameColumns.SESSION_ID + "=? and h." + HandColumns.GAME_ID + "=g." + GameColumns.GAME_ID,
@@ -269,8 +302,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                 @Override
                 protected void onPostExecute(ArrayList<PrimaryDrawerItem> primaryDrawerItems) {
                     for (PrimaryDrawerItem primary : primaryDrawerItems) {
-                        drawer.addItem(primary);
-                        drawer.addItem(new DividerDrawerItem());
+                        addBlockDrawer(primary);
                     }
                     stopSpinner();
                 }
@@ -307,6 +339,16 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                             })
                     .create();
         }
+    }
+
+    private void addBlockDrawer(PrimaryDrawerItem primary) {
+        drawer.addItem(primary);
+        drawer.addItem(new DividerDrawerItem());
+    }
+
+    private void removeBlockDrawer(int positionClicked) {
+        drawer.removeItem(positionClicked + 1);
+        drawer.removeItem(positionClicked);
     }
 
     private void stopSpinner() {
@@ -359,17 +401,17 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                         .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        new AsyncTask<Long, Void, Void>() {
+
+                                        new AsyncTask<String, Void, Void>() {
                                             @Override
-                                            protected Void doInBackground(Long... params) {
-                                                deleteSessionFromDB(params);
+                                            protected Void doInBackground(String... params) {
+                                                deleteSessionFromDB(null, params[0], new ArrayList<String>(Collections.singletonList(params[1])),new String[]{params[2], params[3]});
                                                 return null;
                                             }
-                                        }.execute(sessione.getId(), sessione.getTeamA().getId(), sessione.getTeamB().getId(), sessione.getCurrentGame().getId(), Long.valueOf(sessione.getGameTotali()));
+                                        }.execute(String.valueOf(sessione.getGameTotali() == 1 ? sessione.getId() : -1), String.valueOf(sessione.getCurrentGame().getId()), String.valueOf(sessione.getTeamA().getId()), String.valueOf(sessione.getTeamB().getId()));
                                         sessione.clearCurrentGame();
                                         tabAdapter.renewLastGame(sessione.getCurrentGame());
-                                        drawer.removeItem(drawerPosition + 1);
-                                        drawer.removeItem(drawerPosition);
+                                        removeBlockDrawer(drawerPosition);
                                         drawer.setSelection(-1, true);
                                         dialog.cancel();
                                         dialogActive = false;
@@ -386,49 +428,72 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                         .show();
                 return true;
             }
+            case R.id.gameShare: {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                int pointTempWinner = sessione.getCurrentGame().getTotalePartita(Utils.ASide);
+                int pointTempLoser =sessione.getCurrentGame().getTotalePartita(Utils.BSide);
+                char teamTempWinner = Utils.ASide;
+                char teamTempLoser = Utils.BSide;
+                if(pointTempWinner < sessione.getCurrentGame().getTotalePartita(Utils.BSide)){
+                    pointTempLoser = pointTempWinner;
+                    pointTempWinner = sessione.getCurrentGame().getTotalePartita(Utils.BSide);
+                    teamTempWinner = Utils.BSide;
+                    teamTempLoser = Utils.ASide;
+                }
+                String textShare = "La squadra "+ teamTempWinner + " sta vincendo "+
+                        pointTempWinner + " a "+ pointTempLoser + " contro "+ teamTempLoser;
+
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Sto giocando a burraco!");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, textShare);
+                startActivity(Intent.createChooser(sharingIntent, "Condividi con"));
+            }
             default: {
                 return true;
             }
         }
     }
 
-    private void deleteSessionFromDB(Long[] params) {
-        long idses = params[0];
-        long idTeamA = params[1];
-        long idTeamB = params[2];
-        long idGame = params[3];
-        long gameTot = params[4];
-        BurracoDBHelper bdh = new BurracoDBHelper(getApplicationContext());
-        SQLiteDatabase sloh = bdh.getWritableDatabase();
+    private void deleteSessionFromDB(SQLiteDatabase sloh, String idSessione, ArrayList<String> gamesList, String[] teams) {
+        boolean opened = false;
+        if(sloh==null) {
+            sloh = new BurracoDBHelper(getApplicationContext()).getWritableDatabase();
+            opened=true;
+        }
         sloh.beginTransaction();
-        int res = sloh.delete(HandColumns.TABLE_NAME,
-                HandColumns.GAME_ID + "=?",
-                new String[]{String.valueOf(idGame)});
-        Log.d(HelperConstants.DBTag, "Cancellate " + res + " mani dal db");
-        res = sloh.delete(GameColumns.TABLE_NAME,
-                GameColumns.GAME_ID + "=?",
-                new String[]{String.valueOf(idGame)});
-        Log.d(HelperConstants.DBTag, "Cancellati " + res + " games dal db");
+        int res;
+        for(String idGame : gamesList) {
+            res = sloh.delete(HandColumns.TABLE_NAME,
+                    HandColumns.GAME_ID + "=?",
+                    new String[]{String.valueOf(idGame)});
+            Log.d(HelperConstants.DBTag, "Cancellate " + res + " mani dal db per il game " + idGame);
+
+            res = sloh.delete(GameColumns.TABLE_NAME,
+                    GameColumns.GAME_ID + "=?",
+                    new String[]{String.valueOf(idGame)});
+            Log.d(HelperConstants.DBTag, "Cancellato " + res + " game dal db id "+idGame);
+        }
         //c'è un solo game e l'ho appena cancellato provo a cancellare tutte al sessione
         //per non avere incongruenze al prossimo avvio
-        if (gameTot == 1) {
+        if (!idSessione.equals("-1")) {
             res = sloh.delete(SessionColumns.TABLE_NAME,
                     SessionColumns.SESSION_ID + "=?",
-                    new String[]{String.valueOf(idses)});
+                    new String[]{idSessione});
             Log.d(HelperConstants.DBTag, "Cancellate " + res + " sessioni dal db");
             res = sloh.delete(TeamColumns.TABLE_NAME,
                     TeamColumns.TEAM_ID + "=? and " + TeamColumns.SIDE + "='A'",
-                    new String[]{String.valueOf(idTeamA)});
+                    new String[]{String.valueOf(teams[0])});
             Log.d(HelperConstants.DBTag, "Cancellato " + res + " team A dal db");
             res = sloh.delete(TeamColumns.TABLE_NAME,
                     TeamColumns.TEAM_ID + "=? and " + TeamColumns.SIDE + "='B'",
-                    new String[]{String.valueOf(idTeamB)});
+                    new String[]{String.valueOf(teams[1])});
             Log.d(HelperConstants.DBTag, "Cancellate " + res + " team B dal db");
         }
         sloh.setTransactionSuccessful();
         sloh.endTransaction();
-        sloh.close();
-        bdh.close();
+        if(opened) {
+            sloh.close();
+        }
     }
 
     @Override
@@ -554,7 +619,6 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
         drawer.addItem(new DividerDrawerItem(), 2);
         drawerPosition = 1;
         drawer.setSelection(drawerPosition, true);
-        Log.d("RunOnUI", "Eseguito il tread, ora dovrebbe essere aggiornato");
         new AsyncTask<BurracoSession, Void, Void>() {
 
             @Override
@@ -587,9 +651,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                         new String[]{TeamColumns.TEAM_ID, TeamColumns.SIDE},
                         String.format("%s = ?", TeamColumns.TEAM_ID),
                         new String[]{String.valueOf(bSes.getTeamA().getId())},
-                        null,
-                        null,
-                        null);
+                        null,null, null);
                 if (cur.getCount() == 0) {
                     Log.d(HelperConstants.DBTag, "Prima sessione");
                     cv = Utils.getInsertTeamCV(bSes.getTeamA());
@@ -602,7 +664,7 @@ public class SummaryContainerSwipe extends FragmentActivity implements ViewPager
                             cv);
                     Log.d(HelperConstants.DBTag, "aggiunte le squadre");
                 }
-                //Si aggirona tutte le altre strutture collegate con un insertonconflict
+                //Si aggiorna tutte le altre strutture collegate con un insertonconflict
                 cur.close();
                 cv = Utils.getInsertGameCV(gameTemp, bSes.getId());
                 sloh.insertWithOnConflict(GameColumns.TABLE_NAME,
