@@ -7,7 +7,7 @@ public class Constants {
     public static final String teamAKey = "teamA";
     public static final String teamBKey = "teamB";
     public static final String genericTeamKey = "teamName";
-//    public static final String addManoButtonStatus = "addManoButtonStatus";
+
     public static final String numberOfPlayer = "numberOfPlayer";
     public static final String dialogStatus = "dialog";
     public static final String gameSession = "sessione";
