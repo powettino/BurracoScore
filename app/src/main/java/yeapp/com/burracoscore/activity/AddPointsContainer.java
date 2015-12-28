@@ -38,7 +38,6 @@ public class AddPointsContainer extends Activity implements AddPointsFragment.On
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void OnSaving(Hand manoA, Hand manoB) {
         setResult(RESULT_OK, getIntent()
